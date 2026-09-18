@@ -1,0 +1,29 @@
+.process-steps li .i-bordered:hover{
+    color:#ffffff;
+    background-color:#009DF0;
+}
+.heading-padding{
+    padding-bottom:20px;
+  }
+  .p-text-center{
+    text-align: center;
+      }
+
+@media   screen and (min-width: 0px) and (max-width: 768px) {
+  #mobile_view { display: block; }  
+  #logo_mobileview{display: block;}
+  #webview { display: none; }
+  #logo_webview{display: none;} 
+
+}
+  
+  @media   screen and (min-width: 769px)   {
+  #mobile_view { display: none; }   
+  #logo_mobileview {display: none;}
+  #webview { display: block; }  
+  #logo_webview {display: block;}
+} 
+
+b, strong {
+  font-weight: 500 !important;
+}

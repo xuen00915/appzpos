@@ -1,0 +1,101 @@
+<div *ngIf="objConfigData_Header.Bit_Client_Specific_Header == 1; else ProductHeader">
+    <app-custom-header></app-custom-header>
+</div>
+<ng-template #ProductHeader>
+    <header id="header" class="full-header transparent-header" data-mobile-sticky="true" data-sticky-class="not-dark">
+        <div id="header-wrap">
+            <div class="container">
+                <div class="header-row">
+                    <div id="logo">
+                        <a>
+                            <img class="logo-default" src="{{BindURL_Upload(objConfigData_Header.HeaderLogo_OverBG)}}"
+                                alt="{{objConfigData_Header.Logo_Alt}}">
+                            <img class="logo-dark" src="{{BindURL_Upload(objConfigData_Header.HeaderLogo_StickyMenu)}}"
+                                alt="{{objConfigData_Header.Logo_Alt}}">
+                        </a>
+                    </div>
+                    <div class="header-misc">
+                        <!-- Top Cart -->
+                        <div id="top-cart" class="header-misc-icon d-none d-sm-block">
+                            <a href="#" id="top-cart-trigger"><i class="uil uil-shopping-bag"></i><span
+                                    class="top-cart-number">5</span></a>
+                            <div class="top-cart-content">
+                                <div class="top-cart-title">
+                                    <h4>Shopping Cart</h4>
+                                </div>
+                                <div class="top-cart-items">
+                                    <div class="top-cart-item">
+                                        <div class="top-cart-item-image">
+                                            <a href="#"><img src="assets/template/canvas/images/shop/small/1.jpg"
+                                                    alt="Blue Round-Neck Tshirt"></a>
+                                        </div>
+                                        <div class="top-cart-item-desc">
+                                            <div class="top-cart-item-desc-title">
+                                                <a href="#">Blue Round-Neck Tshirt with a Button</a>
+                                                <span class="top-cart-item-price d-block">$19.99</span>
+                                            </div>
+                                            <div class="top-cart-item-quantity">x 2</div>
+                                        </div>
+                                    </div>
+                                    <div class="top-cart-item">
+                                        <div class="top-cart-item-image">
+                                            <a href="#"><img src="assets/template/canvas/images/shop/small/6.jpg"
+                                                    alt="Light Blue Denim Dress"></a>
+                                        </div>
+                                        <div class="top-cart-item-desc">
+                                            <div class="top-cart-item-desc-title">
+                                                <a href="#">Light Blue Denim Dress</a>
+                                                <span class="top-cart-item-price d-block">$24.99</span>
+                                            </div>
+                                            <div class="top-cart-item-quantity">x 3</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="top-cart-action">
+                                    <span class="top-checkout-price">$114.95</span>
+                                    <a href="#" class="button button-3d button-small m-0">View Cart</a>
+                                </div>
+                            </div>
+                        </div><!-- #top-cart end -->
+                    </div>
+                    <div class="primary-menu-trigger">
+                        <button class="cnvs-hamburger" type="button" title="Open Mobile Menu">
+                            <span class="cnvs-hamburger-box"><span class="cnvs-hamburger-inner"></span></span>
+                        </button>
+                    </div>
+                    <!-- Primary Navigation -->
+                    <nav class="primary-menu">
+                        <ul class="menu-container">
+                            <!-- Layer 1 -->
+                            <li class="menu-item"
+                                *ngFor="let x of objConfigData.Configuration.WebsiteData.Navigation_Menu.Layer_1">
+                                <a class="menu-link" href="{{x.Path}}">
+                                    <div>{{x.Menu_Name}}</div>
+                                </a>
+                                <!-- Layer 2 -->
+                                <ul class="sub-menu-container" *ngIf="ngIfMenuLayer2(x)">
+                                    <li class="menu-item"
+                                        *ngFor="let y of objConfigData.Configuration.WebsiteData.Navigation_Menu.Layer_2 | genericFilter: filterMenuLayer(x)">
+                                        <a class="menu-link" href="{{y.Path}}">
+                                            <div>{{y.Menu_Name}}</div>
+                                        </a>
+                                        <!-- Layer 3 -->
+                                        <ul class="sub-menu-container" *ngIf="ngIfMenuLayer3(y)">
+                                            <li class="menu-item"
+                                                *ngFor="let z of objConfigData.Configuration.WebsiteData.Navigation_Menu.Layer_3 | genericFilter: filterMenuLayer(y)">
+                                                <a class="menu-link" href="{{y.Path}}">
+                                                    <div>{{z.Menu_Name}}</div>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </nav><!-- #primary-menu end -->
+                </div>
+            </div>
+        </div>
+        <div class="header-wrap-clone"></div>
+    </header>
+</ng-template>

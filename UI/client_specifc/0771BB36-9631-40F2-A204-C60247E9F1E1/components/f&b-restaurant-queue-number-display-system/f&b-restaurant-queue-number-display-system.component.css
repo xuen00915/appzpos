@@ -1,0 +1,100 @@
+.list-group-item.active{
+    color:#009DF0;
+}
+.markblue{
+    color:#009DF0;
+}
+.iconlist > li i:first-child, .iconlist > li img:first-child {
+    color:#009DF0;
+}
+.a_blue{
+    color:#009DF0;
+}
+.button owl-dot active{
+    background-color:#009DF0 !important;
+}
+.bubble-btn {
+    color: #009DF0;
+    border-color:#009DF0
+  }
+  
+  .bubble-btn:hover {
+    color: #ffffff;
+    border-color:#009DF0;
+    background-color: #009DF0 !important ;
+  }
+  .default-blue{
+    background-color: #009DF0;
+  }
+
+  .p_16{
+    font-size:16px;
+  }
+  .cuslogo_maxwidth{
+    max-width: 90%
+  }
+  .solu-img_maxwidth{
+    max-width: 75%;
+  }
+  .center-image{
+    text-align: center;
+  }
+  .fbox-content container-modules-loaded active{
+    background-color: darkgrey;
+    transition: 0.3s;
+    left: 0;
+    top: 0;
+  }
+  .solution-label{
+    margin-top:20px;
+    display:flex; 
+    flex-direction: column;
+  }
+  .solution-label:hover{
+    color: #009DF0;
+  }
+  .solution-circleimg:hover{
+    margin-bottom:30px;
+    border-radius: 50%; 
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 8px; 
+  } 
+  .solution-circleimg{
+    margin-bottom:30px;
+    border-radius: 50%; 
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 8px;
+  } 
+  .heading-padding{
+    padding-bottom:20px;
+  }
+  .entry-title.title-xs h2, .entry-title.title-xs .h2, .entry-title.title-xs h3, .entry-title.title-xs .h3{
+    margin-bottom: 5px;
+  }
+  .button button-large button-circle button-green :hover{
+ background-color: red !important;
+  } 
+  @media   screen and (min-width: 0px) and (max-width: 768px) {
+    #mobile_view { display: block; }  
+    #logo_mobileview{display: block;}
+    #webview { display: none; }
+    #logo_webview{display: none;} 
+
+  }
+   
+    @media   screen and (min-width: 769px)   {
+    #mobile_view { display: none; }   
+    #logo_mobileview {display: none;}
+    #webview { display: block; }  
+    #logo_webview {display: block;}
+  } 
+
+  .logo-mobile-padding
+  {
+    padding-left:10px;
+    padding-right:10px;
+  }
+
+  b, strong {
+    font-weight: 500 !important;
+}

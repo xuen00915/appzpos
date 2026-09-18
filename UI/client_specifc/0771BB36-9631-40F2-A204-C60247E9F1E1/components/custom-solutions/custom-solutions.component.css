@@ -1,0 +1,32 @@
+.solution-circleimg{
+    border-radius: 50%; 
+    border-radius: 50%;
+    box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 8px;
+  }
+  .solution-label{
+    margin-top:20px;
+    display:flex; 
+    flex-direction: column;
+  }
+  .heading-padding{
+    padding-bottom:20px;
+  }
+
+  @media   screen and (min-width: 0px) and (max-width: 768px) {
+    #mobile_view { display: block; }  
+    #logo_mobileview{display: block;}
+    #webview { display: none; }
+    #logo_webview{display: none;} 
+
+  }
+   
+    @media   screen and (min-width: 769px)   {
+    #mobile_view { display: none; }   
+    #logo_mobileview {display: none;}
+    #webview { display: block; }  
+    #logo_webview {display: block;}
+  } 
+
+  b, strong {
+    font-weight: 500 !important;
+}

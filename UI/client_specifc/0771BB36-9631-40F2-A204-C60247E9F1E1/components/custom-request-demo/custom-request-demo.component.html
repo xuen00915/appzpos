@@ -1,0 +1,133 @@
+<div id="webview">
+    <div class="overflow-hidden h-100" style="margin-top:100px;
+    background-size:cover;
+        background-repeat:no-repeat;
+        background-position:center center;background-image: url('{{BindURL_Image(&#39;APPZPOS-Best-Point-of-Sale-System-enquiry.png&#39;)}}')" role="img" alt="APPZPOS-Best-Point-of-Sale-System-enquiry">
+        <div class="row">
+            <div class="col-lg-6" style="padding-top: 108px;padding-left: 45px;color: white;">
+                <h2 style="color:white;">Request For Demo</h2>
+                <span>Discover the best pos system in Singapore to upgrade your business.</span>
+                <p>Contact us and schedule a free POS demo today!</p>
+                <div class="col-6 col-md-12 col-lg-12 d-flex align-items-center">
+                    <i class="bi-envelope-fill" style="font-size:25px;margin-right:15px"></i> enquiry&#64;appzgate.com
+                </div>
+                <div class="col-6 col-md-12 col-lg-12 d-flex align-items-center">
+                    <i class="bi-telephone-fill" style="font-size:25px;margin-right:15px"></i> +65 6393 2259 (Office) / +65 8310 9631 (WhatsApp)
+                </div>
+                <div class="col-6 col-md-12 col-lg-12 d-flex align-items-center">
+                    <i class="bi-geo-fill fs-2 d-block" style="font-size:25px;margin-right:15px"></i> 5 Little Road, #05-01, Cemtex Industrial Building,
+                    Singapore 536983
+                </div>
+            </div>
+            <div class="col-lg-6" style="padding:54px">
+            <form [formGroup]="requestDemoForm" (ngSubmit)="onSubmit()" >
+                <div class="card rounded-6 shadow-sm overflow-hidden h-100" style="padding:35px">
+                    <div class="alert alert-success" *ngIf="showSuccessMsg">
+                        {{successMsg}}
+                    </div>
+                    <div class="alert alert-danger" *ngIf="showErrorMsg">
+                        {{errorMsg}}
+                    </div>
+                    <div class="col-12 form-group">
+                        <label for="name">Name</label> 
+                        <input type="text" id="name" value="" formControlName="name"  [ngClass]="{ 'is-invalid': submitted && objData['name'].errors }"  class="form-control">
+                        <div *ngIf="submitted && objData['name'].errors" class="invalid-feedback">
+                            <div *ngIf="objData['name'].errors['required']">Name is required!</div>
+                            <div *ngIf="objData['name'].errors['pattern']">Invalid Name!</div>
+                        </div>
+                    </div>
+                    <div class="col-12 form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" value="" formControlName="email" [ngClass]="{ 'is-invalid': submitted && objData['email'].errors }" class="form-control">
+                        <div *ngIf="submitted && objData['email'].errors" class="invalid-feedback">
+                            <div *ngIf="objData['email'].errors['required']">Email is required!</div>
+                            <div *ngIf="objData['email'].errors['email']">Invalid Email!</div>
+                        </div>
+                    </div>
+                    <div class="col-12 form-group">
+                        <label for="mobilenum">Mobile Number</label>
+                        <input type="text" id="mobilenum" value="" formControlName="mobilenum" [ngClass]="{ 'is-invalid': submitted && objData['mobilenum'].errors }" class="form-control">
+                        <div *ngIf="submitted && objData['mobilenum'].errors" class="invalid-feedback">
+                            <div *ngIf="objData['mobilenum'].errors['required']">Mobile Number is required!</div>
+                            <div *ngIf="objData['mobilenum'].errors['pattern']">Mobile Number is not valid!</div>
+                        </div>
+                    </div>
+                    <div class="col-12 form-group">
+                        <label for="restaurant_name">Restaurant Name</label>
+                        <input type="text" id="restaurant_name" formControlName="restaurant_name" [ngClass]="{ 'is-invalid': submitted && objData['restaurant_name'].errors }" value="" class="form-control">
+                        <div *ngIf="submitted && objData['restaurant_name'].errors" class="invalid-feedback">
+                            <div *ngIf="objData['restaurant_name'].errors['required']">Restaurant Name is required!</div>
+                            <div *ngIf="objData['restaurant_name'].errors['pattern']">Invalid Restaurant Name!</div>
+                        </div>
+                    </div>
+                    <div class="col-12 form-group">
+                        <input type="submit" class="button button-large button-circle"  value="Submit" />
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="mobile_view">
+    <div class="overflow-hidden h-100" style="
+    background-size:cover;
+        background-repeat:no-repeat;
+        background-position:center center;background-image: url('{{BindURL_Image(&#39;APPZPOS-Best-Point-of-Sale-System-enquiry.png&#39;)}}')" role="img" alt="APPZPOS-Best-Point-of-Sale-System-enquiry">
+        <div class="row">
+            <div class="col-lg-6" style="padding:20px 34px;color: white;">
+                <h2 style="color:white;">Request For Demo</h2>
+                <span>Discover the best pos system in Singapore to upgrade your business.</span>
+                <p>Contact us and schedule a free POS demo today!</p>
+            </div>
+            <div class="col-lg-6" style="padding:0 34px;">
+            <form [formGroup]="requestDemoForm" (ngSubmit)="onSubmit()" >
+                <div class="card rounded-6 shadow-sm overflow-hidden h-100" style="padding:35px">
+                    <div class="alert alert-success" *ngIf="showSuccessMsg">
+                        {{successMsg}}
+                    </div>
+                    <div class="alert alert-danger" *ngIf="showErrorMsg">
+                        {{errorMsg}}
+                    </div>
+                    <div class="col-12 form-group">
+                        <label for="name">Name</label> 
+                        <input type="text" id="name" value="" formControlName="name"  [ngClass]="{ 'is-invalid': submitted && objData['name'].errors }"  class="form-control">
+                        <div *ngIf="submitted && objData['name'].errors" class="invalid-feedback">
+                            <div *ngIf="objData['name'].errors['required']">Name is required!</div>
+                            <div *ngIf="objData['name'].errors['pattern']">Invalid Name!</div>
+                        </div>
+                    </div>
+                    <div class="col-12 form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" value="" formControlName="email" [ngClass]="{ 'is-invalid': submitted && objData['email'].errors }" class="form-control">
+                        <div *ngIf="submitted && objData['email'].errors" class="invalid-feedback">
+                            <div *ngIf="objData['email'].errors['required']">Email is required!</div>
+                            <div *ngIf="objData['email'].errors['email']">Invalid Email!</div>
+                        </div>
+                    </div>
+                    <div class="col-12 form-group">
+                        <label for="mobilenum">Mobile Number</label>
+                        <input type="text" id="mobilenum" value="" formControlName="mobilenum" [ngClass]="{ 'is-invalid': submitted && objData['mobilenum'].errors }" class="form-control">
+                        <div *ngIf="submitted && objData['mobilenum'].errors" class="invalid-feedback">
+                            <div *ngIf="objData['mobilenum'].errors['required']">Mobile Number is required!</div>
+                            <div *ngIf="objData['mobilenum'].errors['pattern']">Mobile Number is not valid!</div>
+                        </div>
+                    </div>
+                    <div class="col-12 form-group">
+                        <label for="restaurant_name">Restaurant Name</label>
+                        <input type="text" id="restaurant_name" formControlName="restaurant_name" [ngClass]="{ 'is-invalid': submitted && objData['restaurant_name'].errors }" value="" class="form-control">
+                        <div *ngIf="submitted && objData['restaurant_name'].errors" class="invalid-feedback">
+                            <div *ngIf="objData['restaurant_name'].errors['required']">Restaurant Name is required!</div>
+                            <div *ngIf="objData['restaurant_name'].errors['pattern']">Invalid Restaurant Name!</div>
+                        </div>
+                    </div>
+                    <div class="col-12 form-group">
+                        <input type="submit" class="button button-large button-circle"  value="Submit" />
+                    </div>
+                </div>
+            </form>
+            </div>
+        </div>
+    </div>
+</div>

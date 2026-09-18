@@ -1,0 +1,109 @@
+<div id="webview">
+    <div mat-dialog-title>
+        <h2 style="padding: 35px 35px 0 35px; margin-bottom:0px">Request For Demo</h2>
+    </div>
+    <div mat-dialog-content>
+        <form [formGroup]="requestDemoForm" (ngSubmit)="onSubmit()" >
+            <div class="overflow-hidden h-100" style="padding:35px">
+                <div class="alert alert-success" *ngIf="showSuccessMsg">
+                    {{successMsg}}
+                </div>
+                <div class="alert alert-danger" *ngIf="showErrorMsg">
+                    {{errorMsg}}
+                </div>
+                <div class="col-12 form-group">
+                    <label for="name">Name</label> 
+                    <input type="text" id="name" value="" formControlName="name"  [ngClass]="{ 'is-invalid': submitted && objData['name'].errors }"  class="form-control">
+                    <div *ngIf="submitted && objData['name'].errors" class="invalid-feedback">
+                        <div *ngIf="objData['name'].errors['required']">Name is required!</div>
+                        <div *ngIf="objData['name'].errors['pattern']">Invalid Name!</div>
+                    </div>
+                </div>
+                <div class="col-12 form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" value="" formControlName="email" [ngClass]="{ 'is-invalid': submitted && objData['email'].errors }" class="form-control">
+                    <div *ngIf="submitted && objData['email'].errors" class="invalid-feedback">
+                        <div *ngIf="objData['email'].errors['required']">Email is required!</div>
+                        <div *ngIf="objData['email'].errors['email']">Invalid Email!</div>
+                    </div>
+                </div>
+                <div class="col-12 form-group">
+                    <label for="mobilenum">Mobile Number</label>
+                    <input type="text" id="mobilenum" value="" formControlName="mobilenum" [ngClass]="{ 'is-invalid': submitted && objData['mobilenum'].errors }" class="form-control">
+                    <div *ngIf="submitted && objData['mobilenum'].errors" class="invalid-feedback">
+                        <div *ngIf="objData['mobilenum'].errors['required']">Mobile Number is required!</div>
+                        <div *ngIf="objData['mobilenum'].errors['pattern']">Mobile Number is not valid!</div>
+                    </div>
+                </div>
+                <div class="col-12 form-group">
+                    <label for="restaurant_name">Restaurant Name</label>
+                    <input type="text" id="restaurant_name" formControlName="restaurant_name" [ngClass]="{ 'is-invalid': submitted && objData['restaurant_name'].errors }" value="" class="form-control">
+                    <div *ngIf="submitted && objData['restaurant_name'].errors" class="invalid-feedback">
+                        <div *ngIf="objData['restaurant_name'].errors['required']">Restaurant Name is required!</div>
+                        <div *ngIf="objData['restaurant_name'].errors['pattern']">Invalid Restaurant Name!</div>
+                    </div>
+                </div>
+                <div class="col-12 form-group">
+                    <input type="submit" class="button button-large button-circle" value="Submit" />
+                    <button type="button" class="button button2 button-large button-light button-circle" style="color:black;" mat-button (click)="onNoClick()">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="mobile_view">
+    <div mat-dialog-title>
+        <h2 style="padding: 15px 15px 0 15px; margin-bottom:0px">Request For Demo</h2>
+    </div>
+    <div mat-dialog-content>
+        <form [formGroup]="requestDemoForm" (ngSubmit)="onSubmit()" >
+            <div class="overflow-hidden h-100" style="padding:15px">
+                <div class="alert alert-success" *ngIf="showSuccessMsg">
+                    {{successMsg}}
+                </div>
+                <div class="alert alert-danger" *ngIf="showErrorMsg">
+                    {{errorMsg}}
+                </div>
+                <div class="col-12 form-group">
+                    <label for="name">Name</label> 
+                    <input type="text" id="name" value="" formControlName="name"  [ngClass]="{ 'is-invalid': submitted && objData['name'].errors }"  class="form-control">
+                    <div *ngIf="submitted && objData['name'].errors" class="invalid-feedback">
+                        <div *ngIf="objData['name'].errors['required']">Name is required!</div>
+                        <div *ngIf="objData['name'].errors['pattern']">Invalid Name!</div>
+                    </div>
+                </div>
+                <div class="col-12 form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" value="" formControlName="email" [ngClass]="{ 'is-invalid': submitted && objData['email'].errors }" class="form-control">
+                    <div *ngIf="submitted && objData['email'].errors" class="invalid-feedback">
+                        <div *ngIf="objData['email'].errors['required']">Email is required!</div>
+                        <div *ngIf="objData['email'].errors['email']">Invalid Email!</div>
+                    </div>
+                </div>
+                <div class="col-12 form-group">
+                    <label for="mobilenum">Mobile Number</label>
+                    <input type="text" id="mobilenum" value="" formControlName="mobilenum" [ngClass]="{ 'is-invalid': submitted && objData['mobilenum'].errors }" class="form-control">
+                    <div *ngIf="submitted && objData['mobilenum'].errors" class="invalid-feedback">
+                        <div *ngIf="objData['mobilenum'].errors['required']">Mobile Number is required!</div>
+                        <div *ngIf="objData['mobilenum'].errors['pattern']">Mobile Number is not valid!</div>
+                    </div>
+                </div>
+                <div class="col-12 form-group">
+                    <label for="restaurant_name">Restaurant Name</label>
+                    <input type="text" id="restaurant_name" formControlName="restaurant_name" [ngClass]="{ 'is-invalid': submitted && objData['restaurant_name'].errors }" value="" class="form-control">
+                    <div *ngIf="submitted && objData['restaurant_name'].errors" class="invalid-feedback">
+                        <div *ngIf="objData['restaurant_name'].errors['required']">Restaurant Name is required!</div>
+                        <div *ngIf="objData['restaurant_name'].errors['pattern']">Invalid Restaurant Name!</div>
+                    </div>
+                </div>
+                <div class="col-12 form-group">
+                    <input type="submit" class="button button-large button-circle" value="Submit" />
+                    <button type="button" class="button button2 button-large button-light button-circle" style="color:black;" mat-button (click)="onNoClick()">Cancel</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
