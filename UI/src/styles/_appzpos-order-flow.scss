@@ -1,0 +1,471 @@
+$ink: #102342;
+$blue: #1698df;
+$orange: #f47735;
+$green: #2f9d68;
+$paper: #fbfaf6;
+$line: #a7b5c5;
+
+app-home-order-flow {
+  display: block;
+  position: relative;
+  z-index: 1;
+}
+
+.appzpos-order-flow {
+  --appzpos-order-flow-nav-height: 72px;
+  background:
+    radial-gradient(circle at 68% 42%, rgba($blue, .08), transparent 30%),
+    radial-gradient(circle at 21% 70%, rgba($orange, .07), transparent 26%),
+    $paper;
+  color: $ink;
+  overflow: clip;
+
+  &__scroll {
+    min-height: 760vh;
+    position: relative;
+  }
+
+  &__stage {
+    align-content: center;
+    box-sizing: border-box;
+    display: grid;
+    min-height: calc(100dvh - var(--appzpos-order-flow-nav-height));
+    padding: clamp(1.25rem, 2.8vh, 2.5rem) clamp(1rem, 3vw, 3rem) clamp(2rem, 5vh, 4rem);
+    position: sticky;
+    top: var(--appzpos-order-flow-nav-height);
+  }
+
+  &__steps {
+    align-items: center;
+    display: grid;
+    gap: clamp(.45rem, 1.2vw, 1.1rem);
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    list-style: none;
+    margin: 0 auto clamp(1rem, 2vh, 1.75rem);
+    max-width: 46rem;
+    padding: 0;
+    position: relative;
+    width: min(88vw, 46rem);
+
+    &::before {
+      background: rgba($line, .45);
+      content: '';
+      height: 1px;
+      left: 5%;
+      position: absolute;
+      right: 5%;
+      top: 50%;
+    }
+  }
+
+  &__step {
+    display: grid;
+    place-items: center;
+    position: relative;
+    z-index: 1;
+
+    span {
+      align-items: center;
+      background: $paper;
+      border: 1px solid rgba($line, .75);
+      border-radius: 50%;
+      color: #6f7f91;
+      display: flex;
+      font-size: .72rem;
+      font-weight: 700;
+      height: 1.85rem;
+      justify-content: center;
+      transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+      width: 1.85rem;
+    }
+
+    &.is-active span {
+      background: $ink;
+      border-color: $ink;
+      box-shadow: 0 6px 18px rgba($ink, .15);
+      color: #fff;
+      transform: scale(1.08);
+    }
+
+    &.is-complete span {
+      background: $green;
+      border-color: $green;
+      color: #fff;
+    }
+  }
+
+  &__layout {
+    align-items: center;
+    display: grid;
+    gap: clamp(2rem, 4vw, 5rem);
+    grid-template-columns: minmax(0, 1.7fr) minmax(18rem, .7fr);
+    margin: 0 auto;
+    max-width: 90rem;
+    width: min(94vw, 90rem);
+  }
+
+  &__scene {
+    margin: 0;
+    min-width: 0;
+    position: relative;
+
+    &::before {
+      background: rgba(#fff, .64);
+      border: 1px solid rgba($ink, .07);
+      border-radius: 2rem;
+      box-shadow: 0 24px 70px rgba($ink, .07);
+      content: '';
+      inset: 3% 1%;
+      position: absolute;
+    }
+
+    svg {
+      display: block;
+      height: auto;
+      overflow: visible;
+      position: relative;
+      width: 100%;
+    }
+  }
+
+  &__route {
+    fill: none;
+    stroke: rgba($line, .78);
+    stroke-dasharray: 7 9;
+    stroke-linecap: round;
+    stroke-width: 2;
+    vector-effect: non-scaling-stroke;
+
+    &--delivery {
+      stroke: rgba($orange, .62);
+    }
+
+    &--complete {
+      stroke: $green;
+      stroke-dasharray: 1;
+      stroke-dashoffset: 1;
+      stroke-width: 3;
+    }
+
+    &--delivery-complete {
+      stroke: $orange;
+    }
+  }
+
+  &__node {
+    fill: $paper;
+    stroke: $ink;
+    stroke-width: 2;
+    vector-effect: non-scaling-stroke;
+  }
+
+  &__node-number {
+    fill: $ink;
+    font-size: 12px;
+    font-weight: 800;
+    pointer-events: none;
+  }
+
+  &__node-label {
+    fill: $ink;
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -.01em;
+  }
+
+  &__delivery-node &__node {
+    stroke: $orange;
+  }
+
+  &__delivery-node &__node-number {
+    fill: $orange;
+  }
+
+  &__figure {
+    fill: $paper;
+    opacity: 1;
+    stroke: $blue;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 3;
+    vector-effect: non-scaling-stroke;
+    will-change: transform, opacity;
+
+    &--merged {
+      stroke: $green;
+    }
+
+    &--delivery {
+      stroke: $orange;
+    }
+  }
+
+  &__caption-panel {
+    align-items: center;
+    display: flex;
+    min-height: 20rem;
+  }
+
+  &__caption {
+    animation: appzpos-caption-in 260ms ease both;
+    border-left: 3px solid $orange;
+    padding: .4rem 0 .4rem clamp(1.25rem, 2.5vw, 2rem);
+
+    h3 {
+      color: $ink;
+      font-size: clamp(1.7rem, 2.5vw, 2.65rem);
+      font-weight: 750;
+      letter-spacing: -.045em;
+      line-height: 1.02;
+      margin: 0 0 1.25rem;
+    }
+
+    ul {
+      display: grid;
+      gap: .85rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    li {
+      color: #53667d;
+      font-size: clamp(.92rem, 1.2vw, 1.05rem);
+      line-height: 1.55;
+      padding-left: 1rem;
+      position: relative;
+
+      &::before {
+        background: linear-gradient(135deg, $orange, #ff9f55);
+        border-radius: 50%;
+        content: '';
+        height: .38rem;
+        left: 0;
+        position: absolute;
+        top: .58em;
+        width: .38rem;
+      }
+    }
+  }
+
+  &__static-list {
+    display: grid;
+    gap: 1px;
+    list-style: none;
+    margin: 0 auto;
+    max-width: 68rem;
+    padding: clamp(3rem, 7vw, 7rem) clamp(1.25rem, 4vw, 3rem);
+  }
+
+  &__static-step {
+    align-items: start;
+    border-bottom: 1px solid rgba($ink, .12);
+    display: grid;
+    gap: 1.25rem;
+    grid-template-columns: 2.5rem 1fr;
+    padding: 2rem 0;
+
+    h3 {
+      color: $ink;
+      font-size: clamp(1.4rem, 2.6vw, 2rem);
+      margin: 0 0 1rem;
+    }
+
+    ul {
+      color: #53667d;
+      line-height: 1.6;
+      margin: 0;
+      padding-left: 1.1rem;
+    }
+  }
+
+  &__static-number {
+    align-items: center;
+    background: $ink;
+    border-radius: 50%;
+    color: #fff;
+    display: flex;
+    font-size: .85rem;
+    font-weight: 800;
+    height: 2rem;
+    justify-content: center;
+    width: 2rem;
+  }
+}
+
+@keyframes appzpos-caption-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1023px) {
+  .appzpos-order-flow {
+    &__scroll {
+      min-height: 650vh;
+    }
+
+    &__stage {
+      align-content: center;
+      padding-block: 1.25rem 2.5rem;
+    }
+
+    &__layout {
+      gap: 1.25rem;
+      grid-template-columns: 1fr;
+      width: min(94vw, 58rem);
+    }
+
+    &__scene {
+      margin-inline: auto;
+      width: min(100%, 52rem);
+    }
+
+    &__caption-panel {
+      min-height: 12rem;
+    }
+
+    &__caption {
+      margin-inline: auto;
+      max-width: 48rem;
+      width: 100%;
+
+      h3 {
+        font-size: clamp(1.45rem, 3vw, 2.1rem);
+        margin-bottom: .85rem;
+      }
+
+      ul {
+        gap: .5rem;
+      }
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .appzpos-order-flow {
+    &__scroll {
+      min-height: 610vh;
+    }
+
+    &__stage {
+      align-content: center;
+      min-height: calc(100dvh - var(--appzpos-order-flow-nav-height));
+      padding: 1rem 0 3rem;
+    }
+
+    &__steps {
+      gap: .7rem;
+      justify-content: start;
+      margin: 0 0 .75rem;
+      max-width: none;
+      overflow-x: auto;
+      padding: .25rem 1rem .65rem;
+      scroll-padding-inline: 1rem;
+      scrollbar-width: none;
+      width: 100%;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      &::before {
+        display: none;
+      }
+    }
+
+    &__step {
+      flex: 0 0 auto;
+      width: 2rem;
+    }
+
+    &__layout {
+      gap: .65rem;
+      width: 100%;
+    }
+
+    &__scene {
+      overflow: hidden;
+      padding-inline: .3rem;
+      width: 100%;
+
+      &::before {
+        border-radius: 1.25rem;
+        inset: 2% .5%;
+      }
+
+      svg {
+        width: 100%;
+      }
+    }
+
+    &__node-label {
+      font-size: 28px;
+    }
+
+    &__node-number {
+      font-size: 14px;
+    }
+
+    &__caption-panel {
+      align-items: start;
+      min-height: 15.25rem;
+      padding: 0 1.15rem;
+    }
+
+    &__caption {
+      padding: .15rem 0 .15rem 1rem;
+
+      h3 {
+        font-size: clamp(1.35rem, 6vw, 1.8rem);
+        margin-bottom: .75rem;
+      }
+
+      li {
+        font-size: .9rem;
+        line-height: 1.42;
+      }
+    }
+  }
+}
+
+@media (max-width: 430px) {
+  .appzpos-order-flow {
+    &__stage {
+      padding-bottom: 3.5rem;
+    }
+
+    &__caption-panel {
+      min-height: 17.5rem;
+    }
+
+    &__caption li {
+      font-size: .84rem;
+      line-height: 1.38;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .appzpos-order-flow {
+    &__caption {
+      animation: none;
+    }
+
+    &__step span {
+      transition: none;
+    }
+  }
+}
+
+@supports not (height: 100dvh) {
+  .appzpos-order-flow__stage {
+    min-height: calc(100vh - var(--appzpos-order-flow-nav-height));
+  }
+}

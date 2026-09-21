@@ -132,7 +132,6 @@
                 <div class="appzpos-order-flow__caption-panel" aria-live="polite">
                     <ng-container *ngFor="let step of steps; let index = index">
                         <article *ngIf="index === activeStepIndex" class="appzpos-order-flow__caption">
-                            <p class="appzpos-order-flow__caption-number">{{ index + 1 }} / 7</p>
                             <h3>{{ step.title }}</h3>
                             <ul>
                                 <li *ngFor="let bullet of step.bullets">{{ bullet }}</li>

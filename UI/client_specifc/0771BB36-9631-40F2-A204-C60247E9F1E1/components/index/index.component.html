@@ -1,62 +1,102 @@
+<section class="appzpos-product-hero appzpos-product-hero--reclined" aria-labelledby="appzpos-hero-title">
+    <div class="appzpos-product-hero__frame">
+        <div class="appzpos-product-hero__copy">
+            <p class="appzpos-product-hero__eyebrow">SINGAPORE CLOUD POS</p>
+            <h1 id="appzpos-hero-title">
+                All-In-One POS System
+                <span>in Singapore with PSG Grant</span>
+            </h1>
+            <p class="appzpos-product-hero__intro">
+                Transform your F&amp;B, Retail, &amp; Salon Businesses with APPZPOS Cutting-Edge Point of Sales Software
+            </p>
+            <div class="appzpos-product-hero__actions">
+                <button class="appzpos-product-hero__button appzpos-product-hero__button--primary" type="button" mat-raised-button (click)="openDialog()">
+                    Request a Demo
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                </button>
+                <a class="appzpos-product-hero__button appzpos-product-hero__button--secondary"
+                   href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!"
+                   target="_blank" rel="noopener noreferrer">
+                    WhatsApp Us
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                </a>
+            </div>
+            <div class="appzpos-industry-switcher" role="tablist" aria-label="Preview APPZPOS by business type">
+                <button *ngFor="let industry of industryOptions"
+                        type="button"
+                        role="tab"
+                        [class.is-active]="industry.id === activeIndustryId"
+                        [attr.aria-selected]="industry.id === activeIndustryId"
+                        aria-controls="appzpos-industry-panel"
+                        (click)="selectIndustry(industry.id, true)">
+                    <i aria-hidden="true"></i>{{ industry.label }}
+                </button>
+            </div>
+            <p class="appzpos-industry-status visually-hidden" aria-live="polite">
+                Showing APPZPOS for {{ activeIndustry.label }}
+            </p>
+        </div>
 
-<div id="webview">
-    <section id="slider" class="slider-element slider-parallax swiper_wrapper vh-75">
-        <div class="slider-inner">
-            <div class="swiper-container swiper-parent" >
-                <div class="swiper-wrapper">
-                    <div class="swiper-slide dark">
-                        <div class="container">
-                            <div data-animate="fadeInUp" class="slider-caption slider-caption-left" style="max-width:650px !important">
-                                <h1 style="font-size:55px !important; line-height: 1.3; margin-bottom: 0;">All-In-One POS<br />System in Singapore<br />with PSG Grant</h1>
-                                <p class="d-none d-sm-block" style="margin-top:1rem !important; margin-bottom:1rem !important;" data-animate="fadeInUp" data-delay="200">Transform your F&B, Retail, & Salon Businesses with APPZPOS Cutting-Edge Point of Sales Software</p>
-                                <div class="page-title-buttons mt-5" style="margin-top:1rem !important">
-                                    <button class="button button-border button-light rounded px-5 mb-0" mat-raised-button (click)="openDialog()"
-                                    onMouseOver="this.style.backgroundColor='#009DF0';this.style.color='#ffffff'"
-                                    onMouseOut="this.style.backgroundColor='transparent';this.style.color='#ffffff'"
-                                    >Request a Demo</button>
-                                    <a href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!" target="_blank" class="button button-border button-light rounded px-5 mb-0"
-                                    onMouseOver="this.style.backgroundColor='#4dc247';this.style.color='#ffffff'"
-                                    onMouseOut="this.style.backgroundColor='transparent';this.style.color='#ffffff'"
-                                    >WhatsApp Us</a>
-                                </div>
+        <div class="appzpos-product-hero__visual" aria-label="APPZPOS hardware and customizable software showcase">
+            <aside class="appzpos-module-orbit"
+                   [class.is-breaking]="transitionPhase === 'breaking'"
+                   [class.is-rebuilding]="transitionPhase === 'rebuilding'"
+                   [class.is-settled]="transitionPhase === 'settled'"
+                   [attr.aria-label]="activeIndustry.label + ' APPZPOS modules'">
+                <div class="appzpos-module-orbit__list" role="list">
+                    <div *ngFor="let module of activeIndustry.modules; let moduleIndex = index; trackBy: trackModule"
+                         class="appzpos-module-orbit__card"
+                         [class.appzpos-module-orbit__card--primary]="moduleIndex === 0"
+                         role="listitem"
+                         [style.--module-order]="moduleIndex">
+                        <span class="appzpos-module-orbit__label">{{ module }}</span>
+                    </div>
+                </div>
+            </aside>
+
+            <div class="appzpos-product-hero__machine">
+                <img src="assets/images/appzpos-pos-terminal-hardware-only.png"
+                     alt="APPZPOS touchscreen POS terminal with receipt printer"
+                     width="1672" height="941" fetchpriority="high" />
+
+                <div class="appzpos-product-hero__screen-window">
+                    <div class="appzpos-product-hero__screen-plane">
+                        <article class="appzpos-software-screen"
+                             id="appzpos-industry-panel"
+                             role="tabpanel"
+                             [attr.data-industry]="activeIndustryId"
+                             [class.is-breaking]="transitionPhase === 'breaking'"
+                             [class.is-rebuilding]="transitionPhase === 'rebuilding'"
+                             [class.is-settled]="transitionPhase === 'settled'"
+                             [attr.aria-label]="activeIndustry.label + ' APPZPOS interface'">
+                            <div class="appzpos-screen-slice appzpos-screen-slice--chrome" aria-hidden="true">
+                                <img [src]="activeIndustry.screenImage" alt="" decoding="async" />
                             </div>
-                        </div>
-                        <div class="swiper-slide-bg" style="background-image: url('{{BindURL_Image(&#39;APPZPOS-Pos-Best-Point-of-Sales-System-Banner.png&#39;)}}');" role="img" alt="APPZPOS-Pos-Best-Point-of-Sales-System-Banner"></div>
+                            <div class="appzpos-screen-slice appzpos-screen-slice--navigation" aria-hidden="true">
+                                <img [src]="activeIndustry.screenImage" alt="" decoding="async" />
+                            </div>
+                            <div class="appzpos-screen-slice appzpos-screen-slice--workspace" aria-hidden="true">
+                                <img [src]="activeIndustry.screenImage" alt="" decoding="async" />
+                            </div>
+                            <div class="appzpos-screen-slice appzpos-screen-slice--checkout" aria-hidden="true">
+                                <img [src]="activeIndustry.screenImage" alt="" decoding="async" />
+                            </div>
+                            <div class="appzpos-software-screen__brand">
+                                <img src="https://appzpos.com/admin/Upload/0771BB36-9631-40F2-A204-C60247E9F1E1/Images/APPZPOS-300X150px.png"
+                                     alt="APPZPOS"
+                                     width="300" height="150"
+                                     decoding="async" />
+                            </div>
+                            <span class="appzpos-software-screen__reflection" aria-hidden="true"></span>
+                        </article>
                     </div>
                 </div>
             </div>
         </div>
-    </section>
-</div>
-<div id="mobile_view">
-    <section id="slider" class="slider-element slider-parallax swiper_wrapper vh-50" style="max-height:250px">
-        <div class="slider-inner" style="max-height:250px">
-            <div class="swiper-container swiper-parent" style="max-height:250px">
-                <div class="swiper-wrapper" style="max-height:250px">
-                    <div class="swiper-slide dark" style="max-height:250px">
-                        <div class="container">
-                            <div class="slider-caption slider-caption-center" style="max-width:650px !important;">
-                                <h1 style="font-size:28px !important; line-height: 1.3; margin-bottom: 0;">All-In-One POS<br />System in Singapore<br />with PSG Grant</h1>
-                                <p style="margin-top:10px !important; margin-bottom:10px !important; font-size: 14px;">Transform your F&B, Retail, & Salon Businesses with APPZPOS Cutting-Edge Point of Sales Software</p>
-                                <div class="page-title-buttons mt-5" style="margin-top:10px !important">
-                                    <button class="button button-border button-light rounded px-3 mb-0" mat-raised-button (click)="openDialog()"
-                                    onMouseOver="this.style.backgroundColor='#009DF0';this.style.color='#ffffff'"
-                                    onMouseOut="this.style.backgroundColor='transparent';this.style.color='#ffffff'"
-                                    >Request a Demo</button>
-                                    <a href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!" target="_blank" class="button button-border button-light rounded px-3 mb-0"
-                                    onMouseOver="this.style.backgroundColor='#4dc247';this.style.color='#ffffff'"
-                                    onMouseOut="this.style.backgroundColor='transparent';this.style.color='#ffffff'"
-                                    >WhatsApp Us</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="swiper-slide-bg" style="background-image: url('{{BindURL_Image(&#39;APPZPOS-Pos-Best-Point-of-Sales-System-Banner-mobile.png&#39;)}}');height:250px" role="img" alt="APPZPOS-Pos-Best-Point-of-Sales-System-Banner-mobile"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</div>
+    </div>
+</section>
+
+<app-home-order-flow></app-home-order-flow>
 
 <section id="content">
     <div class="content-wrap">
