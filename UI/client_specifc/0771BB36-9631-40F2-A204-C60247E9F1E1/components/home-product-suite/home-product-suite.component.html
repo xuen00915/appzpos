@@ -1,0 +1,31 @@
+<section class="appz-section product-suite" aria-labelledby="product-suite-title">
+  <header class="product-suite__header" appMarketingReveal>
+    <p class="appz-kicker">APPZPOS SOLUTIONS</p>
+    <h2 id="product-suite-title" class="appz-display">One system. Seven connected modules.</h2>
+    <p class="appz-lede">Welcome to APPZPOS! As Singapore's top-ranked point-of-sale system, we offer affordable and user-friendly digital ordering solutions across various industries, including F&amp;B, retail, and salons.</p>
+  </header>
+
+  <div class="product-suite__shell" appMarketingReveal>
+    <nav class="product-suite__nav appz-module-nav" aria-label="APPZPOS product modules" role="tablist" (keydown)="handleKeys($event)">
+      <button *ngFor="let module of modules; let index = index" type="button" role="tab"
+        [class.is-active]="index === activeIndex" [attr.aria-selected]="index === activeIndex"
+        [attr.aria-controls]="'product-panel-' + module.id" (click)="select(index)">
+        <span>0{{ index + 1 }}</span>{{ module.label }}
+      </button>
+    </nav>
+
+    <article class="product-suite__panel" [id]="'product-panel-' + activeModule.id" role="tabpanel">
+      <div class="product-suite__copy">
+        <p class="product-suite__index">0{{ activeIndex + 1 }} / 07</p>
+        <h3>{{ activeModule.title }}</h3>
+        <p>{{ activeModule.summary }}</p>
+        <ul><li *ngFor="let bullet of activeModule.bullets">{{ bullet }}</li></ul>
+        <a [href]="activeModule.href">More Info <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="product-suite__media appz-media-stage">
+        <span aria-hidden="true">APPZPOS / {{ activeModule.label }}</span>
+        <img [src]="imageUrl(activeModule.image)" [alt]="activeModule.title" width="900" height="700" loading="lazy">
+      </div>
+    </article>
+  </div>
+</section>

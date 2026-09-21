@@ -1,0 +1,29 @@
+<section class="ecosystem" aria-labelledby="ecosystem-title">
+  <div class="appz-section ecosystem__hardware appz-split" appMarketingReveal>
+    <div class="ecosystem__hardware-copy">
+      <p class="appz-kicker">SOFTWARE + HARDWARE</p>
+      <h2 id="ecosystem-title" class="appz-display">Integrated POS System with Customized Software and Hardware</h2>
+      <p class="appz-lede">APPZPOS delivers comprehensive POS solutions, featuring flexible software and hardware setups designed to meet your specific business requirements. Our system provides complete restaurant management, equipped with powerful tools for third-party integrations, contactless ordering, delivery, inventory management, data analytics, and more.</p>
+      <a class="ecosystem__link" href="/pos-hardware-machine-receipt-printer">Contact us to explore the ideal solutions for your business. <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="ecosystem__hardware-media appz-media-stage">
+      <img [src]="imageUrl('APPZPOS-Pos-Point-of-Sales-System-Customized-Software-and-Hardware.png')" alt="APPZPOS Integrated POS System with Customized Software and Hardware" width="900" height="760" loading="lazy">
+    </div>
+  </div>
+
+  <div class="ecosystem__features" appMarketingReveal>
+    <header><p class="appz-kicker">KEY FEATURES</p><h2>Grow Your Business Revenue with APPZPOS Solution</h2></header>
+    <div class="ecosystem__feature-list">
+      <a *ngFor="let feature of features; let index = index" href="/pos-features-crm-payment-gateway">
+        <span>0{{ index + 1 }}</span><strong>{{ feature.title }}</strong>
+        <img [src]="imageUrl(feature.image)" [alt]="feature.title" width="180" height="140" loading="lazy">
+      </a>
+    </div>
+  </div>
+
+  <div class="appz-section ecosystem__grant" appMarketingReveal>
+    <div class="ecosystem__grant-mark"><span>UP TO</span><strong>50%</strong></div>
+    <div><p class="appz-kicker">PRODUCTIVITY SOLUTIONS GRANT</p><h2>Up to 50% Monetary Support<br>To Kickstart To Your F&amp;B Business</h2><p>SMEs are eligible for up to 50% Productivity Solutions Grant (PSG) support for the adoption of APPZPOS F&amp;B Point of Sales, a Pre-Approved Solution under the IMDA SMEs Go Digital programme.</p></div>
+    <a href="/psg-pos-system-grant-singapore">Learn More <span aria-hidden="true">↗</span></a>
+  </div>
+</section>

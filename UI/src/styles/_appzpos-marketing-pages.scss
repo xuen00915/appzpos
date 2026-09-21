@@ -180,7 +180,7 @@
   }
 }
 
-#content {
+#content:not(.appz-home-story) {
   position: relative;
   isolation: isolate;
   color: var(--appz-ink);
@@ -442,7 +442,7 @@
 }
 
 /* Homepage content after the protected hero and order-flow scene. */
-app-index #content {
+app-index #content:not(.appz-home-story) {
   .content-wrap {
     padding-top: clamp(78px, 9vw, 132px);
   }
