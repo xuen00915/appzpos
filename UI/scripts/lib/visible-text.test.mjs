@@ -18,6 +18,16 @@ test('extractVisibleText returns unique normalized visible phrases', () => {
   assert.deepEqual(extractVisibleText(source), ['One POS.', 'Every & Order']);
 });
 
+test('extractVisibleText ignores Angular attributes containing comparison operators', () => {
+  const source = `
+    <g [class.is-complete]="activeStepIndex > 0" (click)="goToStep(0)">
+      <text>Queue</text>
+    </g>
+  `;
+
+  assert.deepEqual(extractVisibleText(source), ['Queue']);
+});
+
 test('collectVisibleText scans nested component templates and supports exclusions', () => {
   const root = mkdtempSync(join(tmpdir(), 'appzpos-copy-'));
   const nested = join(root, 'nested');

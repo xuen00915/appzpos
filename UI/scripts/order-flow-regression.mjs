@@ -139,7 +139,7 @@ for (const width of viewports) {
     })()`);
     await wait(90);
     const state = JSON.parse(await evaluate(`JSON.stringify((() => ({
-      activeStep: Number(document.querySelector('.appzpos-order-flow__step-button[aria-current="step"]')?.textContent.trim()),
+      activeStep: Number(document.querySelector('.appzpos-order-flow__step-button[aria-current="step"] > span')?.textContent.trim()),
       entryFiguresVisible: [...document.querySelectorAll('[data-entry-figure]')].filter((item) => item.getAttribute('opacity') !== '0').length,
       mergedFigure: document.querySelector('[data-merged-figure]')?.getAttribute('transform'),
       mergedVisible: document.querySelector('[data-merged-figure]')?.getAttribute('opacity'),
@@ -165,7 +165,7 @@ for (const width of viewports) {
   await evaluate(`document.querySelectorAll('.appzpos-order-flow__step-button')[2].click()`);
   await wait(60);
   const clickedStep = JSON.parse(await evaluate(`JSON.stringify({
-    activeStep: Number(document.querySelector('.appzpos-order-flow__step-button[aria-current="step"]')?.textContent.trim()),
+    activeStep: Number(document.querySelector('.appzpos-order-flow__step-button[aria-current="step"] > span')?.textContent.trim()),
     captionTitle: document.querySelector('.appzpos-order-flow__caption h3')?.textContent.trim()
   })`));
   if (clickedStep.activeStep !== 3 || clickedStep.captionTitle !== 'Website Ordering') {

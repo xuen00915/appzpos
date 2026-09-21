@@ -6,7 +6,7 @@ export function extractVisibleText(source) {
     .replace(/<!--[\s\S]*?-->/g, '')
     .replace(/<script[\s\S]*?<\/script>/gi, '')
     .replace(/<style[\s\S]*?<\/style>/gi, '')
-    .replace(/<[^>]+>/g, '\n')
+    .replace(/<(?:"[^"]*"|'[^']*'|[^'">])*>/g, '\n')
     .replace(/&nbsp;/g, ' ')
     .replace(/&amp;/g, '&')
     .replace(/&#39;/g, "'")

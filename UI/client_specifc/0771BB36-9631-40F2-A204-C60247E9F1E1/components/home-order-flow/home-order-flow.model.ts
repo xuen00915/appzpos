@@ -29,14 +29,14 @@ export interface OrderFlowSceneState {
 export const ORDER_FLOW_BREAKPOINTS = [0, .10, .20, .30, .40, .55, .75, 1] as const;
 
 export const ORDER_FLOW_POINTS = {
-  tableQr: { x: 30, y: 50 },
-  kiosk: { x: 30, y: 160 },
-  website: { x: 30, y: 270 },
-  pos: { x: 30, y: 380 },
-  queue: { x: 420, y: 215 },
-  kds: { x: 620, y: 215 },
-  orderHub: { x: 860, y: 215 },
-  delivery: { x: 680, y: 40 }
+  tableQr: { x: 520, y: 325 },
+  kiosk: { x: 245, y: 510 },
+  website: { x: 935, y: 490 },
+  pos: { x: 350, y: 430 },
+  queue: { x: 600, y: 485 },
+  kds: { x: 865, y: 245 },
+  orderHub: { x: 900, y: 590 },
+  delivery: { x: 1120, y: 650 }
 } as const;
 
 export const ORDER_FLOW_STEPS: readonly OrderFlowStep[] = [

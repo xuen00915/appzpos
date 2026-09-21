@@ -91,11 +91,11 @@ describe('HomeOrderFlowComponent', () => {
     });
   });
 
-  it('renders seven indicators and the converging SVG scene', () => {
+  it('renders seven indicators and the converging isometric people scene', () => {
     fixture.detectChanges();
     const host = fixture.nativeElement as HTMLElement;
     expect(host.querySelectorAll('.appzpos-order-flow__step').length).toBe(7);
-    expect(host.querySelector('svg')?.getAttribute('viewBox')).toBe('0 0 1000 460');
+    expect(host.querySelector('svg')?.getAttribute('viewBox')).toBe('0 0 1200 720');
     expect(host.querySelectorAll('[data-entry-route]').length).toBe(4);
     expect(host.querySelectorAll('[data-entry-figure]').length).toBe(4);
     expect(host.querySelector('[data-merged-figure]')).not.toBeNull();
@@ -104,6 +104,24 @@ describe('HomeOrderFlowComponent', () => {
     expect(host.querySelector('[data-queue-core]')).not.toBeNull();
     expect(host.querySelector('[data-kds-core]')).not.toBeNull();
     expect(host.querySelector('[data-order-hub-core]')).not.toBeNull();
+    expect(host.querySelectorAll('[data-isometric-zone]').length).toBeGreaterThanOrEqual(5);
+    expect(host.querySelectorAll('[data-person]').length).toBeGreaterThanOrEqual(8);
+    expect(host.querySelectorAll('[data-flow-hotspot]').length).toBe(7);
+  });
+
+  it('lets a visitor select a step directly from the illustrated map', () => {
+    fixture.detectChanges();
+    const scrollTo = spyOn(window, 'scrollTo');
+    const host = fixture.nativeElement as HTMLElement;
+    const hotspots = host.querySelectorAll<SVGGElement>('[data-flow-hotspot]');
+
+    hotspots[2].dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.activeStepIndex).toBe(2);
+    expect(host.querySelector('.appzpos-order-flow__caption h3')?.textContent?.trim())
+      .toBe('Website Ordering');
+    expect(scrollTo).toHaveBeenCalled();
   });
 
   it('switches the scene and caption when a numbered step is clicked', () => {
