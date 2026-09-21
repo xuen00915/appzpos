@@ -22,7 +22,7 @@ app-home-order-flow {
   overflow: clip;
 
   &__scroll {
-    min-height: 460vh;
+    min-height: 360vh;
     position: relative;
   }
 
@@ -572,7 +572,7 @@ app-home-order-flow {
 @media (max-width: 1023px) {
   .appzpos-order-flow {
     &__scroll {
-      min-height: 430vh;
+      min-height: 330vh;
     }
 
     &__stage {
@@ -615,7 +615,7 @@ app-home-order-flow {
 @media (max-width: 767px) {
   .appzpos-order-flow {
     &__scroll {
-      min-height: 420vh;
+      min-height: 300vh;
     }
 
     &__stage {
