@@ -72,6 +72,8 @@ for (const width of viewports) {
     const stage = document.querySelector('.appz-ecosystem__stage');
     const svg = document.querySelector('.appz-ecosystem__connections');
     const islands = [...document.querySelectorAll('[data-ecosystem-island]')];
+    const moduleTabs = [...document.querySelectorAll('[data-module-tab]')];
+    const modulePanels = [...document.querySelectorAll('[data-module-panel]')];
     const heading = section?.querySelector('h2');
     const box = stage?.getBoundingClientRect();
     return {
@@ -90,6 +92,13 @@ for (const width of viewports) {
         return image?.complete && image?.naturalWidth > 0;
       }).length,
       hrefs: islands.map((island) => island.getAttribute('href')),
+      moduleTabs: moduleTabs.map((tab) => tab.textContent.trim().replace(/\\s+/g, ' ')),
+      modulePanelCount: modulePanels.length,
+      moduleFeatureCount: document.querySelectorAll('[data-module-feature]').length,
+      moduleRoutes: modulePanels.map((panel) => panel.querySelector('a')?.getAttribute('href')),
+      visibleModule: modulePanels.find((panel) => !panel.hidden)?.dataset.modulePanel,
+      suppliedCopyPresent: section?.textContent.includes('Smart Inventory - Monitor item balances & set up alerts')
+        && section?.textContent.includes('Real-time Overview Report - Easily monitor all your delivery, online and in-store orders in one POS system'),
       stage: box ? { left: box.left, right: box.right, width: box.width, height: box.height } : null,
       page: { clientWidth: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth },
       visible: section?.classList.contains('is-visible'),
@@ -109,6 +118,10 @@ for (const width of viewports) {
   if (layout.islandCount !== 6) failures.push(`${width}px: expected six islands, found ${layout.islandCount}`);
   if (layout.hubCount !== 1) failures.push(`${width}px: expected one central cloud hub, found ${layout.hubCount}`);
   if (layout.connectionCount !== 6) failures.push(`${width}px: expected six connections, found ${layout.connectionCount}`);
+  if (layout.modulePanelCount !== 7) failures.push(`${width}px: expected seven module panels, found ${layout.modulePanelCount}`);
+  if (layout.moduleFeatureCount !== 46) failures.push(`${width}px: expected 46 supplied module features, found ${layout.moduleFeatureCount}`);
+  if (layout.visibleModule !== 'pos') failures.push(`${width}px: POS module is not the default visible panel`);
+  if (!layout.suppliedCopyPresent) failures.push(`${width}px: supplied module wording is missing`);
   if (layout.svgText) failures.push(`${width}px: SVG contains baked text`);
   if (layout.loadedImages !== 6) failures.push(`${width}px: not all island images loaded`);
   if (!layout.visible) failures.push(`${width}px: viewport entry did not reveal the ecosystem`);
@@ -127,6 +140,27 @@ for (const width of viewports) {
   ];
   if (JSON.stringify(layout.hrefs) !== JSON.stringify(expectedHrefs)) failures.push(`${width}px: island routes changed`);
 
+  const expectedModuleTabs = [
+    'POS / E-Waiter',
+    'Website Ordering',
+    'Table QR Ordering',
+    'Self Ordering Kiosk',
+    'Queue Number Display',
+    'Kitchen Display System (KDS)',
+    'Order Hub'
+  ];
+  const expectedModuleRoutes = [
+    '/cloud-pos-point-of-sales-system',
+    '/f&b-restaurant-online-ordering-website',
+    '/f&b-restaurant-emenu-qr-code-ordering-system',
+    '/self-order-kiosk-restaurant',
+    '/f&b-restaurant-queue-number-display-system',
+    '/f&b-restaurant-kitchen-display-system',
+    '/f&b-restaurant-delivery-integration'
+  ];
+  if (JSON.stringify(layout.moduleTabs) !== JSON.stringify(expectedModuleTabs)) failures.push(`${width}px: module tab labels changed ${JSON.stringify(layout.moduleTabs)}`);
+  if (JSON.stringify(layout.moduleRoutes) !== JSON.stringify(expectedModuleRoutes)) failures.push(`${width}px: module routes changed`);
+
   await evaluate(`document.querySelector('[data-island-id="kitchen"]')?.focus()`);
   await wait(300);
   const interaction = JSON.parse(await evaluate(`JSON.stringify((() => {
@@ -142,12 +176,28 @@ for (const width of viewports) {
     failures.push(`${width}px: focus interaction does not activate the island, path and label ${JSON.stringify(interaction)}`);
   }
 
+  await evaluate(`document.querySelectorAll('[data-module-tab]')[4]?.click()`);
+  await wait(180);
+  const moduleInteraction = JSON.parse(await evaluate(`JSON.stringify((() => ({
+    selected: document.querySelectorAll('[data-module-tab]')[4]?.getAttribute('aria-selected'),
+    visiblePanel: [...document.querySelectorAll('[data-module-panel]')].find((panel) => !panel.hidden)?.dataset.modulePanel,
+    title: document.querySelector('[data-module-panel="queue"] h3')?.textContent.trim()
+  }))())`));
+  if (moduleInteraction.selected !== 'true' || moduleInteraction.visiblePanel !== 'queue' || moduleInteraction.title !== 'Queue Number Display') {
+    failures.push(`${width}px: module tabs do not switch the visible content ${JSON.stringify(moduleInteraction)}`);
+  }
+
   if (screenshotDirectory && (width === 1440 || width === 430)) {
     await evaluate(`document.activeElement?.blur()`);
     await wait(350);
     const screenshot = await send('Page.captureScreenshot', { format: 'png' });
     mkdirSync(screenshotDirectory, { recursive: true });
     writeFileSync(`${screenshotDirectory}/ecosystem-${width}.png`, Buffer.from(screenshot.data, 'base64'));
+
+    await evaluate(`document.querySelector('.appz-ecosystem__modules')?.scrollIntoView({ block: 'center' })`);
+    await wait(350);
+    const moduleScreenshot = await send('Page.captureScreenshot', { format: 'png' });
+    writeFileSync(`${screenshotDirectory}/modules-${width}.png`, Buffer.from(moduleScreenshot.data, 'base64'));
   }
 }
 

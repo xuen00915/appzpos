@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
 import { HomeOrderFlowComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/home-order-flow/home-order-flow.component';
+import { CommonFunctionService } from '../../../services/shared_function/common-function.service';
 
 describe('HomeOrderFlowComponent ecosystem', () => {
   let fixture: ComponentFixture<HomeOrderFlowComponent>;
@@ -53,7 +54,10 @@ describe('HomeOrderFlowComponent ecosystem', () => {
 
     TestBed.configureTestingModule({
       declarations: [HomeOrderFlowComponent],
-      imports: [CommonModule, RouterTestingModule]
+      imports: [CommonModule, RouterTestingModule],
+      providers: [
+        { provide: CommonFunctionService, useValue: { BindURL_Image: (name: string) => `/images/${name}` } }
+      ]
     });
     fixture = TestBed.createComponent(HomeOrderFlowComponent);
   });
@@ -160,5 +164,68 @@ describe('HomeOrderFlowComponent ecosystem', () => {
     expect(fixture.componentInstance.reducedMotion).toBeTrue();
     expect(fixture.componentInstance.isVisible).toBeTrue();
     expect((fixture.nativeElement as HTMLElement).querySelectorAll('[data-ecosystem-island]').length).toBe(6);
+  });
+
+  it('renders all seven product modules with the supplied copy and existing routes', () => {
+    fixture.detectChanges();
+    const host = fixture.nativeElement as HTMLElement;
+    const tabs = Array.from(host.querySelectorAll<HTMLElement>('[data-module-tab]'));
+    const panels = Array.from(host.querySelectorAll<HTMLElement>('[data-module-panel]'));
+    const routes = panels.map((panel) => panel.querySelector<HTMLAnchorElement>('a')?.getAttribute('href'));
+
+    expect(tabs.map((tab) => tab.textContent?.replace(/\s+/g, ' ').trim())).toEqual([
+      'POS / E-Waiter',
+      'Website Ordering',
+      'Table QR Ordering',
+      'Self Ordering Kiosk',
+      'Queue Number Display',
+      'Kitchen Display System (KDS)',
+      'Order Hub'
+    ]);
+    expect(panels.length).toBe(7);
+    expect(host.querySelectorAll('[data-module-feature]').length).toBe(46);
+    expect(routes).toEqual([
+      '/cloud-pos-point-of-sales-system',
+      '/f&b-restaurant-online-ordering-website',
+      '/f&b-restaurant-emenu-qr-code-ordering-system',
+      '/self-order-kiosk-restaurant',
+      '/f&b-restaurant-queue-number-display-system',
+      '/f&b-restaurant-kitchen-display-system',
+      '/f&b-restaurant-delivery-integration'
+    ]);
+    expect(host.textContent).toContain('Smart Inventory - Monitor item balances & set up alerts');
+    expect(host.textContent).toContain('Kiosk Options - 15.6”, 21”, 24” and 32” monitor with countertop or pedestal mounting');
+    expect(host.textContent).toContain("Integration - Linked with Queue Number Display to show 'In-Process' and 'Ready for Collection' orders");
+    expect(host.textContent).toContain('Real-time Overview Report - Easily monitor all your delivery, online and in-store orders in one POS system');
+  });
+
+  it('switches the visible module panel when a tab is selected', () => {
+    fixture.detectChanges();
+    const host = fixture.nativeElement as HTMLElement;
+    const tabs = Array.from(host.querySelectorAll<HTMLButtonElement>('[data-module-tab]'));
+
+    tabs[4].click();
+    fixture.detectChanges();
+
+    expect(tabs[4].getAttribute('aria-selected')).toBe('true');
+    expect(host.querySelector<HTMLElement>('[data-module-panel="queue"]')?.hidden).toBeFalse();
+    expect(host.querySelector<HTMLElement>('[data-module-panel="pos"]')?.hidden).toBeTrue();
+    expect(host.querySelector('[data-module-panel="queue"] h3')?.textContent?.trim()).toBe('Queue Number Display');
+  });
+
+  it('supports keyboard navigation across the module tabs', () => {
+    fixture.detectChanges();
+    const host = fixture.nativeElement as HTMLElement;
+    const tabList = host.querySelector<HTMLElement>('.appz-ecosystem__module-tabs')!;
+
+    tabList.dispatchEvent(new KeyboardEvent('keydown', { key: 'End', bubbles: true }));
+    fixture.detectChanges();
+    expect(fixture.componentInstance.activeModuleIndex).toBe(6);
+    expect(host.querySelectorAll('[data-module-tab]')[6].getAttribute('aria-selected')).toBe('true');
+
+    tabList.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
+    fixture.detectChanges();
+    expect(fixture.componentInstance.activeModuleIndex).toBe(0);
+    expect(host.querySelectorAll('[data-module-tab]')[0].getAttribute('aria-selected')).toBe('true');
   });
 });

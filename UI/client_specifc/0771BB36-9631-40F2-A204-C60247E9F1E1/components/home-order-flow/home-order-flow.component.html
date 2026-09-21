@@ -132,4 +132,56 @@
             </span>
         </a>
     </div>
+
+    <div class="appz-ecosystem__modules">
+        <nav class="appz-ecosystem__module-tabs"
+             role="tablist"
+             aria-label="Explore APPZPOS modules"
+             (keydown)="handleModuleKeys($event)">
+            <button *ngFor="let module of productModules; let index = index"
+                    type="button"
+                    role="tab"
+                    data-module-tab
+                    [id]="'appz-module-tab-' + module.id"
+                    [class.is-active]="activeModuleIndex === index"
+                    [attr.aria-selected]="activeModuleIndex === index"
+                    [attr.aria-controls]="'appz-module-panel-' + module.id"
+                    [attr.tabindex]="activeModuleIndex === index ? 0 : -1"
+                    (click)="selectModule(index)">
+                {{ module.title }}
+            </button>
+        </nav>
+
+        <div class="appz-ecosystem__module-panels">
+            <article *ngFor="let module of productModules; let index = index"
+                     class="appz-ecosystem__module-panel"
+                     data-module-panel
+                     [attr.data-module-panel]="module.id"
+                     [class.is-active]="activeModuleIndex === index"
+                     [id]="'appz-module-panel-' + module.id"
+                     role="tabpanel"
+                     [attr.aria-labelledby]="'appz-module-tab-' + module.id"
+                     [hidden]="activeModuleIndex !== index">
+                <figure class="appz-ecosystem__module-media">
+                    <img [src]="moduleImageUrl(module.image)"
+                         [alt]="module.title"
+                         width="900"
+                         height="700"
+                         loading="lazy"
+                         decoding="async" />
+                </figure>
+
+                <div class="appz-ecosystem__module-copy">
+                    <h3>{{ module.title }}</h3>
+                    <ul>
+                        <li *ngFor="let feature of module.features" data-module-feature>
+                            <i aria-hidden="true"></i>
+                            <p><strong>{{ feature.label }}</strong><span> - {{ feature.description }}</span></p>
+                        </li>
+                    </ul>
+                    <a class="appz-ecosystem__learn-more" [routerLink]="module.route">Learn More</a>
+                </div>
+            </article>
+        </div>
+    </div>
 </section>

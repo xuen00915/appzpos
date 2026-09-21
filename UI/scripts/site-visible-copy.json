@@ -1,4 +1,5 @@
 [
+  "- {{ feature.description }}",
   "- 15.6”, 21”, 24” and 32” monitor with countertop or pedestal mounting",
   "- A queue number is assigned to each customer's order.",
   "- access the data anywhere",

@@ -9,6 +9,7 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
+import { CommonFunctionService } from '../../../../src/app/services/shared_function/common-function.service';
 
 interface EcosystemIsland {
   id: string;
@@ -18,6 +19,19 @@ interface EcosystemIsland {
   image: string;
   ariaLabel: string;
   depth: number;
+}
+
+interface ProductFeature {
+  label: string;
+  description: string;
+}
+
+interface ProductModule {
+  id: string;
+  title: string;
+  route: string;
+  image: string;
+  features: readonly ProductFeature[];
 }
 
 @Component({
@@ -86,7 +100,113 @@ export class HomeOrderFlowComponent implements OnInit, AfterViewInit, OnDestroy 
     }
   ];
 
+  readonly productModules: readonly ProductModule[] = [
+    {
+      id: 'pos',
+      title: 'POS / E-Waiter',
+      route: '/cloud-pos-point-of-sales-system',
+      image: 'APPZPOS-best-pos-system-singapore-cloud-POS-system.png',
+      features: [
+        { label: 'Cloud Based POS system', description: 'Access your data anywhere' },
+        { label: 'Simple menu setup', description: 'Menu items, modifiers, sale items or bundles' },
+        { label: 'Real Time Report', description: 'Daily Sales, Item Sales, Customer Sales' },
+        { label: 'Smart Inventory', description: 'Monitor item balances & set up alerts' },
+        { label: 'Table Management', description: 'Monitor table occupancy status with floorplan view' },
+        { label: 'CRM', description: 'Collect customer data & reward loyalty with tier based' },
+        { label: 'Delivery Integration', description: 'Integrated with Grab, Foodpanda, and Deliveroo apps' },
+        { label: 'Multiple Languages', description: 'Menus in different languages to serve a diverse clientele' },
+        { label: 'Other Features', description: 'Split bill and order, transfer order, employee clock-in, etc..' }
+      ]
+    },
+    {
+      id: 'website',
+      title: 'Website Ordering',
+      route: '/f&b-restaurant-online-ordering-website',
+      image: 'APPZPOS-best-point-of-sale-system-Website-ordering.png',
+      features: [
+        { label: 'Online Ordering', description: 'Allow customers to place orders online and easily track order status' },
+        { label: 'Order Scheduling', description: 'Allow customers reserve or schedule Future Delivery or Pickup Orders' },
+        { label: 'Menu Customization', description: 'Easily update your menu details & availability in real-time through the portal' },
+        { label: 'Online Payment', description: 'Multiple integrated payment options for customer to pay securely through website' },
+        { label: 'Multiple Languages', description: 'Menus in different languages to serve a diverse clientele' },
+        { label: 'Advertising Display', description: 'Showcase promotional events, discounts, coupons, or banners to attract more customers' },
+        { label: 'Delivery Management', description: 'Integrated with Grabexpress, Lalamove, Pandago for delivery' }
+      ]
+    },
+    {
+      id: 'qr',
+      title: 'Table QR Ordering',
+      route: '/f&b-restaurant-emenu-qr-code-ordering-system',
+      image: 'APPZPOS-best-point-of-sale-system-Table-QR-Ordering.png',
+      features: [
+        { label: 'E-Menu Ordering', description: 'Customers scan a QR code to view the menu, and place orders from their phones' },
+        { label: 'Cost Savings', description: 'Reduce Printed Menu & dependence on manpower' },
+        { label: 'Menu Customization', description: 'Easily update your menu details & availability in real-time through the portal' },
+        { label: 'Online Payment', description: 'Multiple integrated payment options for customer to pay securely through mobile' },
+        { label: 'Advertising Display', description: 'Showcase promotional events, discounts, coupons, or banners to attract more customers' },
+        { label: 'Multiple Languages', description: 'Menus in different languages to serve a diverse clientele' }
+      ]
+    },
+    {
+      id: 'kiosk',
+      title: 'Self Ordering Kiosk',
+      route: '/self-order-kiosk-restaurant',
+      image: 'APPZPOS-all-in-one-pos-system-Self-order-kiosk.png',
+      features: [
+        { label: 'Contactless Ordering', description: 'Allow customers to use the self-service kiosk to browse the menu, place orders, process payments, and reduce their wait times' },
+        { label: 'Cost Savings', description: 'Reduce Printed Menu & dependence on manpower' },
+        { label: 'Interactive Interface', description: 'User-friendly touchscreen interfaces allow customers to easily navigate through the ordering process' },
+        { label: 'Kiosk Options', description: '15.6”, 21”, 24” and 32” monitor with countertop or pedestal mounting' },
+        { label: 'Customization', description: 'easily update menu details, update availability, and run promotions' },
+        { label: 'Advertising Idle Page', description: 'Showcase promotional events, discounts, coupons, or banners to attract more customers' },
+        { label: 'Secure Payment', description: 'Multiple payment options with integrated payment terminals & online payment gateways' },
+        { label: 'Multiple Languages', description: 'Menus in different languages to serve a diverse clientele' }
+      ]
+    },
+    {
+      id: 'queue',
+      title: 'Queue Number Display',
+      route: '/f&b-restaurant-queue-number-display-system',
+      image: 'APPZPOS-point-of-sales-system-singapore-queue-number-display2.png',
+      features: [
+        { label: 'Order Management', description: 'An unique queue number is assigned to orders from all ordering portals' },
+        { label: 'Queue Number Display', description: 'Syncs with KDS, real time queue number updates when orders are ready for pickup.' },
+        { label: 'Screen Display', description: 'Available in different sizes to meet restaurant requirements' },
+        { label: 'Advertising Display', description: 'Showcase promotional events, discounts, coupons, or banners alongside queue numbers to attract more customers' }
+      ]
+    },
+    {
+      id: 'kds',
+      title: 'Kitchen Display System (KDS)',
+      route: '/f&b-restaurant-kitchen-display-system',
+      image: 'APPZPOS-point-of-sales-system-Kitchen-display-system-KDS.png',
+      features: [
+        { label: 'Order Tracking', description: 'Receive real-time updates for new orders, modifications, or cancellations' },
+        { label: 'Custom Interface', description: 'Customize the KDS interface to match your kitchen workflow' },
+        { label: 'Visual Alerts', description: 'Color indication to convey the status of orders (e.g., new orders, in progress, completed)' },
+        { label: 'Integration', description: "Linked with Queue Number Display to show 'In-Process' and 'Ready for Collection' orders" },
+        { label: 'Order Timing', description: 'Allow kitchen staff to coordinate order preparations with estimated cooking times' },
+        { label: 'Error Reduction', description: 'Minimize order errors' }
+      ]
+    },
+    {
+      id: 'hub',
+      title: 'Order Hub',
+      route: '/f&b-restaurant-delivery-integration',
+      image: 'APPZPOS-best-pos-system-singapore-order-hub.png',
+      features: [
+        { label: 'Centralized Order Management', description: 'Integrated with GrabFood, Foodpanda, and Deliveroo to one centralized platform' },
+        { label: 'Order tracking', description: 'Receive real-time order status updates and directly send to POS and KDS systems' },
+        { label: 'Menu Management', description: 'Easily manage your menu details and availability in one centralized system' },
+        { label: 'Automated Order Allocation', description: 'Assign Order automatically to specific preparation stations based on delivery date and time' },
+        { label: 'Custom Order Handling', description: 'Display driver & customer contact details from each delivery platform in the POS system for easy communication' },
+        { label: 'Real-time Overview Report', description: 'Easily monitor all your delivery, online and in-store orders in one POS system' }
+      ]
+    }
+  ];
+
   activeIslandId: string | null = null;
+  activeModuleIndex = 0;
   isVisible = false;
   reducedMotion = false;
 
@@ -101,7 +221,8 @@ export class HomeOrderFlowComponent implements OnInit, AfterViewInit, OnDestroy 
 
   constructor(
     private readonly changeDetectorRef: ChangeDetectorRef,
-    private readonly ngZone: NgZone
+    private readonly ngZone: NgZone,
+    private readonly commonFunctionService: CommonFunctionService
   ) {}
 
   ngOnInit(): void {
@@ -146,6 +267,40 @@ export class HomeOrderFlowComponent implements OnInit, AfterViewInit, OnDestroy 
   clearActiveIsland(): void {
     this.activeIslandId = null;
     this.changeDetectorRef.markForCheck();
+  }
+
+  selectModule(index: number): void {
+    if (index < 0 || index >= this.productModules.length || index === this.activeModuleIndex) {
+      return;
+    }
+    this.activeModuleIndex = index;
+    this.changeDetectorRef.markForCheck();
+  }
+
+  handleModuleKeys(event: KeyboardEvent): void {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
+      return;
+    }
+
+    event.preventDefault();
+    if (event.key === 'Home') {
+      this.activeModuleIndex = 0;
+    } else if (event.key === 'End') {
+      this.activeModuleIndex = this.productModules.length - 1;
+    } else {
+      const direction = event.key === 'ArrowRight' ? 1 : -1;
+      this.activeModuleIndex = (
+        this.activeModuleIndex + direction + this.productModules.length
+      ) % this.productModules.length;
+    }
+
+    const tabs = (event.currentTarget as HTMLElement).querySelectorAll<HTMLButtonElement>('[data-module-tab]');
+    tabs[this.activeModuleIndex]?.focus();
+    this.changeDetectorRef.markForCheck();
+  }
+
+  moduleImageUrl(fileName: string): string {
+    return this.commonFunctionService.BindURL_Image(fileName);
   }
 
   handlePointerMove(event: PointerEvent): void {
