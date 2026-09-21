@@ -64,6 +64,14 @@ describe('APPZPOS marketing shell', () => {
     expect(host.querySelector('[aria-controls="solutions-menu"]')?.getAttribute('aria-expanded')).toBe('false');
   });
 
+  it('locks page scrolling while the mobile navigation is open', () => {
+    const component = headerFixture.componentInstance;
+    component.toggleMobileMenu();
+    expect(document.body.style.overflow).toBe('hidden');
+    component.closeMenus();
+    expect(document.body.style.overflow).toBe('');
+  });
+
   it('keeps existing footer contact, social and brochure destinations', () => {
     const host = footerFixture.nativeElement as HTMLElement;
     const hrefs = Array.from(host.querySelectorAll<HTMLAnchorElement>('a[href]'))
