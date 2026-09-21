@@ -1,4 +1,123 @@
 /* Shared visual overhaul for the legacy public-page markup. The product hero is intentionally excluded. */
+.appz-page {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  color: var(--appz-ink);
+  background: var(--appz-surface);
+  font-family: var(--appz-font);
+}
+
+.appz-section {
+  width: min(calc(100% - (var(--appz-gutter) * 2)), var(--appz-content-width));
+  margin-inline: auto;
+  padding-block: var(--appz-section-space);
+}
+
+.appz-split {
+  display: grid;
+  grid-template-columns: minmax(0, 1.08fr) minmax(320px, .92fr);
+  gap: clamp(48px, 7vw, 112px);
+  align-items: center;
+}
+
+.appz-media-stage {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  place-items: center;
+  overflow: hidden;
+  border: 1px solid var(--appz-line);
+  border-radius: var(--appz-radius-surface);
+  background: linear-gradient(145deg, #f8fbfe, #eaf4fb);
+}
+
+.appz-media-stage img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.appz-module-nav {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  overscroll-behavior-inline: contain;
+  scrollbar-width: none;
+}
+
+.appz-module-nav::-webkit-scrollbar { display: none; }
+
+.appz-module-nav button,
+.appz-module-nav a {
+  min-height: 44px;
+  flex: 0 0 auto;
+  border-radius: var(--appz-radius-control);
+}
+
+.appz-proof-rail {
+  display: flex;
+  gap: clamp(24px, 5vw, 72px);
+  align-items: center;
+  overflow-x: auto;
+  padding-block: 20px;
+  scrollbar-width: none;
+}
+
+.appz-proof-rail::-webkit-scrollbar { display: none; }
+
+.appz-conversion-panel {
+  width: min(calc(100% - (var(--appz-gutter) * 2)), var(--appz-content-width));
+  margin-inline: auto;
+  padding: clamp(32px, 6vw, 88px);
+  border-radius: var(--appz-radius-surface);
+  color: #fff;
+  background: var(--appz-ink);
+}
+
+.appz-kicker {
+  margin: 0 0 18px;
+  color: var(--appz-orange);
+  font-size: .76rem;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+}
+
+.appz-display {
+  max-width: 12ch;
+  margin: 0;
+  color: var(--appz-ink);
+  font-size: clamp(2.6rem, 6vw, 6.4rem);
+  font-weight: 750;
+  letter-spacing: -.065em;
+  line-height: .94;
+  text-wrap: balance;
+}
+
+.appz-lede {
+  max-width: var(--appz-reading-width);
+  color: var(--appz-ink-soft);
+  font-size: clamp(1rem, 1.4vw, 1.18rem);
+  line-height: 1.75;
+}
+
+@media (max-width: 1279px) {
+  .appz-split { gap: clamp(36px, 5vw, 64px); }
+}
+
+@media (max-width: 1023px) {
+  .appz-split { grid-template-columns: 1fr; gap: 40px; }
+  .appz-display { max-width: 15ch; }
+}
+
+@media (max-width: 767px) {
+  .appz-section { width: min(calc(100% - 40px), var(--appz-content-width)); }
+  .appz-conversion-panel { width: calc(100% - 24px); padding: 32px 20px; }
+  .appz-display { font-size: clamp(2.25rem, 12vw, 4rem); }
+}
+
 [data-animate] {
   opacity: 1 !important;
   transform: none !important;

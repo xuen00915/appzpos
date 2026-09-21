@@ -1,4 +1,11 @@
 :root {
+  --appz-font: "Manrope", "Avenir Next", Arial, sans-serif;
+  --appz-gutter: clamp(20px, 4vw, 64px);
+  --appz-section-space: clamp(80px, 11vw, 168px);
+  --appz-content-width: 1320px;
+  --appz-reading-width: 65ch;
+  --appz-radius-surface: 16px;
+  --appz-radius-control: 9px;
   --appz-ink: #101d39;
   --appz-ink-soft: #536681;
   --appz-blue: #1688d8;
@@ -30,7 +37,7 @@ html {
 body {
   color: var(--appz-ink);
   background: var(--appz-surface);
-  font-family: Inter, "Helvetica Neue", Arial, sans-serif !important;
+  font-family: var(--appz-font) !important;
   text-rendering: optimizeLegibility;
   overflow-x: clip;
 }
