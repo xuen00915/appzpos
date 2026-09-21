@@ -16,7 +16,7 @@
          (pointermove)="handlePointerMove($event)"
          (pointerleave)="resetPointerParallax()">
         <svg class="appz-ecosystem__connections"
-             viewBox="0 0 1400 800"
+             viewBox="0 0 1400 1040"
              preserveAspectRatio="none"
              aria-hidden="true">
             <defs>
@@ -29,49 +29,74 @@
             <g data-ecosystem-connection="admin"
                class="appz-ecosystem__connection"
                [class.is-active]="activeIslandId === 'admin'">
-                <path d="M690 398C570 330 470 236 326 172" />
-                <circle class="appz-ecosystem__endpoint" cx="326" cy="172" r="5" />
+                <path class="appz-ecosystem__bridge" d="M720 500C828 424 1012 293 1120 230" />
+                <path class="appz-ecosystem__route" pathLength="1" d="M720 500C828 424 1012 293 1120 230" />
+                <circle class="appz-ecosystem__endpoint" cx="1120" cy="230" r="5" />
                 <circle class="appz-ecosystem__signal" r="6">
-                    <animateMotion dur="1.9s" repeatCount="indefinite" path="M326 172C470 236 570 330 690 398" />
+                    <animateMotion dur="1.9s" repeatCount="indefinite" path="M1120 230C1012 293 828 424 720 500" />
                 </circle>
             </g>
             <g data-ecosystem-connection="kitchen"
-               class="appz-ecosystem__connection"
+               class="appz-ecosystem__connection appz-ecosystem__connection--orange"
                [class.is-active]="activeIslandId === 'kitchen'">
-                <path d="M710 395C840 307 944 216 1084 158" />
-                <circle class="appz-ecosystem__endpoint" cx="1084" cy="158" r="5" />
+                <path class="appz-ecosystem__bridge" d="M692 482C674 380 636 254 610 168" />
+                <path class="appz-ecosystem__route" pathLength="1" d="M692 482C674 380 636 254 610 168" />
+                <circle class="appz-ecosystem__endpoint" cx="610" cy="168" r="5" />
                 <circle class="appz-ecosystem__signal" r="6">
-                    <animateMotion dur="1.8s" repeatCount="indefinite" path="M1084 158C944 216 840 307 710 395" />
+                    <animateMotion dur="1.8s" repeatCount="indefinite" path="M610 168C636 254 674 380 692 482" />
+                </circle>
+            </g>
+            <g data-ecosystem-connection="dining"
+               class="appz-ecosystem__connection"
+               [class.is-active]="activeIslandId === 'dining'">
+                <path class="appz-ecosystem__bridge" d="M674 512C542 468 410 411 282 368" />
+                <path class="appz-ecosystem__route" pathLength="1" d="M674 512C542 468 410 411 282 368" />
+                <circle class="appz-ecosystem__endpoint" cx="282" cy="368" r="5" />
+                <circle class="appz-ecosystem__signal" r="6">
+                    <animateMotion dur="1.7s" repeatCount="indefinite" path="M282 368C410 411 542 468 674 512" />
                 </circle>
             </g>
             <g data-ecosystem-connection="pos"
                class="appz-ecosystem__connection"
                [class.is-active]="activeIslandId === 'pos'">
-                <path d="M684 417C544 456 438 535 292 604" />
-                <circle class="appz-ecosystem__endpoint" cx="292" cy="604" r="5" />
+                <path class="appz-ecosystem__bridge" d="M732 526C844 513 956 485 1086 450" />
+                <path class="appz-ecosystem__route" pathLength="1" d="M732 526C844 513 956 485 1086 450" />
+                <circle class="appz-ecosystem__endpoint" cx="1086" cy="450" r="5" />
                 <circle class="appz-ecosystem__signal" r="6">
-                    <animateMotion dur="1.65s" repeatCount="indefinite" path="M292 604C438 535 544 456 684 417" />
+                    <animateMotion dur="1.65s" repeatCount="indefinite" path="M1086 450C956 485 844 513 732 526" />
                 </circle>
             </g>
             <g data-ecosystem-connection="website"
                class="appz-ecosystem__connection"
                [class.is-active]="activeIslandId === 'website'">
-                <path d="M716 418C848 465 966 535 1108 578" />
-                <circle class="appz-ecosystem__endpoint" cx="1108" cy="578" r="5" />
+                <path class="appz-ecosystem__bridge" d="M686 548C576 636 460 735 338 817" />
+                <path class="appz-ecosystem__route" pathLength="1" d="M686 548C576 636 460 735 338 817" />
+                <circle class="appz-ecosystem__endpoint" cx="338" cy="817" r="5" />
                 <circle class="appz-ecosystem__signal" r="6">
-                    <animateMotion dur="1.75s" repeatCount="indefinite" path="M1108 578C966 535 848 465 716 418" />
+                    <animateMotion dur="1.75s" repeatCount="indefinite" path="M338 817C460 735 576 636 686 548" />
                 </circle>
             </g>
             <g data-ecosystem-connection="delivery"
-               class="appz-ecosystem__connection"
+               class="appz-ecosystem__connection appz-ecosystem__connection--orange"
                [class.is-active]="activeIslandId === 'delivery'">
-                <path d="M702 426C704 515 711 617 722 706" />
-                <circle class="appz-ecosystem__endpoint" cx="722" cy="706" r="5" />
+                <path class="appz-ecosystem__bridge" d="M712 554C740 654 784 761 824 850" />
+                <path class="appz-ecosystem__route" pathLength="1" d="M712 554C740 654 784 761 824 850" />
+                <circle class="appz-ecosystem__endpoint" cx="824" cy="850" r="5" />
                 <circle class="appz-ecosystem__signal" r="6">
-                    <animateMotion dur="1.85s" repeatCount="indefinite" path="M722 706C711 617 704 515 702 426" />
+                    <animateMotion dur="1.85s" repeatCount="indefinite" path="M824 850C784 761 740 654 712 554" />
                 </circle>
             </g>
         </svg>
+
+        <div class="appz-ecosystem__hub" data-ecosystem-hub aria-hidden="true">
+            <span class="appz-ecosystem__hub-glow"></span>
+            <img src="assets/images/ecosystem/ecosystem-hub.webp"
+                 alt=""
+                 width="1536"
+                 height="1024"
+                 loading="lazy"
+                 decoding="async" />
+        </div>
 
         <a *ngFor="let island of islands; let index = index"
            class="appz-ecosystem__island"

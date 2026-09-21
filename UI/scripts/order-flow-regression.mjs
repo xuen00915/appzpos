@@ -82,6 +82,7 @@ for (const width of viewports) {
       heading: heading?.textContent.trim(),
       headingSize: heading ? Number.parseFloat(getComputedStyle(heading).fontSize) : 0,
       islandCount: islands.length,
+      hubCount: document.querySelectorAll('[data-ecosystem-hub]').length,
       connectionCount: document.querySelectorAll('[data-ecosystem-connection]').length,
       svgText: svg?.textContent.trim(),
       loadedImages: islands.filter((island) => {
@@ -106,7 +107,8 @@ for (const width of viewports) {
   if (layout.heading !== 'Everything Works Together') failures.push(`${width}px: ecosystem heading changed`);
   if (layout.headingSize > 74) failures.push(`${width}px: ecosystem heading is still oversized (${layout.headingSize}px)`);
   if (layout.islandCount !== 6) failures.push(`${width}px: expected six islands, found ${layout.islandCount}`);
-  if (layout.connectionCount !== 5) failures.push(`${width}px: expected five connections, found ${layout.connectionCount}`);
+  if (layout.hubCount !== 1) failures.push(`${width}px: expected one central cloud hub, found ${layout.hubCount}`);
+  if (layout.connectionCount !== 6) failures.push(`${width}px: expected six connections, found ${layout.connectionCount}`);
   if (layout.svgText) failures.push(`${width}px: SVG contains baked text`);
   if (layout.loadedImages !== 6) failures.push(`${width}px: not all island images loaded`);
   if (!layout.visible) failures.push(`${width}px: viewport entry did not reveal the ecosystem`);
@@ -162,7 +164,7 @@ await wait(800);
 const reducedMotion = JSON.parse(await evaluate(`JSON.stringify((() => {
   const island = document.querySelector('[data-ecosystem-island]');
   const float = island?.querySelector('.appz-ecosystem__island-float');
-  const path = document.querySelector('[data-ecosystem-connection] path');
+  const path = document.querySelector('[data-ecosystem-connection] .appz-ecosystem__route');
   return {
     islands: document.querySelectorAll('[data-ecosystem-island]').length,
     islandOpacity: island ? getComputedStyle(island).opacity : null,

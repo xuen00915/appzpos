@@ -121,7 +121,7 @@ export class HomeOrderFlowComponent implements OnInit, AfterViewInit, OnDestroy 
     this.ngZone.runOutsideAngular(() => {
       this.intersectionObserver = new window.IntersectionObserver((entries) => {
         this.handleIntersection(entries.some((entry) => entry.isIntersecting));
-      }, { threshold: .18, rootMargin: '8% 0px 8% 0px' });
+      }, { threshold: .08, rootMargin: '8% 0px 8% 0px' });
       this.intersectionObserver.observe(this.sectionRef!.nativeElement);
     });
   }

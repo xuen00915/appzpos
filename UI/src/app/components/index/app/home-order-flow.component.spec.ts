@@ -78,7 +78,9 @@ describe('HomeOrderFlowComponent ecosystem', () => {
     );
     expect(host.querySelectorAll('[data-ecosystem-island]').length).toBe(6);
     expect(host.querySelectorAll('[data-ecosystem-island] img').length).toBe(6);
-    expect(host.querySelectorAll('[data-ecosystem-connection]').length).toBe(5);
+    expect(host.querySelectorAll('[data-ecosystem-connection]').length).toBe(6);
+    expect(host.querySelector('[data-ecosystem-hub] img')?.getAttribute('src'))
+      .toBe('assets/images/ecosystem/ecosystem-hub.webp');
     expect(host.querySelector('.appz-ecosystem__connections')?.textContent?.trim()).toBe('');
   });
 
