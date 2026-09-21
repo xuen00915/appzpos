@@ -6,7 +6,9 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "test:site-content": "node scripts/site-content-contract.mjs",
+    "test:site-runtime": "node scripts/site-runtime-contract.mjs"
   },
   "private": true,
   "dependencies": {
