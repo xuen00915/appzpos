@@ -1,0 +1,160 @@
+<section #orderFlowSection class="appzpos-order-flow" aria-labelledby="appzpos-order-flow-title">
+    <h2 id="appzpos-order-flow-title" class="visually-hidden">APPZPOS ordering flow</h2>
+
+    <div *ngIf="!reducedMotion; else staticOrderFlow" class="appzpos-order-flow__scroll">
+        <div #orderFlowStage class="appzpos-order-flow__stage">
+            <ol class="appzpos-order-flow__steps" aria-label="APPZPOS order flow steps">
+                <li *ngFor="let step of steps; let index = index"
+                    class="appzpos-order-flow__step"
+                    [class.is-active]="index === activeStepIndex"
+                    [class.is-complete]="index < activeStepIndex"
+                    [attr.aria-current]="index === activeStepIndex ? 'step' : null"
+                    [attr.aria-label]="(index + 1) + '. ' + step.title">
+                    <span aria-hidden="true">{{ index + 1 }}</span>
+                </li>
+            </ol>
+
+            <div class="appzpos-order-flow__layout">
+                <figure class="appzpos-order-flow__scene">
+                    <svg viewBox="0 0 1000 460"
+                         role="img"
+                         aria-labelledby="appzpos-order-flow-svg-title appzpos-order-flow-svg-description">
+                        <title id="appzpos-order-flow-svg-title">APPZPOS connected ordering flow</title>
+                        <desc id="appzpos-order-flow-svg-description">
+                            Four ordering channels merge into one queue, continue to the kitchen display system, and reach Order Hub together with delivery-platform orders.
+                        </desc>
+
+                        <g class="appzpos-order-flow__routes" aria-hidden="true">
+                            <line class="appzpos-order-flow__route" data-entry-route x1="30" y1="50" x2="420" y2="215" />
+                            <line class="appzpos-order-flow__route" data-entry-route x1="30" y1="160" x2="420" y2="215" />
+                            <line class="appzpos-order-flow__route" data-entry-route x1="30" y1="270" x2="420" y2="215" />
+                            <line class="appzpos-order-flow__route" data-entry-route x1="30" y1="380" x2="420" y2="215" />
+                            <line class="appzpos-order-flow__route" x1="420" y1="215" x2="620" y2="215" />
+                            <line class="appzpos-order-flow__route" x1="620" y1="215" x2="860" y2="215" />
+                            <line class="appzpos-order-flow__route appzpos-order-flow__route--delivery" x1="680" y1="40" x2="860" y2="215" />
+
+                            <line class="appzpos-order-flow__route appzpos-order-flow__route--complete"
+                                  data-entry-route-complete pathLength="1" x1="30" y1="50" x2="420" y2="215" />
+                            <line class="appzpos-order-flow__route appzpos-order-flow__route--complete"
+                                  data-entry-route-complete pathLength="1" x1="30" y1="160" x2="420" y2="215" />
+                            <line class="appzpos-order-flow__route appzpos-order-flow__route--complete"
+                                  data-entry-route-complete pathLength="1" x1="30" y1="270" x2="420" y2="215" />
+                            <line class="appzpos-order-flow__route appzpos-order-flow__route--complete"
+                                  data-entry-route-complete pathLength="1" x1="30" y1="380" x2="420" y2="215" />
+                            <line class="appzpos-order-flow__route appzpos-order-flow__route--complete"
+                                  data-kds-route-complete pathLength="1" x1="420" y1="215" x2="620" y2="215" />
+                            <line class="appzpos-order-flow__route appzpos-order-flow__route--complete"
+                                  data-order-hub-route-complete pathLength="1" x1="620" y1="215" x2="860" y2="215" />
+                            <line class="appzpos-order-flow__route appzpos-order-flow__route--complete appzpos-order-flow__route--delivery-complete"
+                                  data-delivery-route-complete pathLength="1" x1="680" y1="40" x2="860" y2="215" />
+                        </g>
+
+                        <g class="appzpos-order-flow__nodes">
+                            <g data-flow-node="table-qr">
+                                <circle class="appzpos-order-flow__node" data-node-marker cx="30" cy="50" r="16" />
+                                <text class="appzpos-order-flow__node-number" x="30" y="55" text-anchor="middle">1</text>
+                                <text class="appzpos-order-flow__node-label appzpos-order-flow__node-label--entry" data-node-label x="58" y="24">Table QR</text>
+                            </g>
+                            <g data-flow-node="kiosk">
+                                <circle class="appzpos-order-flow__node" data-node-marker cx="30" cy="160" r="16" />
+                                <text class="appzpos-order-flow__node-number" x="30" y="165" text-anchor="middle">2</text>
+                                <text class="appzpos-order-flow__node-label appzpos-order-flow__node-label--entry" data-node-label x="58" y="134">Kiosk</text>
+                            </g>
+                            <g data-flow-node="website">
+                                <circle class="appzpos-order-flow__node" data-node-marker cx="30" cy="270" r="16" />
+                                <text class="appzpos-order-flow__node-number" x="30" y="275" text-anchor="middle">3</text>
+                                <text class="appzpos-order-flow__node-label appzpos-order-flow__node-label--entry" data-node-label x="58" y="244">Website</text>
+                            </g>
+                            <g data-flow-node="pos">
+                                <circle class="appzpos-order-flow__node" data-node-marker cx="30" cy="380" r="16" />
+                                <text class="appzpos-order-flow__node-number" x="30" y="385" text-anchor="middle">4</text>
+                                <text class="appzpos-order-flow__node-label appzpos-order-flow__node-label--entry" data-node-label x="58" y="354">POS / E-Waiter</text>
+                            </g>
+                            <g data-flow-node="queue">
+                                <circle class="appzpos-order-flow__node" data-node-marker cx="420" cy="215" r="16" />
+                                <text class="appzpos-order-flow__node-number" x="420" y="220" text-anchor="middle">5</text>
+                                <text class="appzpos-order-flow__node-label" data-node-label x="420" y="174" text-anchor="middle">Queue</text>
+                            </g>
+                            <g data-flow-node="kds">
+                                <circle class="appzpos-order-flow__node" data-node-marker cx="620" cy="215" r="16" />
+                                <text class="appzpos-order-flow__node-number" x="620" y="220" text-anchor="middle">6</text>
+                                <text class="appzpos-order-flow__node-label" data-node-label x="620" y="174" text-anchor="middle">KDS</text>
+                            </g>
+                            <g data-flow-node="order-hub">
+                                <circle class="appzpos-order-flow__node" data-node-marker cx="860" cy="215" r="16" />
+                                <text class="appzpos-order-flow__node-number" x="860" y="220" text-anchor="middle">7</text>
+                                <text class="appzpos-order-flow__node-label" data-node-label x="860" y="174" text-anchor="middle">Order Hub</text>
+                            </g>
+                            <g class="appzpos-order-flow__delivery-node" data-flow-node="delivery">
+                                <circle class="appzpos-order-flow__node" data-node-marker cx="680" cy="40" r="16" />
+                                <text class="appzpos-order-flow__node-number" x="680" y="45" text-anchor="middle">D</text>
+                                <text class="appzpos-order-flow__node-label appzpos-order-flow__node-label--entry" data-node-label x="708" y="45">Delivery apps</text>
+                            </g>
+                        </g>
+
+                        <g class="appzpos-order-flow__figures" aria-hidden="true">
+                            <g class="appzpos-order-flow__figure" data-entry-figure transform="translate(30 50)">
+                                <circle cx="0" cy="-10" r="5" /><line x1="0" y1="-5" x2="0" y2="8" />
+                                <line x1="0" y1="0" x2="-7" y2="5" /><line x1="0" y1="0" x2="7" y2="5" />
+                                <line data-left-leg x1="0" y1="8" x2="-6" y2="17" /><line data-right-leg x1="0" y1="8" x2="6" y2="17" />
+                            </g>
+                            <g class="appzpos-order-flow__figure" data-entry-figure transform="translate(30 160)">
+                                <circle cx="0" cy="-10" r="5" /><line x1="0" y1="-5" x2="0" y2="8" />
+                                <line x1="0" y1="0" x2="-7" y2="5" /><line x1="0" y1="0" x2="7" y2="5" />
+                                <line data-left-leg x1="0" y1="8" x2="-6" y2="17" /><line data-right-leg x1="0" y1="8" x2="6" y2="17" />
+                            </g>
+                            <g class="appzpos-order-flow__figure" data-entry-figure transform="translate(30 270)">
+                                <circle cx="0" cy="-10" r="5" /><line x1="0" y1="-5" x2="0" y2="8" />
+                                <line x1="0" y1="0" x2="-7" y2="5" /><line x1="0" y1="0" x2="7" y2="5" />
+                                <line data-left-leg x1="0" y1="8" x2="-6" y2="17" /><line data-right-leg x1="0" y1="8" x2="6" y2="17" />
+                            </g>
+                            <g class="appzpos-order-flow__figure" data-entry-figure transform="translate(30 380)">
+                                <circle cx="0" cy="-10" r="5" /><line x1="0" y1="-5" x2="0" y2="8" />
+                                <line x1="0" y1="0" x2="-7" y2="5" /><line x1="0" y1="0" x2="7" y2="5" />
+                                <line data-left-leg x1="0" y1="8" x2="-6" y2="17" /><line data-right-leg x1="0" y1="8" x2="6" y2="17" />
+                            </g>
+                            <g class="appzpos-order-flow__figure appzpos-order-flow__figure--merged"
+                               data-merged-figure opacity="0" transform="translate(420 215)">
+                                <circle cx="0" cy="-10" r="5" /><line x1="0" y1="-5" x2="0" y2="8" />
+                                <line x1="0" y1="0" x2="-7" y2="5" /><line x1="0" y1="0" x2="7" y2="5" />
+                                <line data-left-leg x1="0" y1="8" x2="-6" y2="17" /><line data-right-leg x1="0" y1="8" x2="6" y2="17" />
+                            </g>
+                            <g class="appzpos-order-flow__figure appzpos-order-flow__figure--delivery"
+                               data-delivery-figure opacity="0" transform="translate(680 40)">
+                                <circle cx="0" cy="-10" r="5" /><line x1="0" y1="-5" x2="0" y2="8" />
+                                <line x1="0" y1="0" x2="-7" y2="5" /><line x1="0" y1="0" x2="7" y2="5" />
+                                <line data-left-leg x1="0" y1="8" x2="-6" y2="17" /><line data-right-leg x1="0" y1="8" x2="6" y2="17" />
+                            </g>
+                        </g>
+                    </svg>
+                </figure>
+
+                <div class="appzpos-order-flow__caption-panel" aria-live="polite">
+                    <ng-container *ngFor="let step of steps; let index = index">
+                        <article *ngIf="index === activeStepIndex" class="appzpos-order-flow__caption">
+                            <p class="appzpos-order-flow__caption-number">{{ index + 1 }} / 7</p>
+                            <h3>{{ step.title }}</h3>
+                            <ul>
+                                <li *ngFor="let bullet of step.bullets">{{ bullet }}</li>
+                            </ul>
+                        </article>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ng-template #staticOrderFlow>
+        <ol class="appzpos-order-flow__static-list">
+            <li *ngFor="let step of steps; let index = index" class="appzpos-order-flow__static-step">
+                <div class="appzpos-order-flow__static-number" aria-hidden="true">{{ index + 1 }}</div>
+                <div>
+                    <h3>{{ step.title }}</h3>
+                    <ul>
+                        <li *ngFor="let bullet of step.bullets">{{ bullet }}</li>
+                    </ul>
+                </div>
+            </li>
+        </ol>
+    </ng-template>
+</section>
