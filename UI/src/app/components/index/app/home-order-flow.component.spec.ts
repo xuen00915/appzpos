@@ -100,6 +100,10 @@ describe('HomeOrderFlowComponent', () => {
     expect(host.querySelectorAll('[data-entry-figure]').length).toBe(4);
     expect(host.querySelector('[data-merged-figure]')).not.toBeNull();
     expect(host.querySelector('[data-delivery-figure]')).not.toBeNull();
+    expect(host.querySelectorAll('[data-order-channel]').length).toBe(4);
+    expect(host.querySelector('[data-queue-core]')).not.toBeNull();
+    expect(host.querySelector('[data-kds-core]')).not.toBeNull();
+    expect(host.querySelector('[data-order-hub-core]')).not.toBeNull();
   });
 
   it('switches the scene and caption when a numbered step is clicked', () => {

@@ -1,8 +1,7 @@
 <section #orderFlowSection class="appzpos-order-flow" aria-labelledby="appzpos-order-flow-title">
-    <h2 id="appzpos-order-flow-title" class="visually-hidden">APPZPOS ordering flow</h2>
-
     <div *ngIf="!reducedMotion; else staticOrderFlow" class="appzpos-order-flow__scroll">
         <div #orderFlowStage class="appzpos-order-flow__stage">
+            <h2 id="appzpos-order-flow-title" class="appzpos-order-flow__title">APPZPOS ordering flow</h2>
             <ol class="appzpos-order-flow__steps" aria-label="APPZPOS order flow steps">
                 <li *ngFor="let step of steps; let index = index"
                     class="appzpos-order-flow__step"
@@ -87,49 +86,49 @@
                         </g>
 
                         <g class="appzpos-order-flow__nodes">
-                            <g data-flow-node="table-qr" [class.is-active]="activeStepIndex === 0" [class.is-complete]="activeStepIndex > 0">
+                            <g data-flow-node="table-qr" data-order-channel [class.is-active]="activeStepIndex === 0" [class.is-complete]="activeStepIndex > 0">
                                 <circle class="appzpos-order-flow__node-halo" cx="30" cy="50" r="31" />
                                 <circle class="appzpos-order-flow__node-orbit" cx="30" cy="50" r="23" />
                                 <circle class="appzpos-order-flow__node" data-node-marker cx="30" cy="50" r="17" />
                                 <text class="appzpos-order-flow__node-number" x="30" y="55" text-anchor="middle">1</text>
                                 <text class="appzpos-order-flow__node-label appzpos-order-flow__node-label--entry" data-node-label x="58" y="24">Table QR</text>
                             </g>
-                            <g data-flow-node="kiosk" [class.is-active]="activeStepIndex === 1" [class.is-complete]="activeStepIndex > 1">
+                            <g data-flow-node="kiosk" data-order-channel [class.is-active]="activeStepIndex === 1" [class.is-complete]="activeStepIndex > 1">
                                 <circle class="appzpos-order-flow__node-halo" cx="30" cy="160" r="31" />
                                 <circle class="appzpos-order-flow__node-orbit" cx="30" cy="160" r="23" />
                                 <circle class="appzpos-order-flow__node" data-node-marker cx="30" cy="160" r="17" />
                                 <text class="appzpos-order-flow__node-number" x="30" y="165" text-anchor="middle">2</text>
                                 <text class="appzpos-order-flow__node-label appzpos-order-flow__node-label--entry" data-node-label x="58" y="134">Kiosk</text>
                             </g>
-                            <g data-flow-node="website" [class.is-active]="activeStepIndex === 2" [class.is-complete]="activeStepIndex > 2">
+                            <g data-flow-node="website" data-order-channel [class.is-active]="activeStepIndex === 2" [class.is-complete]="activeStepIndex > 2">
                                 <circle class="appzpos-order-flow__node-halo" cx="30" cy="270" r="31" />
                                 <circle class="appzpos-order-flow__node-orbit" cx="30" cy="270" r="23" />
                                 <circle class="appzpos-order-flow__node" data-node-marker cx="30" cy="270" r="17" />
                                 <text class="appzpos-order-flow__node-number" x="30" y="275" text-anchor="middle">3</text>
                                 <text class="appzpos-order-flow__node-label appzpos-order-flow__node-label--entry" data-node-label x="58" y="244">Website</text>
                             </g>
-                            <g data-flow-node="pos" [class.is-active]="activeStepIndex === 3" [class.is-complete]="activeStepIndex > 3">
+                            <g data-flow-node="pos" data-order-channel [class.is-active]="activeStepIndex === 3" [class.is-complete]="activeStepIndex > 3">
                                 <circle class="appzpos-order-flow__node-halo" cx="30" cy="380" r="31" />
                                 <circle class="appzpos-order-flow__node-orbit" cx="30" cy="380" r="23" />
                                 <circle class="appzpos-order-flow__node" data-node-marker cx="30" cy="380" r="17" />
                                 <text class="appzpos-order-flow__node-number" x="30" y="385" text-anchor="middle">4</text>
                                 <text class="appzpos-order-flow__node-label appzpos-order-flow__node-label--entry" data-node-label x="58" y="354">POS / E-Waiter</text>
                             </g>
-                            <g data-flow-node="queue" [class.is-active]="activeStepIndex === 4" [class.is-complete]="activeStepIndex > 4">
+                            <g data-flow-node="queue" data-queue-core [class.is-active]="activeStepIndex === 4" [class.is-complete]="activeStepIndex > 4">
                                 <circle class="appzpos-order-flow__node-halo" cx="420" cy="215" r="35" />
                                 <circle class="appzpos-order-flow__node-orbit" cx="420" cy="215" r="26" />
                                 <circle class="appzpos-order-flow__node appzpos-order-flow__node--hub" data-node-marker cx="420" cy="215" r="19" />
                                 <text class="appzpos-order-flow__node-number" x="420" y="220" text-anchor="middle">5</text>
                                 <text class="appzpos-order-flow__node-label" data-node-label x="420" y="174" text-anchor="middle">Queue</text>
                             </g>
-                            <g data-flow-node="kds" [class.is-active]="activeStepIndex === 5" [class.is-complete]="activeStepIndex > 5">
+                            <g data-flow-node="kds" data-kds-core [class.is-active]="activeStepIndex === 5" [class.is-complete]="activeStepIndex > 5">
                                 <circle class="appzpos-order-flow__node-halo" cx="620" cy="215" r="35" />
                                 <circle class="appzpos-order-flow__node-orbit" cx="620" cy="215" r="26" />
                                 <circle class="appzpos-order-flow__node appzpos-order-flow__node--hub" data-node-marker cx="620" cy="215" r="19" />
                                 <text class="appzpos-order-flow__node-number" x="620" y="220" text-anchor="middle">6</text>
                                 <text class="appzpos-order-flow__node-label" data-node-label x="620" y="174" text-anchor="middle">KDS</text>
                             </g>
-                            <g data-flow-node="order-hub" [class.is-active]="activeStepIndex === 6">
+                            <g data-flow-node="order-hub" data-order-hub-core [class.is-active]="activeStepIndex === 6">
                                 <circle class="appzpos-order-flow__node-halo" cx="860" cy="215" r="39" />
                                 <circle class="appzpos-order-flow__node-orbit" cx="860" cy="215" r="29" />
                                 <circle class="appzpos-order-flow__node appzpos-order-flow__node--hub appzpos-order-flow__node--destination" data-node-marker cx="860" cy="215" r="21" />
@@ -203,6 +202,7 @@
     </div>
 
     <ng-template #staticOrderFlow>
+        <h2 id="appzpos-order-flow-title" class="appzpos-order-flow__title appzpos-order-flow__title--static">APPZPOS ordering flow</h2>
         <ol class="appzpos-order-flow__static-list">
             <li *ngFor="let step of steps; let index = index" class="appzpos-order-flow__static-step">
                 <div class="appzpos-order-flow__static-number" aria-hidden="true">{{ index + 1 }}</div>

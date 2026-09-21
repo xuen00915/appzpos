@@ -14,15 +14,15 @@ app-home-order-flow {
 .appzpos-order-flow {
   --appzpos-order-flow-nav-height: 72px;
   background:
-    radial-gradient(circle at 69% 34%, rgba($blue, .12), transparent 31%),
-    radial-gradient(circle at 20% 71%, rgba($orange, .09), transparent 27%),
-    linear-gradient(180deg, #fff 0%, $paper 18%, #f4f9fb 100%),
+    radial-gradient(circle at 72% 31%, rgba($blue, .1), transparent 28%),
+    radial-gradient(circle at 18% 74%, rgba($orange, .07), transparent 24%),
+    linear-gradient(180deg, #fff 0%, $paper 26%, #f4f8fb 100%),
     $paper;
   color: $ink;
   overflow: clip;
 
   &__scroll {
-    min-height: 760vh;
+    min-height: 460vh;
     position: relative;
   }
 
@@ -31,9 +31,35 @@ app-home-order-flow {
     box-sizing: border-box;
     display: grid;
     min-height: calc(100dvh - var(--appzpos-order-flow-nav-height));
-    padding: clamp(1.25rem, 2.8vh, 2.5rem) clamp(1rem, 3vw, 3rem) clamp(2rem, 5vh, 4rem);
+    padding: clamp(1rem, 2.2vh, 2rem) clamp(1rem, 3vw, 3rem) clamp(1.5rem, 4vh, 3rem);
     position: sticky;
     top: var(--appzpos-order-flow-nav-height);
+  }
+
+  &__title {
+    color: rgba($ink, .74);
+    font-size: clamp(.72rem, .8vw, .82rem);
+    font-weight: 800;
+    letter-spacing: .2em;
+    line-height: 1;
+    margin: 0 auto .65rem;
+    text-align: center;
+    text-transform: uppercase;
+
+    &::before {
+      background: $orange;
+      border-radius: 50%;
+      content: '';
+      display: inline-block;
+      height: .48rem;
+      margin-right: .65rem;
+      vertical-align: .04rem;
+      width: .48rem;
+    }
+
+    &--static {
+      padding-top: clamp(3rem, 7vw, 7rem);
+    }
   }
 
   &__steps {
@@ -42,7 +68,7 @@ app-home-order-flow {
     gap: clamp(.45rem, 1.2vw, 1.1rem);
     grid-template-columns: repeat(7, minmax(0, 1fr));
     list-style: none;
-    margin: 0 auto clamp(1rem, 2vh, 1.75rem);
+    margin: 0 auto clamp(.75rem, 1.5vh, 1.25rem);
     max-width: 46rem;
     padding: 0;
     position: relative;
@@ -137,23 +163,27 @@ app-home-order-flow {
   &__layout {
     align-items: center;
     display: grid;
-    gap: clamp(2rem, 4vw, 5rem);
-    grid-template-columns: minmax(0, 1.7fr) minmax(18rem, .7fr);
+    gap: clamp(1.5rem, 3.5vw, 4rem);
+    grid-template-columns: minmax(0, 1.62fr) minmax(18rem, .72fr);
     margin: 0 auto;
     max-width: 90rem;
     width: min(94vw, 90rem);
   }
 
   &__scene {
+    border: 1px solid rgba($ink, .08);
+    border-radius: clamp(1.25rem, 2.4vw, 2.5rem);
+    box-shadow: 0 28px 80px rgba($ink, .12), 0 2px 0 rgba(#fff, .9) inset;
     margin: 0;
     min-width: 0;
+    overflow: hidden;
     position: relative;
 
     &::before {
       background: radial-gradient(ellipse, rgba($blue, .19), transparent 64%);
       content: '';
       filter: blur(28px);
-      inset: 15% 8% 4%;
+      inset: 10% 5% 0;
       position: absolute;
       transform: translateY(6%);
     }
@@ -168,14 +198,13 @@ app-home-order-flow {
   }
 
   &__scene-surface {
-    filter: drop-shadow(0 24px 30px rgba($ink, .11));
-    stroke: rgba(#fff, .95);
-    stroke-width: 2;
+    stroke: rgba($ink, .045);
+    stroke-width: 1;
     vector-effect: non-scaling-stroke;
   }
 
   &__scene-grid {
-    opacity: .68;
+    opacity: .42;
   }
 
   &__scene-aura {
@@ -377,8 +406,23 @@ app-home-order-flow {
 
   &__caption {
     animation: appzpos-caption-in 260ms ease both;
-    border-left: 3px solid $orange;
-    padding: .4rem 0 .4rem clamp(1.25rem, 2.5vw, 2rem);
+    background: rgba(#fff, .8);
+    border: 1px solid rgba($ink, .08);
+    border-radius: 1.5rem;
+    box-shadow: 0 24px 60px rgba($ink, .09), inset 0 1px 0 #fff;
+    padding: clamp(1.35rem, 2.8vw, 2.25rem);
+    position: relative;
+
+    &::before {
+      background: linear-gradient(180deg, $orange, #ffa260);
+      border-radius: 999px;
+      content: '';
+      left: -1px;
+      position: absolute;
+      top: 1.5rem;
+      bottom: 1.5rem;
+      width: 3px;
+    }
 
     h3 {
       color: $ink;
@@ -386,7 +430,7 @@ app-home-order-flow {
       font-weight: 750;
       letter-spacing: -.045em;
       line-height: 1.02;
-      margin: 0 0 1.25rem;
+      margin: 0 0 1.1rem;
     }
 
     ul {
@@ -424,7 +468,7 @@ app-home-order-flow {
     background: rgba(#fff, .82);
     border: 1px solid rgba($ink, .1);
     border-radius: 999px;
-    bottom: 5rem;
+      bottom: 5rem;
     box-shadow: 0 12px 32px rgba($ink, .1), inset 0 1px 0 rgba(#fff, .95);
     color: $ink;
     cursor: pointer;
@@ -528,7 +572,7 @@ app-home-order-flow {
 @media (max-width: 1023px) {
   .appzpos-order-flow {
     &__scroll {
-      min-height: 650vh;
+      min-height: 430vh;
     }
 
     &__stage {
@@ -571,13 +615,17 @@ app-home-order-flow {
 @media (max-width: 767px) {
   .appzpos-order-flow {
     &__scroll {
-      min-height: 610vh;
+      min-height: 420vh;
     }
 
     &__stage {
       align-content: center;
       min-height: calc(100dvh - var(--appzpos-order-flow-nav-height));
       padding: 1rem 0 3rem;
+    }
+
+    &__title {
+      margin-bottom: .35rem;
     }
 
     &__steps {
@@ -611,6 +659,10 @@ app-home-order-flow {
     }
 
     &__scene {
+      border-left: 0;
+      border-radius: 0;
+      border-right: 0;
+      box-shadow: 0 20px 52px rgba($ink, .11);
       overflow: hidden;
       padding-inline: .3rem;
       width: 100%;
@@ -640,7 +692,8 @@ app-home-order-flow {
     }
 
     &__caption {
-      padding: .15rem 0 .15rem 1rem;
+      border-radius: 1.15rem;
+      padding: 1.15rem 1.15rem 1.15rem 1.3rem;
 
       h3 {
         font-size: clamp(1.35rem, 6vw, 1.8rem);
