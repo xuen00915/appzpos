@@ -14,8 +14,9 @@ app-home-order-flow {
 .appzpos-order-flow {
   --appzpos-order-flow-nav-height: 72px;
   background:
-    radial-gradient(circle at 68% 42%, rgba($blue, .08), transparent 30%),
-    radial-gradient(circle at 21% 70%, rgba($orange, .07), transparent 26%),
+    radial-gradient(circle at 69% 34%, rgba($blue, .12), transparent 31%),
+    radial-gradient(circle at 20% 71%, rgba($orange, .09), transparent 27%),
+    linear-gradient(180deg, #fff 0%, $paper 18%, #f4f9fb 100%),
     $paper;
   color: $ink;
   overflow: clip;
@@ -64,11 +65,49 @@ app-home-order-flow {
     position: relative;
     z-index: 1;
 
+    &-button {
+      align-items: center;
+      appearance: none;
+      background: transparent;
+      border: 0;
+      cursor: pointer;
+      display: flex;
+      height: 44px;
+      justify-content: center;
+      margin: 0;
+      padding: 0;
+      position: relative;
+      width: 44px;
+
+      &::before {
+        background: radial-gradient(circle, rgba($blue, .18), transparent 68%);
+        border-radius: 50%;
+        content: '';
+        inset: -8px;
+        opacity: 0;
+        position: absolute;
+        transform: scale(.72);
+        transition: opacity 220ms ease, transform 220ms ease;
+      }
+
+      &:hover::before,
+      &:focus-visible::before {
+        opacity: 1;
+        transform: scale(1);
+      }
+
+      &:focus-visible {
+        outline: 2px solid rgba($blue, .72);
+        outline-offset: 3px;
+      }
+    }
+
     span {
       align-items: center;
-      background: $paper;
+      background: rgba(#fff, .92);
       border: 1px solid rgba($line, .75);
       border-radius: 50%;
+      box-shadow: 0 4px 12px rgba($ink, .06), inset 0 1px 0 #fff;
       color: #6f7f91;
       display: flex;
       font-size: .72rem;
@@ -80,16 +119,17 @@ app-home-order-flow {
     }
 
     &.is-active span {
-      background: $ink;
-      border-color: $ink;
-      box-shadow: 0 6px 18px rgba($ink, .15);
+      background: linear-gradient(145deg, #18345d, $ink);
+      border-color: rgba(#fff, .5);
+      box-shadow: 0 0 0 5px rgba($blue, .09), 0 9px 24px rgba($ink, .24), inset 0 1px 0 rgba(#fff, .28);
       color: #fff;
-      transform: scale(1.08);
+      transform: scale(1.12);
     }
 
     &.is-complete span {
-      background: $green;
-      border-color: $green;
+      background: linear-gradient(145deg, #43bc80, $green);
+      border-color: rgba(#fff, .58);
+      box-shadow: 0 6px 16px rgba($green, .21), inset 0 1px 0 rgba(#fff, .3);
       color: #fff;
     }
   }
@@ -110,13 +150,12 @@ app-home-order-flow {
     position: relative;
 
     &::before {
-      background: rgba(#fff, .64);
-      border: 1px solid rgba($ink, .07);
-      border-radius: 2rem;
-      box-shadow: 0 24px 70px rgba($ink, .07);
+      background: radial-gradient(ellipse, rgba($blue, .19), transparent 64%);
       content: '';
-      inset: 3% 1%;
+      filter: blur(28px);
+      inset: 15% 8% 4%;
       position: absolute;
+      transform: translateY(6%);
     }
 
     svg {
@@ -128,12 +167,32 @@ app-home-order-flow {
     }
   }
 
+  &__scene-surface {
+    filter: drop-shadow(0 24px 30px rgba($ink, .11));
+    stroke: rgba(#fff, .95);
+    stroke-width: 2;
+    vector-effect: non-scaling-stroke;
+  }
+
+  &__scene-grid {
+    opacity: .68;
+  }
+
+  &__scene-aura {
+    fill: rgba($blue, .12);
+    filter: url('#appzpos-flow-soft-glow');
+
+    &--orange {
+      fill: rgba($orange, .12);
+    }
+  }
+
   &__route {
     fill: none;
     stroke: rgba($line, .78);
     stroke-dasharray: 7 9;
     stroke-linecap: round;
-    stroke-width: 2;
+    stroke-width: 2.2;
     vector-effect: non-scaling-stroke;
 
     &--delivery {
@@ -144,7 +203,8 @@ app-home-order-flow {
       stroke: $green;
       stroke-dasharray: 1;
       stroke-dashoffset: 1;
-      stroke-width: 3;
+      stroke-width: 3.5;
+      filter: drop-shadow(0 0 4px rgba($green, .35));
     }
 
     &--delivery-complete {
@@ -153,9 +213,38 @@ app-home-order-flow {
   }
 
   &__node {
-    fill: $paper;
+    fill: rgba(#fff, .96);
     stroke: $ink;
     stroke-width: 2;
+    vector-effect: non-scaling-stroke;
+
+    &--hub {
+      stroke-width: 2.5;
+    }
+
+    &--destination {
+      fill: rgba(#fff, .96);
+      stroke: $ink;
+    }
+  }
+
+  &__node-halo {
+    fill: rgba($blue, .24);
+    filter: url('#appzpos-flow-soft-glow');
+    opacity: 0;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: opacity 260ms ease, transform 260ms ease;
+  }
+
+  &__node-orbit {
+    fill: rgba(#fff, .3);
+    stroke: rgba($blue, .28);
+    stroke-dasharray: 3 5;
+    stroke-width: 1;
+    transform-box: fill-box;
+    transform-origin: center;
+    transition: stroke 240ms ease, transform 240ms ease;
     vector-effect: non-scaling-stroke;
   }
 
@@ -164,6 +253,46 @@ app-home-order-flow {
     font-size: 12px;
     font-weight: 800;
     pointer-events: none;
+  }
+
+  &__nodes [data-flow-node].is-active {
+    .appzpos-order-flow__node-halo {
+      opacity: 1;
+      transform: scale(1.1);
+    }
+
+    .appzpos-order-flow__node-orbit {
+      stroke: rgba($blue, .78);
+      transform: rotate(18deg) scale(1.06);
+    }
+
+    .appzpos-order-flow__node {
+      fill: $ink;
+      stroke: #fff;
+    }
+
+    .appzpos-order-flow__node-number {
+      fill: #fff;
+    }
+
+    .appzpos-order-flow__node-label {
+      fill: $blue;
+    }
+  }
+
+  &__nodes [data-flow-node].is-complete {
+    .appzpos-order-flow__node {
+      fill: $green;
+      stroke: #fff;
+    }
+
+    .appzpos-order-flow__node-number {
+      fill: #fff;
+    }
+
+    .appzpos-order-flow__node-orbit {
+      stroke: rgba($green, .52);
+    }
   }
 
   &__node-label {
@@ -181,22 +310,62 @@ app-home-order-flow {
     fill: $orange;
   }
 
-  &__figure {
-    fill: $paper;
-    opacity: 1;
-    stroke: $blue;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-width: 3;
-    vector-effect: non-scaling-stroke;
+  &__delivery-node.is-active &__node-halo {
+    fill: rgba($orange, .28);
+  }
+
+  &__delivery-node.is-active &__node-orbit {
+    stroke: rgba($orange, .82);
+  }
+
+  &__delivery-node.is-active &__node-label {
+    fill: $orange;
+  }
+
+  &__token {
     will-change: transform, opacity;
 
+    &-glow {
+      fill: rgba($blue, .3);
+      filter: url('#appzpos-flow-soft-glow');
+    }
+
+    &-body {
+      fill: url('#appzpos-flow-token');
+      stroke: rgba(#fff, .92);
+      stroke-width: 1.5;
+      vector-effect: non-scaling-stroke;
+    }
+
+    &-mark,
+    &-check,
+    &-arrow {
+      fill: none;
+      stroke: #fff;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 2;
+      vector-effect: non-scaling-stroke;
+    }
+
     &--merged {
-      stroke: $green;
+      .appzpos-order-flow__token-glow {
+        fill: rgba($green, .38);
+      }
+
+      .appzpos-order-flow__token-body {
+        fill: url('#appzpos-flow-merged-token');
+      }
     }
 
     &--delivery {
-      stroke: $orange;
+      .appzpos-order-flow__token-glow {
+        fill: rgba($orange, .38);
+      }
+
+      .appzpos-order-flow__token-body {
+        fill: url('#appzpos-flow-delivery-token');
+      }
     }
   }
 
@@ -245,6 +414,57 @@ app-home-order-flow {
         top: .58em;
         width: .38rem;
       }
+    }
+  }
+
+  &__skip {
+    align-items: center;
+    appearance: none;
+    backdrop-filter: blur(14px);
+    background: rgba(#fff, .82);
+    border: 1px solid rgba($ink, .1);
+    border-radius: 999px;
+    bottom: 5rem;
+    box-shadow: 0 12px 32px rgba($ink, .1), inset 0 1px 0 rgba(#fff, .95);
+    color: $ink;
+    cursor: pointer;
+    display: flex;
+    font-size: .78rem;
+    font-weight: 700;
+    gap: .55rem;
+    letter-spacing: .01em;
+    min-height: 44px;
+    padding: .65rem .75rem .65rem 1rem;
+    position: absolute;
+    right: clamp(1rem, 3vw, 3rem);
+    transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+    z-index: 4;
+
+    svg {
+      background: linear-gradient(145deg, #ff9856, $orange);
+      border-radius: 50%;
+      height: 1.65rem;
+      padding: .34rem;
+      width: 1.65rem;
+    }
+
+    path {
+      fill: none;
+      stroke: #fff;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-width: 1.8;
+    }
+
+    &:hover {
+      border-color: rgba($orange, .42);
+      box-shadow: 0 15px 38px rgba($ink, .14), 0 0 0 4px rgba($orange, .07);
+      transform: translateY(-2px);
+    }
+
+    &:focus-visible {
+      outline: 2px solid rgba($orange, .8);
+      outline-offset: 3px;
     }
   }
 
@@ -361,7 +581,7 @@ app-home-order-flow {
     }
 
     &__steps {
-      gap: .7rem;
+      gap: .25rem;
       justify-content: start;
       margin: 0 0 .75rem;
       max-width: none;
@@ -382,7 +602,7 @@ app-home-order-flow {
 
     &__step {
       flex: 0 0 auto;
-      width: 2rem;
+      width: 2.75rem;
     }
 
     &__layout {
@@ -432,6 +652,11 @@ app-home-order-flow {
         line-height: 1.42;
       }
     }
+
+    &__skip {
+      bottom: 4.5rem;
+      right: .85rem;
+    }
   }
 }
 
@@ -449,6 +674,19 @@ app-home-order-flow {
       font-size: .84rem;
       line-height: 1.38;
     }
+
+    &__skip {
+      padding-left: .85rem;
+
+      span {
+        font-size: 0;
+
+        &::after {
+          content: 'Skip';
+          font-size: .76rem;
+        }
+      }
+    }
   }
 }
 
@@ -459,6 +697,12 @@ app-home-order-flow {
     }
 
     &__step span {
+      transition: none;
+    }
+
+    &__node-halo,
+    &__node-orbit,
+    &__skip {
       transition: none;
     }
   }

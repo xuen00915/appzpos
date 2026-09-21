@@ -94,6 +94,8 @@ for (const width of viewports) {
       placement: hero?.nextElementSibling?.tagName.toLowerCase(),
       contentAfterFlow: section?.closest('app-home-order-flow')?.nextElementSibling?.id,
       stepCount: document.querySelectorAll('.appzpos-order-flow__step').length,
+      stepButtonCount: document.querySelectorAll('.appzpos-order-flow__step-button').length,
+      orderTokenCount: document.querySelectorAll('[data-order-token]').length,
       scene: rect(svg),
       stage: rect(stage),
       page: {
@@ -112,6 +114,8 @@ for (const width of viewports) {
   if (initial.placement !== 'app-home-order-flow') failures.push(`${width}px: order flow is not directly after the hero`);
   if (initial.contentAfterFlow !== 'content') failures.push(`${width}px: original homepage content does not follow the order flow`);
   if (initial.stepCount !== 7) failures.push(`${width}px: expected seven step indicators, found ${initial.stepCount}`);
+  if (initial.stepButtonCount !== 7) failures.push(`${width}px: expected seven clickable step buttons, found ${initial.stepButtonCount}`);
+  if (initial.orderTokenCount !== 6) failures.push(`${width}px: expected six animated order tokens, found ${initial.orderTokenCount}`);
   if (initial.page.scrollWidth > initial.page.clientWidth) failures.push(`${width}px: page has horizontal overflow`);
   if (initial.scene.x < -1 || initial.scene.x + initial.scene.width > width + 1) failures.push(`${width}px: SVG scene exceeds the viewport`);
   initial.labelMarkerCollisions.forEach((collision, index) => {
@@ -133,7 +137,7 @@ for (const width of viewports) {
     })()`);
     await wait(90);
     const state = JSON.parse(await evaluate(`JSON.stringify((() => ({
-      activeStep: Number(document.querySelector('.appzpos-order-flow__step[aria-current="step"]')?.textContent.trim()),
+      activeStep: Number(document.querySelector('.appzpos-order-flow__step-button[aria-current="step"]')?.textContent.trim()),
       entryFiguresVisible: [...document.querySelectorAll('[data-entry-figure]')].filter((item) => item.getAttribute('opacity') !== '0').length,
       mergedFigure: document.querySelector('[data-merged-figure]')?.getAttribute('transform'),
       mergedVisible: document.querySelector('[data-merged-figure]')?.getAttribute('opacity'),
@@ -156,7 +160,30 @@ for (const width of viewports) {
   if (finish.deliveryVisible !== '1' || translatedX(finish.deliveryFigure) < 859.5) failures.push(`${width}px: delivery figure does not arrive at Order Hub`);
   if (finish.mergedVisible !== '1' || translatedX(finish.mergedFigure) < 859.5) failures.push(`${width}px: merged order does not arrive at Order Hub`);
 
-  layouts[width] = { initial, states };
+  await evaluate(`document.querySelectorAll('.appzpos-order-flow__step-button')[2].click()`);
+  await wait(60);
+  const clickedStep = JSON.parse(await evaluate(`JSON.stringify({
+    activeStep: Number(document.querySelector('.appzpos-order-flow__step-button[aria-current="step"]')?.textContent.trim()),
+    captionTitle: document.querySelector('.appzpos-order-flow__caption h3')?.textContent.trim()
+  })`));
+  if (clickedStep.activeStep !== 3 || clickedStep.captionTitle !== 'Website Ordering') {
+    failures.push(`${width}px: clicking step 3 does not switch the scene and caption`);
+  }
+
+  if (width === 1440 || width === 430) {
+    await evaluate(`document.querySelector('.appzpos-order-flow__skip').click()`);
+    await wait(850);
+    const skipped = JSON.parse(await evaluate(`JSON.stringify((() => {
+      const header = document.querySelector('#header-wrap')?.getBoundingClientRect().height ?? 60;
+      const contentTop = document.querySelector('#content').getBoundingClientRect().top;
+      return { contentTop, header };
+    })())`));
+    if (Math.abs(skipped.contentTop - skipped.header) > 3) {
+      failures.push(`${width}px: skip control does not land at the original homepage content`);
+    }
+  }
+
+  layouts[width] = { initial, states, clickedStep };
 
   if (screenshotDirectory && (width === 1440 || width === 430)) {
     await evaluate(`(() => {

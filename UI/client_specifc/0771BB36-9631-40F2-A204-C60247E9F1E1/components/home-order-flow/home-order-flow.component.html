@@ -7,10 +7,14 @@
                 <li *ngFor="let step of steps; let index = index"
                     class="appzpos-order-flow__step"
                     [class.is-active]="index === activeStepIndex"
-                    [class.is-complete]="index < activeStepIndex"
-                    [attr.aria-current]="index === activeStepIndex ? 'step' : null"
-                    [attr.aria-label]="(index + 1) + '. ' + step.title">
-                    <span aria-hidden="true">{{ index + 1 }}</span>
+                    [class.is-complete]="index < activeStepIndex">
+                    <button class="appzpos-order-flow__step-button"
+                            type="button"
+                            [attr.aria-current]="index === activeStepIndex ? 'step' : null"
+                            [attr.aria-label]="'Go to step ' + (index + 1) + ': ' + step.title"
+                            (click)="goToStep(index)">
+                        <span aria-hidden="true">{{ index + 1 }}</span>
+                    </button>
                 </li>
             </ol>
 
@@ -23,6 +27,39 @@
                         <desc id="appzpos-order-flow-svg-description">
                             Four ordering channels merge into one queue, continue to the kitchen display system, and reach Order Hub together with delivery-platform orders.
                         </desc>
+
+                        <defs aria-hidden="true">
+                            <linearGradient id="appzpos-flow-surface" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0" stop-color="#ffffff" />
+                                <stop offset="0.55" stop-color="#f8fbfd" />
+                                <stop offset="1" stop-color="#edf6fb" />
+                            </linearGradient>
+                            <linearGradient id="appzpos-flow-token" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0" stop-color="#20b7f2" />
+                                <stop offset="1" stop-color="#1477d4" />
+                            </linearGradient>
+                            <linearGradient id="appzpos-flow-merged-token" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0" stop-color="#50c88b" />
+                                <stop offset="1" stop-color="#23835a" />
+                            </linearGradient>
+                            <linearGradient id="appzpos-flow-delivery-token" x1="0" y1="0" x2="1" y2="1">
+                                <stop offset="0" stop-color="#ffad66" />
+                                <stop offset="1" stop-color="#f26a2e" />
+                            </linearGradient>
+                            <pattern id="appzpos-flow-grid" width="32" height="32" patternUnits="userSpaceOnUse">
+                                <path d="M32 0H0V32" fill="none" stroke="#7fa2bc" stroke-opacity="0.12" stroke-width="1" />
+                            </pattern>
+                            <filter id="appzpos-flow-soft-glow" x="-100%" y="-100%" width="300%" height="300%">
+                                <feGaussianBlur stdDeviation="7" />
+                            </filter>
+                        </defs>
+
+                        <g class="appzpos-order-flow__scene-foundation" aria-hidden="true">
+                            <rect class="appzpos-order-flow__scene-surface" x="2" y="2" width="996" height="456" rx="42" fill="url(#appzpos-flow-surface)" />
+                            <rect class="appzpos-order-flow__scene-grid" x="20" y="20" width="960" height="420" rx="30" fill="url(#appzpos-flow-grid)" />
+                            <ellipse class="appzpos-order-flow__scene-aura" cx="430" cy="232" rx="255" ry="122" />
+                            <ellipse class="appzpos-order-flow__scene-aura appzpos-order-flow__scene-aura--orange" cx="810" cy="154" rx="148" ry="104" />
+                        </g>
 
                         <g class="appzpos-order-flow__routes" aria-hidden="true">
                             <line class="appzpos-order-flow__route" data-entry-route x1="30" y1="50" x2="420" y2="215" />
@@ -50,80 +87,92 @@
                         </g>
 
                         <g class="appzpos-order-flow__nodes">
-                            <g data-flow-node="table-qr">
-                                <circle class="appzpos-order-flow__node" data-node-marker cx="30" cy="50" r="16" />
+                            <g data-flow-node="table-qr" [class.is-active]="activeStepIndex === 0" [class.is-complete]="activeStepIndex > 0">
+                                <circle class="appzpos-order-flow__node-halo" cx="30" cy="50" r="31" />
+                                <circle class="appzpos-order-flow__node-orbit" cx="30" cy="50" r="23" />
+                                <circle class="appzpos-order-flow__node" data-node-marker cx="30" cy="50" r="17" />
                                 <text class="appzpos-order-flow__node-number" x="30" y="55" text-anchor="middle">1</text>
                                 <text class="appzpos-order-flow__node-label appzpos-order-flow__node-label--entry" data-node-label x="58" y="24">Table QR</text>
                             </g>
-                            <g data-flow-node="kiosk">
-                                <circle class="appzpos-order-flow__node" data-node-marker cx="30" cy="160" r="16" />
+                            <g data-flow-node="kiosk" [class.is-active]="activeStepIndex === 1" [class.is-complete]="activeStepIndex > 1">
+                                <circle class="appzpos-order-flow__node-halo" cx="30" cy="160" r="31" />
+                                <circle class="appzpos-order-flow__node-orbit" cx="30" cy="160" r="23" />
+                                <circle class="appzpos-order-flow__node" data-node-marker cx="30" cy="160" r="17" />
                                 <text class="appzpos-order-flow__node-number" x="30" y="165" text-anchor="middle">2</text>
                                 <text class="appzpos-order-flow__node-label appzpos-order-flow__node-label--entry" data-node-label x="58" y="134">Kiosk</text>
                             </g>
-                            <g data-flow-node="website">
-                                <circle class="appzpos-order-flow__node" data-node-marker cx="30" cy="270" r="16" />
+                            <g data-flow-node="website" [class.is-active]="activeStepIndex === 2" [class.is-complete]="activeStepIndex > 2">
+                                <circle class="appzpos-order-flow__node-halo" cx="30" cy="270" r="31" />
+                                <circle class="appzpos-order-flow__node-orbit" cx="30" cy="270" r="23" />
+                                <circle class="appzpos-order-flow__node" data-node-marker cx="30" cy="270" r="17" />
                                 <text class="appzpos-order-flow__node-number" x="30" y="275" text-anchor="middle">3</text>
                                 <text class="appzpos-order-flow__node-label appzpos-order-flow__node-label--entry" data-node-label x="58" y="244">Website</text>
                             </g>
-                            <g data-flow-node="pos">
-                                <circle class="appzpos-order-flow__node" data-node-marker cx="30" cy="380" r="16" />
+                            <g data-flow-node="pos" [class.is-active]="activeStepIndex === 3" [class.is-complete]="activeStepIndex > 3">
+                                <circle class="appzpos-order-flow__node-halo" cx="30" cy="380" r="31" />
+                                <circle class="appzpos-order-flow__node-orbit" cx="30" cy="380" r="23" />
+                                <circle class="appzpos-order-flow__node" data-node-marker cx="30" cy="380" r="17" />
                                 <text class="appzpos-order-flow__node-number" x="30" y="385" text-anchor="middle">4</text>
                                 <text class="appzpos-order-flow__node-label appzpos-order-flow__node-label--entry" data-node-label x="58" y="354">POS / E-Waiter</text>
                             </g>
-                            <g data-flow-node="queue">
-                                <circle class="appzpos-order-flow__node" data-node-marker cx="420" cy="215" r="16" />
+                            <g data-flow-node="queue" [class.is-active]="activeStepIndex === 4" [class.is-complete]="activeStepIndex > 4">
+                                <circle class="appzpos-order-flow__node-halo" cx="420" cy="215" r="35" />
+                                <circle class="appzpos-order-flow__node-orbit" cx="420" cy="215" r="26" />
+                                <circle class="appzpos-order-flow__node appzpos-order-flow__node--hub" data-node-marker cx="420" cy="215" r="19" />
                                 <text class="appzpos-order-flow__node-number" x="420" y="220" text-anchor="middle">5</text>
                                 <text class="appzpos-order-flow__node-label" data-node-label x="420" y="174" text-anchor="middle">Queue</text>
                             </g>
-                            <g data-flow-node="kds">
-                                <circle class="appzpos-order-flow__node" data-node-marker cx="620" cy="215" r="16" />
+                            <g data-flow-node="kds" [class.is-active]="activeStepIndex === 5" [class.is-complete]="activeStepIndex > 5">
+                                <circle class="appzpos-order-flow__node-halo" cx="620" cy="215" r="35" />
+                                <circle class="appzpos-order-flow__node-orbit" cx="620" cy="215" r="26" />
+                                <circle class="appzpos-order-flow__node appzpos-order-flow__node--hub" data-node-marker cx="620" cy="215" r="19" />
                                 <text class="appzpos-order-flow__node-number" x="620" y="220" text-anchor="middle">6</text>
                                 <text class="appzpos-order-flow__node-label" data-node-label x="620" y="174" text-anchor="middle">KDS</text>
                             </g>
-                            <g data-flow-node="order-hub">
-                                <circle class="appzpos-order-flow__node" data-node-marker cx="860" cy="215" r="16" />
+                            <g data-flow-node="order-hub" [class.is-active]="activeStepIndex === 6">
+                                <circle class="appzpos-order-flow__node-halo" cx="860" cy="215" r="39" />
+                                <circle class="appzpos-order-flow__node-orbit" cx="860" cy="215" r="29" />
+                                <circle class="appzpos-order-flow__node appzpos-order-flow__node--hub appzpos-order-flow__node--destination" data-node-marker cx="860" cy="215" r="21" />
                                 <text class="appzpos-order-flow__node-number" x="860" y="220" text-anchor="middle">7</text>
                                 <text class="appzpos-order-flow__node-label" data-node-label x="860" y="174" text-anchor="middle">Order Hub</text>
                             </g>
-                            <g class="appzpos-order-flow__delivery-node" data-flow-node="delivery">
-                                <circle class="appzpos-order-flow__node" data-node-marker cx="680" cy="40" r="16" />
+                            <g class="appzpos-order-flow__delivery-node" data-flow-node="delivery" [class.is-active]="activeStepIndex === 6">
+                                <circle class="appzpos-order-flow__node-halo" cx="680" cy="40" r="31" />
+                                <circle class="appzpos-order-flow__node-orbit" cx="680" cy="40" r="23" />
+                                <circle class="appzpos-order-flow__node" data-node-marker cx="680" cy="40" r="17" />
                                 <text class="appzpos-order-flow__node-number" x="680" y="45" text-anchor="middle">D</text>
                                 <text class="appzpos-order-flow__node-label appzpos-order-flow__node-label--entry" data-node-label x="708" y="45">Delivery apps</text>
                             </g>
                         </g>
 
-                        <g class="appzpos-order-flow__figures" aria-hidden="true">
-                            <g class="appzpos-order-flow__figure" data-entry-figure transform="translate(30 50)">
-                                <circle cx="0" cy="-10" r="5" /><line x1="0" y1="-5" x2="0" y2="8" />
-                                <line x1="0" y1="0" x2="-7" y2="5" /><line x1="0" y1="0" x2="7" y2="5" />
-                                <line data-left-leg x1="0" y1="8" x2="-6" y2="17" /><line data-right-leg x1="0" y1="8" x2="6" y2="17" />
+                        <g class="appzpos-order-flow__tokens" aria-hidden="true">
+                            <g *ngFor="let step of steps | slice:0:4; let index = index"
+                               class="appzpos-order-flow__token"
+                               data-order-token data-entry-figure
+                               [attr.transform]="'translate(30 ' + (50 + (index * 110)) + ')'">
+                                <circle class="appzpos-order-flow__token-glow" r="24" />
+                                <g data-token-core>
+                                    <rect class="appzpos-order-flow__token-body" x="-13" y="-16" width="26" height="32" rx="7" />
+                                    <path class="appzpos-order-flow__token-mark" d="M-6-7H6M-6-1H4M-6 5H2" />
+                                </g>
                             </g>
-                            <g class="appzpos-order-flow__figure" data-entry-figure transform="translate(30 160)">
-                                <circle cx="0" cy="-10" r="5" /><line x1="0" y1="-5" x2="0" y2="8" />
-                                <line x1="0" y1="0" x2="-7" y2="5" /><line x1="0" y1="0" x2="7" y2="5" />
-                                <line data-left-leg x1="0" y1="8" x2="-6" y2="17" /><line data-right-leg x1="0" y1="8" x2="6" y2="17" />
+                            <g class="appzpos-order-flow__token appzpos-order-flow__token--merged"
+                               data-order-token data-merged-figure opacity="0" transform="translate(420 215)">
+                                <circle class="appzpos-order-flow__token-glow" r="28" />
+                                <g data-token-core>
+                                    <rect class="appzpos-order-flow__token-body" x="-15" y="-18" width="30" height="36" rx="8" />
+                                    <path class="appzpos-order-flow__token-mark" d="M-7-8H7M-7-1H5M-7 6H3" />
+                                    <path class="appzpos-order-flow__token-check" d="m-3 11 3 3 6-7" />
+                                </g>
                             </g>
-                            <g class="appzpos-order-flow__figure" data-entry-figure transform="translate(30 270)">
-                                <circle cx="0" cy="-10" r="5" /><line x1="0" y1="-5" x2="0" y2="8" />
-                                <line x1="0" y1="0" x2="-7" y2="5" /><line x1="0" y1="0" x2="7" y2="5" />
-                                <line data-left-leg x1="0" y1="8" x2="-6" y2="17" /><line data-right-leg x1="0" y1="8" x2="6" y2="17" />
-                            </g>
-                            <g class="appzpos-order-flow__figure" data-entry-figure transform="translate(30 380)">
-                                <circle cx="0" cy="-10" r="5" /><line x1="0" y1="-5" x2="0" y2="8" />
-                                <line x1="0" y1="0" x2="-7" y2="5" /><line x1="0" y1="0" x2="7" y2="5" />
-                                <line data-left-leg x1="0" y1="8" x2="-6" y2="17" /><line data-right-leg x1="0" y1="8" x2="6" y2="17" />
-                            </g>
-                            <g class="appzpos-order-flow__figure appzpos-order-flow__figure--merged"
-                               data-merged-figure opacity="0" transform="translate(420 215)">
-                                <circle cx="0" cy="-10" r="5" /><line x1="0" y1="-5" x2="0" y2="8" />
-                                <line x1="0" y1="0" x2="-7" y2="5" /><line x1="0" y1="0" x2="7" y2="5" />
-                                <line data-left-leg x1="0" y1="8" x2="-6" y2="17" /><line data-right-leg x1="0" y1="8" x2="6" y2="17" />
-                            </g>
-                            <g class="appzpos-order-flow__figure appzpos-order-flow__figure--delivery"
-                               data-delivery-figure opacity="0" transform="translate(680 40)">
-                                <circle cx="0" cy="-10" r="5" /><line x1="0" y1="-5" x2="0" y2="8" />
-                                <line x1="0" y1="0" x2="-7" y2="5" /><line x1="0" y1="0" x2="7" y2="5" />
-                                <line data-left-leg x1="0" y1="8" x2="-6" y2="17" /><line data-right-leg x1="0" y1="8" x2="6" y2="17" />
+                            <g class="appzpos-order-flow__token appzpos-order-flow__token--delivery"
+                               data-order-token data-delivery-figure opacity="0" transform="translate(680 40)">
+                                <circle class="appzpos-order-flow__token-glow" r="25" />
+                                <g data-token-core>
+                                    <rect class="appzpos-order-flow__token-body" x="-14" y="-16" width="28" height="32" rx="8" />
+                                    <path class="appzpos-order-flow__token-mark" d="M-7-6H6M-7 0H4M-7 6H1" />
+                                    <path class="appzpos-order-flow__token-arrow" d="M3 7h7m0 0-3-3m3 3-3 3" />
+                                </g>
                             </g>
                         </g>
                     </svg>
@@ -140,6 +189,16 @@
                     </ng-container>
                 </div>
             </div>
+
+            <button class="appzpos-order-flow__skip"
+                    type="button"
+                    aria-label="Skip ordering flow interaction and continue to homepage content"
+                    (click)="skipInteraction()">
+                <span>Skip interaction</span>
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 5v13m0 0 5-5m-5 5-5-5" />
+                </svg>
+            </button>
         </div>
     </div>
 

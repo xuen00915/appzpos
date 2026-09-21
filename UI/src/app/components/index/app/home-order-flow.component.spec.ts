@@ -102,6 +102,44 @@ describe('HomeOrderFlowComponent', () => {
     expect(host.querySelector('[data-delivery-figure]')).not.toBeNull();
   });
 
+  it('switches the scene and caption when a numbered step is clicked', () => {
+    fixture.detectChanges();
+    const scrollTo = spyOn(window, 'scrollTo');
+    const host = fixture.nativeElement as HTMLElement;
+    const stepButtons = host.querySelectorAll<HTMLButtonElement>('.appzpos-order-flow__step-button');
+
+    expect(stepButtons.length).toBe(7);
+    stepButtons[5].click();
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.activeStepIndex).toBe(5);
+    expect(host.querySelector('.appzpos-order-flow__caption h3')?.textContent?.trim())
+      .toBe('Kitchen Display System (KDS)');
+    expect(scrollTo.calls.mostRecent().args[0] as unknown as ScrollToOptions)
+      .toEqual(jasmine.objectContaining({ behavior: 'smooth' }));
+  });
+
+  it('skips to the existing homepage content with fixed-header clearance', () => {
+    fixture.detectChanges();
+    const scrollTo = spyOn(window, 'scrollTo');
+    const content = document.createElement('section');
+    content.id = 'content';
+    spyOn(content, 'getBoundingClientRect').and.returnValue({ top: 240 } as DOMRect);
+    document.body.appendChild(content);
+    fixture.componentInstance['setHeaderHeight'](72);
+
+    const skipButton = (fixture.nativeElement as HTMLElement)
+      .querySelector<HTMLButtonElement>('.appzpos-order-flow__skip');
+    expect(skipButton).not.toBeNull();
+    skipButton?.click();
+
+    expect(scrollTo.calls.mostRecent().args[0] as unknown as ScrollToOptions).toEqual({
+      top: window.scrollY + 240 - 72,
+      behavior: 'smooth'
+    });
+    content.remove();
+  });
+
   it('shows the current title and exact bullets in the caption', () => {
     fixture.detectChanges();
     const host = fixture.nativeElement as HTMLElement;
