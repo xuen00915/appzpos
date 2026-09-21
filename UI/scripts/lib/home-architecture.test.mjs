@@ -5,10 +5,9 @@ import { test } from 'node:test';
 const template = readFileSync(new URL('../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/index/index.component.html', import.meta.url), 'utf8');
 const marketingStyles = readFileSync(new URL('../../src/styles/_appzpos-marketing-pages.scss', import.meta.url), 'utf8');
 
-test('the locked hero leads into the connected product story in the approved order', () => {
+test('the locked hero leads into the remaining homepage story without the product suite', () => {
   const selectors = [
     'app-home-order-flow',
-    'app-home-product-suite',
     'app-home-industries',
     'app-home-ecosystem',
     'app-home-proof',
@@ -20,6 +19,7 @@ test('the locked hero leads into the connected product story in the approved ord
     assert.ok(current > previous, `${selector} must follow the previous homepage chapter`);
     previous = current;
   }
+  assert.doesNotMatch(template, /<app-home-product-suite/);
 });
 
 test('the previous duplicated body is excluded from the rendered page', () => {
