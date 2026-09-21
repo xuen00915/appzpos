@@ -1,4 +1,66 @@
 /* Shared visual overhaul for the legacy public-page markup. The product hero is intentionally excluded. */
+[data-animate] {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Product-page mastheads: the legacy theme left animated titles invisible when its
+   scroll plugin was not present. These rules make the real headline and artwork
+   the page's first, stable piece of content. */
+#slider.slider-element {
+  position: relative;
+  overflow: hidden;
+  background: var(--appz-ink);
+
+  > .section.dark {
+    position: relative;
+    display: grid;
+    min-height: clamp(360px, 42vw, 520px);
+    place-items: center;
+    margin: 0 !important;
+    padding: clamp(72px, 10vw, 128px) 24px !important;
+    background-position: center !important;
+
+    &::before {
+      position: absolute;
+      content: '';
+      inset: 0;
+      background:
+        linear-gradient(90deg, rgba(8, 20, 43, .9), rgba(8, 20, 43, .46) 58%, rgba(8, 20, 43, .64)),
+        linear-gradient(180deg, transparent 62%, rgba(8, 20, 43, .26));
+    }
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    width: min(100%, var(--appz-container));
+  }
+
+  .slider-caption {
+    position: relative !important;
+    inset: auto !important;
+    width: min(100%, 1000px) !important;
+    max-width: 1000px !important;
+    margin: 0 auto !important;
+    padding: 0 !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+
+  h1 {
+    color: #fff !important;
+    font-family: Inter, "Helvetica Neue", Arial, sans-serif;
+    font-size: clamp(2.4rem, 5vw, 5rem) !important;
+    font-weight: 760 !important;
+    letter-spacing: -.055em;
+    line-height: .98 !important;
+    text-align: center !important;
+    text-shadow: 0 8px 34px rgba(0, 0, 0, .28);
+    text-wrap: balance;
+  }
+}
+
 #content {
   position: relative;
   isolation: isolate;
@@ -9,6 +71,18 @@
 
   .content-wrap {
     padding: clamp(72px, 9vw, 128px) 0;
+  }
+
+  .content-wrap > .container,
+  .content-wrap > #webview > .container,
+  .content-wrap > #mobile_view > .container {
+    margin-block: clamp(64px, 9vw, 120px) !important;
+  }
+
+  .content-wrap > #webview:first-child > .container:first-child,
+  .content-wrap > #mobile_view:first-child > .container:first-child,
+  .content-wrap > .container:first-child {
+    margin-top: 0 !important;
   }
 
   .container,
@@ -59,6 +133,10 @@
     &::after { display: none; }
   }
 
+  .heading-block > div {
+    width: 100%;
+  }
+
   .section {
     margin: clamp(68px, 10vw, 132px) 0 !important;
     padding: clamp(68px, 9vw, 112px) 0 !important;
@@ -99,10 +177,56 @@
     box-shadow: var(--appz-shadow-sm) !important;
   }
 
+  .feature-box:not(.fbox-plain) {
+    min-height: 100%;
+    padding: clamp(24px, 3vw, 34px);
+    overflow: hidden;
+
+    .fbox-icon {
+      position: relative;
+      inset: auto;
+      display: grid;
+      width: 62px;
+      height: 62px;
+      margin: 0 0 28px;
+      place-items: center;
+      border: 1px solid rgba(22, 136, 216, .16);
+      border-radius: 17px;
+      background: var(--appz-blue-pale);
+
+      img {
+        width: 38px !important;
+        height: 38px !important;
+        object-fit: contain;
+      }
+    }
+
+    .fbox-content {
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    h3 {
+      margin-bottom: 12px;
+    }
+  }
+
   .feature-box:hover,
   .entry:hover,
   .portfolio-item:hover {
     transform: translateY(-6px);
+  }
+
+  .content-wrap .row > [class*='col-'] > img,
+  .content-wrap .row > [class^='col'] > img {
+    filter: drop-shadow(0 26px 35px rgba(37, 83, 124, .15));
+    transition: transform 600ms var(--appz-ease), filter 600ms ease;
+  }
+
+  .content-wrap .row:hover > [class*='col-'] > img,
+  .content-wrap .row:hover > [class^='col'] > img {
+    transform: translateY(-5px) scale(1.015) !important;
+    filter: drop-shadow(0 32px 46px rgba(37, 83, 124, .2));
   }
 
   .iconlist {
@@ -171,6 +295,10 @@
     box-shadow: var(--appz-shadow-sm);
   }
 
+  #requestdemo {
+    scroll-margin-top: 96px;
+  }
+
   input,
   textarea,
   select,
@@ -191,6 +319,95 @@
   .testi-content {
     border-left: 3px solid var(--appz-orange);
     color: var(--appz-ink-soft);
+  }
+}
+
+/* Homepage content after the protected hero and order-flow scene. */
+app-index #content {
+  .content-wrap {
+    padding-top: clamp(78px, 9vw, 132px);
+  }
+
+  .content-wrap > #webview:first-child > .container:first-child p {
+    max-width: 900px;
+    margin-inline: auto;
+    text-align: left !important;
+  }
+
+  .solution-label {
+    height: 100%;
+    justify-content: flex-start;
+  }
+
+  .tab-content {
+    border: 1px solid var(--appz-line);
+    background:
+      radial-gradient(circle at 90% 10%, rgba(22, 136, 216, .1), transparent 35%),
+      #fff;
+    box-shadow: var(--appz-shadow);
+  }
+
+  .entry.event > [class*='rounded'],
+  .row-cols-lg-3 > .col > .rounded-6 {
+    overflow: hidden;
+    border: 1px solid var(--appz-line) !important;
+    border-radius: var(--appz-radius) !important;
+    background: #fff;
+    box-shadow: var(--appz-shadow-sm) !important;
+  }
+
+  .entry-image,
+  .entry-image img {
+    aspect-ratio: 16 / 10;
+    width: 100%;
+    object-fit: cover;
+  }
+
+  .bubble-btn,
+  .button-mini.button-border {
+    min-height: 34px;
+    padding: 0 14px;
+    border-color: rgba(22, 136, 216, .22) !important;
+    background: var(--appz-blue-pale) !important;
+    color: var(--appz-blue-deep) !important;
+    box-shadow: none;
+  }
+}
+
+/* The dedicated Chinese ad landing route keeps its conversion-focused content,
+   but shares the same trustworthy product visual language. */
+app-cn-f\&b-restaurant-cloud-pos-system {
+  #content {
+    background:
+      radial-gradient(circle at 88% 8%, rgba(244, 122, 56, .08), transparent 32rem),
+      #fff;
+  }
+
+  #requestdemo form {
+    border-top: 3px solid var(--appz-orange);
+  }
+}
+
+@supports (animation-timeline: view()) {
+  #content .content-wrap > .container,
+  #content .content-wrap > #webview > .container,
+  #content .content-wrap > #mobile_view > .container,
+  #content .content-wrap > .section {
+    animation: appzpos-view-rise linear both;
+    animation-range: entry 5% cover 26%;
+    animation-timeline: view();
+  }
+}
+
+@keyframes appzpos-view-rise {
+  from {
+    opacity: .25;
+    transform: translate3d(0, 36px, 0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
   }
 }
 
@@ -217,8 +434,20 @@ app-cn-f\&b-restaurant-cloud-pos-system {
 }
 
 @media (max-width: 767px) {
+  #slider.slider-element {
+    > .section.dark {
+      min-height: 300px !important;
+      padding: 68px 20px !important;
+    }
+
+    h1 {
+      font-size: clamp(2rem, 10vw, 3.2rem) !important;
+      line-height: 1 !important;
+    }
+  }
+
   #content {
-    .content-wrap { padding: 64px 0; }
+    .content-wrap { padding: 56px 0; }
     .container,
     .container-fluid { padding-inline: 20px; }
     .section {
@@ -228,5 +457,34 @@ app-cn-f\&b-restaurant-cloud-pos-system {
     .heading-block { text-align: left !important; }
     .button { width: 100%; }
     .tab-pane .card-body { padding: 24px !important; }
+
+    .content-wrap > .container,
+    .content-wrap > #mobile_view > .container {
+      margin-block: 56px !important;
+    }
+
+    .content-wrap > #mobile_view:first-child {
+      padding-block: 24px !important;
+    }
+
+    .content-wrap > #mobile_view:first-child > .container:first-child {
+      display: grid;
+      gap: 24px;
+    }
+
+    .feature-box:not(.fbox-plain) {
+      padding: 22px;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #content .content-wrap > .container,
+  #content .content-wrap > #webview > .container,
+  #content .content-wrap > #mobile_view > .container,
+  #content .content-wrap > .section {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
   }
 }

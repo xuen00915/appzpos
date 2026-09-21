@@ -127,7 +127,9 @@ for (const width of viewports) {
   const states = [];
   for (let index = 0; index < checkpoints.length; index += 1) {
     const progress = checkpoints[index];
-    const sampledProgress = progress > 0 && progress < 1 ? progress + .002 : progress;
+    // Leave a small guard past each breakpoint so browser scroll-pixel rounding
+    // cannot sample the preceding step at wide viewports.
+    const sampledProgress = progress > 0 && progress < 1 ? progress + .006 : progress;
     await evaluate(`(() => {
       const section = document.querySelector('.appzpos-order-flow');
       const stage = document.querySelector('.appzpos-order-flow__stage');

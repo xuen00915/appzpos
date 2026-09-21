@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FooterComponent } from './footer.component';
+import { ConfigService } from '../../../services/shared_data/config.service';
+import { CommonFunctionService } from '../../../services/shared_function/common-function.service';
 
 describe('FooterComponent', () => {
   let component: FooterComponent;
@@ -8,7 +10,18 @@ describe('FooterComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [FooterComponent]
+      declarations: [FooterComponent],
+      providers: [
+        {
+          provide: ConfigService,
+          useValue: {
+            objConfigData: {
+              Configuration: { WebsiteData: { Template: { Footer: {} } } }
+            }
+          }
+        },
+        { provide: CommonFunctionService, useValue: { BindURL_Image: (fileName: string) => fileName } }
+      ]
     });
     fixture = TestBed.createComponent(FooterComponent);
     component = fixture.componentInstance;
