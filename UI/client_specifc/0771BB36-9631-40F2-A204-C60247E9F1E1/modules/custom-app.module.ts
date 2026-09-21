@@ -30,6 +30,7 @@ import { CustomOrderHubComponent } from '../components/f&b-restaurant-delivery-i
 import { CustomFeaturesComponent } from '../components/pos-features-crm-payment-gateway/pos-features-crm-payment-gateway.component';
 import { CustomHardwareComponent } from '../components/pos-hardware-machine-receipt-printer/pos-hardware-machine-receipt-printer.component';
 import { HomeOrderFlowComponent } from '../components/home-order-flow/home-order-flow.component';
+import { MarketingRevealDirective } from '../components/marketing-reveal/marketing-reveal.directive';
 import { MatDialogRef } from '@angular/material/dialog';
 
 
@@ -61,6 +62,7 @@ import { MatDialogRef } from '@angular/material/dialog';
     CustomFeaturesComponent,
     CustomHardwareComponent,
     HomeOrderFlowComponent,
+    MarketingRevealDirective,
   ],
   imports: [
     CommonModule,

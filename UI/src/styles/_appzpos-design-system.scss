@@ -1,0 +1,106 @@
+:root {
+  --appz-ink: #101d39;
+  --appz-ink-soft: #536681;
+  --appz-blue: #1688d8;
+  --appz-blue-deep: #0875c2;
+  --appz-blue-pale: #eaf6ff;
+  --appz-orange: #f47a38;
+  --appz-orange-pale: #fff2e9;
+  --appz-surface: #ffffff;
+  --appz-surface-soft: #f6f9fc;
+  --appz-line: #dce8f2;
+  --appz-success: #209366;
+  --appz-container: 1240px;
+  --appz-radius-sm: 12px;
+  --appz-radius: 20px;
+  --appz-radius-lg: 30px;
+  --appz-shadow-sm: 0 12px 34px rgba(37, 83, 124, .08);
+  --appz-shadow: 0 28px 80px rgba(37, 83, 124, .13);
+  --appz-focus: 0 0 0 4px rgba(22, 136, 216, .2);
+  --appz-ease: cubic-bezier(.22, 1, .36, 1);
+  --appz-fast: 180ms;
+  --appz-medium: 420ms;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--appz-surface);
+}
+
+body {
+  color: var(--appz-ink);
+  background: var(--appz-surface);
+  font-family: Inter, "Helvetica Neue", Arial, sans-serif !important;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;
+}
+
+a,
+button,
+input,
+select,
+textarea,
+summary {
+  &:focus-visible {
+    outline: 2px solid var(--appz-blue) !important;
+    outline-offset: 3px;
+    box-shadow: var(--appz-focus);
+  }
+}
+
+a {
+  color: var(--appz-blue-deep);
+}
+
+.appzpos-container {
+  width: min(calc(100% - 48px), var(--appz-container));
+  margin-inline: auto;
+}
+
+.appzpos-button,
+#content .button {
+  display: inline-flex;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 24px;
+  border: 1px solid var(--appz-blue) !important;
+  border-radius: 999px !important;
+  background: var(--appz-blue) !important;
+  color: #fff !important;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: -.01em;
+  line-height: 1;
+  text-transform: none;
+  box-shadow: 0 12px 24px rgba(22, 136, 216, .18);
+  transition: transform var(--appz-fast) ease, box-shadow var(--appz-fast) ease, background var(--appz-fast) ease;
+
+  &:hover {
+    background: var(--appz-blue-deep) !important;
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 16px 30px rgba(22, 136, 216, .24);
+  }
+
+  &:active {
+    transform: translateY(0) scale(.98);
+  }
+}
+
+@media (max-width: 767px) {
+  .appzpos-container {
+    width: min(calc(100% - 32px), var(--appz-container));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}

@@ -1,0 +1,20 @@
+[appMarketingReveal] {
+  opacity: 0;
+  transform: translate3d(0, 24px, 0);
+  transition: opacity 620ms var(--appz-ease), transform 720ms var(--appz-ease);
+  will-change: opacity, transform;
+
+  &.is-revealed {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+    will-change: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [appMarketingReveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
