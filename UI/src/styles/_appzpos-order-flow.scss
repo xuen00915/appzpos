@@ -343,19 +343,20 @@ app-home-order-flow {
     background: rgba(#fff, .94);
     border: 1px solid rgba($ecosystem-blue, .18);
     border-radius: 12px;
-    bottom: 3%;
+    bottom: -5%;
     box-shadow: 0 12px 34px rgba($ecosystem-navy, .12), inset 0 1px 0 #fff;
     display: grid;
-    gap: 2px;
+    gap: 9px;
     left: 50%;
-    min-width: 178px;
-    opacity: 0;
+    min-width: 214px;
+    opacity: 1;
     padding: 10px 13px 10px 22px;
     pointer-events: none;
     position: absolute;
-    transform: translate3d(-50%, 8px, 0);
+    transform: translate3d(-50%, 0, 0);
     transition: opacity 220ms ease, transform 260ms cubic-bezier(.16, 1, .3, 1), visibility 220ms ease;
-    visibility: hidden;
+    visibility: visible;
+    width: min(250px, 94%);
     z-index: 12;
 
     i {
@@ -370,16 +371,31 @@ app-home-order-flow {
 
     strong {
       color: $ecosystem-navy;
-      font-size: .76rem;
+      font-size: .73rem;
       font-weight: 800;
       line-height: 1.2;
     }
 
     small {
       color: $ecosystem-muted;
-      font-size: .62rem;
-      line-height: 1.35;
+      font-size: .58rem;
+      line-height: 1.42;
     }
+  }
+
+  &__island-module {
+    display: grid;
+    gap: 3px;
+
+    & + & {
+      border-top: 1px solid rgba($ecosystem-blue, .14);
+      padding-top: 8px;
+    }
+  }
+
+  &__island--pos &__label {
+    bottom: -18%;
+    width: min(286px, 98%);
   }
 
   &__modules {
@@ -719,8 +735,8 @@ app-home-order-flow {
     &__stage {
       aspect-ratio: auto;
       display: grid;
-      gap: 10px;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
+      grid-template-columns: minmax(0, 1fr);
       min-height: 0;
     }
 
@@ -752,14 +768,14 @@ app-home-order-flow {
     }
 
     &__island--dining {
-      grid-column: 1 / -1;
+      grid-column: 1;
       justify-self: center;
       order: 1;
       width: min(100%, 430px);
     }
 
     &__hub {
-      grid-column: 1 / -1;
+      grid-column: 1;
       justify-self: center;
       margin-block: -42px -34px;
       order: 2;
@@ -767,9 +783,18 @@ app-home-order-flow {
     }
 
     &__island--pos {
-      grid-column: 1 / -1;
+      grid-column: 1;
       justify-self: center;
       order: 3;
+      width: min(92%, 390px);
+    }
+
+    &__island--kitchen,
+    &__island--admin,
+    &__island--website,
+    &__island--delivery {
+      grid-column: 1;
+      justify-self: center;
       width: min(92%, 390px);
     }
 
@@ -783,30 +808,39 @@ app-home-order-flow {
     }
 
     &__label {
-      bottom: 2%;
+      bottom: auto;
+      left: auto;
+      margin: -22px auto 0;
       min-width: 0;
       opacity: 1;
-      padding: 8px 10px 8px 18px;
-      transform: translate3d(-50%, 0, 0);
+      padding: 11px 13px 11px 21px;
+      position: relative;
+      transform: none;
       visibility: visible;
-      width: min(90%, 220px);
+      width: min(94%, 340px);
 
       i {
         left: 8px;
       }
 
       strong {
-        font-size: .68rem;
+        font-size: .76rem;
       }
 
       small {
-        font-size: .56rem;
+        font-size: .64rem;
       }
     }
 
-    &__island--dining &__label,
     &__island--pos &__label {
-      bottom: 4%;
+      bottom: auto;
+      width: min(94%, 340px);
+    }
+
+    &__island.is-active &__label,
+    &__island:hover &__label,
+    &__island:focus-visible &__label {
+      transform: none;
     }
 
     &__modules {

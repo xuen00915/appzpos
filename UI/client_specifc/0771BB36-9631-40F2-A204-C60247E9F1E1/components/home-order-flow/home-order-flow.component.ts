@@ -14,11 +14,16 @@ import { CommonFunctionService } from '../../../../src/app/services/shared_funct
 interface EcosystemIsland {
   id: string;
   title: string;
-  detail: string;
+  modules: readonly IslandModuleSummary[];
   route: string;
   image: string;
   ariaLabel: string;
   depth: number;
+}
+
+interface IslandModuleSummary {
+  title: string;
+  summary: string;
 }
 
 interface ProductFeature {
@@ -47,7 +52,10 @@ export class HomeOrderFlowComponent implements OnInit, AfterViewInit, OnDestroy 
     {
       id: 'admin',
       title: 'Admin / Back Office',
-      detail: 'Cloud POS / Management / Reports',
+      modules: [{
+        title: 'POS / E-Waiter',
+        summary: 'Cloud Based POS system - Access your data anywhere'
+      }],
       route: '/cloud-pos-point-of-sales-system',
       image: 'assets/images/ecosystem/ecosystem-admin.webp',
       ariaLabel: 'Explore APPZPOS admin and back office management',
@@ -56,7 +64,10 @@ export class HomeOrderFlowComponent implements OnInit, AfterViewInit, OnDestroy 
     {
       id: 'dining',
       title: 'Dining / Restaurant',
-      detail: 'Table QR Ordering / E-Waiter',
+      modules: [{
+        title: 'Table QR Ordering',
+        summary: 'E-Menu Ordering - Customers scan a QR code to view the menu, and place orders from their phones'
+      }],
       route: '/f&b-restaurant-emenu-qr-code-ordering-system',
       image: 'assets/images/ecosystem/ecosystem-dining.webp',
       ariaLabel: 'Explore Table QR Ordering and E-Waiter',
@@ -65,7 +76,10 @@ export class HomeOrderFlowComponent implements OnInit, AfterViewInit, OnDestroy 
     {
       id: 'kitchen',
       title: 'Kitchen',
-      detail: 'Kitchen Display System',
+      modules: [{
+        title: 'Kitchen Display System (KDS)',
+        summary: 'Order Tracking - Receive real-time updates for new orders, modifications, or cancellations'
+      }],
       route: '/f&b-restaurant-kitchen-display-system',
       image: 'assets/images/ecosystem/ecosystem-kitchen.webp',
       ariaLabel: 'Explore Kitchen Display System',
@@ -74,7 +88,16 @@ export class HomeOrderFlowComponent implements OnInit, AfterViewInit, OnDestroy 
     {
       id: 'pos',
       title: 'POS & Ordering',
-      detail: 'POS / Self-Order Kiosk / Queue',
+      modules: [
+        {
+          title: 'Self Ordering Kiosk',
+          summary: 'Contactless Ordering - Allow customers to use the self-service kiosk to browse the menu, place orders, process payments, and reduce their wait times'
+        },
+        {
+          title: 'Queue Number Display',
+          summary: 'Order Management - An unique queue number is assigned to orders from all ordering portals'
+        }
+      ],
       route: '/custom-solutions',
       image: 'assets/images/ecosystem/ecosystem-pos.webp',
       ariaLabel: 'Explore POS, Self-Order Kiosk and Queue solutions',
@@ -83,7 +106,10 @@ export class HomeOrderFlowComponent implements OnInit, AfterViewInit, OnDestroy 
     {
       id: 'website',
       title: 'Website Ordering',
-      detail: 'Online ordering and payment',
+      modules: [{
+        title: 'Website Ordering',
+        summary: 'Online Ordering - Allow customers to place orders online and easily track order status'
+      }],
       route: '/f&b-restaurant-online-ordering-website',
       image: 'assets/images/ecosystem/ecosystem-website.webp',
       ariaLabel: 'Explore Website Ordering',
@@ -92,7 +118,10 @@ export class HomeOrderFlowComponent implements OnInit, AfterViewInit, OnDestroy 
     {
       id: 'delivery',
       title: 'Delivery / Order Hub',
-      detail: 'Delivery integrations / Order Hub',
+      modules: [{
+        title: 'Order Hub',
+        summary: 'Centralized Order Management - Integrated with GrabFood, Foodpanda, and Deliveroo to one centralized platform'
+      }],
       route: '/f&b-restaurant-delivery-integration',
       image: 'assets/images/ecosystem/ecosystem-delivery.webp',
       ariaLabel: 'Explore delivery integrations and Order Hub',

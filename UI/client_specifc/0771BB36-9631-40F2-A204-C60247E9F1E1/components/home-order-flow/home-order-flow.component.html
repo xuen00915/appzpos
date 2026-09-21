@@ -127,8 +127,10 @@
             </span>
             <span class="appz-ecosystem__label">
                 <i aria-hidden="true"></i>
-                <strong>{{ island.title }}</strong>
-                <small>{{ island.detail }}</small>
+                <span *ngFor="let module of island.modules" class="appz-ecosystem__island-module" data-island-module>
+                    <strong>{{ module.title }}</strong>
+                    <small>{{ module.summary }}</small>
+                </span>
             </span>
         </a>
     </div>

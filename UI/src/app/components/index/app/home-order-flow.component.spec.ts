@@ -104,6 +104,26 @@ describe('HomeOrderFlowComponent ecosystem', () => {
     ]);
   });
 
+  it('places the seven matching module summaries beside their related islands', () => {
+    fixture.detectChanges();
+    const host = fixture.nativeElement as HTMLElement;
+    const moduleCallouts = Array.from(host.querySelectorAll<HTMLElement>('[data-island-module]'));
+
+    expect(moduleCallouts.map((callout) => callout.querySelector('strong')?.textContent?.trim())).toEqual([
+      'POS / E-Waiter',
+      'Table QR Ordering',
+      'Kitchen Display System (KDS)',
+      'Self Ordering Kiosk',
+      'Queue Number Display',
+      'Website Ordering',
+      'Order Hub'
+    ]);
+    expect(host.querySelectorAll('[data-island-id="pos"] [data-island-module]').length).toBe(2);
+    expect(host.textContent).toContain('Cloud Based POS system - Access your data anywhere');
+    expect(host.textContent).toContain('Order Tracking - Receive real-time updates for new orders, modifications, or cancellations');
+    expect(host.textContent).toContain('Centralized Order Management - Integrated with GrabFood, Foodpanda, and Deliveroo to one centralized platform');
+  });
+
   it('activates one island and clears it without changing routes', () => {
     fixture.detectChanges();
     const component = fixture.componentInstance;

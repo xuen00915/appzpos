@@ -72,6 +72,7 @@ for (const width of viewports) {
     const stage = document.querySelector('.appz-ecosystem__stage');
     const svg = document.querySelector('.appz-ecosystem__connections');
     const islands = [...document.querySelectorAll('[data-ecosystem-island]')];
+    const islandModules = [...document.querySelectorAll('[data-island-module]')];
     const moduleTabs = [...document.querySelectorAll('[data-module-tab]')];
     const modulePanels = [...document.querySelectorAll('[data-module-panel]')];
     const heading = section?.querySelector('h2');
@@ -84,6 +85,9 @@ for (const width of viewports) {
       heading: heading?.textContent.trim(),
       headingSize: heading ? Number.parseFloat(getComputedStyle(heading).fontSize) : 0,
       islandCount: islands.length,
+      islandModuleCount: islandModules.length,
+      islandModuleTitles: islandModules.map((module) => module.querySelector('strong')?.textContent.trim()),
+      islandLabelsVisible: islands.every((island) => getComputedStyle(island.querySelector('.appz-ecosystem__label')).opacity === '1'),
       hubCount: document.querySelectorAll('[data-ecosystem-hub]').length,
       connectionCount: document.querySelectorAll('[data-ecosystem-connection]').length,
       svgText: svg?.textContent.trim(),
@@ -116,6 +120,8 @@ for (const width of viewports) {
   if (layout.heading !== 'Everything Works Together') failures.push(`${width}px: ecosystem heading changed`);
   if (layout.headingSize > 74) failures.push(`${width}px: ecosystem heading is still oversized (${layout.headingSize}px)`);
   if (layout.islandCount !== 6) failures.push(`${width}px: expected six islands, found ${layout.islandCount}`);
+  if (layout.islandModuleCount !== 7) failures.push(`${width}px: expected seven module summaries beside the islands, found ${layout.islandModuleCount}`);
+  if (!layout.islandLabelsVisible) failures.push(`${width}px: island module wording is not always visible`);
   if (layout.hubCount !== 1) failures.push(`${width}px: expected one central cloud hub, found ${layout.hubCount}`);
   if (layout.connectionCount !== 6) failures.push(`${width}px: expected six connections, found ${layout.connectionCount}`);
   if (layout.modulePanelCount !== 7) failures.push(`${width}px: expected seven module panels, found ${layout.modulePanelCount}`);
@@ -139,6 +145,17 @@ for (const width of viewports) {
     '/f&b-restaurant-delivery-integration'
   ];
   if (JSON.stringify(layout.hrefs) !== JSON.stringify(expectedHrefs)) failures.push(`${width}px: island routes changed`);
+
+  const expectedIslandModuleTitles = [
+    'POS / E-Waiter',
+    'Table QR Ordering',
+    'Kitchen Display System (KDS)',
+    'Self Ordering Kiosk',
+    'Queue Number Display',
+    'Website Ordering',
+    'Order Hub'
+  ];
+  if (JSON.stringify(layout.islandModuleTitles) !== JSON.stringify(expectedIslandModuleTitles)) failures.push(`${width}px: island module mapping changed`);
 
   const expectedModuleTabs = [
     'POS / E-Waiter',
