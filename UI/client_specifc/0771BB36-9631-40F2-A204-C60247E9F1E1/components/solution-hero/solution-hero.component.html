@@ -1,0 +1,20 @@
+<section
+  class="appz-solution-hero"
+  data-solution-hero
+  [attr.aria-labelledby]="config.headingId">
+  <div class="appz-solution-hero__inner">
+    <div class="appz-solution-hero__visual">
+      <img
+        [src]="config.imageSrc"
+        [alt]="config.imageAlt"
+        [width]="config.imageWidth"
+        [height]="config.imageHeight"
+        loading="eager"
+        fetchpriority="high">
+    </div>
+    <div class="appz-solution-hero__copy">
+      <h1 [id]="config.headingId">{{ config.title }}</h1>
+    </div>
+  </div>
+</section>
+

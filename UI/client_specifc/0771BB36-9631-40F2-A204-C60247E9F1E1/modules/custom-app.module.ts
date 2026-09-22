@@ -35,6 +35,7 @@ import { HomeIndustriesComponent } from '../components/home-industries/home-indu
 import { HomeEcosystemComponent } from '../components/home-ecosystem/home-ecosystem.component';
 import { HomeProofComponent } from '../components/home-proof/home-proof.component';
 import { MarketingRevealDirective } from '../components/marketing-reveal/marketing-reveal.directive';
+import { SolutionHeroComponent } from '../components/solution-hero/solution-hero.component';
 import { MatDialogRef } from '@angular/material/dialog';
 
 
@@ -71,6 +72,7 @@ import { MatDialogRef } from '@angular/material/dialog';
     HomeEcosystemComponent,
     HomeProofComponent,
     MarketingRevealDirective,
+    SolutionHeroComponent,
   ],
   imports: [
     CommonModule,
