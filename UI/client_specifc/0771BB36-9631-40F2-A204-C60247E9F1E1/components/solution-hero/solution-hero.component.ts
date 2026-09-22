@@ -18,4 +18,3 @@ export interface SolutionHeroConfig {
 export class SolutionHeroComponent {
   @Input({ required: true }) config!: SolutionHeroConfig;
 }
-

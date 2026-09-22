@@ -128,4 +128,3 @@ h1 {
 @media (prefers-reduced-motion: reduce) {
   .appz-solution-hero__visual img { animation: none; }
 }
-
