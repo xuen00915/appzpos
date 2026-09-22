@@ -17,6 +17,20 @@
           loading="eager"
           fetchpriority="high">
       </a>
+      <a
+        class="appz-solution-hero__integration-link"
+        [attr.href]="'#' + config.integrationTargetId"
+        [attr.aria-label]="config.integrationLabel"
+        (click)="scrollToIntegration($event)">
+        <span class="appz-solution-hero__screen" aria-hidden="true">
+          <span class="appz-solution-hero__screen-bar">
+            <i></i><i></i><i></i>
+          </span>
+          <span class="appz-solution-hero__screen-body">
+            <i></i><i></i><i></i>
+          </span>
+        </span>
+      </a>
     </div>
     <div class="appz-solution-hero__copy">
       <h1 [id]="config.headingId">{{ config.title }}</h1>

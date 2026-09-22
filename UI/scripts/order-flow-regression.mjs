@@ -410,7 +410,7 @@ if (reducedMotion.pathAnimation !== 'none') failures.push('reduced motion: path 
 const solutionHeroes = [
   {
     route: '/cloud-pos-point-of-sales-system',
-    image: 'assets/images/ecosystem/ecosystem-pos-ewaiter.webp',
+    image: 'assets/images/ecosystem/ecosystem-pos-ewaiter-transparent.webp',
     title: 'APPZPOS Cutting-Edge POS Point of Sales and E-Menu System',
     key: 'pos',
     selector: '[data-solution-hero]'
@@ -488,6 +488,7 @@ for (const width of [1440, 768, 430]) {
         sharedHero: Boolean(document.querySelector('app-solution-hero [data-solution-hero]')),
         legacyHero: Boolean(document.querySelector('app-cloud-pos-point-of-sales-system > .solution-island-hero')),
         visualHref: image?.closest('a')?.getAttribute('href'),
+        integrationHref: section?.querySelector('.appz-solution-hero__integration-link')?.getAttribute('href'),
         image: image?.getAttribute('src'),
         imageLoaded: Boolean(image?.complete && image?.naturalWidth > 0),
         title: title?.textContent.replace(/\\s+/g, ' ').trim(),
@@ -502,7 +503,8 @@ for (const width of [1440, 768, 430]) {
     if (hero.count !== 1 || hero.image !== heroCase.image || !hero.imageLoaded || hero.title !== heroCase.title) {
       failures.push(`${width}px ${heroCase.key}: solution hero content is incorrect ${JSON.stringify(hero)}`);
     }
-    if (heroCase.key === 'pos' && (!hero.sharedHero || hero.legacyHero || hero.visualHref !== '#content')) {
+    if (heroCase.key === 'pos' && (!hero.sharedHero || hero.legacyHero
+      || hero.visualHref !== '#content' || hero.integrationHref !== '#pos-integrations')) {
       failures.push(`${width}px pos: shared hero structure is incorrect ${JSON.stringify(hero)}`);
     }
     if (width > 767 && !hero.imageLeftOfTitle) failures.push(`${width}px ${heroCase.key}: island is not left of the title ${JSON.stringify(hero)}`);
@@ -515,11 +517,18 @@ for (const width of [1440, 768, 430]) {
       await wait(700);
       const targetOffset = await evaluate(`document.querySelector('#content')?.getBoundingClientRect().top`);
       if (Math.abs(targetOffset ?? 9999) > 2) failures.push(`${width}px pos: illustration did not scroll to POS content (${targetOffset})`);
+
+      await evaluate(`document.querySelector('.appz-solution-hero__integration-link')?.click()`);
+      await wait(1400);
+      const integrationOffset = await evaluate(`document.querySelector('${width <= 768 ? '#pos-integrations-mobile' : '#pos-integrations'}')?.getBoundingClientRect().top`);
+      if (Math.abs((integrationOffset ?? 9999) - 92) > 3) failures.push(`${width}px pos: floating screen did not scroll to integrations (${integrationOffset})`);
     }
 
     if (screenshotDirectory
       && ((width === 1440 && (heroCase.key === 'pos' || heroCase.key === 'qr'))
         || (width === 430 && (heroCase.key === 'pos' || heroCase.key === 'hub')))) {
+      await evaluate(`window.scrollTo(0, 0)`);
+      await wait(120);
       const heroScreenshot = await send('Page.captureScreenshot', { format: 'png' });
       mkdirSync(screenshotDirectory, { recursive: true });
       writeFileSync(
@@ -547,6 +556,11 @@ const posHeroAnimationName = await evaluate(`(() => {
   return image ? getComputedStyle(image).animationName : null;
 })()`);
 if (posHeroAnimationName !== 'none') failures.push('POS shared hero animation remains active');
+const posIntegrationAnimationName = await evaluate(`(() => {
+  const screen = document.querySelector('.appz-solution-hero__integration-link');
+  return screen ? getComputedStyle(screen).animationName : null;
+})()`);
+if (posIntegrationAnimationName !== 'none') failures.push('POS integration screen animation remains active');
 
 await send('Page.close');
 socket.close();

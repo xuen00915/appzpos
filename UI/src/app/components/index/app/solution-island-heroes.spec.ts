@@ -22,7 +22,7 @@ describe('solution island heroes', () => {
   const cases: readonly HeroCase[] = [
     {
       component: CustomPOSEWaiterComponent,
-      image: 'assets/images/ecosystem/ecosystem-pos-ewaiter.webp',
+      image: 'assets/images/ecosystem/ecosystem-pos-ewaiter-transparent.webp',
       title: 'APPZPOS Cutting-Edge POS Point of Sales and E-Menu System'
     },
     {
@@ -90,8 +90,8 @@ describe('solution island heroes', () => {
       if (item.component === CustomPOSEWaiterComponent) {
         expect(host.querySelector('app-solution-hero')).not.toBeNull();
         expect(host.querySelectorAll('[data-solution-hero]').length).toBe(1);
-        expect(hero?.querySelector('img')?.getAttribute('width')).toBe('727');
-        expect(hero?.querySelector('img')?.getAttribute('height')).toBe('478');
+        expect(hero?.querySelector('img')?.getAttribute('width')).toBe('1547');
+        expect(hero?.querySelector('img')?.getAttribute('height')).toBe('1016');
       }
     }
 

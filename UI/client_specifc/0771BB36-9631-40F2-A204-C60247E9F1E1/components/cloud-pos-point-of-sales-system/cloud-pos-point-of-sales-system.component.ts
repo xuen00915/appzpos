@@ -13,12 +13,15 @@ export class CustomPOSEWaiterComponent {
   readonly solutionHero: SolutionHeroConfig = {
     headingId: 'pos-solution-title',
     title: 'APPZPOS Cutting-Edge POS Point of Sales and E-Menu System',
-    imageSrc: 'assets/images/ecosystem/ecosystem-pos-ewaiter.webp',
+    imageSrc: 'assets/images/ecosystem/ecosystem-pos-ewaiter-transparent.webp',
     imageAlt: 'APPZPOS waiter taking a table order beside a staffed counter POS system',
-    imageWidth: 727,
-    imageHeight: 478,
+    imageWidth: 1547,
+    imageHeight: 1016,
     scrollTargetId: 'content',
-    scrollLabel: 'Explore APPZPOS POS and E-Waiter features'
+    scrollLabel: 'Explore APPZPOS POS and E-Waiter features',
+    integrationTargetId: 'pos-integrations',
+    integrationMobileTargetId: 'pos-integrations-mobile',
+    integrationLabel: 'Explore APPZPOS integrations with leading third-party platforms'
   };
 
   constructor(private titleService: Title,private commonFunctionService: CommonFunctionService,private meta: Meta) {

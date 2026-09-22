@@ -95,6 +95,11 @@
     padding-right:10px;
   }
 
-  b, strong {
+b, strong {
     font-weight: 500 !important;
+}
+
+#pos-integrations,
+#pos-integrations-mobile {
+  scroll-margin-top: 92px;
 }

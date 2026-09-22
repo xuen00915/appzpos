@@ -16,7 +16,10 @@ describe('SolutionHeroComponent', () => {
     imageWidth: 727,
     imageHeight: 478,
     scrollTargetId: 'content',
-    scrollLabel: 'Explore APPZPOS POS features'
+    scrollLabel: 'Explore APPZPOS POS features',
+    integrationTargetId: 'pos-integrations',
+    integrationMobileTargetId: 'pos-integrations-mobile',
+    integrationLabel: 'Explore APPZPOS platform integrations'
   };
 
   beforeEach(() => {
@@ -43,6 +46,10 @@ describe('SolutionHeroComponent', () => {
     expect(image?.getAttribute('height')).toBe('478');
     expect(image?.closest('a')?.getAttribute('href')).toBe('#content');
     expect(image?.closest('a')?.getAttribute('aria-label')).toBe('Explore APPZPOS POS features');
+    expect(section?.querySelector('.appz-solution-hero__integration-link')?.getAttribute('href'))
+      .toBe('#pos-integrations');
+    expect(section?.querySelector('.appz-solution-hero__integration-link')?.getAttribute('aria-label'))
+      .toBe('Explore APPZPOS platform integrations');
   });
 
   it('keeps image before title in mobile reading order', () => {
@@ -65,5 +72,24 @@ describe('SolutionHeroComponent', () => {
 
     expect(target.scrollIntoView).toHaveBeenCalled();
     target.remove();
+  });
+
+  it('scrolls to the integration section when the floating screen is activated', () => {
+    const target = document.createElement('div');
+    const mobileTarget = document.createElement('div');
+    const scrollSpy = jasmine.createSpy('scrollIntoView');
+    target.id = config.integrationTargetId;
+    mobileTarget.id = config.integrationMobileTargetId;
+    target.scrollIntoView = scrollSpy;
+    mobileTarget.scrollIntoView = scrollSpy;
+    document.body.append(target, mobileTarget);
+
+    (fixture.nativeElement as HTMLElement)
+      .querySelector<HTMLAnchorElement>('.appz-solution-hero__integration-link')
+      ?.click();
+
+    expect(scrollSpy).toHaveBeenCalled();
+    target.remove();
+    mobileTarget.remove();
   });
 });
