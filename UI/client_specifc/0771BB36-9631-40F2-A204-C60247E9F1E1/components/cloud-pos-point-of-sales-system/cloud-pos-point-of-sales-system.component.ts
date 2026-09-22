@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { CommonFunctionService } from '../../../../src/app/services/shared_function/common-function.service';
 import {Meta, Title} from "@angular/platform-browser";
+import { SolutionHeroConfig } from '../solution-hero/solution-hero.component';
 
 @Component({
   selector: 'app-cloud-pos-point-of-sales-system',
@@ -8,6 +9,15 @@ import {Meta, Title} from "@angular/platform-browser";
   styleUrls: ['./cloud-pos-point-of-sales-system.component.css']
 })
 export class CustomPOSEWaiterComponent {
+
+  readonly solutionHero: SolutionHeroConfig = {
+    headingId: 'pos-solution-title',
+    title: 'APPZPOS Cutting-Edge POS Point of Sales and E-Menu System',
+    imageSrc: 'assets/images/ecosystem/ecosystem-pos-ewaiter.webp',
+    imageAlt: 'APPZPOS waiter taking a table order beside a staffed counter POS system',
+    imageWidth: 739,
+    imageHeight: 486
+  };
 
   constructor(private titleService: Title,private commonFunctionService: CommonFunctionService,private meta: Meta) {
        this.titleService.setTitle("APPZPOS Cloud POS System | Best Point of Sales in Singapore");
