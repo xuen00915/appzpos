@@ -7,6 +7,8 @@ export interface SolutionHeroConfig {
   readonly imageAlt: string;
   readonly imageWidth: number;
   readonly imageHeight: number;
+  readonly scrollTargetId: string;
+  readonly scrollLabel: string;
 }
 
 @Component({
@@ -17,4 +19,15 @@ export interface SolutionHeroConfig {
 })
 export class SolutionHeroComponent {
   @Input({ required: true }) config!: SolutionHeroConfig;
+
+  scrollToTarget(event: Event): void {
+    const target = document.getElementById(this.config.scrollTargetId);
+    if (!target) return;
+
+    event.preventDefault();
+    target.scrollIntoView({
+      behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+      block: 'start'
+    });
+  }
 }

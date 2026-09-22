@@ -16,7 +16,9 @@ export class CustomPOSEWaiterComponent {
     imageSrc: 'assets/images/ecosystem/ecosystem-pos-ewaiter.webp',
     imageAlt: 'APPZPOS waiter taking a table order beside a staffed counter POS system',
     imageWidth: 727,
-    imageHeight: 478
+    imageHeight: 478,
+    scrollTargetId: 'content',
+    scrollLabel: 'Explore APPZPOS POS and E-Waiter features'
   };
 
   constructor(private titleService: Title,private commonFunctionService: CommonFunctionService,private meta: Meta) {

@@ -487,6 +487,7 @@ for (const width of [1440, 768, 430]) {
         count: document.querySelectorAll(${JSON.stringify(heroCase.selector)}).length,
         sharedHero: Boolean(document.querySelector('app-solution-hero [data-solution-hero]')),
         legacyHero: Boolean(document.querySelector('app-cloud-pos-point-of-sales-system > .solution-island-hero')),
+        visualHref: image?.closest('a')?.getAttribute('href'),
         image: image?.getAttribute('src'),
         imageLoaded: Boolean(image?.complete && image?.naturalWidth > 0),
         title: title?.textContent.replace(/\\s+/g, ' ').trim(),
@@ -501,13 +502,20 @@ for (const width of [1440, 768, 430]) {
     if (hero.count !== 1 || hero.image !== heroCase.image || !hero.imageLoaded || hero.title !== heroCase.title) {
       failures.push(`${width}px ${heroCase.key}: solution hero content is incorrect ${JSON.stringify(hero)}`);
     }
-    if (heroCase.key === 'pos' && (!hero.sharedHero || hero.legacyHero)) {
+    if (heroCase.key === 'pos' && (!hero.sharedHero || hero.legacyHero || hero.visualHref !== '#content')) {
       failures.push(`${width}px pos: shared hero structure is incorrect ${JSON.stringify(hero)}`);
     }
     if (width > 767 && !hero.imageLeftOfTitle) failures.push(`${width}px ${heroCase.key}: island is not left of the title ${JSON.stringify(hero)}`);
     if (width <= 767 && !hero.imageAboveTitle) failures.push(`${width}px ${heroCase.key}: island is not above the title ${JSON.stringify(hero)}`);
     if (hero.pageOverflows) failures.push(`${width}px ${heroCase.key}: solution page has horizontal overflow`);
     if (!hero.googleTagManager || !hero.facebookPixel) failures.push(`${width}px ${heroCase.key}: solution page tracking is missing ${JSON.stringify(hero)}`);
+
+    if (heroCase.key === 'pos') {
+      await evaluate(`document.querySelector('[data-solution-hero] a')?.click()`);
+      await wait(700);
+      const targetOffset = await evaluate(`document.querySelector('#content')?.getBoundingClientRect().top`);
+      if (Math.abs(targetOffset ?? 9999) > 2) failures.push(`${width}px pos: illustration did not scroll to POS content (${targetOffset})`);
+    }
 
     if (screenshotDirectory
       && ((width === 1440 && (heroCase.key === 'pos' || heroCase.key === 'qr'))

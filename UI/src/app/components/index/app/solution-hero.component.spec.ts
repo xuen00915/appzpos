@@ -14,7 +14,9 @@ describe('SolutionHeroComponent', () => {
     imageSrc: 'assets/images/ecosystem/test-solution.webp',
     imageAlt: 'Waiter serving a table beside an APPZPOS counter POS',
     imageWidth: 727,
-    imageHeight: 478
+    imageHeight: 478,
+    scrollTargetId: 'content',
+    scrollLabel: 'Explore APPZPOS POS features'
   };
 
   beforeEach(() => {
@@ -39,6 +41,8 @@ describe('SolutionHeroComponent', () => {
     expect(image?.alt).toBe(config.imageAlt);
     expect(image?.getAttribute('width')).toBe('727');
     expect(image?.getAttribute('height')).toBe('478');
+    expect(image?.closest('a')?.getAttribute('href')).toBe('#content');
+    expect(image?.closest('a')?.getAttribute('aria-label')).toBe('Explore APPZPOS POS features');
   });
 
   it('keeps image before title in mobile reading order', () => {
@@ -47,5 +51,19 @@ describe('SolutionHeroComponent', () => {
     const title = host.querySelector('h1') as Node;
 
     expect(image.compareDocumentPosition(title) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
+  it('scrolls to the configured solution content when the illustration is activated', () => {
+    const target = document.createElement('div');
+    target.id = config.scrollTargetId;
+    target.scrollIntoView = jasmine.createSpy('scrollIntoView');
+    document.body.appendChild(target);
+
+    (fixture.nativeElement as HTMLElement)
+      .querySelector<HTMLAnchorElement>('.appz-solution-hero__visual-link')
+      ?.click();
+
+    expect(target.scrollIntoView).toHaveBeenCalled();
+    target.remove();
   });
 });
