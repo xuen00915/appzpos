@@ -42,6 +42,21 @@ body {
   overflow-x: clip;
 }
 
+/* Shared content-heading rhythm across the homepage and internal pages.
+   Masthead h1 elements sit outside #content and keep their own hero scale. */
+#content h2:not(.fs-6) {
+  font-size: clamp(1.75rem, 2.7vw, 3rem) !important;
+  font-weight: 750;
+  letter-spacing: .025em !important;
+  line-height: 1.1 !important;
+  text-wrap: balance;
+}
+
+#content .appz-display,
+#content .ecosystem__features h2 {
+  max-width: 16ch !important;
+}
+
 a,
 button,
 input,
@@ -97,6 +112,11 @@ a {
 }
 
 @media (max-width: 767px) {
+  #content h2:not(.fs-6) {
+    font-size: clamp(1.65rem, 7vw, 2.1rem) !important;
+    letter-spacing: .018em !important;
+  }
+
   .appzpos-container {
     width: min(calc(100% - 32px), var(--appz-container));
   }

@@ -8,8 +8,8 @@ const marketingStyles = readFileSync(new URL('../../src/styles/_appzpos-marketin
 test('the locked hero leads into the remaining homepage story without the product suite', () => {
   const selectors = [
     'app-home-order-flow',
-    'app-home-industries',
     'app-home-ecosystem',
+    'app-home-industries',
     'app-home-proof',
     'app-custom-request-demo'
   ];

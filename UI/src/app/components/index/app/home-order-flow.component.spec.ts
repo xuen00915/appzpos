@@ -71,7 +71,7 @@ describe('HomeOrderFlowComponent ecosystem', () => {
     });
   });
 
-  it('renders the approved heading and six independent ecosystem islands', () => {
+  it('renders the approved heading and seven independent ecosystem islands', () => {
     fixture.detectChanges();
     const host = fixture.nativeElement as HTMLElement;
     expect(host.querySelector('.appz-ecosystem__eyebrow')?.textContent?.trim())
@@ -80,25 +80,37 @@ describe('HomeOrderFlowComponent ecosystem', () => {
     expect(host.querySelector('.appz-ecosystem__intro')?.textContent?.trim()).toBe(
       'From order to kitchen, pickup, delivery and management — connect the APPZPOS modules that fit your business.'
     );
-    expect(host.querySelectorAll('[data-ecosystem-island]').length).toBe(6);
-    expect(host.querySelectorAll('[data-ecosystem-island] img').length).toBe(6);
-    expect(host.querySelectorAll('[data-ecosystem-connection]').length).toBe(6);
+    expect(host.querySelectorAll('[data-ecosystem-island]').length).toBe(7);
+    expect(host.querySelectorAll('[data-ecosystem-island] img').length).toBe(7);
+    expect(host.querySelectorAll('[data-ecosystem-connection]').length).toBe(7);
     expect(host.querySelector('[data-ecosystem-hub] img')?.getAttribute('src'))
       .toBe('assets/images/ecosystem/ecosystem-hub.webp');
     expect(host.querySelector('.appz-ecosystem__connections')?.textContent?.trim()).toBe('');
   });
 
-  it('uses only existing APPZPOS routes for the six islands', () => {
+  it('shows the approved APPZPOS brand inside the central cloud hub', () => {
+    fixture.detectChanges();
+    const logo = (fixture.nativeElement as HTMLElement)
+      .querySelector<HTMLImageElement>('[data-ecosystem-hub-logo]');
+
+    expect(logo).not.toBeNull();
+    expect(logo?.getAttribute('src')).toBe(
+      'https://appzpos.com/admin/Upload/0771BB36-9631-40F2-A204-C60247E9F1E1/Images/APPZPOS-300X150px.png'
+    );
+  });
+
+  it('uses the existing APPZPOS route for each of the seven islands', () => {
     fixture.detectChanges();
     const hrefs = Array.from(
-      (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLAnchorElement>('[data-ecosystem-island]')
-    ).map((item) => item.getAttribute('href'));
+      (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLButtonElement>('[data-ecosystem-island]')
+    ).map((item) => item.dataset['route']);
 
     expect(hrefs).toEqual([
       '/cloud-pos-point-of-sales-system',
       '/f&b-restaurant-emenu-qr-code-ordering-system',
       '/f&b-restaurant-kitchen-display-system',
-      '/custom-solutions',
+      '/self-order-kiosk-restaurant',
+      '/f&b-restaurant-queue-number-display-system',
       '/f&b-restaurant-online-ordering-website',
       '/f&b-restaurant-delivery-integration'
     ]);
@@ -118,7 +130,8 @@ describe('HomeOrderFlowComponent ecosystem', () => {
       'Website Ordering',
       'Order Hub'
     ]);
-    expect(host.querySelectorAll('[data-island-id="pos"] [data-island-module]').length).toBe(2);
+    expect(host.querySelectorAll('[data-island-id="kiosk"] [data-island-module]').length).toBe(1);
+    expect(host.querySelectorAll('[data-island-id="queue"] [data-island-module]').length).toBe(1);
     expect(host.textContent).toContain('Cloud Based POS system - Access your data anywhere');
     expect(host.textContent).toContain('Order Tracking - Receive real-time updates for new orders, modifications, or cancellations');
     expect(host.textContent).toContain('Centralized Order Management - Integrated with GrabFood, Foodpanda, and Deliveroo to one centralized platform');
@@ -136,6 +149,72 @@ describe('HomeOrderFlowComponent ecosystem', () => {
     component.clearActiveIsland();
     fixture.detectChanges();
     expect(component.activeIslandId).toBeNull();
+  });
+
+  it('keeps the dining content visible in a persistent rail beside the island diagram', () => {
+    fixture.detectChanges();
+    const host = fixture.nativeElement as HTMLElement;
+    const layout = host.querySelector<HTMLElement>('[data-ecosystem-layout]');
+    const stage = host.querySelector<HTMLElement>('.appz-ecosystem__stage');
+    const details = host.querySelector<HTMLElement>('[data-island-details]');
+
+    expect(fixture.componentInstance.activeDetailsIslandId).toBe('dining');
+    expect(layout).not.toBeNull();
+    expect(stage?.parentElement).toBe(layout);
+    expect(details?.parentElement).toBe(layout);
+    expect(details?.classList).toContain('appz-ecosystem__details--dining');
+    expect(details?.querySelector('[data-details-close]')).toBeNull();
+    expect(details?.querySelector('h3')?.textContent?.trim()).toBe('Table QR Ordering');
+    expect(details?.querySelectorAll('[data-details-feature]').length).toBe(6);
+  });
+
+  it('updates the persistent content rail with complete matching copy when an island is clicked', () => {
+    fixture.detectChanges();
+    const host = fixture.nativeElement as HTMLElement;
+    const kitchenIsland = host.querySelector<HTMLElement>('[data-island-id="kitchen"]')!;
+
+    kitchenIsland.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+    fixture.detectChanges();
+
+    const details = host.querySelector<HTMLElement>('[data-island-details]');
+    expect(details).not.toBeNull();
+    expect(details?.parentElement?.hasAttribute('data-ecosystem-layout')).toBeTrue();
+    expect(details?.classList).toContain('appz-ecosystem__details--kitchen');
+    expect(details?.getAttribute('aria-live')).toBe('polite');
+    expect(details?.getAttribute('role')).not.toBe('dialog');
+    expect(document.body.style.overflow).not.toBe('hidden');
+    expect(details?.querySelector('h3')?.textContent?.trim()).toBe('Kitchen Display System (KDS)');
+    expect(details?.querySelectorAll('[data-details-feature]').length).toBe(6);
+    expect(details?.textContent).toContain('Error Reduction - Minimize order errors');
+    expect(details?.querySelector<HTMLAnchorElement>('[data-details-learn-more]')?.getAttribute('href'))
+      .toBe('/f&b-restaurant-kitchen-display-system');
+    expect(details?.querySelector('[data-details-close]')).toBeNull();
+  });
+
+  it('shows Self Ordering Kiosk and Queue Number Display as separate island details', () => {
+    fixture.detectChanges();
+    const host = fixture.nativeElement as HTMLElement;
+    host.querySelector<HTMLElement>('[data-island-id="kiosk"]')
+      ?.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+    fixture.detectChanges();
+
+    let details = host.querySelector<HTMLElement>('[data-island-details]');
+    expect(details?.querySelectorAll('h3').length).toBe(1);
+    expect(details?.querySelector('h3')?.textContent?.trim()).toBe('Self Ordering Kiosk');
+    expect(details?.querySelectorAll('[data-details-feature]').length).toBe(8);
+    expect(details?.querySelector<HTMLAnchorElement>('[data-details-learn-more]')?.getAttribute('href'))
+      .toBe('/self-order-kiosk-restaurant');
+
+    host.querySelector<HTMLElement>('[data-island-id="queue"]')
+      ?.dispatchEvent(new MouseEvent('click', { bubbles: true, cancelable: true }));
+    fixture.detectChanges();
+
+    details = host.querySelector<HTMLElement>('[data-island-details]');
+    expect(details?.querySelectorAll('h3').length).toBe(1);
+    expect(details?.querySelector('h3')?.textContent?.trim()).toBe('Queue Number Display');
+    expect(details?.querySelectorAll('[data-details-feature]').length).toBe(4);
+    expect(details?.querySelector<HTMLAnchorElement>('[data-details-learn-more]')?.getAttribute('href'))
+      .toBe('/f&b-restaurant-queue-number-display-system');
   });
 
   it('reveals the scene when it enters the viewport', () => {
@@ -183,28 +262,19 @@ describe('HomeOrderFlowComponent ecosystem', () => {
 
     expect(fixture.componentInstance.reducedMotion).toBeTrue();
     expect(fixture.componentInstance.isVisible).toBeTrue();
-    expect((fixture.nativeElement as HTMLElement).querySelectorAll('[data-ecosystem-island]').length).toBe(6);
+    expect((fixture.nativeElement as HTMLElement).querySelectorAll('[data-ecosystem-island]').length).toBe(7);
   });
 
-  it('renders all seven product modules with the supplied copy and existing routes', () => {
+  it('removes the duplicated category explorer while preserving all module content for island details', () => {
     fixture.detectChanges();
     const host = fixture.nativeElement as HTMLElement;
-    const tabs = Array.from(host.querySelectorAll<HTMLElement>('[data-module-tab]'));
-    const panels = Array.from(host.querySelectorAll<HTMLElement>('[data-module-panel]'));
-    const routes = panels.map((panel) => panel.querySelector<HTMLAnchorElement>('a')?.getAttribute('href'));
+    const component = fixture.componentInstance;
 
-    expect(tabs.map((tab) => tab.textContent?.replace(/\s+/g, ' ').trim())).toEqual([
-      'POS / E-Waiter',
-      'Website Ordering',
-      'Table QR Ordering',
-      'Self Ordering Kiosk',
-      'Queue Number Display',
-      'Kitchen Display System (KDS)',
-      'Order Hub'
-    ]);
-    expect(panels.length).toBe(7);
-    expect(host.querySelectorAll('[data-module-feature]').length).toBe(46);
-    expect(routes).toEqual([
+    expect(host.querySelectorAll('[data-module-tab]').length).toBe(0);
+    expect(host.querySelectorAll('[data-module-panel]').length).toBe(0);
+    expect(component.productModules.length).toBe(7);
+    expect(component.productModules.reduce((total, module) => total + module.features.length, 0)).toBe(46);
+    expect(component.productModules.map((module) => module.route)).toEqual([
       '/cloud-pos-point-of-sales-system',
       '/f&b-restaurant-online-ordering-website',
       '/f&b-restaurant-emenu-qr-code-ordering-system',
@@ -213,39 +283,5 @@ describe('HomeOrderFlowComponent ecosystem', () => {
       '/f&b-restaurant-kitchen-display-system',
       '/f&b-restaurant-delivery-integration'
     ]);
-    expect(host.textContent).toContain('Smart Inventory - Monitor item balances & set up alerts');
-    expect(host.textContent).toContain('Kiosk Options - 15.6”, 21”, 24” and 32” monitor with countertop or pedestal mounting');
-    expect(host.textContent).toContain("Integration - Linked with Queue Number Display to show 'In-Process' and 'Ready for Collection' orders");
-    expect(host.textContent).toContain('Real-time Overview Report - Easily monitor all your delivery, online and in-store orders in one POS system');
-  });
-
-  it('switches the visible module panel when a tab is selected', () => {
-    fixture.detectChanges();
-    const host = fixture.nativeElement as HTMLElement;
-    const tabs = Array.from(host.querySelectorAll<HTMLButtonElement>('[data-module-tab]'));
-
-    tabs[4].click();
-    fixture.detectChanges();
-
-    expect(tabs[4].getAttribute('aria-selected')).toBe('true');
-    expect(host.querySelector<HTMLElement>('[data-module-panel="queue"]')?.hidden).toBeFalse();
-    expect(host.querySelector<HTMLElement>('[data-module-panel="pos"]')?.hidden).toBeTrue();
-    expect(host.querySelector('[data-module-panel="queue"] h3')?.textContent?.trim()).toBe('Queue Number Display');
-  });
-
-  it('supports keyboard navigation across the module tabs', () => {
-    fixture.detectChanges();
-    const host = fixture.nativeElement as HTMLElement;
-    const tabList = host.querySelector<HTMLElement>('.appz-ecosystem__module-tabs')!;
-
-    tabList.dispatchEvent(new KeyboardEvent('keydown', { key: 'End', bubbles: true }));
-    fixture.detectChanges();
-    expect(fixture.componentInstance.activeModuleIndex).toBe(6);
-    expect(host.querySelectorAll('[data-module-tab]')[6].getAttribute('aria-selected')).toBe('true');
-
-    tabList.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }));
-    fixture.detectChanges();
-    expect(fixture.componentInstance.activeModuleIndex).toBe(0);
-    expect(host.querySelectorAll('[data-module-tab]')[0].getAttribute('aria-selected')).toBe('true');
   });
 });

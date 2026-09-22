@@ -103,6 +103,52 @@
   line-height: 1.75;
 }
 
+.appz-home-story app-home-ecosystem .appz-section.ecosystem__grant {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.appz-home-story app-home-ecosystem .ecosystem__grant-visual {
+  justify-self: center;
+  width: min(64%, 760px);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: 0 24px 56px rgba(0, 0, 0, .18);
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+.appz-home-story app-home-ecosystem .ecosystem__grant-copy {
+  min-width: 0;
+  width: min(100%, 900px);
+  justify-self: center;
+}
+
+.appz-home-story app-home-ecosystem .ecosystem__grant-link {
+  display: inline-flex;
+  min-height: 50px;
+  align-items: center;
+  gap: 12px;
+  margin-top: 12px;
+  padding: 0 22px;
+  border-radius: 999px;
+  color: #fff;
+  background: var(--appz-orange);
+  font-weight: 800;
+  white-space: nowrap;
+  text-decoration: none;
+
+  &:hover {
+    color: #fff;
+    transform: translateY(-2px);
+  }
+}
+
 @media (max-width: 1279px) {
   .appz-split { gap: clamp(36px, 5vw, 64px); }
 }
@@ -110,12 +156,34 @@
 @media (max-width: 1023px) {
   .appz-split { grid-template-columns: 1fr; gap: 40px; }
   .appz-display { max-width: 15ch; }
+
+  .appz-home-story app-home-ecosystem .appz-section.ecosystem__grant {
+    grid-template-columns: 1fr;
+  }
+
+  .appz-home-story app-home-ecosystem .ecosystem__grant-visual {
+    width: min(78%, 720px);
+  }
 }
 
 @media (max-width: 767px) {
   .appz-section { width: min(calc(100% - 40px), var(--appz-content-width)); }
   .appz-conversion-panel { width: calc(100% - 24px); padding: 32px 20px; }
   .appz-display { font-size: clamp(1.95rem, 9vw, 3.1rem); }
+
+  .appz-home-story app-home-ecosystem .appz-section.ecosystem__grant {
+    gap: 30px;
+  }
+
+  .appz-home-story app-home-ecosystem .ecosystem__grant-visual {
+    width: 100%;
+    border-radius: 10px;
+  }
+
+  .appz-home-story app-home-ecosystem .ecosystem__grant-link {
+    width: 100%;
+    justify-content: center;
+  }
 }
 
 [data-animate] {
@@ -226,8 +294,9 @@
 
   h2 {
     margin-bottom: 22px;
-    font-size: clamp(1.75rem, 2.9vw, 2.8rem) !important;
-    line-height: 1.03 !important;
+    font-size: clamp(1.75rem, 2.7vw, 3rem) !important;
+    letter-spacing: .025em !important;
+    line-height: 1.1 !important;
     font-weight: 720 !important;
   }
 
@@ -566,6 +635,11 @@ app-cn-f\&b-restaurant-cloud-pos-system {
   }
 
   #content {
+    h2:not(.fs-6) {
+      font-size: clamp(1.65rem, 7vw, 2.1rem) !important;
+      letter-spacing: .018em !important;
+    }
+
     .content-wrap { padding: 56px 0; }
     .container,
     .container-fluid { padding-inline: 20px; }

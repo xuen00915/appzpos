@@ -9,7 +9,6 @@ import {
   OnInit,
   ViewChild
 } from '@angular/core';
-import { CommonFunctionService } from '../../../../src/app/services/shared_function/common-function.service';
 
 interface EcosystemIsland {
   id: string;
@@ -22,6 +21,7 @@ interface EcosystemIsland {
 }
 
 interface IslandModuleSummary {
+  moduleId: string;
   title: string;
   summary: string;
 }
@@ -53,6 +53,7 @@ export class HomeOrderFlowComponent implements OnInit, AfterViewInit, OnDestroy 
       id: 'admin',
       title: 'Admin / Back Office',
       modules: [{
+        moduleId: 'pos',
         title: 'POS / E-Waiter',
         summary: 'Cloud Based POS system - Access your data anywhere'
       }],
@@ -65,6 +66,7 @@ export class HomeOrderFlowComponent implements OnInit, AfterViewInit, OnDestroy 
       id: 'dining',
       title: 'Dining / Restaurant',
       modules: [{
+        moduleId: 'qr',
         title: 'Table QR Ordering',
         summary: 'E-Menu Ordering - Customers scan a QR code to view the menu, and place orders from their phones'
       }],
@@ -77,6 +79,7 @@ export class HomeOrderFlowComponent implements OnInit, AfterViewInit, OnDestroy 
       id: 'kitchen',
       title: 'Kitchen',
       modules: [{
+        moduleId: 'kds',
         title: 'Kitchen Display System (KDS)',
         summary: 'Order Tracking - Receive real-time updates for new orders, modifications, or cancellations'
       }],
@@ -86,39 +89,49 @@ export class HomeOrderFlowComponent implements OnInit, AfterViewInit, OnDestroy 
       depth: .72
     },
     {
-      id: 'pos',
-      title: 'POS & Ordering',
-      modules: [
-        {
-          title: 'Self Ordering Kiosk',
-          summary: 'Contactless Ordering - Allow customers to use the self-service kiosk to browse the menu, place orders, process payments, and reduce their wait times'
-        },
-        {
-          title: 'Queue Number Display',
-          summary: 'Order Management - An unique queue number is assigned to orders from all ordering portals'
-        }
-      ],
-      route: '/custom-solutions',
-      image: 'assets/images/ecosystem/ecosystem-pos.webp',
-      ariaLabel: 'Explore POS, Self-Order Kiosk and Queue solutions',
+      id: 'kiosk',
+      title: 'Self Ordering Kiosk',
+      modules: [{
+        moduleId: 'kiosk',
+        title: 'Self Ordering Kiosk',
+        summary: 'Contactless Ordering - Allow customers to use the self-service kiosk to browse the menu, place orders, process payments, and reduce their wait times'
+      }],
+      route: '/self-order-kiosk-restaurant',
+      image: 'assets/images/ecosystem/ecosystem-kiosk.webp',
+      ariaLabel: 'Explore Self Ordering Kiosk',
       depth: .88
+    },
+    {
+      id: 'queue',
+      title: 'Queue Number Display',
+      modules: [{
+        moduleId: 'queue',
+        title: 'Queue Number Display',
+        summary: 'Order Management - An unique queue number is assigned to orders from all ordering portals'
+      }],
+      route: '/f&b-restaurant-queue-number-display-system',
+      image: 'assets/images/ecosystem/ecosystem-queue.webp',
+      ariaLabel: 'Explore Queue Number Display',
+      depth: .78
     },
     {
       id: 'website',
       title: 'Website Ordering',
       modules: [{
+        moduleId: 'website',
         title: 'Website Ordering',
         summary: 'Online Ordering - Allow customers to place orders online and easily track order status'
       }],
       route: '/f&b-restaurant-online-ordering-website',
-      image: 'assets/images/ecosystem/ecosystem-website.webp',
-      ariaLabel: 'Explore Website Ordering',
+      image: 'assets/images/ecosystem/ecosystem-website-ordering.webp',
+      ariaLabel: 'Explore Website Ordering on computer and mobile',
       depth: .68
     },
     {
       id: 'delivery',
       title: 'Delivery / Order Hub',
       modules: [{
+        moduleId: 'hub',
         title: 'Order Hub',
         summary: 'Centralized Order Management - Integrated with GrabFood, Foodpanda, and Deliveroo to one centralized platform'
       }],
@@ -235,7 +248,7 @@ export class HomeOrderFlowComponent implements OnInit, AfterViewInit, OnDestroy 
   ];
 
   activeIslandId: string | null = null;
-  activeModuleIndex = 0;
+  activeDetailsIslandId: string | null = 'dining';
   isVisible = false;
   reducedMotion = false;
 
@@ -247,11 +260,9 @@ export class HomeOrderFlowComponent implements OnInit, AfterViewInit, OnDestroy 
   private destroyed = false;
   private pointerX = 0;
   private pointerY = 0;
-
   constructor(
     private readonly changeDetectorRef: ChangeDetectorRef,
-    private readonly ngZone: NgZone,
-    private readonly commonFunctionService: CommonFunctionService
+    private readonly ngZone: NgZone
   ) {}
 
   ngOnInit(): void {
@@ -298,38 +309,24 @@ export class HomeOrderFlowComponent implements OnInit, AfterViewInit, OnDestroy 
     this.changeDetectorRef.markForCheck();
   }
 
-  selectModule(index: number): void {
-    if (index < 0 || index >= this.productModules.length || index === this.activeModuleIndex) {
-      return;
-    }
-    this.activeModuleIndex = index;
-    this.changeDetectorRef.markForCheck();
+  get activeDetailsIsland(): EcosystemIsland | undefined {
+    return this.islands.find((island) => island.id === this.activeDetailsIslandId);
   }
 
-  handleModuleKeys(event: KeyboardEvent): void {
-    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) {
-      return;
-    }
+  get activeDetailsModules(): readonly ProductModule[] {
+    const moduleIds = this.activeDetailsIsland?.modules.map((module) => module.moduleId) ?? [];
+    return moduleIds
+      .map((moduleId) => this.productModules.find((module) => module.id === moduleId))
+      .filter((module): module is ProductModule => Boolean(module));
+  }
 
+  openIslandDetails(event: Event, islandId: string): false {
     event.preventDefault();
-    if (event.key === 'Home') {
-      this.activeModuleIndex = 0;
-    } else if (event.key === 'End') {
-      this.activeModuleIndex = this.productModules.length - 1;
-    } else {
-      const direction = event.key === 'ArrowRight' ? 1 : -1;
-      this.activeModuleIndex = (
-        this.activeModuleIndex + direction + this.productModules.length
-      ) % this.productModules.length;
-    }
-
-    const tabs = (event.currentTarget as HTMLElement).querySelectorAll<HTMLButtonElement>('[data-module-tab]');
-    tabs[this.activeModuleIndex]?.focus();
+    event.stopPropagation();
+    this.activeDetailsIslandId = islandId;
+    this.activeIslandId = islandId;
     this.changeDetectorRef.markForCheck();
-  }
-
-  moduleImageUrl(fileName: string): string {
-    return this.commonFunctionService.BindURL_Image(fileName);
+    return false;
   }
 
   handlePointerMove(event: PointerEvent): void {

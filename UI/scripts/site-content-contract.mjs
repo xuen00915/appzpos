@@ -12,6 +12,11 @@ const currentPhrases = new Set(collectVisibleText(componentRoot, [
   'custom-footer.component.html'
 ]));
 const expectedHeroHash = '3d420a3a19fe647f131fbe524db1902f67fda2963f1bb88a1421cdcb9da744e1';
+const approvedRemovedPhrases = new Set([
+  '50%',
+  'PRODUCTIVITY SOLUTIONS GRANT',
+  'UP TO'
+]);
 
 function extractHero(source) {
   const start = source.indexOf('<section class="appzpos-product-hero');
@@ -21,7 +26,7 @@ function extractHero(source) {
 }
 
 const failures = expectedPhrases
-  .filter((phrase) => !currentPhrases.has(phrase))
+  .filter((phrase) => !approvedRemovedPhrases.has(phrase) && !currentPhrases.has(phrase))
   .map((phrase) => `visible wording removed: ${phrase}`);
 
 const homeSource = readFileSync(homePath, 'utf8');

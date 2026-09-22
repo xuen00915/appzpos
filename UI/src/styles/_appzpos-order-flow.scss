@@ -35,10 +35,10 @@ app-home-order-flow {
 
   &__heading h2 {
     color: $ecosystem-navy;
-    font-size: clamp(2.1rem, 3.8vw, 3.6rem);
+    font-size: clamp(1.85rem, 2.8vw, 2.75rem);
     font-weight: 760;
-    letter-spacing: -.055em;
-    line-height: .98;
+    letter-spacing: .025em;
+    line-height: 1.08;
     margin: 0;
     text-wrap: balance;
   }
@@ -51,12 +51,22 @@ app-home-order-flow {
     max-width: 660px;
   }
 
-  &__stage {
-    aspect-ratio: 4 / 3;
-    isolation: isolate;
+  &__layout {
+    align-items: start;
+    display: grid;
+    gap: clamp(34px, 4vw, 64px);
+    grid-template-columns: minmax(0, 1.42fr) minmax(360px, .82fr);
     margin: 0 auto;
-    max-width: 1240px;
-    min-height: 680px;
+    max-width: 1400px;
+    width: 100%;
+  }
+
+  &__stage {
+    aspect-ratio: 6 / 5;
+    isolation: isolate;
+    margin: 0;
+    max-width: none;
+    min-height: 700px;
     position: relative;
     width: 100%;
 
@@ -128,19 +138,31 @@ app-home-order-flow {
     opacity: 0;
     pointer-events: none;
     position: absolute;
-    top: 30%;
+    top: 34%;
     transform: translate3d(0, 22px, 0) scale(.93);
     transition: opacity 720ms ease, transform 900ms cubic-bezier(.16, 1, .3, 1);
-    width: 30%;
+    width: 28%;
     z-index: 6;
 
-    img {
+    &-art {
       display: block;
       filter: drop-shadow(0 22px 28px rgba($ecosystem-blue, .2));
       height: auto;
       position: relative;
       width: 100%;
       z-index: 1;
+    }
+
+    &-logo {
+      filter: drop-shadow(0 5px 8px rgba($ecosystem-navy, .14));
+      height: auto;
+      left: 50%;
+      object-fit: contain;
+      position: absolute;
+      top: 40%;
+      transform: translate3d(-50%, -50%, 0);
+      width: 37%;
+      z-index: 2;
     }
   }
 
@@ -181,11 +203,16 @@ app-home-order-flow {
     --pointer-x: 0px;
     --pointer-y: 0px;
     --scroll-y: 0px;
+    appearance: none;
+    background: transparent;
     color: inherit;
+    cursor: pointer;
     display: block;
+    font: inherit;
     opacity: 0;
     border: 0;
     outline: none !important;
+    padding: 0;
     position: absolute;
     text-decoration: none;
     transform: translate3d(var(--pointer-x), calc(var(--pointer-y) + var(--scroll-y) + 28px), 0) scale(.96);
@@ -264,10 +291,10 @@ app-home-order-flow {
     }
 
     &--admin {
-      right: 0;
-      top: 1%;
+      right: -1%;
+      top: -1%;
       transition-delay: 520ms;
-      width: 31%;
+      width: 29%;
     }
 
     &--kitchen {
@@ -285,11 +312,18 @@ app-home-order-flow {
       z-index: 3;
     }
 
-    &--pos {
-      right: 7%;
-      top: 26%;
+    &--kiosk {
+      right: 15%;
+      top: 31%;
       transition-delay: 130ms;
-      width: 31%;
+      width: 25%;
+    }
+
+    &--queue {
+      right: -2%;
+      top: 58%;
+      transition-delay: 230ms;
+      width: 27%;
     }
 
     &--website {
@@ -325,8 +359,12 @@ app-home-order-flow {
     animation: appz-float-dining 8s ease-in-out .9s infinite alternate;
   }
 
-  &.is-visible &__island--pos &__island-float {
+  &.is-visible &__island--kiosk &__island-float {
     animation: appz-float-pos 5.6s ease-in-out 1s infinite alternate;
+  }
+
+  &.is-visible &__island--queue &__island-float {
+    animation: appz-float-queue 6.8s ease-in-out 1.2s infinite alternate;
   }
 
   &.is-visible &__island--website &__island-float {
@@ -393,151 +431,110 @@ app-home-order-flow {
     }
   }
 
-  &__island--pos &__label {
-    bottom: -18%;
-    width: min(286px, 98%);
-  }
-
-  &__modules {
-    margin: clamp(54px, 7vw, 92px) auto 0;
-    max-width: 1240px;
+  &__details {
+    background: #fff;
+    border: 1px solid rgba($ecosystem-blue, .2);
+    border-radius: 20px;
+    box-shadow: 0 24px 64px rgba($ecosystem-navy, .14), inset 0 1px 0 #fff;
+    min-width: 0;
+    overflow: hidden;
     position: relative;
+    top: auto;
+    width: 100%;
     z-index: 10;
-  }
 
-  &__module-tabs {
-    border-bottom: 1px solid rgba($ecosystem-navy, .12);
-    display: grid;
-    grid-template-columns: repeat(7, minmax(0, 1fr));
-    margin: 0;
-    overflow: visible;
-
-    button {
-      appearance: none;
-      background: transparent;
-      border: 0;
-      color: $ecosystem-muted;
-      cursor: pointer;
-      font: inherit;
-      font-size: clamp(.72rem, .8vw, .84rem);
-      font-weight: 720;
-      line-height: 1.3;
-      min-height: 72px;
-      padding: 14px 10px 18px;
-      position: relative;
-      transition: color 220ms ease, background-color 220ms ease;
-
-      &::after {
-        background: linear-gradient(90deg, $ecosystem-orange, #ff995b);
-        bottom: -1px;
-        content: '';
-        height: 3px;
-        left: 18%;
-        opacity: 0;
-        position: absolute;
-        right: 18%;
-        transform: scaleX(.4);
-        transform-origin: center;
-        transition: opacity 220ms ease, transform 280ms cubic-bezier(.16, 1, .3, 1);
-      }
-
-      &:hover {
-        color: $ecosystem-navy;
-      }
-
-      &:focus-visible {
-        box-shadow: inset 0 0 0 2px rgba($ecosystem-blue, .72);
-        outline: none;
-      }
-
-      &.is-active {
-        background: linear-gradient(180deg, rgba(#fff, 0), rgba($ecosystem-orange, .055));
-        color: $ecosystem-navy;
-
-        &::after {
-          opacity: 1;
-          transform: scaleX(1);
-        }
-      }
-
-      &:active {
-        transform: translateY(1px);
-      }
-    }
-  }
-
-  &__module-panels {
-    margin-top: 26px;
-  }
-
-  &__module-panel {
-    animation: appz-module-panel-in 520ms cubic-bezier(.16, 1, .3, 1) both;
-    background: rgba(#fff, .97);
-    border: 1px solid rgba($ecosystem-blue, .15);
-    border-radius: 24px;
-    box-shadow: 0 30px 76px rgba($ecosystem-navy, .1), inset 0 1px 0 #fff;
-    display: grid;
-    grid-template-columns: minmax(300px, .8fr) minmax(0, 1.45fr);
-    min-height: 540px;
-    overflow: hidden;
-
-    &[hidden] {
-      display: none;
-    }
-  }
-
-  &__module-media {
-    align-items: center;
-    background:
-      radial-gradient(circle at 48% 42%, rgba($ecosystem-blue, .18), transparent 46%),
-      linear-gradient(145deg, #f8fcff, $ecosystem-sky);
-    display: flex;
-    justify-content: center;
-    margin: 0;
-    min-height: 100%;
-    overflow: hidden;
-    padding: clamp(26px, 4vw, 58px);
-    position: relative;
-
-    &::after {
-      background: radial-gradient(ellipse, rgba($ecosystem-blue, .18), transparent 66%);
-      bottom: 12%;
+    &::before {
+      background: linear-gradient(90deg, $ecosystem-blue, $ecosystem-orange);
       content: '';
-      height: 16%;
-      left: 15%;
+      height: 3px;
+      inset: 0 0 auto;
       position: absolute;
-      right: 15%;
     }
 
-    img {
-      display: block;
-      filter: drop-shadow(0 24px 28px rgba($ecosystem-navy, .14));
-      height: auto;
-      max-height: 390px;
-      object-fit: contain;
-      position: relative;
-      width: 100%;
-      z-index: 1;
+  }
+
+  &__details-header {
+    align-items: start;
+    border-bottom: 1px solid rgba($ecosystem-navy, .1);
+    display: flex;
+    justify-content: space-between;
+    padding: 24px clamp(22px, 3vw, 32px) 21px;
+
+    p {
+      color: $ecosystem-blue;
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      margin: 0 0 7px;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      color: $ecosystem-navy;
+      font-size: clamp(1.2rem, 1.65vw, 1.7rem);
+      font-weight: 760;
+      letter-spacing: -.04em;
+      line-height: 1.06;
+      margin: 0;
+      white-space: nowrap;
     }
   }
 
-  &__module-copy {
-    align-self: center;
-    padding: clamp(38px, 5vw, 70px) clamp(32px, 5vw, 72px);
+  &__details-body {
+    padding: clamp(25px, 3vw, 34px);
+
+    &--multiple {
+      display: grid;
+      gap: 30px;
+      grid-template-columns: minmax(0, 1fr);
+
+      .appz-ecosystem__details-module h3 {
+        margin-bottom: 19px;
+      }
+
+      .appz-ecosystem__details-module ul {
+        gap: 11px;
+      }
+
+      .appz-ecosystem__details-module li p {
+        font-size: .88rem;
+        line-height: 1.45;
+      }
+
+      .appz-ecosystem__details-learn-more {
+        margin-top: 22px;
+      }
+
+      .appz-ecosystem__details-module + .appz-ecosystem__details-module {
+        border-left: 0;
+        border-top: 1px solid rgba($ecosystem-navy, .1);
+        margin-top: 0;
+        padding-left: 0;
+        padding-top: 30px;
+      }
+
+      .appz-ecosystem__details-module:first-child {
+        padding-right: 0;
+      }
+    }
+  }
+
+  &__details-module {
+    animation: appz-details-copy-in 420ms cubic-bezier(.16, 1, .3, 1) both;
 
     h3 {
       color: $ecosystem-navy;
-      font-size: clamp(1.75rem, 2.5vw, 2.65rem);
+      font-size: clamp(1.45rem, 2.2vw, 1.8rem);
       font-weight: 760;
       letter-spacing: -.04em;
-      line-height: 1.04;
-      margin: 0 0 30px;
+      line-height: 1.08;
+      margin: 0 0 25px;
     }
 
     ul {
       display: grid;
-      gap: 16px 26px;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 15px 28px;
+      grid-template-columns: 1fr;
       list-style: none;
       margin: 0;
       padding: 0;
@@ -571,27 +568,31 @@ app-home-order-flow {
     }
   }
 
-  &__learn-more {
+  &__details-body--multiple &__details-module ul {
+    grid-template-columns: 1fr;
+  }
+
+  &__details-learn-more {
     background: $ecosystem-blue;
     border: 1px solid $ecosystem-blue;
     border-radius: 999px;
     box-shadow: 0 12px 24px rgba($ecosystem-blue, .2);
     color: #fff;
     display: inline-flex;
-    font-size: .94rem;
+    font-size: .9rem;
     font-weight: 760;
     justify-content: center;
     line-height: 1;
-    margin-top: 34px;
-    min-width: 132px;
-    padding: 15px 24px;
+    margin-top: 30px;
+    min-width: 128px;
+    padding: 14px 22px;
     text-decoration: none;
-    transition: background-color 220ms ease, box-shadow 220ms ease, transform 220ms ease;
+    transition: background-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
 
     &:hover,
     &:focus-visible {
       background: #0878d0;
-      box-shadow: 0 15px 30px rgba($ecosystem-blue, .26);
+      box-shadow: 0 14px 28px rgba($ecosystem-blue, .26);
       color: #fff;
       outline: none;
       transform: translateY(-2px);
@@ -599,10 +600,6 @@ app-home-order-flow {
 
     &:focus-visible {
       box-shadow: 0 0 0 3px #fff, 0 0 0 6px rgba($ecosystem-blue, .42);
-    }
-
-    &:active {
-      transform: translateY(1px);
     }
   }
 }
@@ -627,6 +624,10 @@ app-home-order-flow {
   to { transform: translate3d(-3px, -6px, 0); }
 }
 
+@keyframes appz-float-queue {
+  to { transform: translate3d(4px, -5px, 0); }
+}
+
 @keyframes appz-float-website {
   to { transform: translate3d(5px, -4px, 0); }
 }
@@ -640,22 +641,34 @@ app-home-order-flow {
   to { opacity: .68; transform: translate3d(0, -3px, 0) scale(1.045); }
 }
 
-@keyframes appz-module-panel-in {
-  from { opacity: 0; transform: translate3d(0, 14px, 0); }
+@keyframes appz-details-copy-in {
+  from { opacity: 0; transform: translate3d(0, 12px, 0); }
   to { opacity: 1; transform: translate3d(0, 0, 0); }
 }
 
 @media (max-width: 1100px) {
   .appz-ecosystem {
+    &__layout {
+      grid-template-columns: minmax(0, 1fr);
+      max-width: 880px;
+    }
+
     &__stage {
-      aspect-ratio: 4 / 3;
-      min-height: 620px;
+      aspect-ratio: 6 / 5;
+      min-height: 690px;
+    }
+
+    &__details {
+      margin: 0 auto;
+      position: relative;
+      top: auto;
+      width: 100%;
     }
 
     &__island--admin {
       right: -2%;
-      top: 2%;
-      width: 35%;
+      top: 0;
+      width: 32%;
     }
 
     &__island--kitchen {
@@ -670,10 +683,16 @@ app-home-order-flow {
       width: 38%;
     }
 
-    &__island--pos {
-      right: 4%;
-      top: 29%;
-      width: 35%;
+    &__island--kiosk {
+      right: 15%;
+      top: 35%;
+      width: 28%;
+    }
+
+    &__island--queue {
+      right: -3%;
+      top: 66%;
+      width: 29%;
     }
 
     &__island--website {
@@ -689,29 +708,11 @@ app-home-order-flow {
     }
 
     &__hub {
-      left: 33%;
-      top: 31%;
-      width: 34%;
+      left: 34%;
+      top: 35%;
+      width: 31%;
     }
 
-    &__module-tabs {
-      display: flex;
-      overflow-x: auto;
-      overscroll-behavior-inline: contain;
-      scrollbar-width: thin;
-
-      button {
-        flex: 0 0 168px;
-      }
-    }
-
-    &__module-panel {
-      grid-template-columns: minmax(260px, .75fr) minmax(0, 1.35fr);
-    }
-
-    &__module-copy ul {
-      grid-template-columns: 1fr;
-    }
   }
 }
 
@@ -724,7 +725,8 @@ app-home-order-flow {
     }
 
     &__heading h2 {
-      font-size: clamp(1.95rem, 8vw, 2.7rem);
+      font-size: clamp(1.7rem, 6.6vw, 2.05rem);
+      letter-spacing: .018em;
     }
 
     &__intro {
@@ -735,7 +737,7 @@ app-home-order-flow {
     &__stage {
       aspect-ratio: auto;
       display: grid;
-      gap: 28px;
+      gap: 34px;
       grid-template-columns: minmax(0, 1fr);
       min-height: 0;
     }
@@ -755,7 +757,8 @@ app-home-order-flow {
     &__island--admin,
     &__island--kitchen,
     &__island--dining,
-    &__island--pos,
+    &__island--kiosk,
+    &__island--queue,
     &__island--website,
     &__island--delivery {
       bottom: auto;
@@ -782,10 +785,17 @@ app-home-order-flow {
       width: min(62%, 260px);
     }
 
-    &__island--pos {
+    &__island--kiosk {
       grid-column: 1;
       justify-self: center;
       order: 3;
+      width: min(92%, 390px);
+    }
+
+    &__island--queue {
+      grid-column: 1;
+      justify-self: center;
+      order: 4;
       width: min(92%, 390px);
     }
 
@@ -798,10 +808,10 @@ app-home-order-flow {
       width: min(92%, 390px);
     }
 
-    &__island--kitchen { order: 4; }
-    &__island--admin { order: 5; }
-    &__island--website { order: 6; }
-    &__island--delivery { order: 7; }
+    &__island--kitchen { order: 5; }
+    &__island--admin { order: 6; }
+    &__island--website { order: 7; }
+    &__island--delivery { order: 8; }
 
     &__island::after {
       bottom: 14%;
@@ -832,71 +842,60 @@ app-home-order-flow {
       }
     }
 
-    &__island--pos &__label {
-      bottom: auto;
-      width: min(94%, 340px);
-    }
-
     &__island.is-active &__label,
     &__island:hover &__label,
     &__island:focus-visible &__label {
       transform: none;
     }
 
-    &__modules {
-      margin-top: 58px;
-    }
 
-    &__module-tabs {
-      margin-inline: -16px;
-      padding-inline: 16px;
-
-      button {
-        flex-basis: 154px;
-        min-height: 64px;
-        padding-inline: 8px;
-      }
-    }
-
-    &__module-panels {
-      margin-top: 20px;
-    }
-
-    &__module-panel {
+    &__details {
       border-radius: 18px;
-      grid-template-columns: 1fr;
-      min-height: 0;
+      width: 100%;
     }
 
-    &__module-media {
-      min-height: 250px;
-      padding: 24px 28px;
+    &__details-header {
+      padding: 20px 18px 18px 22px;
 
-      img {
-        max-height: 235px;
+      h2 {
+        font-size: clamp(1.03rem, 4.5vw, 1.24rem);
+        letter-spacing: -.035em;
+        white-space: nowrap;
       }
     }
 
-    &__module-copy {
-      padding: 32px 22px 34px;
+    &__details-body,
+    &__details-body--multiple {
+      display: block;
+      padding: 28px 22px 36px;
 
+      .appz-ecosystem__details-module,
+      .appz-ecosystem__details-module:first-child {
+        padding: 0;
+      }
+
+      .appz-ecosystem__details-module + .appz-ecosystem__details-module {
+        border-left: 0;
+        border-top: 1px solid rgba($ecosystem-navy, .1);
+        margin-top: 34px;
+        padding-left: 0;
+        padding-top: 34px;
+      }
+    }
+
+    &__details-module {
       h3 {
-        font-size: clamp(1.65rem, 7vw, 2rem);
-        margin-bottom: 24px;
+        font-size: 1.65rem;
+        margin-bottom: 22px;
       }
 
       ul {
-        gap: 15px;
+        grid-template-columns: 1fr;
       }
 
       li p {
         font-size: .9rem;
       }
-    }
-
-    &__learn-more {
-      margin-top: 28px;
-      min-width: 126px;
     }
   }
 }
@@ -942,12 +941,10 @@ app-home-order-flow {
       display: none;
     }
 
-    &__module-panel {
+    &__details,
+    &__details-close,
+    &__details-learn-more {
       animation: none;
-    }
-
-    &__module-tabs button,
-    &__learn-more {
       transition: none;
     }
   }
