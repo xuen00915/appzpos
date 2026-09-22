@@ -19,7 +19,21 @@ describe('SolutionHeroComponent', () => {
     scrollLabel: 'Explore APPZPOS POS features',
     integrationTargetId: 'pos-integrations',
     integrationMobileTargetId: 'pos-integrations-mobile',
-    integrationLabel: 'Explore APPZPOS platform integrations'
+    integrationLabel: 'Explore APPZPOS platform integrations',
+    deviceLinks: [
+      {
+        id: 'tablet',
+        targetId: 'pos-tablet',
+        mobileTargetId: 'pos-tablet-mobile',
+        label: 'Explore Tablet POS System on iPad and E-Waiter'
+      },
+      {
+        id: 'cloud',
+        targetId: 'pos-cloud',
+        mobileTargetId: 'pos-cloud-mobile',
+        label: 'Explore Powerful Cloud POS System'
+      }
+    ]
   };
 
   beforeEach(() => {
@@ -50,6 +64,8 @@ describe('SolutionHeroComponent', () => {
       .toBe('#pos-integrations');
     expect(section?.querySelector('.appz-solution-hero__integration-link')?.getAttribute('aria-label'))
       .toBe('Explore APPZPOS platform integrations');
+    expect(Array.from(section?.querySelectorAll('[data-solution-device]') ?? []).map((link) => link.getAttribute('href')))
+      .toEqual(['#pos-tablet', '#pos-cloud']);
   });
 
   it('keeps image before title in mobile reading order', () => {
@@ -91,5 +107,23 @@ describe('SolutionHeroComponent', () => {
     expect(scrollSpy).toHaveBeenCalled();
     target.remove();
     mobileTarget.remove();
+  });
+
+  it('scrolls each device hotspot to its matching POS section', () => {
+    const targets = config.deviceLinks.flatMap((link) => [link.targetId, link.mobileTargetId])
+      .map((id) => {
+        const target = document.createElement('div');
+        target.id = id;
+        target.scrollIntoView = jasmine.createSpy(`scroll-${id}`);
+        document.body.appendChild(target);
+        return target;
+      });
+
+    const links = (fixture.nativeElement as HTMLElement)
+      .querySelectorAll<HTMLAnchorElement>('[data-solution-device]');
+    links.forEach((link) => link.click());
+
+    expect(targets.filter((target) => (target.scrollIntoView as jasmine.Spy).calls.any()).length).toBe(2);
+    targets.forEach((target) => target.remove());
   });
 });

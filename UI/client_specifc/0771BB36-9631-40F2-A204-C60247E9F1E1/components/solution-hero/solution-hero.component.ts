@@ -1,5 +1,12 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
+export interface SolutionHeroDeviceLink {
+  readonly id: string;
+  readonly targetId: string;
+  readonly mobileTargetId: string;
+  readonly label: string;
+}
+
 export interface SolutionHeroConfig {
   readonly headingId: string;
   readonly title: string;
@@ -12,6 +19,7 @@ export interface SolutionHeroConfig {
   readonly integrationTargetId: string;
   readonly integrationMobileTargetId: string;
   readonly integrationLabel: string;
+  readonly deviceLinks: readonly SolutionHeroDeviceLink[];
 }
 
 @Component({
@@ -31,6 +39,13 @@ export class SolutionHeroComponent {
     const targetId = window.matchMedia('(max-width: 768px)').matches
       ? this.config.integrationMobileTargetId
       : this.config.integrationTargetId;
+    this.scrollTo(event, targetId);
+  }
+
+  scrollToDevice(event: Event, device: SolutionHeroDeviceLink): void {
+    const targetId = window.matchMedia('(max-width: 768px)').matches
+      ? device.mobileTargetId
+      : device.targetId;
     this.scrollTo(event, targetId);
   }
 

@@ -31,6 +31,14 @@
           </span>
         </span>
       </a>
+      <a
+        *ngFor="let device of config.deviceLinks"
+        class="appz-solution-hero__device-link"
+        [attr.data-solution-device]="device.id"
+        [attr.href]="'#' + device.targetId"
+        [attr.aria-label]="device.label"
+        (click)="scrollToDevice($event, device)">
+      </a>
     </div>
     <div class="appz-solution-hero__copy">
       <h1 [id]="config.headingId">{{ config.title }}</h1>

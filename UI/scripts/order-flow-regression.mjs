@@ -483,17 +483,119 @@ for (const width of [1440, 768, 430]) {
       const title = section?.querySelector('h1');
       const imageBox = image?.getBoundingClientRect();
       const titleBox = title?.getBoundingClientRect();
+      const sectionBox = section?.getBoundingClientRect();
+      const copy = section?.querySelector('.appz-solution-hero__copy');
+      const integration = section?.querySelector('.appz-solution-hero__integration-link');
+      const integrationBox = integration?.getBoundingClientRect();
+      const deviceLinks = [...(section?.querySelectorAll('[data-solution-device]') ?? [])];
+      const deviceCenters = Object.fromEntries(deviceLinks.map((link) => {
+        const box = link.getBoundingClientRect();
+        return [link.dataset.solutionDevice, box.left + (box.width / 2)];
+      }));
+      const overview = document.querySelector('[data-pos-overview]');
+      const overviewHeading = overview?.querySelector('h2');
+      const overviewColumns = [...(overview?.querySelectorAll('[data-pos-overview-layout] > *') ?? [])];
+      const overviewCopyBox = overviewColumns[0]?.getBoundingClientRect();
+      const overviewVisualBox = overviewColumns[1]?.getBoundingClientRect();
+      const featureCards = [...document.querySelectorAll('[data-pos-feature]')];
+      const firstFeatureTop = featureCards[0]?.getBoundingClientRect().top;
+      const systemCards = [...document.querySelectorAll('[data-pos-system-card]')];
+      const systemCardBoxes = systemCards.map((card) => card.getBoundingClientRect());
+      const hardwareItems = [...document.querySelectorAll('[data-hardware-item]')];
+      const visibleHardware = hardwareItems.filter((item) => getComputedStyle(item).display !== 'none');
+      const firstHardwareTop = visibleHardware[0]?.getBoundingClientRect().top;
       return {
         count: document.querySelectorAll(${JSON.stringify(heroCase.selector)}).length,
         sharedHero: Boolean(document.querySelector('app-solution-hero [data-solution-hero]')),
         legacyHero: Boolean(document.querySelector('app-cloud-pos-point-of-sales-system > .solution-island-hero')),
         visualHref: image?.closest('a')?.getAttribute('href'),
         integrationHref: section?.querySelector('.appz-solution-hero__integration-link')?.getAttribute('href'),
+        deviceHrefs: deviceLinks.map((link) => link.getAttribute('href')),
+        deviceIds: deviceLinks.map((link) => link.dataset.solutionDevice),
+        screenBetweenDevices: Boolean(
+          integrationBox
+          && deviceCenters.tablet
+          && deviceCenters.cloud
+          && integrationBox.left + (integrationBox.width / 2) > deviceCenters.tablet
+          && integrationBox.left + (integrationBox.width / 2) < deviceCenters.cloud
+        ),
         image: image?.getAttribute('src'),
         imageLoaded: Boolean(image?.complete && image?.naturalWidth > 0),
         title: title?.textContent.replace(/\\s+/g, ' ').trim(),
         imageLeftOfTitle: Boolean(imageBox && titleBox && imageBox.right <= titleBox.left + 1),
         imageAboveTitle: Boolean(imageBox && titleBox && imageBox.bottom <= titleBox.top + 1),
+        heroHeight: sectionBox?.height ?? 0,
+        titleMaxWidth: title ? getComputedStyle(title).maxWidth : null,
+        titleDecoration: copy ? getComputedStyle(copy, '::before').content : null,
+        overview: overview ? {
+          count: document.querySelectorAll('[data-pos-overview]').length,
+          headingAlignment: overviewHeading ? getComputedStyle(overviewHeading).textAlign : null,
+          columns: overviewColumns.map((column) => column.getAttribute('data-pos-overview-column')),
+          copyLeftOfVisual: Boolean(overviewCopyBox && overviewVisualBox && overviewCopyBox.right <= overviewVisualBox.left + 1),
+          copyAboveVisual: Boolean(overviewCopyBox && overviewVisualBox && overviewCopyBox.bottom <= overviewVisualBox.top + 1)
+        } : null,
+        features: featureCards.length ? {
+          count: featureCards.length,
+          firstRowCount: featureCards.filter((card) => Math.abs(card.getBoundingClientRect().top - firstFeatureTop) < 2).length,
+          tones: featureCards.map((card) => card.dataset.featureTone),
+          stacked: featureCards.every((card) => {
+            const icon = card.querySelector('.fbox-icon')?.getBoundingClientRect();
+            const heading = card.querySelector('h3')?.getBoundingClientRect();
+            const description = card.querySelector('p')?.getBoundingClientRect();
+            return icon && heading && description && icon.bottom <= heading.top + 1 && heading.bottom <= description.top + 1;
+          })
+        } : null,
+        systemShowcase: systemCards.length ? {
+          count: systemCards.length,
+          ids: systemCards.map((card) => card.id),
+          imageTitleDescriptionOrder: systemCards.every((card) => {
+            const image = card.querySelector('img');
+            const heading = card.querySelector('h2');
+            const description = card.querySelector('.pos-system-card__body > p:not(.pos-system-card__eyebrow)');
+            return image && heading && description
+              && Boolean(image.compareDocumentPosition(heading) & Node.DOCUMENT_POSITION_FOLLOWING)
+              && Boolean(heading.compareDocumentPosition(description) & Node.DOCUMENT_POSITION_FOLLOWING);
+          }),
+          featuredIsLarger: systemCardBoxes.length === 3
+            ? systemCardBoxes[0].width > systemCardBoxes[1].width * 1.7
+            : false,
+          supportCardsShareRow: systemCardBoxes.length === 3
+            ? Math.abs(systemCardBoxes[1].top - systemCardBoxes[2].top) < 2
+            : false,
+          imagesContained: systemCards.every((card) => {
+            const visual = card.querySelector('.pos-system-card__visual')?.getBoundingClientRect();
+            const image = card.querySelector('img')?.getBoundingClientRect();
+            return visual && image
+              && image.top >= visual.top - 1
+              && image.bottom <= visual.bottom + 1
+              && image.left >= visual.left - 1
+              && image.right <= visual.right + 1;
+          }),
+          mobileAnchors: ['pos-cloud-mobile', 'pos-tablet-mobile', 'pos-integrations-mobile']
+            .every((id) => Boolean(document.getElementById(id)))
+        } : null,
+        hardware: hardwareItems.length ? {
+          count: hardwareItems.length,
+          visibleCount: visibleHardware.length,
+          firstRowCount: visibleHardware.filter((item) => Math.abs(item.getBoundingClientRect().top - firstHardwareTop) < 2).length,
+          categoryButtons: document.querySelectorAll('[data-hardware-filters] button').length,
+          sizeOptions: document.querySelectorAll('[data-hardware-filters] select option').length,
+          bordersRemoved: hardwareItems.every((item) => {
+            const card = item.querySelector('.pos-hardware-card');
+            return card && Number.parseFloat(getComputedStyle(card).borderTopWidth) === 0;
+          })
+        } : null,
+        requestDemo: (() => {
+          const requestDemo = document.querySelector('#requestdemo');
+          const styles = requestDemo ? getComputedStyle(requestDemo) : null;
+          return {
+            exists: Boolean(requestDemo),
+            opacity: styles?.opacity,
+            transform: styles?.transform,
+            filter: styles?.filter,
+            animation: styles?.animationName
+          };
+        })(),
         pageOverflows: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
         googleTagManager: Boolean(document.querySelector('script[src*="googletagmanager.com/gtm.js?id=GTM-N7VKTGG"]')),
         facebookPixel: Boolean(document.querySelector('script[src*="connect.facebook.net/en_US/fbevents.js"]'))
@@ -506,6 +608,58 @@ for (const width of [1440, 768, 430]) {
     if (heroCase.key === 'pos' && (!hero.sharedHero || hero.legacyHero
       || hero.visualHref !== '#content' || hero.integrationHref !== '#pos-integrations')) {
       failures.push(`${width}px pos: shared hero structure is incorrect ${JSON.stringify(hero)}`);
+    }
+    if (heroCase.key === 'pos' && (JSON.stringify(hero.deviceIds) !== JSON.stringify(['tablet', 'cloud'])
+      || JSON.stringify(hero.deviceHrefs) !== JSON.stringify(['#pos-tablet', '#pos-cloud'])
+      || !hero.screenBetweenDevices)) {
+      failures.push(`${width}px pos: interactive devices are missing or misplaced ${JSON.stringify(hero)}`);
+    }
+    if (heroCase.key === 'pos' && (hero.heroHeight > 540
+      || !hero.titleMaxWidth || hero.titleDecoration !== 'none')) {
+      failures.push(`${width}px pos: compact hero title treatment is incorrect ${JSON.stringify(hero)}`);
+    }
+    if (heroCase.key === 'pos' && (!hero.overview || hero.overview.count !== 1
+      || hero.overview.headingAlignment !== 'center'
+      || JSON.stringify(hero.overview.columns) !== JSON.stringify(['copy', 'visual'])
+      || (width > 768 ? !hero.overview.copyLeftOfVisual : !hero.overview.copyAboveVisual))) {
+      failures.push(`${width}px pos: All-In-One overview layout is incorrect ${JSON.stringify(hero.overview)}`);
+    }
+    const expectedFeatureRowCount = width >= 992 ? 4 : width >= 576 ? 2 : 1;
+    if (heroCase.key === 'pos' && (!hero.features || hero.features.count !== 12
+      || hero.features.firstRowCount !== expectedFeatureRowCount
+      || !hero.features.stacked
+      || JSON.stringify(hero.features.tones) !== JSON.stringify([
+        'blue', 'blue', 'blue', 'blue',
+        'orange', 'orange', 'orange', 'orange',
+        'green', 'green', 'green', 'green'
+      ]))) {
+      failures.push(`${width}px pos: twelve-feature grid is incorrect ${JSON.stringify(hero.features)}`);
+    }
+    if (heroCase.key === 'pos' && (!hero.systemShowcase || hero.systemShowcase.count !== 3
+      || JSON.stringify(hero.systemShowcase.ids) !== JSON.stringify(['pos-cloud', 'pos-tablet', 'pos-integrations'])
+      || !hero.systemShowcase.imageTitleDescriptionOrder
+      || !hero.systemShowcase.imagesContained
+      || !hero.systemShowcase.mobileAnchors
+      || (width > 768
+        ? (!hero.systemShowcase.featuredIsLarger || !hero.systemShowcase.supportCardsShareRow)
+        : (hero.systemShowcase.featuredIsLarger || hero.systemShowcase.supportCardsShareRow)))) {
+      failures.push(`${width}px pos: POS system card showcase is incorrect ${JSON.stringify(hero.systemShowcase)}`);
+    }
+    const expectedHardwareRowCount = width >= 992 ? 4 : width >= 576 ? 2 : 1;
+    if (heroCase.key === 'pos' && (!hero.hardware || hero.hardware.count !== 16
+      || hero.hardware.visibleCount !== 16
+      || hero.hardware.firstRowCount !== expectedHardwareRowCount
+      || hero.hardware.categoryButtons !== 4
+      || hero.hardware.sizeOptions !== 5
+      || !hero.hardware.bordersRemoved)) {
+      failures.push(`${width}px pos: hardware collection is incorrect ${JSON.stringify(hero.hardware)}`);
+    }
+    if (heroCase.key === 'pos' && (!hero.requestDemo.exists
+      || hero.requestDemo.opacity !== '1'
+      || hero.requestDemo.transform !== 'none'
+      || hero.requestDemo.filter !== 'none'
+      || hero.requestDemo.animation !== 'none')) {
+      failures.push(`${width}px pos: request demo remains visually blurred ${JSON.stringify(hero.requestDemo)}`);
     }
     if (width > 767 && !hero.imageLeftOfTitle) failures.push(`${width}px ${heroCase.key}: island is not left of the title ${JSON.stringify(hero)}`);
     if (width <= 767 && !hero.imageAboveTitle) failures.push(`${width}px ${heroCase.key}: island is not above the title ${JSON.stringify(hero)}`);
@@ -522,6 +676,35 @@ for (const width of [1440, 768, 430]) {
       await wait(1400);
       const integrationOffset = await evaluate(`document.querySelector('${width <= 768 ? '#pos-integrations-mobile' : '#pos-integrations'}')?.getBoundingClientRect().top`);
       if (Math.abs((integrationOffset ?? 9999) - 92) > 3) failures.push(`${width}px pos: floating screen did not scroll to integrations (${integrationOffset})`);
+
+      for (const device of [
+        { id: 'tablet', target: width <= 768 ? '#pos-tablet-mobile' : '#pos-tablet' },
+        { id: 'cloud', target: width <= 768 ? '#pos-cloud-mobile' : '#pos-cloud' }
+      ]) {
+        await evaluate(`document.querySelector('[data-solution-device="${device.id}"]')?.click()`);
+        await wait(1400);
+        const deviceOffset = await evaluate(`document.querySelector('${device.target}')?.getBoundingClientRect().top`);
+        if (Math.abs((deviceOffset ?? 9999) - 92) > 3) failures.push(`${width}px pos: ${device.id} device did not scroll to its section (${deviceOffset})`);
+      }
+
+      const hardwareFiltering = JSON.parse(await evaluate(`JSON.stringify((() => {
+        const buttons = [...document.querySelectorAll('[data-hardware-filters] button')];
+        const visibleCount = () => [...document.querySelectorAll('[data-hardware-item]')]
+          .filter((item) => getComputedStyle(item).display !== 'none').length;
+        buttons.find((button) => button.textContent.trim() === 'Printers')?.click();
+        const printers = visibleCount();
+        buttons.find((button) => button.textContent.trim() === 'All')?.click();
+        const select = document.querySelector('[data-hardware-filters] select');
+        select.value = '15.6';
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+        const large = visibleCount();
+        select.value = 'all';
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+        return { printers, large, reset: visibleCount() };
+      })())`));
+      if (hardwareFiltering.printers !== 2 || hardwareFiltering.large !== 9 || hardwareFiltering.reset !== 16) {
+        failures.push(`${width}px pos: hardware filters do not work ${JSON.stringify(hardwareFiltering)}`);
+      }
     }
 
     if (screenshotDirectory
@@ -535,6 +718,103 @@ for (const width of [1440, 768, 430]) {
         `${screenshotDirectory}/solution-${heroCase.key}-${width}.png`,
         Buffer.from(heroScreenshot.data, 'base64')
       );
+
+      if (heroCase.key === 'pos') {
+        await evaluate(`document.querySelector('[data-pos-overview]')?.scrollIntoView({ block: 'start' })`);
+        await wait(220);
+        const overviewScreenshot = await send('Page.captureScreenshot', { format: 'png' });
+        writeFileSync(
+          `${screenshotDirectory}/pos-overview-${width}.png`,
+          Buffer.from(overviewScreenshot.data, 'base64')
+        );
+
+        const featureClip = JSON.parse(await evaluate(`JSON.stringify((() => {
+          const grid = document.querySelector('[data-pos-feature-grid]');
+          const box = grid?.getBoundingClientRect();
+          return box ? {
+            x: Math.max(0, window.scrollX + box.left),
+            y: Math.max(0, window.scrollY + box.top),
+            width: Math.min(document.documentElement.scrollWidth, box.width),
+            height: box.height,
+            scale: 1
+          } : null;
+        })())`));
+        if (featureClip) {
+          const featureScreenshot = await send('Page.captureScreenshot', {
+            format: 'png', captureBeyondViewport: true, clip: featureClip
+          });
+          writeFileSync(
+            `${screenshotDirectory}/pos-features-${width}.png`,
+            Buffer.from(featureScreenshot.data, 'base64')
+          );
+        }
+
+
+        const systemClip = JSON.parse(await evaluate(`JSON.stringify((() => {
+          const section = document.querySelector('[data-pos-system-showcase]');
+          const box = section?.getBoundingClientRect();
+          return box ? {
+            x: Math.max(0, window.scrollX + box.left),
+            y: Math.max(0, window.scrollY + box.top),
+            width: Math.min(document.documentElement.scrollWidth, box.width),
+            height: box.height,
+            scale: 1
+          } : null;
+        })())`));
+        if (systemClip) {
+          const systemScreenshot = await send('Page.captureScreenshot', {
+            format: 'png', captureBeyondViewport: true, clip: systemClip
+          });
+          writeFileSync(
+            `${screenshotDirectory}/pos-system-showcase-${width}.png`,
+            Buffer.from(systemScreenshot.data, 'base64')
+          );
+        }
+
+
+        const hardwareClip = JSON.parse(await evaluate(`JSON.stringify((() => {
+          const section = document.querySelector('[data-pos-hardware]');
+          const box = section?.getBoundingClientRect();
+          return box ? {
+            x: Math.max(0, window.scrollX + box.left),
+            y: Math.max(0, window.scrollY + box.top),
+            width: Math.min(document.documentElement.scrollWidth, box.width),
+            height: box.height,
+            scale: 1
+          } : null;
+        })())`));
+        if (hardwareClip) {
+          const hardwareScreenshot = await send('Page.captureScreenshot', {
+            format: 'png', captureBeyondViewport: true, clip: hardwareClip
+          });
+          writeFileSync(
+            `${screenshotDirectory}/pos-hardware-${width}.png`,
+            Buffer.from(hardwareScreenshot.data, 'base64')
+          );
+        }
+
+
+        const formClip = JSON.parse(await evaluate(`JSON.stringify((() => {
+          const section = document.querySelector('#requestdemo');
+          const box = section?.getBoundingClientRect();
+          return box ? {
+            x: Math.max(0, window.scrollX + box.left),
+            y: Math.max(0, window.scrollY + box.top),
+            width: Math.min(document.documentElement.scrollWidth, box.width),
+            height: box.height,
+            scale: 1
+          } : null;
+        })())`));
+        if (formClip) {
+          const formScreenshot = await send('Page.captureScreenshot', {
+            format: 'png', captureBeyondViewport: true, clip: formClip
+          });
+          writeFileSync(
+            `${screenshotDirectory}/pos-request-demo-${width}.png`,
+            Buffer.from(formScreenshot.data, 'base64')
+          );
+        }
+      }
     }
   }
 }
@@ -561,6 +841,10 @@ const posIntegrationAnimationName = await evaluate(`(() => {
   return screen ? getComputedStyle(screen).animationName : null;
 })()`);
 if (posIntegrationAnimationName !== 'none') failures.push('POS integration screen animation remains active');
+const posDeviceAnimationNames = JSON.parse(await evaluate(`JSON.stringify(
+  [...document.querySelectorAll('[data-solution-device]')].map((device) => getComputedStyle(device).animationName)
+)`));
+if (posDeviceAnimationNames.some((name) => name !== 'none')) failures.push('POS device glow animation remains active');
 
 await send('Page.close');
 socket.close();
