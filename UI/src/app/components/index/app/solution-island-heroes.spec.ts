@@ -90,8 +90,8 @@ describe('solution island heroes', () => {
       if (item.component === CustomPOSEWaiterComponent) {
         expect(host.querySelector('app-solution-hero')).not.toBeNull();
         expect(host.querySelectorAll('[data-solution-hero]').length).toBe(1);
-        expect(hero?.querySelector('img')?.getAttribute('width')).toBe('739');
-        expect(hero?.querySelector('img')?.getAttribute('height')).toBe('486');
+        expect(hero?.querySelector('img')?.getAttribute('width')).toBe('727');
+        expect(hero?.querySelector('img')?.getAttribute('height')).toBe('478');
       }
     }
 

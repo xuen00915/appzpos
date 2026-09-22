@@ -15,8 +15,8 @@ export class CustomPOSEWaiterComponent {
     title: 'APPZPOS Cutting-Edge POS Point of Sales and E-Menu System',
     imageSrc: 'assets/images/ecosystem/ecosystem-pos-ewaiter.webp',
     imageAlt: 'APPZPOS waiter taking a table order beside a staffed counter POS system',
-    imageWidth: 739,
-    imageHeight: 486
+    imageWidth: 727,
+    imageHeight: 478
   };
 
   constructor(private titleService: Title,private commonFunctionService: CommonFunctionService,private meta: Meta) {
