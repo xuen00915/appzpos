@@ -87,6 +87,11 @@ for (const width of viewports) {
     const grantVisual = document.querySelector('.ecosystem__grant-visual');
     const grantImage = grantVisual?.querySelector('img');
     const grantCopy = document.querySelector('.ecosystem__grant-copy');
+    const features = document.querySelector('.ecosystem__features');
+    const featureList = document.querySelector('.ecosystem__feature-list');
+    const featureEntries = [...document.querySelectorAll('.ecosystem__feature-entry')];
+    const customerGrid = document.querySelector('.proof__customer-grid');
+    const customerItems = [...document.querySelectorAll('.proof__customer-grid > li')];
     const adminLabel = document.querySelector('[data-island-id="admin"] .appz-ecosystem__label')?.getBoundingClientRect();
     const kioskImage = document.querySelector('[data-island-id="kiosk"] img')?.getBoundingClientRect();
     const kioskLabel = document.querySelector('[data-island-id="kiosk"] .appz-ecosystem__label')?.getBoundingClientRect();
@@ -125,7 +130,7 @@ for (const width of viewports) {
       moduleTabCount: document.querySelectorAll('[data-module-tab]').length,
       modulePanelCount: document.querySelectorAll('[data-module-panel]').length,
       persistentDetails: details?.parentElement === ecosystemLayout,
-      defaultDetailsTitle: details?.querySelector('h3')?.textContent.trim(),
+      defaultDetailsTitle: detailsHeading?.textContent.trim(),
       detailsHeading: {
         whiteSpace: detailsHeading ? getComputedStyle(detailsHeading).whiteSpace : null,
         overflows: detailsHeading ? detailsHeading.scrollWidth > detailsHeading.clientWidth + 1 : null
@@ -147,6 +152,7 @@ for (const width of viewports) {
         const copyBox = grantCopy?.getBoundingClientRect();
         return {
           imageLoaded: Boolean(grantImage?.complete && grantImage?.naturalWidth > 0),
+          visualLeftOfCopy: Boolean(visualBox && copyBox && visualBox.right <= copyBox.left + 1),
           visualAboveCopy: Boolean(visualBox && copyBox && visualBox.bottom <= copyBox.top + 1),
           visualWidthRatio: grantBox && visualBox ? visualBox.width / grantBox.width : 0,
           height: grantBox?.height ?? 0,
@@ -154,6 +160,17 @@ for (const width of viewports) {
           redundantRate: Boolean(grant?.querySelector('.ecosystem__grant-rate'))
         };
       })(),
+      features: {
+        count: featureEntries.length,
+        indexes: featureEntries.map((entry) => entry.dataset.featureIndex),
+        columns: featureList ? getComputedStyle(featureList).gridTemplateColumns.split(' ').length : 0,
+        headingSize: features?.querySelector('h2') ? Number.parseFloat(getComputedStyle(features.querySelector('h2')).fontSize) : 0
+      },
+      customers: {
+        count: customerItems.length,
+        columns: customerGrid ? getComputedStyle(customerGrid).gridTemplateColumns.split(' ').length : 0,
+        overflows: customerGrid ? customerGrid.scrollWidth > customerGrid.clientWidth + 1 : true
+      },
       clusterGaps: {
         adminToKiosk: adminLabel && kioskImage ? kioskImage.top - adminLabel.bottom : null,
         kioskToQueue: kioskLabel && queueImage ? queueImage.top - kioskLabel.bottom : null
@@ -192,9 +209,15 @@ for (const width of viewports) {
     || layout.hardwareWhatsapp.href !== "https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!"
     || layout.hardwareWhatsapp.target !== '_blank'
     || layout.legacyHardwareContactText) failures.push(`${width}px: hardware WhatsApp action is incorrect ${JSON.stringify({ action: layout.hardwareWhatsapp, legacyText: layout.legacyHardwareContactText })}`);
-  if (!layout.grant.visualAboveCopy) failures.push(`${width}px: grant artwork is not stacked above its copy ${JSON.stringify(layout.grant)}`);
-  if (width >= 1024 && (layout.grant.visualWidthRatio < .48 || layout.grant.visualWidthRatio > .68 || layout.grant.height > 820)) failures.push(`${width}px: stacked grant remains oversized ${JSON.stringify(layout.grant)}`);
+  if (width > 767 && !layout.grant.visualLeftOfCopy) failures.push(`${width}px: grant artwork is not positioned left of its copy ${JSON.stringify(layout.grant)}`);
+  if (width <= 767 && !layout.grant.visualAboveCopy) failures.push(`${width}px: grant artwork is not stacked above its copy ${JSON.stringify(layout.grant)}`);
+  if (width >= 1024 && (layout.grant.visualWidthRatio < .3 || layout.grant.visualWidthRatio > .5 || layout.grant.height > 620)) failures.push(`${width}px: side-by-side grant remains oversized ${JSON.stringify(layout.grant)}`);
   if (layout.grant.redundantKicker || layout.grant.redundantRate) failures.push(`${width}px: grant repeats its funding message ${JSON.stringify(layout.grant)}`);
+  if (layout.features.count !== 6 || JSON.stringify(layout.features.indexes) !== JSON.stringify(['01', '02', '03', '04', '05', '06'])) failures.push(`${width}px: capability index structure changed ${JSON.stringify(layout.features)}`);
+  if (layout.features.columns !== (width > 767 ? 2 : 1)) failures.push(`${width}px: capability index uses the wrong column count ${JSON.stringify(layout.features)}`);
+  if (layout.features.headingSize > 50) failures.push(`${width}px: capability heading is oversized ${JSON.stringify(layout.features)}`);
+  if (layout.customers.count !== 8 || layout.customers.overflows) failures.push(`${width}px: valued-customer grid is incomplete or overflowing ${JSON.stringify(layout.customers)}`);
+  if (layout.customers.columns !== (width > 1100 ? 8 : width > 767 ? 4 : 2)) failures.push(`${width}px: valued-customer grid uses the wrong column count ${JSON.stringify(layout.customers)}`);
   if (width > 767 && (layout.clusterGaps.adminToKiosk < 24 || layout.clusterGaps.kioskToQueue < 24)) failures.push(`${width}px: right-side ecosystem islands remain too compact ${JSON.stringify(layout.clusterGaps)}`);
   if (layout.svgText) failures.push(`${width}px: SVG contains baked text`);
   if (layout.loadedImages !== 7) failures.push(`${width}px: not all island images loaded`);
@@ -267,7 +290,7 @@ for (const width of viewports) {
       belowStage: detailsBox && stageBox ? detailsBox.top >= stageBox.bottom - 1 : false,
       live: details?.getAttribute('aria-live'),
       role: details?.getAttribute('role'),
-      title: details?.querySelector('h3')?.textContent.trim(),
+      title: details?.querySelector('.appz-ecosystem__details-header h2')?.textContent.trim(),
       features: details?.querySelectorAll('[data-details-feature]').length,
       route: details?.querySelector('[data-details-learn-more]')?.getAttribute('href'),
       overflowY: details ? getComputedStyle(details).overflowY : null,
@@ -316,6 +339,44 @@ for (const width of viewports) {
     await wait(350);
     const grantScreenshot = await send('Page.captureScreenshot', { format: 'png' });
     writeFileSync(`${screenshotDirectory}/grant-${width}.png`, Buffer.from(grantScreenshot.data, 'base64'));
+
+    await evaluate(`document.querySelector('.ecosystem__features')?.scrollIntoView({ block: 'start' })`);
+    await wait(350);
+    const featureClip = JSON.parse(await evaluate(`JSON.stringify((() => {
+      const box = document.querySelector('.ecosystem__features')?.getBoundingClientRect();
+      return box ? {
+        x: Math.max(0, window.scrollX + box.left),
+        y: Math.max(0, window.scrollY + box.top),
+        width: Math.min(document.documentElement.scrollWidth, box.width),
+        height: box.height,
+        scale: 1
+      } : null;
+    })())`));
+    if (featureClip) {
+      const featureScreenshot = await send('Page.captureScreenshot', {
+        format: 'png', captureBeyondViewport: true, clip: featureClip
+      });
+      writeFileSync(`${screenshotDirectory}/features-${width}.png`, Buffer.from(featureScreenshot.data, 'base64'));
+    }
+
+    await evaluate(`document.querySelector('.proof__customers')?.scrollIntoView({ block: 'start' })`);
+    await wait(350);
+    const customerClip = JSON.parse(await evaluate(`JSON.stringify((() => {
+      const box = document.querySelector('.proof__customers')?.getBoundingClientRect();
+      return box ? {
+        x: Math.max(0, window.scrollX + box.left),
+        y: Math.max(0, window.scrollY + box.top),
+        width: Math.min(document.documentElement.scrollWidth, box.width),
+        height: box.height,
+        scale: 1
+      } : null;
+    })())`));
+    if (customerClip) {
+      const customerScreenshot = await send('Page.captureScreenshot', {
+        format: 'png', captureBeyondViewport: true, clip: customerClip
+      });
+      writeFileSync(`${screenshotDirectory}/customers-${width}.png`, Buffer.from(customerScreenshot.data, 'base64'));
+    }
   }
 }
 
@@ -345,6 +406,139 @@ if (reducedMotion.islands !== 7) failures.push('reduced motion: seven islands ar
 if (Number.parseFloat(reducedMotion.islandOpacity ?? '0') < .75) failures.push('reduced motion: islands are not immediately visible');
 if (reducedMotion.floatAnimation !== 'none') failures.push('reduced motion: floating animation is still active');
 if (reducedMotion.pathAnimation !== 'none') failures.push('reduced motion: path animation is still active');
+
+const solutionHeroes = [
+  {
+    route: '/cloud-pos-point-of-sales-system',
+    image: 'assets/images/ecosystem/ecosystem-pos-ewaiter.webp',
+    title: 'APPZPOS Cutting-Edge POS Point of Sales and E-Menu System',
+    key: 'pos',
+    selector: '[data-solution-hero]'
+  },
+  {
+    route: '/f&b-restaurant-emenu-qr-code-ordering-system',
+    image: 'assets/images/ecosystem/ecosystem-table-qr.webp',
+    title: 'APPZPOS Table QR Code Ordering System for Restaurants',
+    key: 'qr',
+    selector: '.solution-island-hero'
+  },
+  {
+    route: '/f&b-restaurant-kitchen-display-system',
+    image: 'assets/images/ecosystem/ecosystem-kitchen.webp',
+    title: 'APPZPOS Kitchen Order Display System for Restaurants',
+    key: 'kds',
+    selector: '.solution-island-hero'
+  },
+  {
+    route: '/self-order-kiosk-restaurant',
+    image: 'assets/images/ecosystem/ecosystem-kiosk.webp',
+    title: 'APPZPOS Self Ordering System for Quick Service Restaurants',
+    key: 'kiosk',
+    selector: '.solution-island-hero'
+  },
+  {
+    route: '/f&b-restaurant-queue-number-display-system',
+    image: 'assets/images/ecosystem/ecosystem-queue.webp',
+    title: 'Restaurant Queue Management System with APPZPOS Queue Number Display',
+    key: 'queue',
+    selector: '.solution-island-hero'
+  },
+  {
+    route: '/f&b-restaurant-online-ordering-website',
+    image: 'assets/images/ecosystem/ecosystem-website-ordering.webp',
+    title: 'APPZPOS Online Website Ordering System',
+    key: 'website',
+    selector: '.solution-island-hero'
+  },
+  {
+    route: '/f&b-restaurant-delivery-integration',
+    image: 'assets/images/ecosystem/ecosystem-delivery.webp',
+    title: 'Centralized Delivery Platform Integration Through APPZPOS Order Hub',
+    key: 'hub',
+    selector: '.solution-island-hero'
+  }
+];
+
+for (const width of [1440, 768, 430]) {
+  const height = width <= 430 ? 844 : width <= 768 ? 1024 : 900;
+  await send('Emulation.setDeviceMetricsOverride', {
+    width, height, deviceScaleFactor: 1, mobile: width <= 768,
+    screenWidth: width, screenHeight: height
+  });
+  await send('Emulation.setEmulatedMedia', {
+    media: 'screen',
+    features: [{ name: 'prefers-reduced-motion', value: 'no-preference' }]
+  });
+
+  for (const heroCase of solutionHeroes) {
+    const baseUrl = previewUrl.replace(/\/$/, '');
+    await send('Page.navigate', {
+      url: `${baseUrl}${heroCase.route}?solution-hero-regression-${width}`
+    });
+    await wait(620);
+
+    const hero = JSON.parse(await evaluate(`JSON.stringify((() => {
+      const section = document.querySelector(${JSON.stringify(heroCase.selector)});
+      const image = section?.querySelector('img');
+      const title = section?.querySelector('h1');
+      const imageBox = image?.getBoundingClientRect();
+      const titleBox = title?.getBoundingClientRect();
+      return {
+        count: document.querySelectorAll(${JSON.stringify(heroCase.selector)}).length,
+        sharedHero: Boolean(document.querySelector('app-solution-hero [data-solution-hero]')),
+        legacyHero: Boolean(document.querySelector('app-cloud-pos-point-of-sales-system > .solution-island-hero')),
+        image: image?.getAttribute('src'),
+        imageLoaded: Boolean(image?.complete && image?.naturalWidth > 0),
+        title: title?.textContent.replace(/\\s+/g, ' ').trim(),
+        imageLeftOfTitle: Boolean(imageBox && titleBox && imageBox.right <= titleBox.left + 1),
+        imageAboveTitle: Boolean(imageBox && titleBox && imageBox.bottom <= titleBox.top + 1),
+        pageOverflows: document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
+        googleTagManager: Boolean(document.querySelector('script[src*="googletagmanager.com/gtm.js?id=GTM-N7VKTGG"]')),
+        facebookPixel: Boolean(document.querySelector('script[src*="connect.facebook.net/en_US/fbevents.js"]'))
+      };
+    })())`));
+
+    if (hero.count !== 1 || hero.image !== heroCase.image || !hero.imageLoaded || hero.title !== heroCase.title) {
+      failures.push(`${width}px ${heroCase.key}: solution hero content is incorrect ${JSON.stringify(hero)}`);
+    }
+    if (heroCase.key === 'pos' && (!hero.sharedHero || hero.legacyHero)) {
+      failures.push(`${width}px pos: shared hero structure is incorrect ${JSON.stringify(hero)}`);
+    }
+    if (width > 767 && !hero.imageLeftOfTitle) failures.push(`${width}px ${heroCase.key}: island is not left of the title ${JSON.stringify(hero)}`);
+    if (width <= 767 && !hero.imageAboveTitle) failures.push(`${width}px ${heroCase.key}: island is not above the title ${JSON.stringify(hero)}`);
+    if (hero.pageOverflows) failures.push(`${width}px ${heroCase.key}: solution page has horizontal overflow`);
+    if (!hero.googleTagManager || !hero.facebookPixel) failures.push(`${width}px ${heroCase.key}: solution page tracking is missing ${JSON.stringify(hero)}`);
+
+    if (screenshotDirectory
+      && ((width === 1440 && (heroCase.key === 'pos' || heroCase.key === 'qr'))
+        || (width === 430 && (heroCase.key === 'pos' || heroCase.key === 'hub')))) {
+      const heroScreenshot = await send('Page.captureScreenshot', { format: 'png' });
+      mkdirSync(screenshotDirectory, { recursive: true });
+      writeFileSync(
+        `${screenshotDirectory}/solution-${heroCase.key}-${width}.png`,
+        Buffer.from(heroScreenshot.data, 'base64')
+      );
+    }
+  }
+}
+
+await send('Emulation.setDeviceMetricsOverride', {
+  width: 430, height: 844, deviceScaleFactor: 1, mobile: true,
+  screenWidth: 430, screenHeight: 844
+});
+await send('Emulation.setEmulatedMedia', {
+  media: 'screen',
+  features: [{ name: 'prefers-reduced-motion', value: 'reduce' }]
+});
+await send('Page.navigate', {
+  url: `${previewUrl.replace(/\/$/, '')}/cloud-pos-point-of-sales-system?solution-hero-reduced-motion`
+});
+await wait(620);
+const posHeroAnimationName = await evaluate(`(() => {
+  const image = document.querySelector('[data-solution-hero] img');
+  return image ? getComputedStyle(image).animationName : null;
+})()`);
+if (posHeroAnimationName !== 'none') failures.push('POS shared hero animation remains active');
 
 await send('Page.close');
 socket.close();
