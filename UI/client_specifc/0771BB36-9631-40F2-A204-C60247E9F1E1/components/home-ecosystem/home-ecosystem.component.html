@@ -24,8 +24,15 @@
     </header>
     <ul class="ecosystem__growth-list">
       <li *ngFor="let item of growthConfig.items" class="ecosystem__growth-item">
-        <span class="ecosystem__growth-marker" aria-hidden="true"></span>
-        <p><strong *ngIf="item.label">{{ item.label }}</strong><span *ngIf="item.label"> — </span>{{ item.text }}</p>
+        <article class="ecosystem__growth-card">
+          <span class="ecosystem__growth-icon" aria-hidden="true">
+            <i class="bi" [ngClass]="item.iconClass"></i>
+          </span>
+          <div class="ecosystem__growth-copy">
+            <h3>{{ item.label }}</h3>
+            <p>{{ item.text }}</p>
+          </div>
+        </article>
       </li>
     </ul>
   </div>

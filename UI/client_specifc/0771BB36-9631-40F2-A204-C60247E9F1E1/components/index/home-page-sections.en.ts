@@ -44,19 +44,23 @@ export const ENGLISH_HOME_GROWTH_CONFIG: HomeGrowthSectionConfig = {
   items: [
     {
       label: 'Powerful Cloud POS',
-      text: 'Boost revenue, delight customers, enhance restaurant operations, all managed on one platform.'
+      text: 'Boost revenue, delight customers, enhance restaurant operations, all managed on one platform.',
+      iconClass: 'bi-cloud-check'
     },
     {
       label: 'Analytics & Reporting',
-      text: 'A powerful business dashboard that provides real-time, valuable insights into your restaurant’s performance anytime, anywhere.'
+      text: 'A powerful business dashboard that provides real-time, valuable insights into your restaurant’s performance anytime, anywhere.',
+      iconClass: 'bi-graph-up-arrow'
     },
     {
       label: 'Third-party Integrations',
-      text: 'Partnered with leading food ordering platforms, delivery partners, payment gateways, accounting software, and mall management systems.'
+      text: 'Partnered with leading food ordering platforms, delivery partners, payment gateways, accounting software, and mall management systems.',
+      iconClass: 'bi-diagram-3'
     },
     {
       label: 'Multiple Outlets',
-      text: 'If you are expanding to more locations, our system ensures a smooth and intuitive transition, allowing you to easily manage them from one simple dashboard.'
+      text: 'If you are expanding to more locations, our system ensures a smooth and intuitive transition, allowing you to easily manage them from one simple dashboard.',
+      iconClass: 'bi-buildings'
     }
   ]
 };

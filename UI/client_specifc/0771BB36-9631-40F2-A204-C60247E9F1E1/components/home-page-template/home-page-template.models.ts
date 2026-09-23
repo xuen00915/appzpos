@@ -144,11 +144,17 @@ export interface HomeFeatureSectionConfig {
   readonly items: readonly HomeFeatureItem[];
 }
 
+export interface HomeGrowthItem {
+  readonly label: string;
+  readonly text: string;
+  readonly iconClass: string;
+}
+
 export interface HomeGrowthSectionConfig {
   readonly eyebrow?: string;
   readonly title: string;
   readonly description?: string;
-  readonly items: readonly HomeStoryBullet[];
+  readonly items: readonly HomeGrowthItem[];
 }
 
 export interface HomeIndustryModule {

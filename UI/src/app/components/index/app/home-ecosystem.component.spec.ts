@@ -25,10 +25,10 @@ describe('HomeEcosystemComponent', () => {
     (fixture.componentInstance as any).growth = {
       title: 'Grow Your Business Revenue with APPZPOS Solution',
       items: [
-        { label: 'Powerful Cloud POS', text: 'Boost revenue from one platform.' },
-        { label: 'Analytics & Reporting', text: 'See real-time performance.' },
-        { label: 'Third-party Integrations', text: 'Connect leading partners.' },
-        { label: 'Multiple Outlets', text: 'Manage every location simply.' }
+        { label: 'Powerful Cloud POS', text: 'Boost revenue from one platform.', iconClass: 'bi-cloud-check' },
+        { label: 'Analytics & Reporting', text: 'See real-time performance.', iconClass: 'bi-graph-up-arrow' },
+        { label: 'Third-party Integrations', text: 'Connect leading partners.', iconClass: 'bi-diagram-3' },
+        { label: 'Multiple Outlets', text: 'Manage every location simply.', iconClass: 'bi-buildings' }
       ]
     };
     fixture.detectChanges();
@@ -142,7 +142,24 @@ describe('HomeEcosystemComponent', () => {
     expect(benefits.length).toBe(4);
     expect(benefits[0].textContent).toContain('Powerful Cloud POS');
     expect(benefits[3].textContent).toContain('Manage every location simply.');
-    expect(benefits[0].querySelector('.ecosystem__growth-marker')?.textContent).toBe('');
+  });
+
+  it('renders one distinct icon-led card for every growth benefit', () => {
+    const growth = (fixture.nativeElement as HTMLElement)
+      .querySelector<HTMLElement>('.ecosystem__growth')!;
+    const cards = Array.from(growth.querySelectorAll<HTMLElement>('.ecosystem__growth-card'));
+    const icons = cards.map((card) => card.querySelector<HTMLElement>('.ecosystem__growth-icon i'));
+
+    expect(cards.length).toBe(4);
+    expect(icons.map((icon) => Array.from(icon?.classList ?? []).find((name) => name !== 'bi')))
+      .toEqual(['bi-cloud-check', 'bi-graph-up-arrow', 'bi-diagram-3', 'bi-buildings']);
+    expect(cards.map((card) => card.querySelector('h3')?.textContent?.trim())).toEqual([
+      'Powerful Cloud POS',
+      'Analytics & Reporting',
+      'Third-party Integrations',
+      'Multiple Outlets'
+    ]);
+    expect(growth.querySelector('.ecosystem__growth-marker')).toBeNull();
   });
 
   it('renders all six original key features with their complete wording', () => {

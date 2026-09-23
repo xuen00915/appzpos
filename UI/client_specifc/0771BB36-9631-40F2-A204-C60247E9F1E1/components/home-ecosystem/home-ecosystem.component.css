@@ -105,38 +105,55 @@
 
 .ecosystem__growth-list {
   display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   width: min(100%, 1120px);
-  gap: clamp(22px, 2.6vw, 34px);
+  gap: clamp(14px, 1.8vw, 22px);
   margin: 0 auto;
   padding: 0;
   list-style: none;
 }
 
-.ecosystem__growth-item {
+.ecosystem__growth-card {
   display: grid;
-  grid-template-columns: 18px minmax(0, 1fr);
-  gap: 18px;
-  align-items: start;
-  color: #23272f;
+  height: 100%;
+  gap: 22px;
+  padding: clamp(22px, 2.2vw, 30px);
+  border: 1px solid #dce8f2;
+  border-radius: 18px;
+  background: #fff;
+  transition: transform .22s ease;
 }
 
-.ecosystem__growth-marker {
-  width: 0;
-  height: 0;
-  margin-top: .52em;
-  border-top: 7px solid transparent;
-  border-bottom: 7px solid transparent;
-  border-left: 11px solid #3c9beb;
+.ecosystem__growth-card:hover {
+  transform: translateY(-4px);
+}
+
+.ecosystem__growth-icon {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  place-items: center;
+  border-radius: 15px;
+  color: #0a86e8;
+  background: #edf8ff;
+  font-size: 1.45rem;
+  line-height: 1;
+}
+
+.ecosystem__growth-item h3 {
+  margin: 0 0 12px;
+  color: #101d39;
+  font-size: clamp(1.02rem, 1.2vw, 1.2rem);
+  font-weight: 760;
+  letter-spacing: -.025em;
+  line-height: 1.25;
 }
 
 .ecosystem__growth-item p {
   margin: 0;
-  font-size: clamp(1.08rem, 1.55vw, 1.35rem);
-  line-height: 1.55;
-}
-
-.ecosystem__growth-item strong {
-  font-weight: 760;
+  color: #536681;
+  font-size: .92rem;
+  line-height: 1.62;
 }
 
 .ecosystem__features {
@@ -271,20 +288,6 @@
   content: '';
 }
 
-.ecosystem__feature-arrow {
-  position: absolute;
-  top: clamp(28px, 3.4vw, 44px);
-  right: clamp(22px, 3vw, 40px);
-  color: #91a4ba;
-  font-size: 1rem;
-  transition: color .25s ease, transform .25s ease;
-}
-
-.ecosystem__feature-card:hover .ecosystem__feature-arrow {
-  color: #0a86e8;
-  transform: translate(2px, -2px);
-}
-
 .ecosystem__grant {
   display: grid;
   grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
@@ -329,6 +332,10 @@
 }
 
 @media (max-width: 1023px) {
+  .ecosystem__growth-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .ecosystem__hardware-media {
     aspect-ratio: 4 / 3;
     min-height: 500px;
@@ -375,20 +382,20 @@
     gap: 32px;
   }
 
-  .ecosystem__growth-item {
-    grid-template-columns: 13px minmax(0, 1fr);
-    gap: 12px;
+  .ecosystem__growth-list {
+    grid-template-columns: 1fr;
+    gap: 14px;
   }
 
-  .ecosystem__growth-marker {
-    margin-top: .48em;
-    border-top-width: 6px;
-    border-bottom-width: 6px;
-    border-left-width: 9px;
+  .ecosystem__growth-card {
+    grid-template-columns: 48px minmax(0, 1fr);
+    gap: 16px;
+    padding: 20px;
   }
 
-  .ecosystem__growth-item p {
-    font-size: 1rem;
+  .ecosystem__growth-icon {
+    width: 48px;
+    height: 48px;
   }
 
   .ecosystem__whatsapp {
