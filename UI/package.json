@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:site-content": "node scripts/site-content-contract.mjs",
+    "test:cn-home-content": "node scripts/cn-home-content-contract.mjs",
     "test:site-runtime": "node scripts/site-runtime-contract.mjs"
   },
   "private": true,
