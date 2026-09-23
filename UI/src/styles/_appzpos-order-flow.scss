@@ -1073,7 +1073,9 @@ app-home-order-flow {
   filter: none;
   transform: none;
 }
-.appz-ecosystem .appz-ecosystem__stage .appz-ecosystem__island:is(:hover, :focus-visible, .is-active) {
+.appz-ecosystem .appz-ecosystem__stage .appz-ecosystem__island:hover,
+.appz-ecosystem .appz-ecosystem__stage .appz-ecosystem__island:focus-visible,
+.appz-ecosystem .appz-ecosystem__stage .appz-ecosystem__island.is-active {
   &::after { opacity: 1; }
   img {
     filter: drop-shadow(0 10px 14px rgba(255, 107, 34, .38));
