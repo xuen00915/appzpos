@@ -18,6 +18,7 @@ import {
   HomeSolutionItem,
   HomeSolutionsConfig
 } from '../home-page-template/home-page-template.models';
+import { CommonFunctionService } from '../../../../src/app/services/shared_function/common-function.service';
 
 interface EcosystemIsland {
   readonly id: string;
@@ -66,7 +67,8 @@ export class HomeOrderFlowComponent implements OnInit, OnChanges, AfterViewInit,
 
   constructor(
     private readonly changeDetectorRef: ChangeDetectorRef,
-    private readonly ngZone: NgZone
+    private readonly ngZone: NgZone,
+    private readonly commonFunctionService: CommonFunctionService
   ) {}
 
   get activeDetailsIsland(): EcosystemIsland | undefined {
@@ -155,7 +157,7 @@ export class HomeOrderFlowComponent implements OnInit, OnChanges, AfterViewInit,
       title: item.title,
       modules: [{ moduleId: item.id, title: item.moduleTitle, summary: item.summary }],
       route: item.route,
-      image: item.image,
+      image: this.imageUrl(item.image),
       imageAlt: item.imageAlt,
       ariaLabel: item.ariaLabel,
       depth: item.depth ?? 0
@@ -175,7 +177,13 @@ export class HomeOrderFlowComponent implements OnInit, OnChanges, AfterViewInit,
   }
 
   private toProductModule(item: HomeSolutionItem): ProductModule {
-    return { id: item.id, title: item.moduleTitle, route: item.route, image: item.image, features: item.features };
+    return { id: item.id, title: item.moduleTitle, route: item.route, image: this.imageUrl(item.image), features: item.features };
+  }
+
+  private imageUrl(name: string): string {
+    return name.startsWith('assets/') || name.startsWith('/') || /^https?:\/\//.test(name)
+      ? name
+      : this.commonFunctionService.BindURL_Image(name);
   }
 
   private handleIntersection(isIntersecting: boolean): void {

@@ -71,6 +71,7 @@ export interface HomeSolutionItem {
   readonly ariaLabel: string;
   readonly features: readonly HomeSolutionFeature[];
   readonly depth?: number;
+  readonly legacyImages?: readonly string[];
 }
 
 export interface HomeSolutionsConfig {
@@ -111,6 +112,10 @@ export interface HomeGrantConfig {
   readonly imageWidth: number;
   readonly imageHeight: number;
   readonly cta: Extract<HomeCtaConfig, { kind: 'link' }>;
+  readonly secondaryImage?: string;
+  readonly secondaryImageAlt?: string;
+  readonly secondaryImageWidth?: number;
+  readonly secondaryImageHeight?: number;
 }
 
 export interface HomeHardwareConfig {
@@ -195,6 +200,14 @@ export interface HomeConversionConfig {
   readonly sectionId: string;
 }
 
+export interface HomeFloatingContact {
+  readonly href: string;
+  readonly image: string;
+  readonly imageAlt: string;
+  readonly target?: '_blank' | '_self';
+  readonly rel?: string;
+}
+
 export interface HomePageTemplateConfig {
   readonly language: HomeLanguage;
   readonly hero: HomeHeroConfig;
@@ -206,4 +219,5 @@ export interface HomePageTemplateConfig {
   readonly industries?: HomeIndustrySectionConfig;
   readonly proof?: HomeProofConfig;
   readonly conversion?: HomeConversionConfig;
+  readonly floatingContacts?: readonly HomeFloatingContact[];
 }

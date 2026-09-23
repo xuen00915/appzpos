@@ -15,4 +15,11 @@
       <app-cn-custom-request-demo *ngIf="config.conversion.locale === 'zh'"></app-cn-custom-request-demo>
     </section>
   </main>
+
+  <nav *ngIf="config.floatingContacts?.length" class="appz-home-floating-contacts" aria-label="Contact APPZPOS">
+    <a *ngFor="let contact of config.floatingContacts" [href]="contact.href"
+      [target]="contact.target || '_self'" [rel]="contact.rel || null">
+      <img [src]="contact.image" [alt]="contact.imageAlt" width="64" height="64" loading="lazy">
+    </a>
+  </nav>
 </div>

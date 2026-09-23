@@ -25,6 +25,9 @@
       <h2>{{ grantConfig.title }}<br *ngIf="grantConfig.secondaryTitle">{{ grantConfig.secondaryTitle }}</h2>
       <p *ngFor="let paragraph of grantConfig.paragraphs">{{ paragraph }}</p>
       <a class="ecosystem__grant-link" [href]="grantConfig.cta.href">{{ grantConfig.cta.label }}</a>
+      <img *ngIf="grantConfig.secondaryImage" class="ecosystem__grant-lockup"
+        [src]="imageUrl(grantConfig.secondaryImage)" [alt]="grantConfig.secondaryImageAlt || ''"
+        [attr.width]="grantConfig.secondaryImageWidth" [attr.height]="grantConfig.secondaryImageHeight" loading="lazy">
     </div>
   </div>
 

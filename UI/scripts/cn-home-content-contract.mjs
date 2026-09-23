@@ -12,6 +12,14 @@ const pageDirectory = resolve(componentRoot, 'cn-f&b-restaurant-cloud-pos-system
 const files = [
   resolve(pageDirectory, 'cn-f&b-restaurant-cloud-pos-system.component.html'),
   resolve(pageDirectory, 'cn-f&b-restaurant-cloud-pos-system.component.ts'),
+  resolve(pageDirectory, 'home-page-content.zh.ts'),
+  resolve(componentRoot, 'home-page-template/home-page-template.component.html'),
+  resolve(componentRoot, 'home-hero/home-hero.component.html'),
+  resolve(componentRoot, 'home-order-flow/home-order-flow.component.html'),
+  resolve(componentRoot, 'home-story-sections/home-story-sections.component.html'),
+  resolve(componentRoot, 'home-ecosystem/home-ecosystem.component.html'),
+  resolve(componentRoot, 'home-proof/home-proof.component.html'),
+  resolve(componentRoot, 'index/home-page-proof.en.ts'),
   resolve(componentRoot, 'cn-custom-request-demo/cn-custom-request-demo.component.html'),
   resolve(componentRoot, 'cn-custom-request-demo/cn-custom-request-demo.component.ts')
 ];
@@ -24,6 +32,11 @@ for (const file of files) {
 }
 
 const source = files.map((file) => readFileSync(file, 'utf8')).join('\n');
+const routeTemplate = readFileSync(
+  resolve(pageDirectory, 'cn-f&b-restaurant-cloud-pos-system.component.html'),
+  'utf8'
+);
+const chineseConfigSource = readFileSync(resolve(pageDirectory, 'home-page-content.zh.ts'), 'utf8');
 const normalizedSource = source
   .replace(/<br\s*\/?\s*>/gi, ' ')
   .replace(/<[^>]+>/g, ' ')
@@ -320,7 +333,12 @@ const expectedHooks = [
 ];
 
 const groups = [
-  ['phrases', expectedPhrases, (value) => normalizedSource.includes(value) || compactSource.includes(value.replace(/\s+/g, ''))],
+  ['phrases', expectedPhrases, (value) =>
+    normalizedSource.includes(value)
+    || compactSource.includes(value.replace(/\s+/g, ''))
+    || (value.startsWith('- ')
+      && chineseConfigSource.includes(value.slice(2))
+      && source.includes('<span> - {{ feature.description }}</span>'))],
   ['routes', expectedRoutes, (value) => source.includes(value)],
   ['images', expectedImages, (value) => source.includes(value)],
   ['metadata', expectedMetadata, (value) => source.includes(value)],
@@ -328,6 +346,13 @@ const groups = [
 ];
 
 const failures = [];
+if (!routeTemplate.includes('app-home-page-template')) failures.push('shared template selector missing');
+if (routeTemplate.includes('id="webview"') || routeTemplate.includes('id="mobile_view"')) {
+  failures.push('legacy duplicate view ids remain');
+}
+for (const fallback of ['Everything Works Together', 'Our Commitment to Local Excellence']) {
+  if (chineseConfigSource.includes(fallback)) failures.push(`English fallback added to Chinese config: ${fallback}`);
+}
 for (const [name, expectations, present] of groups) {
   const missing = expectations.filter((value) => !present(value));
   if (missing.length) {

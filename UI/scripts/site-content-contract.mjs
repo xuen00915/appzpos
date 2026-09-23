@@ -9,8 +9,13 @@ const homePath = resolve(componentRoot, 'index/index.component.html');
 const homeConfigSource = [
   'index/home-page-content.en.ts',
   'index/home-page-sections.en.ts',
-  'index/home-page-proof.en.ts'
+  'index/home-page-proof.en.ts',
+  'cn-f&b-restaurant-cloud-pos-system/home-page-content.zh.ts'
 ].map((path) => readFileSync(resolve(componentRoot, path), 'utf8')).join('\n');
+const homeOrderFlowSource = readFileSync(
+  resolve(componentRoot, 'home-order-flow/home-order-flow.component.html'),
+  'utf8'
+);
 const expectedPhrases = JSON.parse(readFileSync(resolve('scripts/site-visible-copy.json'), 'utf8'));
 const currentPhrases = new Set(collectVisibleText(componentRoot, [
   'custom-white-header.component.html',
@@ -54,6 +59,9 @@ const failures = expectedPhrases
     const preservedCustomerHeading = phrase === 'OUR VALUED CUSTOMERS'
       && currentPhrases.has('Our Valued Customers');
     const preservedInHomeConfig = homeConfigSource.includes(phrase);
+    const preservedConfiguredFeature = phrase.startsWith('- ')
+      && homeConfigSource.includes(phrase.slice(2))
+      && homeOrderFlowSource.includes('<span> - {{ feature.description }}</span>');
     const preservedIndustryStatus = phrase === 'Showing APPZPOS for {{ activeIndustry.label }}'
       && homeConfigSource.includes("industryStatusPrefix: 'Showing APPZPOS for'");
     return !approvedRemovedPhrases.has(phrase)
@@ -61,6 +69,7 @@ const failures = expectedPhrases
       && !preservedInCombinedCopy
       && !preservedCustomerHeading
       && !preservedInHomeConfig
+      && !preservedConfiguredFeature
       && !preservedIndustryStatus
       && !preservedInSharedPosHero;
   })
