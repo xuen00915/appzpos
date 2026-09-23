@@ -39,6 +39,7 @@ import { HomeEcosystemComponent } from '../components/home-ecosystem/home-ecosys
 import { HomeProofComponent } from '../components/home-proof/home-proof.component';
 import { HomePageTemplateComponent } from '../components/home-page-template/home-page-template.component';
 import { HomeHeroComponent } from '../components/home-hero/home-hero.component';
+import { HomeStorySectionsComponent } from '../components/home-story-sections/home-story-sections.component';
 import { MarketingRevealDirective } from '../components/marketing-reveal/marketing-reveal.directive';
 import { SolutionHeroComponent } from '../components/solution-hero/solution-hero.component';
 import { SolutionPageComponent, SolutionFeatureHeadingComponent, SolutionHardwareFiltersComponent } from '../components/solution-page/solution-page.component';
@@ -79,6 +80,7 @@ import { MatDialogRef } from '@angular/material/dialog';
     HomeProofComponent,
     HomePageTemplateComponent,
     HomeHeroComponent,
+    HomeStorySectionsComponent,
     MarketingRevealDirective,
     SolutionHeroComponent,
   ],

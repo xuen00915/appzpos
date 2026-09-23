@@ -96,9 +96,9 @@
 <app-home-order-flow [config]="homeSolutions"></app-home-order-flow>
 
 <main id="content" class="appz-page appz-home-story">
-    <app-home-ecosystem></app-home-ecosystem>
-    <app-home-industries></app-home-industries>
-    <app-home-proof></app-home-proof>
+    <app-home-ecosystem [hardware]="homeHardware" [grant]="homeGrant" [features]="homeFeatures"></app-home-ecosystem>
+    <app-home-industries [config]="homeIndustries"></app-home-industries>
+    <app-home-proof [config]="homeProof"></app-home-proof>
     <section class="appz-conversion-panel" id="requestdemo">
         <app-custom-request-demo></app-custom-request-demo>
     </section>

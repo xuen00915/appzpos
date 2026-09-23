@@ -4,9 +4,11 @@
   <app-home-order-flow *ngIf="config.solutions as solutions" [config]="solutions"></app-home-order-flow>
 
   <main class="appz-page appz-home-story">
-    <app-home-ecosystem *ngIf="config.grant || config.features"></app-home-ecosystem>
-    <app-home-industries *ngIf="config.industries"></app-home-industries>
-    <app-home-proof *ngIf="config.proof"></app-home-proof>
+    <app-home-story-sections *ngIf="config.storySections?.length" [sections]="config.storySections!" (requestDemo)="requestDemo.emit()"></app-home-story-sections>
+    <app-home-ecosystem *ngIf="config.hardware || config.grant || config.features"
+      [hardware]="config.hardware" [grant]="config.grant" [features]="config.features"></app-home-ecosystem>
+    <app-home-industries *ngIf="config.industries as industries" [config]="industries"></app-home-industries>
+    <app-home-proof *ngIf="config.proof as proof" [config]="proof"></app-home-proof>
 
     <section *ngIf="config.conversion" class="appz-conversion-panel" [id]="config.conversion.sectionId">
       <app-custom-request-demo *ngIf="config.conversion.locale === 'en'"></app-custom-request-demo>

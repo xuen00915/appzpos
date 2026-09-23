@@ -1,21 +1,36 @@
 <section class="industries" aria-labelledby="industries-title">
   <header class="appz-section industries__intro" appMarketingReveal>
-    <p class="appz-kicker">INDUSTRIES</p>
-    <h2 id="industries-title" class="appz-display">POS Integration Across Diverse Sectors</h2>
+    <p *ngIf="config.eyebrow" class="appz-kicker">{{ config.eyebrow }}</p>
+    <h2 id="industries-title" class="appz-display">{{ config.title }}</h2>
+    <p *ngIf="config.description" class="appz-lede">{{ config.description }}</p>
   </header>
-  <div class="industries__stories">
-    <article *ngFor="let story of stories; let index = index" class="industry-story" [class.industry-story--reverse]="index % 2 === 1" appMarketingReveal>
-      <a class="industry-story__media" [href]="story.href" [attr.aria-label]="story.title">
-        <img [src]="imageUrl(story.image)" [alt]="story.alt" width="960" height="720" loading="lazy">
-        <span aria-hidden="true">0{{ index + 1 }}</span>
-      </a>
-      <div class="industry-story__copy">
-        <p class="industry-story__eyebrow">Our Solutions</p>
-        <h3>{{ story.title }}</h3>
-        <p>{{ story.description }}</p>
-        <ul><li *ngFor="let module of story.modules">{{ module }}</li></ul>
-        <a [href]="story.href">More Info <span aria-hidden="true">→</span></a>
+
+  <div class="industries__experience" appMarketingReveal>
+    <nav class="industries__switcher" aria-label="Choose an industry">
+      <button *ngFor="let story of stories; let index = index" type="button"
+        [class.is-active]="index === activeIndex" [attr.aria-pressed]="index === activeIndex"
+        aria-controls="industry-slides" (click)="select(index)">{{ story.title }}</button>
+    </nav>
+    <div #industryViewport class="industries__viewport" id="industry-slides" role="region" aria-roledescription="carousel" aria-label="Industry solutions" tabindex="0" (scroll)="onScroll()" (keydown)="handleKeys($event)">
+      <div class="industries__track">
+        <article class="industries__active" *ngFor="let story of stories; let index = index"
+          [id]="'industry-panel-' + story.id" role="group" aria-roledescription="slide"
+          [attr.aria-label]="(index + 1) + ' of ' + stories.length + ': ' + story.title"
+          [attr.aria-hidden]="index !== activeIndex" [attr.inert]="index !== activeIndex ? '' : null">
+          <a class="industries__active-media" [href]="story.href" [attr.aria-label]="story.title">
+            <img [src]="imageUrl(story.image)" [alt]="story.alt" width="960" height="720" loading="lazy">
+          </a>
+          <div class="industries__active-copy">
+            <p>Our Solutions</p>
+            <h3>{{ story.title }}</h3>
+            <div class="industries__active-description">{{ story.description }}</div>
+            <ul class="industries__functions" aria-label="Functions for this industry">
+              <li *ngFor="let module of story.modules" [attr.data-module]="module">{{ moduleTitle(module) }}</li>
+            </ul>
+            <a class="industries__more-info" [href]="story.href">{{ config.moreInfoLabel }}</a>
+          </div>
+        </article>
       </div>
-    </article>
+    </div>
   </div>
 </section>

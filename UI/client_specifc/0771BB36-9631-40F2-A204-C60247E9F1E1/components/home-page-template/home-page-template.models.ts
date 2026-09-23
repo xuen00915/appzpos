@@ -113,6 +113,17 @@ export interface HomeGrantConfig {
   readonly cta: Extract<HomeCtaConfig, { kind: 'link' }>;
 }
 
+export interface HomeHardwareConfig {
+  readonly eyebrow?: string;
+  readonly title: string;
+  readonly paragraphs: readonly string[];
+  readonly image: string;
+  readonly imageAlt: string;
+  readonly imageWidth: number;
+  readonly imageHeight: number;
+  readonly cta?: Extract<HomeCtaConfig, { kind: 'link' }>;
+}
+
 export interface HomeFeatureItem {
   readonly id: string;
   readonly title: string;
@@ -176,6 +187,7 @@ export interface HomeProofConfig {
   readonly showMoreLabel?: string;
   readonly showLessLabel?: string;
   readonly reviewCta?: Extract<HomeCtaConfig, { kind: 'link' }>;
+  readonly closeDialogLabel?: string;
 }
 
 export interface HomeConversionConfig {
@@ -188,6 +200,7 @@ export interface HomePageTemplateConfig {
   readonly hero: HomeHeroConfig;
   readonly solutions?: HomeSolutionsConfig;
   readonly storySections?: readonly HomeStorySectionConfig[];
+  readonly hardware?: HomeHardwareConfig;
   readonly grant?: HomeGrantConfig;
   readonly features?: HomeFeatureSectionConfig;
   readonly industries?: HomeIndustrySectionConfig;

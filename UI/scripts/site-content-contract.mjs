@@ -6,7 +6,11 @@ import { collectVisibleText } from './lib/visible-text.mjs';
 
 const componentRoot = resolve('client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components');
 const homePath = resolve(componentRoot, 'index/index.component.html');
-const homeConfigSource = readFileSync(resolve(componentRoot, 'index/home-page-content.en.ts'), 'utf8');
+const homeConfigSource = [
+  'index/home-page-content.en.ts',
+  'index/home-page-sections.en.ts',
+  'index/home-page-proof.en.ts'
+].map((path) => readFileSync(resolve(componentRoot, path), 'utf8')).join('\n');
 const expectedPhrases = JSON.parse(readFileSync(resolve('scripts/site-visible-copy.json'), 'utf8'));
 const currentPhrases = new Set(collectVisibleText(componentRoot, [
   'custom-white-header.component.html',

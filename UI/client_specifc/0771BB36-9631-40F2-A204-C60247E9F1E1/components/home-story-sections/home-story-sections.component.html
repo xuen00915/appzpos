@@ -1,0 +1,34 @@
+<section class="home-story-sections" *ngIf="sections.length">
+  <article *ngFor="let section of sections"
+    class="appz-section home-story-section"
+    [class.is-image-left]="section.imagePosition === 'left'"
+    [class.is-image-right]="section.imagePosition !== 'left'"
+    [attr.id]="section.id"
+    [attr.aria-labelledby]="section.id + '-title'"
+    appMarketingReveal>
+    <div class="home-story-section__media">
+      <img [src]="imageUrl(section.image)" [alt]="section.imageAlt"
+        [attr.width]="section.imageWidth" [attr.height]="section.imageHeight" loading="lazy">
+    </div>
+    <div class="home-story-section__copy">
+      <p *ngIf="section.subtitle" class="appz-kicker">{{ section.subtitle }}</p>
+      <h2 [id]="section.id + '-title'" class="appz-display">{{ section.title }}</h2>
+      <p *ngFor="let paragraph of section.paragraphs" class="appz-lede">{{ paragraph }}</p>
+      <ul *ngIf="section.bullets?.length" class="home-story-section__bullets">
+        <li *ngFor="let bullet of section.bullets">
+          <strong *ngIf="bullet.label">{{ bullet.label }}</strong>
+          <span>{{ bullet.text }}</span>
+        </li>
+      </ul>
+      <a *ngIf="section.cta?.kind === 'link'" class="appz-button"
+        [href]="$any(section.cta).href" [target]="$any(section.cta).target || null"
+        [rel]="$any(section.cta).rel || null" [class]="$any(section.cta).trackingClass || ''">
+        {{ section.cta.label }}
+      </a>
+      <button *ngIf="section.cta?.kind === 'action'" type="button" class="appz-button"
+        [class]="$any(section.cta).trackingClass || ''" (click)="requestDemo.emit()">
+        {{ section.cta.label }}
+      </button>
+    </div>
+  </article>
+</section>
