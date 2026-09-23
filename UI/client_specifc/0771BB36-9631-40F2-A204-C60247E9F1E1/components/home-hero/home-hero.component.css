@@ -1,0 +1,33 @@
+:host {
+  display: block;
+}
+
+.appzpos-product-hero__visual--responsive {
+  align-self: stretch;
+  min-width: 0;
+}
+
+.appzpos-product-hero__visual--responsive picture,
+.appzpos-product-hero__visual--responsive img {
+  display: block;
+  height: 100%;
+  width: 100%;
+}
+
+.appzpos-product-hero__visual--responsive img {
+  border-radius: clamp(18px, 2vw, 28px);
+  object-fit: cover;
+}
+
+@media (max-width: 767px) {
+  .appzpos-product-hero__visual--responsive {
+    min-height: 260px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .appzpos-product-hero__visual--responsive img {
+    animation: none;
+    transition: none;
+  }
+}

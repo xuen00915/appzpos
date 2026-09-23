@@ -1,32 +1,5 @@
 <div class="appz-home-template" data-home-page-template [attr.lang]="config.language">
-  <section class="appz-home-template__hero" [attr.aria-labelledby]="config.hero.headingId">
-    <div class="appz-home-template__hero-copy">
-      <h1 [id]="config.hero.headingId">
-        {{ config.hero.title }}
-        <span *ngIf="config.hero.titleAccent">{{ config.hero.titleAccent }}</span>
-      </h1>
-      <p>{{ config.hero.description }}</p>
-      <div class="appz-home-template__actions">
-        <ng-container *ngFor="let cta of config.hero.ctas">
-          <button *ngIf="cta.kind === 'action'"
-                  type="button"
-                  [ngClass]="cta.trackingClass"
-                  [attr.data-track-cta]="cta.action"
-                  (click)="handleAction(cta)">
-            {{ cta.label }}
-          </button>
-          <a *ngIf="cta.kind === 'link'"
-             [href]="cta.href"
-             [target]="cta.target || '_self'"
-             [rel]="cta.rel || null"
-             [ngClass]="cta.trackingClass"
-             data-track-cta="link">
-            {{ cta.label }}
-          </a>
-        </ng-container>
-      </div>
-    </div>
-  </section>
+  <app-home-hero [config]="config.hero" (requestDemo)="requestDemo.emit()"></app-home-hero>
 
   <app-home-order-flow *ngIf="config.solutions"></app-home-order-flow>
 

@@ -4,6 +4,7 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 
 import { HomePageTemplateComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/home-page-template/home-page-template.component';
 import { HomeHeroConfig } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/home-page-template/home-page-template.models';
+import { HomeHeroComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/home-hero/home-hero.component';
 
 describe('HomePageTemplateComponent', () => {
   let fixture: ComponentFixture<HomePageTemplateComponent>;
@@ -38,7 +39,7 @@ describe('HomePageTemplateComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [CommonModule],
-      declarations: [HomePageTemplateComponent],
+      declarations: [HomePageTemplateComponent, HomeHeroComponent],
       schemas: [NO_ERRORS_SCHEMA]
     });
     fixture = TestBed.createComponent(HomePageTemplateComponent);

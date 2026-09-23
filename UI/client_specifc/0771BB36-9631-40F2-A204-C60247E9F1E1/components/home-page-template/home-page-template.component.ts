@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
 
-import { HomeCtaConfig, HomePageTemplateConfig } from './home-page-template.models';
+import { HomePageTemplateConfig } from './home-page-template.models';
 
 @Component({
   selector: 'app-home-page-template',
@@ -11,10 +11,4 @@ import { HomeCtaConfig, HomePageTemplateConfig } from './home-page-template.mode
 export class HomePageTemplateComponent {
   @Input({ required: true }) config!: HomePageTemplateConfig;
   @Output() readonly requestDemo = new EventEmitter<void>();
-
-  handleAction(cta: HomeCtaConfig): void {
-    if (cta.kind === 'action' && cta.action === 'request-demo') {
-      this.requestDemo.emit();
-    }
-  }
 }
