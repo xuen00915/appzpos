@@ -23,6 +23,7 @@
 /* Reserve the header height while navigation stays fixed on every viewport. */
 :host { height: 76px; }
 #header.appzpos-header {
+  box-sizing: border-box;
   position: fixed;
   top: 0;
   left: 0;

@@ -98,6 +98,8 @@ describe('APPZPOS marketing shell', () => {
 
   it('offers ordered call, WhatsApp and Messenger actions after the demo button', () => {
     const host = headerFixture.nativeElement as HTMLElement;
+    document.body.appendChild(host);
+    const header = host.querySelector<HTMLElement>('#header')!;
     const callLink = host.querySelector<HTMLAnchorElement>('[aria-label="Call APPZPOS"]');
     const whatsappLink = host.querySelector<HTMLAnchorElement>('[aria-label="WhatsApp APPZPOS"]');
     const messengerLink = host.querySelector<HTMLAnchorElement>('[aria-label="Message APPZPOS on Messenger"]');
@@ -113,6 +115,8 @@ describe('APPZPOS marketing shell', () => {
     );
     expect(messengerLink?.getAttribute('target')).toBe('_blank');
     expect(messengerLink?.getAttribute('rel')).toBe('noopener');
+    expect(getComputedStyle(header).position).toBe('fixed');
+    expect(header.getBoundingClientRect().height).toBe(76);
 
     const headerActions = Array.from(
       host.querySelectorAll<HTMLAnchorElement>('.appzpos-nav > a[href]')
@@ -120,6 +124,7 @@ describe('APPZPOS marketing shell', () => {
     expect(headerActions.indexOf('Request a Demo')).toBeLessThan(headerActions.indexOf('Call APPZPOS'));
     expect(headerActions.indexOf('Call APPZPOS')).toBeLessThan(headerActions.indexOf('WhatsApp APPZPOS'));
     expect(headerActions.indexOf('WhatsApp APPZPOS')).toBeLessThan(headerActions.indexOf('Message APPZPOS on Messenger'));
+    host.remove();
   });
 
   it('continues loading the configured Google and Facebook marketing tags', () => {

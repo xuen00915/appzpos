@@ -27,5 +27,6 @@ test('original analytics and conversion hooks remain present', () => {
   assert.ok(chinese.includes(messenger));
   for (const name of ['name', 'email', 'mobilenum', 'restaurant_name']) {
     assert.match(form, new RegExp(`formControlName="${name}"`));
+    assert.match(form, new RegExp(`name="${name}"`));
   }
 });

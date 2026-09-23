@@ -94,7 +94,12 @@ for (const { width, height, maxSectionSpace, minTitleTracking } of viewportProfi
     machine: Boolean(document.querySelector('.appzpos-product-hero__machine')),
     responsiveImage: Boolean(document.querySelector('.appzpos-product-hero__visual--responsive')),
     tabLabels: [...document.querySelectorAll('[data-industry-tab]')].map((tab) => tab.textContent.replace(/\\s+/g, ' ').replace(/^•\\s*/, '').trim()),
-    pageOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth
+    pageOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
+    headerHeroDelta: (() => {
+      const header = document.querySelector('#header')?.getBoundingClientRect();
+      const hero = document.querySelector('.appzpos-product-hero')?.getBoundingClientRect();
+      return header && hero ? Math.abs(header.height + hero.height - innerHeight) : null;
+    })()
   }))())`));
 
   if (hero.heading !== 'APPZPOS POS系统 云端智能POS餐饮系统 高达50%政府津贴折扣') {
@@ -108,6 +113,9 @@ for (const { width, height, maxSectionSpace, minTitleTracking } of viewportProfi
     failures.push(`${width}px: Chinese industry tabs changed ${JSON.stringify(hero.tabLabels)}`);
   }
   if (hero.pageOverflow) failures.push(`${width}px: page has horizontal overflow`);
+  if (hero.headerHeroDelta === null || hero.headerHeroDelta > 1) {
+    failures.push(`${width}px: header and hero do not fit one viewport (${hero.headerHeroDelta})`);
+  }
 
   const pageContract = JSON.parse(await evaluate(`JSON.stringify((() => {
     const root = document.querySelector('[data-home-page-template]');
@@ -154,8 +162,36 @@ for (const { width, height, maxSectionSpace, minTitleTracking } of viewportProfi
         const iconStyles = whatsappIcon ? getComputedStyle(whatsappIcon) : null;
         const scrollTop = document.querySelector('#gotoTop');
         const scrollTopStyles = scrollTop ? getComputedStyle(scrollTop) : null;
+        const styleSnapshot = (element) => {
+          if (!element) return null;
+          const styles = getComputedStyle(element);
+          return {
+            width: styles.width,
+            height: styles.height,
+            borderRadius: styles.borderRadius,
+            backgroundColor: styles.backgroundColor
+          };
+        };
+        const legacyClasses = [
+          [whatsapp, 'btn-whatsapp'],
+          [messenger, 'btn-fb']
+        ];
+        const withLegacyClasses = {
+          whatsapp: styleSnapshot(whatsapp),
+          messenger: styleSnapshot(messenger)
+        };
+        legacyClasses.forEach(([element, className]) => element?.classList.remove(className));
+        const withoutLegacyClasses = {
+          whatsapp: styleSnapshot(whatsapp),
+          messenger: styleSnapshot(messenger)
+        };
+        legacyClasses.forEach(([element, className]) => element?.classList.add(className));
         return {
           count: rail?.querySelectorAll('a').length ?? 0,
+          whatsappLegacyClass: whatsapp?.classList.contains('btn-whatsapp') ?? false,
+          messengerLegacyClass: messenger?.classList.contains('btn-fb') ?? false,
+          withLegacyClasses,
+          withoutLegacyClasses,
           railPosition: rail ? getComputedStyle(rail).position : null,
           railBottom: railBounds ? Math.round(innerHeight - railBounds.bottom) : null,
           whatsappHref: whatsapp?.getAttribute('href'),
@@ -200,6 +236,17 @@ for (const { width, height, maxSectionSpace, minTitleTracking } of viewportProfi
     failures.push(`${width}px: analytics or CTA tracking hooks changed ${JSON.stringify(pageContract)}`);
   }
   if (pageContract.floating.count !== 2
+    || !pageContract.floating.whatsappLegacyClass
+    || !pageContract.floating.messengerLegacyClass
+    || JSON.stringify(pageContract.floating.withLegacyClasses) !== JSON.stringify(pageContract.floating.withoutLegacyClasses)
+    || pageContract.floating.withLegacyClasses.whatsapp.width !== (width <= 768 ? '48px' : '52px')
+    || pageContract.floating.withLegacyClasses.whatsapp.height !== (width <= 768 ? '48px' : '52px')
+    || pageContract.floating.withLegacyClasses.whatsapp.borderRadius !== '50%'
+    || pageContract.floating.withLegacyClasses.whatsapp.backgroundColor !== 'rgb(23, 107, 53)'
+    || pageContract.floating.withLegacyClasses.messenger.width !== (width <= 768 ? '48px' : '52px')
+    || pageContract.floating.withLegacyClasses.messenger.height !== (width <= 768 ? '48px' : '52px')
+    || pageContract.floating.withLegacyClasses.messenger.borderRadius !== '50%'
+    || pageContract.floating.withLegacyClasses.messenger.backgroundColor !== 'rgba(255, 255, 255, 0.96)'
     || pageContract.floating.railPosition !== 'fixed'
     || Math.abs(pageContract.floating.railBottom - (width <= 768 ? 120 : 134)) > 1
     || !pageContract.floating.whatsappHref?.startsWith('https://wa.me/6583109631')

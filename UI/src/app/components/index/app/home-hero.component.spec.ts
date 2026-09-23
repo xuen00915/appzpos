@@ -128,6 +128,15 @@ describe('HomeHeroComponent', () => {
     component.config = englishHero;
     fixture.detectChanges();
 
+    const readCtas = () => Array.from(
+      (fixture.nativeElement as HTMLElement).querySelectorAll<HTMLElement>('[data-track-cta]')
+    ).map((cta) => ({
+      tracking: cta.getAttribute('data-track-cta'),
+      href: cta.getAttribute('href'),
+      label: cta.textContent?.replace(/\s+/g, ' ').trim()
+    }));
+    const ctasBeforeIndustryChange = readCtas();
+
     component.selectIndustry('restaurant', true);
     tick(480);
     fixture.detectChanges();
@@ -142,6 +151,15 @@ describe('HomeHeroComponent', () => {
     expect(screen?.getAttribute('data-industry')).toBe('restaurant');
     expect(functionTags?.getAttribute('data-industry')).toBe('restaurant');
     expect(labels).toEqual(['POS System', 'Table QR Ordering']);
+    expect(readCtas()).toEqual(ctasBeforeIndustryChange);
+    expect(ctasBeforeIndustryChange).toEqual([
+      { tracking: 'request-demo', href: null, label: 'Request a Demo' },
+      {
+        tracking: 'link',
+        href: "https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!",
+        label: 'WhatsApp Us'
+      }
+    ]);
 
     tick(720);
   }));
