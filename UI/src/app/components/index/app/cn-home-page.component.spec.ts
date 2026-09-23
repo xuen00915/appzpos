@@ -102,7 +102,16 @@ describe('CustomHomeCNComponent', () => {
       'assets/images/ecosystem/ecosystem-delivery.webp'
     ]);
     expect(config.storySections.length).toBe(2);
+    expect(config.storySections[0].imagePosition).toBe('right');
+    expect(config.storySections[0].cta.icon).toBe('whatsapp');
+    expect(config.storySections[1].presentation).toBe('cards');
+    expect(config.storySections[1].image).toBeUndefined();
+    expect(config.storySections[1].bullets.map((bullet: any) => bullet.iconClass)).toEqual([
+      'bi-cloud-check', 'bi-graph-up-arrow', 'bi-diagram-3', 'bi-buildings'
+    ]);
     expect(config.grant.title).toBe('享受高达50%的政府津贴');
+    expect(config.grant.image).toBe('assets/images/smes-go-digital-lockup-vertical.png');
+    expect(config.grant.secondaryImage).toBeUndefined();
     expect(config.features.items.length).toBe(6);
     expect(config.proof.customersTitle).toBe('我们的客户');
     expect(new Set(config.proof.customers.map((customer: any) => customer.image)).size).toBe(76);

@@ -13,11 +13,85 @@
 .home-story-section.is-image-right .home-story-section__copy { grid-column: 1; grid-row: 1; }
 .home-story-section__bullets { display: grid; gap: .75rem; margin: 1.5rem 0; padding: 0; list-style: none; }
 .home-story-section__bullets li { display: grid; gap: .2rem; }
+.home-story-section__bullet-copy { display: grid; gap: .2rem; }
 .appz-button {
   display: inline-flex;
   align-items: center;
   min-height: 44px;
   margin-top: 1.25rem;
+}
+.appz-button--whatsapp {
+  justify-content: center;
+  gap: 10px;
+  padding: 0 24px;
+  border: 1px solid #168c4e;
+  border-radius: 999px;
+  background: #168c4e;
+  box-shadow: 0 12px 26px rgba(22, 140, 78, .2);
+  color: #fff;
+  font-weight: 800;
+  line-height: 1;
+  text-decoration: none;
+  transition: background-color .18s ease, box-shadow .18s ease, transform .18s ease;
+}
+.appz-button--whatsapp:hover {
+  background: #107842;
+  box-shadow: 0 16px 30px rgba(22, 140, 78, .27);
+  color: #fff;
+  transform: translateY(-2px);
+}
+.home-story-section.is-card-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+.home-story-section.is-card-grid .home-story-section__copy {
+  display: grid;
+  grid-column: 1;
+  grid-row: 1;
+  justify-items: center;
+}
+.home-story-section.is-card-grid .appz-display {
+  max-width: 22ch;
+  text-align: center;
+}
+.home-story-section.is-card-grid .home-story-section__bullets {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: min(100%, 1120px);
+  gap: clamp(14px, 1.8vw, 22px);
+  margin: clamp(2rem, 4vw, 3.5rem) auto 0;
+}
+.home-story-section.is-card-grid .home-story-section__bullets li {
+  grid-template-columns: 54px minmax(0, 1fr);
+  align-items: start;
+  gap: 22px;
+  min-height: 220px;
+  padding: clamp(22px, 2.2vw, 30px);
+  border: 1px solid #dce8f2;
+  border-radius: 18px;
+  background: #fff;
+}
+.home-story-section__bullet-icon {
+  display: grid;
+  width: 54px;
+  height: 54px;
+  place-items: center;
+  border-radius: 15px;
+  color: #0a86e8;
+  background: #edf8ff;
+  font-size: 1.45rem;
+  line-height: 1;
+}
+.home-story-section.is-card-grid .home-story-section__bullet-copy {
+  gap: 12px;
+}
+.home-story-section.is-card-grid .home-story-section__bullet-copy strong {
+  color: #101d39;
+  font-size: clamp(1.02rem, 1.2vw, 1.2rem);
+  line-height: 1.25;
+}
+.home-story-section.is-card-grid .home-story-section__bullet-copy span {
+  color: #536681;
+  font-size: .92rem;
+  line-height: 1.62;
 }
 @media (max-width: 900px) {
   .home-story-section { grid-template-columns: minmax(0, 1fr); }
@@ -29,4 +103,16 @@
   .home-story-section.is-image-right .home-story-section__media { grid-row: 1; }
   .home-story-section__copy,
   .home-story-section.is-image-right .home-story-section__copy { grid-row: 2; }
+  .home-story-section.is-card-grid .home-story-section__copy { grid-row: 1; }
+}
+@media (max-width: 767px) {
+  .home-story-section.is-card-grid .home-story-section__bullets { grid-template-columns: 1fr; }
+  .home-story-section.is-card-grid .home-story-section__bullets li {
+    grid-template-columns: 48px minmax(0, 1fr);
+    min-height: 0;
+    gap: 16px;
+    padding: 20px;
+  }
+  .home-story-section__bullet-icon { width: 48px; height: 48px; }
+  .appz-button--whatsapp { width: 100%; }
 }

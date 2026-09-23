@@ -2,12 +2,14 @@
   <article *ngFor="let section of sections"
     class="appz-section home-story-section"
     [class.is-image-left]="section.imagePosition === 'left'"
-    [class.is-image-right]="section.imagePosition !== 'left'"
+    [class.is-image-right]="section.image && section.imagePosition !== 'left'"
+    [class.has-no-image]="!section.image"
+    [class.is-card-grid]="section.presentation === 'cards'"
     [attr.id]="section.id"
     [attr.aria-labelledby]="section.id + '-title'"
     appMarketingReveal>
-    <div class="home-story-section__media">
-      <img [src]="imageUrl(section.image)" [alt]="section.imageAlt"
+    <div *ngIf="section.image as image" class="home-story-section__media">
+      <img [src]="imageUrl(image)" [alt]="section.imageAlt || ''"
         [attr.width]="section.imageWidth" [attr.height]="section.imageHeight" loading="lazy">
     </div>
     <div class="home-story-section__copy">
@@ -16,15 +18,23 @@
       <p *ngFor="let paragraph of section.paragraphs" class="appz-lede">{{ paragraph }}</p>
       <ul *ngIf="section.bullets?.length" class="home-story-section__bullets">
         <li *ngFor="let bullet of section.bullets">
-          <strong *ngIf="bullet.label">{{ bullet.label }}</strong>
-          <span>{{ bullet.text }}</span>
+          <span *ngIf="bullet.iconClass" class="home-story-section__bullet-icon" aria-hidden="true">
+            <i class="bi" [ngClass]="bullet.iconClass"></i>
+          </span>
+          <div class="home-story-section__bullet-copy">
+            <strong *ngIf="bullet.label">{{ bullet.label }}</strong>
+            <span>{{ bullet.text }}</span>
+          </div>
         </li>
       </ul>
       <ng-container *ngIf="section.cta as cta">
         <a *ngIf="cta.kind === 'link'" class="appz-button"
           [href]="$any(cta).href" [target]="$any(cta).target || null"
-          [rel]="$any(cta).rel || null" [class]="$any(cta).trackingClass || ''">
-          {{ cta.label }}
+          [rel]="$any(cta).rel || null" [class]="$any(cta).trackingClass || ''"
+          [class.appz-button--whatsapp]="$any(cta).icon === 'whatsapp'"
+          [attr.data-story-whatsapp]="$any(cta).icon === 'whatsapp' ? '' : null">
+          <i *ngIf="$any(cta).icon === 'whatsapp'" class="bi bi-whatsapp" aria-hidden="true"></i>
+          <span>{{ cta.label }}</span>
         </a>
         <button *ngIf="cta.kind === 'action'" type="button" class="appz-button"
           [class]="$any(cta).trackingClass || ''" (click)="requestDemo.emit()">

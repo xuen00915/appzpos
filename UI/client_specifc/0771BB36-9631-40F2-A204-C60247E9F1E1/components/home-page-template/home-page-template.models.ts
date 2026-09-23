@@ -14,6 +14,7 @@ export type HomeCtaConfig =
       readonly target?: '_blank' | '_self';
       readonly rel?: string;
       readonly trackingClass?: string;
+      readonly icon?: 'whatsapp';
     };
 
 export interface HomeHeroIndustry {
@@ -87,6 +88,7 @@ export interface HomeSolutionsConfig {
 export interface HomeStoryBullet {
   readonly label?: string;
   readonly text: string;
+  readonly iconClass?: string;
 }
 
 export interface HomeStorySectionConfig {
@@ -95,11 +97,12 @@ export interface HomeStorySectionConfig {
   readonly subtitle?: string;
   readonly paragraphs?: readonly string[];
   readonly bullets?: readonly HomeStoryBullet[];
-  readonly image: string;
-  readonly imageAlt: string;
-  readonly imageWidth: number;
-  readonly imageHeight: number;
+  readonly image?: string;
+  readonly imageAlt?: string;
+  readonly imageWidth?: number;
+  readonly imageHeight?: number;
   readonly imagePosition?: 'left' | 'right';
+  readonly presentation?: 'split' | 'cards';
   readonly cta?: HomeCtaConfig;
 }
 

@@ -92,6 +92,65 @@ for (const width of [1440, 390]) {
   }
   if (hero.pageOverflow) failures.push(`${width}px: page has horizontal overflow`);
 
+  await evaluate(`document.querySelector('#cn-custom-pos')?.scrollIntoView({ block: 'center' })`);
+  await wait(350);
+  const storySections = JSON.parse(await evaluate(`JSON.stringify((() => {
+    const custom = document.querySelector('#cn-custom-pos');
+    const customCopy = custom?.querySelector('.home-story-section__copy')?.getBoundingClientRect();
+    const customMedia = custom?.querySelector('.home-story-section__media')?.getBoundingClientRect();
+    const whatsapp = custom?.querySelector('[data-story-whatsapp]');
+    const cardsSection = document.querySelector('#cn-unified-management');
+    const cardList = cardsSection?.querySelector('.home-story-section__bullets');
+    const cards = [...(cardsSection?.querySelectorAll('.home-story-section__bullets li') ?? [])];
+    const grant = document.querySelector('[data-home-section="grant"]');
+    const grantImages = [...(grant?.querySelectorAll('img') ?? [])];
+    return {
+      custom: {
+        copyLeftOfImage: Boolean(customCopy && customMedia && customCopy.right <= customMedia.left + 1),
+        imageAboveCopy: Boolean(customCopy && customMedia && customMedia.bottom <= customCopy.top + 1),
+        whatsappText: whatsapp?.textContent.replace(/\\s+/g, ' ').trim(),
+        whatsappHref: whatsapp?.getAttribute('href'),
+        whatsappIcon: Boolean(whatsapp?.querySelector('.bi-whatsapp'))
+      },
+      cards: {
+        mediaCount: cardsSection?.querySelectorAll('.home-story-section__media').length,
+        headingAlign: cardsSection?.querySelector('h2') ? getComputedStyle(cardsSection.querySelector('h2')).textAlign : null,
+        count: cards.length,
+        columns: cardList ? getComputedStyle(cardList).gridTemplateColumns.split(' ').length : 0,
+        icons: cards.map((card) => card.querySelector('i')?.className)
+      },
+      grant: {
+        imageCount: grantImages.length,
+        src: grantImages[0]?.getAttribute('src'),
+        loaded: Boolean(grantImages[0]?.complete && grantImages[0]?.naturalWidth > 0),
+        secondary: Boolean(grant?.querySelector('.ecosystem__grant-lockup'))
+      }
+    };
+  })())`));
+  if (width > 900 && !storySections.custom.copyLeftOfImage) {
+    failures.push(`${width}px: custom POS copy is not left of its image ${JSON.stringify(storySections.custom)}`);
+  }
+  if (width <= 900 && !storySections.custom.imageAboveCopy) {
+    failures.push(`${width}px: custom POS mobile stack is incorrect ${JSON.stringify(storySections.custom)}`);
+  }
+  if (storySections.custom.whatsappText !== '联系我们'
+    || !storySections.custom.whatsappHref?.startsWith('https://wa.me/6583109631')
+    || !storySections.custom.whatsappIcon) {
+    failures.push(`${width}px: custom POS WhatsApp CTA is incorrect ${JSON.stringify(storySections.custom)}`);
+  }
+  if (storySections.cards.mediaCount !== 0 || storySections.cards.headingAlign !== 'center'
+    || storySections.cards.count !== 4 || storySections.cards.columns !== (width <= 767 ? 1 : 2)
+    || JSON.stringify(storySections.cards.icons) !== JSON.stringify([
+      'bi bi-cloud-check', 'bi bi-graph-up-arrow', 'bi bi-diagram-3', 'bi bi-buildings'
+    ])) {
+    failures.push(`${width}px: Chinese management cards are incorrect ${JSON.stringify(storySections.cards)}`);
+  }
+  if (storySections.grant.imageCount !== 1
+    || storySections.grant.src !== 'assets/images/smes-go-digital-lockup-vertical.png'
+    || !storySections.grant.loaded || storySections.grant.secondary) {
+    failures.push(`${width}px: Chinese grant artwork is incorrect ${JSON.stringify(storySections.grant)}`);
+  }
+
   for (const [industry, expectedTags] of Object.entries(industries)) {
     await evaluate(`document.querySelector('[data-industry-tab="${industry}"]')?.click()`);
     await wait(650);
@@ -135,4 +194,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Chinese homepage parity regression passed at 1440px and 390px for all hero states and solution diagrams.');
+console.log('Chinese homepage parity regression passed at 1440px and 390px for the hero, story layouts, benefit cards, grant artwork, and solution diagrams.');

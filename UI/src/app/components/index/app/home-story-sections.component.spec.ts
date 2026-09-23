@@ -94,4 +94,57 @@ describe('HomeStorySectionsComponent', () => {
       }
     } finally { frame.remove(); }
   });
+
+  it('renders an icon-led WhatsApp action and an image-free benefit card grid', () => {
+    fixture.componentInstance.sections = [
+      {
+        id: 'whatsapp-story',
+        title: '联系故事',
+        paragraphs: ['保留原文。'],
+        image: 'hardware.png',
+        imageAlt: '硬件',
+        imageWidth: 900,
+        imageHeight: 760,
+        imagePosition: 'right',
+        cta: {
+          kind: 'link',
+          href: 'https://wa.me/6583109631',
+          label: '联系我们',
+          target: '_blank',
+          rel: 'noopener',
+          icon: 'whatsapp'
+        }
+      },
+      {
+        id: 'benefit-story',
+        title: '统一管理POS餐饮系统',
+        presentation: 'cards',
+        bullets: [
+          { label: '云端POS系统 -', text: '随时管理', iconClass: 'bi-cloud-check' },
+          { label: '实时报告分析 -', text: '数据分析', iconClass: 'bi-graph-up-arrow' },
+          { label: '第三方整合 -', text: '平台整合', iconClass: 'bi-diagram-3' },
+          { label: '多店运营 -', text: '管理分店', iconClass: 'bi-buildings' }
+        ]
+      }
+    ] as any;
+    fixture.detectChanges();
+
+    const host = fixture.nativeElement as HTMLElement;
+    const whatsappStory = host.querySelector<HTMLElement>('#whatsapp-story')!;
+    const whatsapp = whatsappStory.querySelector<HTMLAnchorElement>('[data-story-whatsapp]')!;
+    expect(whatsappStory.classList).toContain('is-image-right');
+    expect(whatsapp.getAttribute('href')).toBe('https://wa.me/6583109631');
+    expect(whatsapp.getAttribute('target')).toBe('_blank');
+    expect(whatsapp.textContent?.trim()).toBe('联系我们');
+    expect(whatsapp.querySelector('.bi-whatsapp')).not.toBeNull();
+
+    const benefitStory = host.querySelector<HTMLElement>('#benefit-story')!;
+    expect(benefitStory.classList).toContain('is-card-grid');
+    expect(benefitStory.querySelector('.home-story-section__media')).toBeNull();
+    const cards = Array.from(benefitStory.querySelectorAll<HTMLElement>('.home-story-section__bullets li'));
+    expect(cards.length).toBe(4);
+    expect(cards.map((card) => card.querySelector('i')?.className)).toEqual([
+      'bi bi-cloud-check', 'bi bi-graph-up-arrow', 'bi bi-diagram-3', 'bi bi-buildings'
+    ]);
+  });
 });

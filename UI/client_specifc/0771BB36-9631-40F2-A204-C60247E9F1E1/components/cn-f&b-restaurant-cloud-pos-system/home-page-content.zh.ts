@@ -180,27 +180,23 @@ export const CHINESE_HOME_PAGE_CONFIG: HomePageTemplateConfig = {
       imageAlt: 'APPZPOS-Pos-Point-of-Sales-System-Customized-Software-and-Hardware',
       imageWidth: 900,
       imageHeight: 760,
-      imagePosition: 'left',
+      imagePosition: 'right',
       cta: {
         kind: 'link', label: '联系我们',
         href: "https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!",
-        target: '_blank', rel: 'noopener'
+        target: '_blank', rel: 'noopener', icon: 'whatsapp'
       }
     },
     {
       id: 'cn-unified-management',
       title: '统一管理POS餐饮系统 高效经营，实现最大化盈利',
+      presentation: 'cards',
       bullets: [
-        { label: '云端POS系统 -', text: '在一个POS系统中心集中管理，并通过互联网随时随地更新或查看' },
-        { label: '实时报告分析 -', text: '记录了每笔交易的细节信息，包括销售额、产品类别、交易时间、支付方式等，并利用生成的实时报告数据进行分析' },
-        { label: '第三方整合 -', text: '与第三方平台合作（如外卖配送、支付、会计软件、商场平台等），在我们的POS系统中直接处理与第三方平台相关的业务，例如接收在线订单、处理支付、安排配送等' },
-        { label: '多店运营 -', text: '如果您正在扩张到更多的地点，您可以通过我们统一的POS系统，轻松管理多个分店的运营' }
-      ],
-      image: 'APPZPOS-point-of-sale-software-all-in-one-pos-solutions.png',
-      imageAlt: 'APPZPOS-point-of-sale-software-all-in-one-pos-solutions',
-      imageWidth: 900,
-      imageHeight: 760,
-      imagePosition: 'right'
+        { label: '云端POS系统 -', text: '在一个POS系统中心集中管理，并通过互联网随时随地更新或查看', iconClass: 'bi-cloud-check' },
+        { label: '实时报告分析 -', text: '记录了每笔交易的细节信息，包括销售额、产品类别、交易时间、支付方式等，并利用生成的实时报告数据进行分析', iconClass: 'bi-graph-up-arrow' },
+        { label: '第三方整合 -', text: '与第三方平台合作（如外卖配送、支付、会计软件、商场平台等），在我们的POS系统中直接处理与第三方平台相关的业务，例如接收在线订单、处理支付、安排配送等', iconClass: 'bi-diagram-3' },
+        { label: '多店运营 -', text: '如果您正在扩张到更多的地点，您可以通过我们统一的POS系统，轻松管理多个分店的运营', iconClass: 'bi-buildings' }
+      ]
     }
   ],
   grant: {
@@ -210,14 +206,10 @@ export const CHINESE_HOME_PAGE_CONFIG: HomePageTemplateConfig = {
       '我们是PSG政府津贴预先批准的POS供应商，专为本地餐饮中小企业提供收银服务。只需购买任意一套APPZPOS POS系统，我们将全程协助您轻松快速完成申请！',
       'SMEs are eligible for up to 50% Productivity Solutions Grant (PSG) support for the adoption of APPZPOS F&B Point of Sales, a Pre-Approved Solution under the IMDA SMEs Go Digital programme.'
     ],
-    image: 'APPZPOS-All-in-One-Pos-System-PSG-banner.png',
-    imageAlt: 'APPZPOS-All-in-One-Pos-System-PSG-banner',
-    imageWidth: 1920,
-    imageHeight: 950,
-    secondaryImage: 'FA_IMDA_Full_Colour_Horizontal_Lockup.png',
-    secondaryImageAlt: 'FA_IMDA_Full_Colour_Horizontal_Lockup',
-    secondaryImageWidth: 1200,
-    secondaryImageHeight: 320,
+    image: 'assets/images/smes-go-digital-lockup-vertical.png',
+    imageAlt: 'IMDA预先批准方案，符合高达50%企业津贴支持资格',
+    imageWidth: 1273,
+    imageHeight: 1251,
     cta: { kind: 'link', href: 'psg-pos-system-grant-singapore', label: '了解更多' }
   },
   features: {
