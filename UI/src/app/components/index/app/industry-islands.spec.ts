@@ -74,6 +74,16 @@ describe('F&B industry islands pilot', () => {
           .toBeLessThanOrEqual(width);
         const view = laptopFrame.contentWindow!;
         const wall = frameDocument.querySelector('.solution-wall')!;
+
+        if (width < 768) {
+          const heroArea = frameDocument.querySelector('.restaurant-hero')!.getBoundingClientRect();
+          const photo = frameDocument.querySelector('.restaurant-hero__photo')!;
+          const photoStyle = view.getComputedStyle(photo);
+          expect(photoStyle.position).toBe('absolute');
+          expect(Number(photoStyle.opacity)).toBe(.18);
+          expect(photo.getBoundingClientRect().height).toBeCloseTo(heroArea.height, 0);
+          expect(photo.getBoundingClientRect().width).toBeCloseTo(heroArea.width, 0);
+        }
         expect(wall.querySelectorAll('.solution-sign__image').length).toBe(8);
         for (const card of Array.from(wall.querySelectorAll('.solution-sign'))) {
           const image = card.querySelector('.solution-sign__image')!;
