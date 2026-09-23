@@ -1,0 +1,33 @@
+.restaurant-scroll__intro {
+  width: min(1600px, calc(100% - 32px));
+  margin: 0 auto 40px;
+}
+.restaurant-scroll__intro h2 {
+  max-width: 1200px;
+  margin: 0 auto 24px;
+  text-align: center;
+  font-size: clamp(26px, 3vw, 44px);
+  line-height: 1.2;
+  text-wrap: balance;
+}
+.restaurant-overview__visual { width: 100%; overflow: hidden; }
+.restaurant-overview__diagram { display: block; width: 120%; max-width: none; height: auto; margin-left: -10%; }
+
+.restaurant-scroll__mode { position: relative; }
+.restaurant-scroll__mode::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  /* Extend across the 40/60 grid and its 16px gap. */
+  width: calc(250% + 16px);
+  border-radius: 24px;
+  background: #eef6ff;
+  pointer-events: none;
+  z-index: -1;
+}
+@media (min-width: 992px) and (pointer: fine), (min-width: 1367px) {
+  .restaurant-mode__timeline { padding: 28px; }
+}
+@media (max-width: 991px), (max-width: 1366px) and (pointer: coarse) {
+  .restaurant-scroll__mode::before { width: 100%; }
+}

@@ -1,218 +1,194 @@
-<section #orderFlowSection class="appzpos-order-flow" aria-labelledby="appzpos-order-flow-title">
-    <div *ngIf="!reducedMotion; else staticOrderFlow" class="appzpos-order-flow__scroll">
-        <div #orderFlowStage class="appzpos-order-flow__stage">
-            <h2 id="appzpos-order-flow-title" class="appzpos-order-flow__title">APPZPOS ordering flow</h2>
-            <ol class="appzpos-order-flow__steps" aria-label="APPZPOS order flow steps">
-                <li *ngFor="let step of steps; let index = index"
-                    class="appzpos-order-flow__step"
-                    [class.is-active]="index === activeStepIndex"
-                    [class.is-complete]="index < activeStepIndex">
-                    <button class="appzpos-order-flow__step-button"
-                            type="button"
-                            [attr.aria-current]="index === activeStepIndex ? 'step' : null"
-                            [attr.aria-label]="'Go to step ' + (index + 1) + ': ' + step.title"
-                            (click)="goToStep(index)">
-                        <span aria-hidden="true">{{ index + 1 }}</span>
-                    </button>
-                </li>
-            </ol>
+<section #ecosystemSection
+         class="appz-ecosystem"
+         [class.is-visible]="isVisible"
+         [class.has-active-island]="activeIslandId"
+         aria-labelledby="appz-ecosystem-title">
+    <header class="appz-ecosystem__heading">
+        <p class="appz-ecosystem__eyebrow">CONNECTED APPZPOS ECOSYSTEM</p>
+        <h2 id="appz-ecosystem-title">Everything Works Together</h2>
+        <p class="appz-ecosystem__intro">
+            From order to kitchen, pickup, delivery and management — connect the APPZPOS modules that fit your business.
+        </p>
+    </header>
 
-            <div class="appzpos-order-flow__layout">
-                <figure class="appzpos-order-flow__scene">
-                    <svg viewBox="0 0 1000 460"
-                         role="img"
-                         aria-labelledby="appzpos-order-flow-svg-title appzpos-order-flow-svg-description">
-                        <title id="appzpos-order-flow-svg-title">APPZPOS connected ordering flow</title>
-                        <desc id="appzpos-order-flow-svg-description">
-                            Four ordering channels merge into one queue, continue to the kitchen display system, and reach Order Hub together with delivery-platform orders.
-                        </desc>
+    <div class="appz-ecosystem__layout" data-ecosystem-layout>
+        <div #ecosystemStage
+             class="appz-ecosystem__stage"
+             (pointermove)="handlePointerMove($event)"
+             (pointerleave)="resetPointerParallax()">
+        <svg class="appz-ecosystem__connections"
+             viewBox="0 0 1400 1040"
+             preserveAspectRatio="none"
+             aria-hidden="true">
+            <defs>
+                <filter id="appz-ecosystem-signal-glow" x="-200%" y="-200%" width="500%" height="500%">
+                    <feGaussianBlur stdDeviation="5" result="blur" />
+                    <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
+                </filter>
+            </defs>
 
-                        <defs aria-hidden="true">
-                            <linearGradient id="appzpos-flow-surface" x1="0" y1="0" x2="1" y2="1">
-                                <stop offset="0" stop-color="#ffffff" />
-                                <stop offset="0.55" stop-color="#f8fbfd" />
-                                <stop offset="1" stop-color="#edf6fb" />
-                            </linearGradient>
-                            <linearGradient id="appzpos-flow-token" x1="0" y1="0" x2="1" y2="1">
-                                <stop offset="0" stop-color="#20b7f2" />
-                                <stop offset="1" stop-color="#1477d4" />
-                            </linearGradient>
-                            <linearGradient id="appzpos-flow-merged-token" x1="0" y1="0" x2="1" y2="1">
-                                <stop offset="0" stop-color="#50c88b" />
-                                <stop offset="1" stop-color="#23835a" />
-                            </linearGradient>
-                            <linearGradient id="appzpos-flow-delivery-token" x1="0" y1="0" x2="1" y2="1">
-                                <stop offset="0" stop-color="#ffad66" />
-                                <stop offset="1" stop-color="#f26a2e" />
-                            </linearGradient>
-                            <pattern id="appzpos-flow-grid" width="32" height="32" patternUnits="userSpaceOnUse">
-                                <path d="M32 0H0V32" fill="none" stroke="#7fa2bc" stroke-opacity="0.12" stroke-width="1" />
-                            </pattern>
-                            <filter id="appzpos-flow-soft-glow" x="-100%" y="-100%" width="300%" height="300%">
-                                <feGaussianBlur stdDeviation="7" />
-                            </filter>
-                        </defs>
+            <g data-ecosystem-connection="admin"
+               class="appz-ecosystem__connection"
+               [class.is-active]="activeIslandId === 'admin' || activeDetailsIslandId === 'admin'">
+                <path class="appz-ecosystem__bridge" d="M720 500C858 394 1030 252 1160 188" />
+                <path class="appz-ecosystem__route" pathLength="1" d="M720 500C858 394 1030 252 1160 188" />
+                <circle class="appz-ecosystem__endpoint" cx="1160" cy="188" r="5" />
+                <circle class="appz-ecosystem__signal" r="6">
+                    <animateMotion dur="1.9s" repeatCount="indefinite" path="M1160 188C1030 252 858 394 720 500" />
+                </circle>
+            </g>
+            <g data-ecosystem-connection="kitchen"
+               class="appz-ecosystem__connection appz-ecosystem__connection--orange"
+               [class.is-active]="activeIslandId === 'kitchen' || activeDetailsIslandId === 'kitchen'">
+                <path class="appz-ecosystem__bridge" d="M692 482C674 380 636 254 610 168" />
+                <path class="appz-ecosystem__route" pathLength="1" d="M692 482C674 380 636 254 610 168" />
+                <circle class="appz-ecosystem__endpoint" cx="610" cy="168" r="5" />
+                <circle class="appz-ecosystem__signal" r="6">
+                    <animateMotion dur="1.8s" repeatCount="indefinite" path="M610 168C636 254 674 380 692 482" />
+                </circle>
+            </g>
+            <g data-ecosystem-connection="dining"
+               class="appz-ecosystem__connection"
+               [class.is-active]="activeIslandId === 'dining' || activeDetailsIslandId === 'dining'">
+                <path class="appz-ecosystem__bridge" d="M674 512C542 468 410 411 282 368" />
+                <path class="appz-ecosystem__route" pathLength="1" d="M674 512C542 468 410 411 282 368" />
+                <circle class="appz-ecosystem__endpoint" cx="282" cy="368" r="5" />
+                <circle class="appz-ecosystem__signal" r="6">
+                    <animateMotion dur="1.7s" repeatCount="indefinite" path="M282 368C410 411 542 468 674 512" />
+                </circle>
+            </g>
+            <g data-ecosystem-connection="kiosk"
+               class="appz-ecosystem__connection"
+               [class.is-active]="activeIslandId === 'kiosk' || activeDetailsIslandId === 'kiosk'">
+                <path class="appz-ecosystem__bridge" d="M732 526C826 522 920 494 1012 462" />
+                <path class="appz-ecosystem__route" pathLength="1" d="M732 526C826 522 920 494 1012 462" />
+                <circle class="appz-ecosystem__endpoint" cx="1012" cy="462" r="5" />
+                <circle class="appz-ecosystem__signal" r="6">
+                    <animateMotion dur="1.65s" repeatCount="indefinite" path="M1012 462C920 494 826 522 732 526" />
+                </circle>
+            </g>
+            <g data-ecosystem-connection="queue"
+               class="appz-ecosystem__connection appz-ecosystem__connection--orange"
+               [class.is-active]="activeIslandId === 'queue' || activeDetailsIslandId === 'queue'">
+                <path class="appz-ecosystem__bridge" d="M734 544C882 612 1056 704 1190 764" />
+                <path class="appz-ecosystem__route" pathLength="1" d="M734 544C882 612 1056 704 1190 764" />
+                <circle class="appz-ecosystem__endpoint" cx="1190" cy="764" r="5" />
+                <circle class="appz-ecosystem__signal" r="6">
+                    <animateMotion dur="1.72s" repeatCount="indefinite" path="M1190 764C1056 704 882 612 734 544" />
+                </circle>
+            </g>
+            <g data-ecosystem-connection="website"
+               class="appz-ecosystem__connection"
+               [class.is-active]="activeIslandId === 'website' || activeDetailsIslandId === 'website'">
+                <path class="appz-ecosystem__bridge" d="M686 548C576 636 460 735 338 817" />
+                <path class="appz-ecosystem__route" pathLength="1" d="M686 548C576 636 460 735 338 817" />
+                <circle class="appz-ecosystem__endpoint" cx="338" cy="817" r="5" />
+                <circle class="appz-ecosystem__signal" r="6">
+                    <animateMotion dur="1.75s" repeatCount="indefinite" path="M338 817C460 735 576 636 686 548" />
+                </circle>
+            </g>
+            <g data-ecosystem-connection="delivery"
+               class="appz-ecosystem__connection appz-ecosystem__connection--orange"
+               [class.is-active]="activeIslandId === 'delivery' || activeDetailsIslandId === 'delivery'">
+                <path class="appz-ecosystem__bridge" d="M712 554C740 654 784 761 824 850" />
+                <path class="appz-ecosystem__route" pathLength="1" d="M712 554C740 654 784 761 824 850" />
+                <circle class="appz-ecosystem__endpoint" cx="824" cy="850" r="5" />
+                <circle class="appz-ecosystem__signal" r="6">
+                    <animateMotion dur="1.85s" repeatCount="indefinite" path="M824 850C784 761 740 654 712 554" />
+                </circle>
+            </g>
+        </svg>
 
-                        <g class="appzpos-order-flow__scene-foundation" aria-hidden="true">
-                            <rect class="appzpos-order-flow__scene-surface" x="2" y="2" width="996" height="456" rx="42" fill="url(#appzpos-flow-surface)" />
-                            <rect class="appzpos-order-flow__scene-grid" x="20" y="20" width="960" height="420" rx="30" fill="url(#appzpos-flow-grid)" />
-                            <ellipse class="appzpos-order-flow__scene-aura" cx="430" cy="232" rx="255" ry="122" />
-                            <ellipse class="appzpos-order-flow__scene-aura appzpos-order-flow__scene-aura--orange" cx="810" cy="154" rx="148" ry="104" />
-                        </g>
-
-                        <g class="appzpos-order-flow__routes" aria-hidden="true">
-                            <line class="appzpos-order-flow__route" data-entry-route x1="30" y1="50" x2="420" y2="215" />
-                            <line class="appzpos-order-flow__route" data-entry-route x1="30" y1="160" x2="420" y2="215" />
-                            <line class="appzpos-order-flow__route" data-entry-route x1="30" y1="270" x2="420" y2="215" />
-                            <line class="appzpos-order-flow__route" data-entry-route x1="30" y1="380" x2="420" y2="215" />
-                            <line class="appzpos-order-flow__route" x1="420" y1="215" x2="620" y2="215" />
-                            <line class="appzpos-order-flow__route" x1="620" y1="215" x2="860" y2="215" />
-                            <line class="appzpos-order-flow__route appzpos-order-flow__route--delivery" x1="680" y1="40" x2="860" y2="215" />
-
-                            <line class="appzpos-order-flow__route appzpos-order-flow__route--complete"
-                                  data-entry-route-complete pathLength="1" x1="30" y1="50" x2="420" y2="215" />
-                            <line class="appzpos-order-flow__route appzpos-order-flow__route--complete"
-                                  data-entry-route-complete pathLength="1" x1="30" y1="160" x2="420" y2="215" />
-                            <line class="appzpos-order-flow__route appzpos-order-flow__route--complete"
-                                  data-entry-route-complete pathLength="1" x1="30" y1="270" x2="420" y2="215" />
-                            <line class="appzpos-order-flow__route appzpos-order-flow__route--complete"
-                                  data-entry-route-complete pathLength="1" x1="30" y1="380" x2="420" y2="215" />
-                            <line class="appzpos-order-flow__route appzpos-order-flow__route--complete"
-                                  data-kds-route-complete pathLength="1" x1="420" y1="215" x2="620" y2="215" />
-                            <line class="appzpos-order-flow__route appzpos-order-flow__route--complete"
-                                  data-order-hub-route-complete pathLength="1" x1="620" y1="215" x2="860" y2="215" />
-                            <line class="appzpos-order-flow__route appzpos-order-flow__route--complete appzpos-order-flow__route--delivery-complete"
-                                  data-delivery-route-complete pathLength="1" x1="680" y1="40" x2="860" y2="215" />
-                        </g>
-
-                        <g class="appzpos-order-flow__nodes">
-                            <g data-flow-node="table-qr" data-order-channel [class.is-active]="activeStepIndex === 0" [class.is-complete]="activeStepIndex > 0">
-                                <circle class="appzpos-order-flow__node-halo" cx="30" cy="50" r="31" />
-                                <circle class="appzpos-order-flow__node-orbit" cx="30" cy="50" r="23" />
-                                <circle class="appzpos-order-flow__node" data-node-marker cx="30" cy="50" r="17" />
-                                <text class="appzpos-order-flow__node-number" x="30" y="55" text-anchor="middle">1</text>
-                                <text class="appzpos-order-flow__node-label appzpos-order-flow__node-label--entry" data-node-label x="58" y="24">Table QR</text>
-                            </g>
-                            <g data-flow-node="kiosk" data-order-channel [class.is-active]="activeStepIndex === 1" [class.is-complete]="activeStepIndex > 1">
-                                <circle class="appzpos-order-flow__node-halo" cx="30" cy="160" r="31" />
-                                <circle class="appzpos-order-flow__node-orbit" cx="30" cy="160" r="23" />
-                                <circle class="appzpos-order-flow__node" data-node-marker cx="30" cy="160" r="17" />
-                                <text class="appzpos-order-flow__node-number" x="30" y="165" text-anchor="middle">2</text>
-                                <text class="appzpos-order-flow__node-label appzpos-order-flow__node-label--entry" data-node-label x="58" y="134">Kiosk</text>
-                            </g>
-                            <g data-flow-node="website" data-order-channel [class.is-active]="activeStepIndex === 2" [class.is-complete]="activeStepIndex > 2">
-                                <circle class="appzpos-order-flow__node-halo" cx="30" cy="270" r="31" />
-                                <circle class="appzpos-order-flow__node-orbit" cx="30" cy="270" r="23" />
-                                <circle class="appzpos-order-flow__node" data-node-marker cx="30" cy="270" r="17" />
-                                <text class="appzpos-order-flow__node-number" x="30" y="275" text-anchor="middle">3</text>
-                                <text class="appzpos-order-flow__node-label appzpos-order-flow__node-label--entry" data-node-label x="58" y="244">Website</text>
-                            </g>
-                            <g data-flow-node="pos" data-order-channel [class.is-active]="activeStepIndex === 3" [class.is-complete]="activeStepIndex > 3">
-                                <circle class="appzpos-order-flow__node-halo" cx="30" cy="380" r="31" />
-                                <circle class="appzpos-order-flow__node-orbit" cx="30" cy="380" r="23" />
-                                <circle class="appzpos-order-flow__node" data-node-marker cx="30" cy="380" r="17" />
-                                <text class="appzpos-order-flow__node-number" x="30" y="385" text-anchor="middle">4</text>
-                                <text class="appzpos-order-flow__node-label appzpos-order-flow__node-label--entry" data-node-label x="58" y="354">POS / E-Waiter</text>
-                            </g>
-                            <g data-flow-node="queue" data-queue-core [class.is-active]="activeStepIndex === 4" [class.is-complete]="activeStepIndex > 4">
-                                <circle class="appzpos-order-flow__node-halo" cx="420" cy="215" r="35" />
-                                <circle class="appzpos-order-flow__node-orbit" cx="420" cy="215" r="26" />
-                                <circle class="appzpos-order-flow__node appzpos-order-flow__node--hub" data-node-marker cx="420" cy="215" r="19" />
-                                <text class="appzpos-order-flow__node-number" x="420" y="220" text-anchor="middle">5</text>
-                                <text class="appzpos-order-flow__node-label" data-node-label x="420" y="174" text-anchor="middle">Queue</text>
-                            </g>
-                            <g data-flow-node="kds" data-kds-core [class.is-active]="activeStepIndex === 5" [class.is-complete]="activeStepIndex > 5">
-                                <circle class="appzpos-order-flow__node-halo" cx="620" cy="215" r="35" />
-                                <circle class="appzpos-order-flow__node-orbit" cx="620" cy="215" r="26" />
-                                <circle class="appzpos-order-flow__node appzpos-order-flow__node--hub" data-node-marker cx="620" cy="215" r="19" />
-                                <text class="appzpos-order-flow__node-number" x="620" y="220" text-anchor="middle">6</text>
-                                <text class="appzpos-order-flow__node-label" data-node-label x="620" y="174" text-anchor="middle">KDS</text>
-                            </g>
-                            <g data-flow-node="order-hub" data-order-hub-core [class.is-active]="activeStepIndex === 6">
-                                <circle class="appzpos-order-flow__node-halo" cx="860" cy="215" r="39" />
-                                <circle class="appzpos-order-flow__node-orbit" cx="860" cy="215" r="29" />
-                                <circle class="appzpos-order-flow__node appzpos-order-flow__node--hub appzpos-order-flow__node--destination" data-node-marker cx="860" cy="215" r="21" />
-                                <text class="appzpos-order-flow__node-number" x="860" y="220" text-anchor="middle">7</text>
-                                <text class="appzpos-order-flow__node-label" data-node-label x="860" y="174" text-anchor="middle">Order Hub</text>
-                            </g>
-                            <g class="appzpos-order-flow__delivery-node" data-flow-node="delivery" [class.is-active]="activeStepIndex === 6">
-                                <circle class="appzpos-order-flow__node-halo" cx="680" cy="40" r="31" />
-                                <circle class="appzpos-order-flow__node-orbit" cx="680" cy="40" r="23" />
-                                <circle class="appzpos-order-flow__node" data-node-marker cx="680" cy="40" r="17" />
-                                <text class="appzpos-order-flow__node-number" x="680" y="45" text-anchor="middle">D</text>
-                                <text class="appzpos-order-flow__node-label appzpos-order-flow__node-label--entry" data-node-label x="708" y="45">Delivery apps</text>
-                            </g>
-                        </g>
-
-                        <g class="appzpos-order-flow__tokens" aria-hidden="true">
-                            <g *ngFor="let step of steps | slice:0:4; let index = index"
-                               class="appzpos-order-flow__token"
-                               data-order-token data-entry-figure
-                               [attr.transform]="'translate(30 ' + (50 + (index * 110)) + ')'">
-                                <circle class="appzpos-order-flow__token-glow" r="24" />
-                                <g data-token-core>
-                                    <rect class="appzpos-order-flow__token-body" x="-13" y="-16" width="26" height="32" rx="7" />
-                                    <path class="appzpos-order-flow__token-mark" d="M-6-7H6M-6-1H4M-6 5H2" />
-                                </g>
-                            </g>
-                            <g class="appzpos-order-flow__token appzpos-order-flow__token--merged"
-                               data-order-token data-merged-figure opacity="0" transform="translate(420 215)">
-                                <circle class="appzpos-order-flow__token-glow" r="28" />
-                                <g data-token-core>
-                                    <rect class="appzpos-order-flow__token-body" x="-15" y="-18" width="30" height="36" rx="8" />
-                                    <path class="appzpos-order-flow__token-mark" d="M-7-8H7M-7-1H5M-7 6H3" />
-                                    <path class="appzpos-order-flow__token-check" d="m-3 11 3 3 6-7" />
-                                </g>
-                            </g>
-                            <g class="appzpos-order-flow__token appzpos-order-flow__token--delivery"
-                               data-order-token data-delivery-figure opacity="0" transform="translate(680 40)">
-                                <circle class="appzpos-order-flow__token-glow" r="25" />
-                                <g data-token-core>
-                                    <rect class="appzpos-order-flow__token-body" x="-14" y="-16" width="28" height="32" rx="8" />
-                                    <path class="appzpos-order-flow__token-mark" d="M-7-6H6M-7 0H4M-7 6H1" />
-                                    <path class="appzpos-order-flow__token-arrow" d="M3 7h7m0 0-3-3m3 3-3 3" />
-                                </g>
-                            </g>
-                        </g>
-                    </svg>
-                </figure>
-
-                <div class="appzpos-order-flow__caption-panel" aria-live="polite">
-                    <ng-container *ngFor="let step of steps; let index = index">
-                        <article *ngIf="index === activeStepIndex" class="appzpos-order-flow__caption">
-                            <h3>{{ step.title }}</h3>
-                            <ul>
-                                <li *ngFor="let bullet of step.bullets">{{ bullet }}</li>
-                            </ul>
-                        </article>
-                    </ng-container>
-                </div>
-            </div>
-
-            <button class="appzpos-order-flow__skip"
-                    type="button"
-                    aria-label="Skip ordering flow interaction and continue to homepage content"
-                    (click)="skipInteraction()">
-                <span>Skip interaction</span>
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M12 5v13m0 0 5-5m-5 5-5-5" />
-                </svg>
-            </button>
+        <div class="appz-ecosystem__hub" data-ecosystem-hub aria-hidden="true">
+            <span class="appz-ecosystem__hub-glow"></span>
+            <img class="appz-ecosystem__hub-art"
+                 src="assets/images/ecosystem/ecosystem-hub.webp"
+                 alt=""
+                 width="1536"
+                 height="1024"
+                 loading="lazy"
+                 decoding="async" />
+            <img class="appz-ecosystem__hub-logo"
+                 data-ecosystem-hub-logo
+                 src="https://appzpos.com/admin/Upload/0771BB36-9631-40F2-A204-C60247E9F1E1/Images/APPZPOS-300X150px.png"
+                 alt=""
+                 width="300"
+                 height="150"
+                 loading="lazy"
+                 decoding="async" />
         </div>
+
+        <button *ngFor="let island of islands; let index = index"
+           type="button"
+           class="appz-ecosystem__island"
+           [ngClass]="[
+               'appz-ecosystem__island--' + island.id,
+               island.id === 'kiosk' || island.id === 'queue' || island.id === 'website' || island.id === 'delivery'
+                   ? 'appz-ecosystem__island--lower'
+                   : ''
+           ]"
+           [class.is-active]="activeIslandId === island.id || activeDetailsIslandId === island.id"
+           [class.is-muted]="!!(activeIslandId || activeDetailsIslandId) && activeIslandId !== island.id && activeDetailsIslandId !== island.id"
+           [attr.data-route]="island.route"
+           [attr.data-island-id]="island.id"
+           [attr.data-depth]="island.depth"
+           [attr.aria-label]="island.ariaLabel"
+           [attr.aria-expanded]="activeDetailsIslandId === island.id"
+           aria-controls="appz-island-details"
+           data-ecosystem-island
+           (click)="openIslandDetails($event, island.id)"
+           (pointerenter)="setActiveIsland(island.id)"
+           (pointerleave)="clearActiveIsland()"
+           (focus)="setActiveIsland(island.id)"
+           (blur)="clearActiveIsland()">
+            <span class="appz-ecosystem__island-float">
+                <img [src]="island.image"
+                     alt=""
+                     width="1536"
+                     height="1024"
+                     loading="lazy"
+                     decoding="async" />
+            </span>
+            <span class="appz-ecosystem__label">
+                <i aria-hidden="true"></i>
+                <span *ngFor="let module of island.modules" class="appz-ecosystem__island-module" data-island-module>
+                    <strong>{{ module.title }}</strong>
+                    <small>{{ module.summary }}</small>
+                </span>
+            </span>
+        </button>
+        </div>
+
+        <section *ngIf="activeDetailsIsland as detailsIsland"
+                 id="appz-island-details"
+                 class="appz-ecosystem__details"
+                 [ngClass]="'appz-ecosystem__details--' + detailsIsland.id"
+                 data-island-details
+                 aria-live="polite"
+                 [attr.aria-labelledby]="'appz-island-details-title-' + detailsIsland.id">
+            <header class="appz-ecosystem__details-header">
+                <div>
+                    <p>{{ detailsIsland.title }}</p>
+                    <h2 [id]="'appz-island-details-title-' + detailsIsland.id">Explore the connected modules</h2>
+                </div>
+            </header>
+
+            <div class="appz-ecosystem__details-body"
+                 [class.appz-ecosystem__details-body--multiple]="activeDetailsModules.length > 1">
+                <article *ngFor="let module of activeDetailsModules" class="appz-ecosystem__details-module">
+                    <h3>{{ module.title }}</h3>
+                    <ul>
+                        <li *ngFor="let feature of module.features" data-details-feature>
+                            <i aria-hidden="true"></i>
+                            <p><strong>{{ feature.label }}</strong><span> - {{ feature.description }}</span></p>
+                        </li>
+                    </ul>
+                    <a class="appz-ecosystem__details-learn-more"
+                       data-details-learn-more
+                       [routerLink]="module.route">Learn More</a>
+                </article>
+            </div>
+        </section>
     </div>
 
-    <ng-template #staticOrderFlow>
-        <h2 id="appzpos-order-flow-title" class="appzpos-order-flow__title appzpos-order-flow__title--static">APPZPOS ordering flow</h2>
-        <ol class="appzpos-order-flow__static-list">
-            <li *ngFor="let step of steps; let index = index" class="appzpos-order-flow__static-step">
-                <div class="appzpos-order-flow__static-number" aria-hidden="true">{{ index + 1 }}</div>
-                <div>
-                    <h3>{{ step.title }}</h3>
-                    <ul>
-                        <li *ngFor="let bullet of step.bullets">{{ bullet }}</li>
-                    </ul>
-                </div>
-            </li>
-        </ol>
-    </ng-template>
 </section>

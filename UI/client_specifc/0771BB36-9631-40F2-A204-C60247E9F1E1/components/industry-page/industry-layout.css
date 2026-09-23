@@ -1,0 +1,176 @@
+:host #slider.restaurant-hero {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    align-items: center;
+    background: #f5f9fd;
+    height: auto;
+    min-height: clamp(420px, 38vw, 620px);
+    padding: 64px 0;
+}
+.restaurant-hero__photo {
+    position: absolute;
+    inset: 0 0 0 auto;
+    z-index: -2;
+    width: 52%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.restaurant-hero__inner {
+    width: min(1320px, calc(100% - 64px));
+    margin: auto;
+}
+.restaurant-hero__copy { min-width: 0; max-width: 44%; }
+.restaurant-hero__copy h1 {
+    margin: 0 0 20px;
+    color: #15223e;
+    font-size: clamp(32px, 3.5vw, 52px);
+    font-weight: 750;
+    line-height: 1.15;
+    letter-spacing: -.02em;
+    text-align: left;
+}
+.restaurant-hero__copy p {
+    max-width: 48ch;
+    margin: 0 0 26px;
+    color: #526782;
+    font-size: clamp(17px, 1.4vw, 19px);
+    line-height: 1.65;
+}
+.restaurant-hero__actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.restaurant-hero__actions .button { margin: 0; white-space: nowrap; }
+.restaurant-hero__actions .restaurant-hero__whatsapp {
+    color: #fff;
+    background: #159447;
+    border-color: #159447;
+}
+.restaurant-hero__actions .restaurant-hero__whatsapp:hover { background: #117839; }
+@media (max-width: 991px), (max-width: 1366px) and (pointer: coarse) {
+    .restaurant-hero__inner { width: calc(100% - 32px); }
+    .restaurant-hero__copy { max-width: 100%; }
+    .restaurant-hero__photo { position: static; order: 2; z-index: auto; width: 100%; height: clamp(220px, 40vw, 360px); }
+    .restaurant-hero__copy h1 { font-size: clamp(30px, 7vw, 42px); }
+    :host #slider.restaurant-hero { flex-direction: column; gap: 28px; min-height: 0; padding: 32px 0 0; }
+}
+
+/* Shared industry scroll story. The original image stays pinned while copy advances. */
+:host #content > .content-wrap { overflow: visible; }
+.restaurant-scroll {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    gap: 16px;
+    width: min(1800px, calc(100% - 32px));
+    margin: 0 auto 48px;
+    align-items: start;
+}
+.restaurant-scroll__mode {
+    min-height: calc(100svh - 110px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-block: 36px;
+}
+.restaurant-scroll__diagram { position: sticky; top: 96px; min-width: 0; }
+:host ::ng-deep .industry-islands { width: 100%; margin: 0; }
+:host ::ng-deep .industry-islands__heading { display: none; }
+/* Trim only the source image's transparent side gutters. The artwork and
+   its matching hit areas scale together, retaining all labels and islands. */
+:host ::ng-deep .industry-islands__map {
+    width: min(100%, calc(148svh - 163px));
+    margin-inline: auto;
+    overflow: hidden;
+}
+:host ::ng-deep .industry-islands__artwork {
+    width: 120%;
+    margin-left: -10%;
+}
+:host ::ng-deep .restaurant-scroll__diagram .industry-islands__artwork {
+    transform-origin: center;
+    transition: transform 650ms cubic-bezier(.22, 1, .36, 1), width 650ms, margin-left 650ms;
+}
+:host ::ng-deep .restaurant-scroll__diagram .industry-islands__artwork.is-focused {
+    width: 100%;
+    margin-left: 0;
+}
+:host ::ng-deep .restaurant-scroll__diagram .is-focused .industry-island__floor {
+    display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+    :host ::ng-deep .restaurant-scroll__diagram .industry-islands__artwork { transition: none; }
+}
+:host ::ng-deep .industry-islands__detail { display: none; }
+:host ::ng-deep .industry-islands:has(.is-selected) .industry-islands__detail { display: grid; }
+@media (max-width: 991px), (max-width: 1366px) and (pointer: coarse) {
+    .restaurant-scroll { display: flex; flex-direction: column; width: calc(100% - 32px); gap: 20px; }
+    .restaurant-scroll__copy { display: contents; }
+    .restaurant-scroll__diagram { display: none; }
+    .restaurant-scroll__mode { order: 2; width: 100%; }
+    .restaurant-scroll__mode { min-height: 0; padding: 24px 0; }
+    :host ::ng-deep .industry-islands:has(.is-selected) .industry-islands__detail { display: block; }
+}
+
+.process-steps li .i-bordered:hover{
+    color:#ffffff;
+    background-color:#009DF0;
+}
+.heading-padding{
+    padding-bottom:20px;
+  }
+  .p-text-center{
+    text-align: center;
+      }
+
+:host #mobile_view.quick-service-compact { display: none; }
+b, strong {
+  font-weight: 500 !important;
+}
+
+/* One pinned timeline; scroll markers advance its expanded procedure. */
+.restaurant-scroll__mode { display: block; padding: 0; }
+.restaurant-mode__track { display: grid; align-items: start; }
+.restaurant-mode__timeline, .restaurant-mode__markers { grid-area: 1 / 1; min-width: 0; }
+.restaurant-mode__timeline { position: sticky; top: 108px; z-index: 1; }
+.restaurant-mode__timeline h2, .quick-service-compact h2 { margin: 0 0 20px; font-size: clamp(25px, 2.3vw, 36px); }
+.restaurant-mode__marker { height: 75svh; min-height: 420px; pointer-events: none; }
+.restaurant-procedures { list-style: none; margin: 0; padding: 0; }
+.restaurant-procedure { position: relative; padding: 0 0 16px; }
+.restaurant-procedure:not(:last-child)::before { content: ''; position: absolute; left: 17px; top: 36px; bottom: 0; width: 2px; background: #d9e5ef; }
+.restaurant-procedure > a, .quick-step-heading { display: flex; align-items: center; gap: 12px; min-height: 44px; color: #596b81; font-size: 20px; font-weight: 650; line-height: 1.4; }
+.restaurant-procedure__number { flex: 0 0 36px; height: 36px; display: grid; place-items: center; border: 1px solid #ceddeb; border-radius: 50%; background: #fff; font-size: 16px; }
+.restaurant-procedure.is-active > a, .quick-service-step.is-active .quick-step-heading { color: #1768bb; }
+.is-active .restaurant-procedure__number { color: #fff; background: #287fd2; border-color: #287fd2; box-shadow: 0 0 0 5px #e6f2ff; }
+.restaurant-procedure.is-active::before { background: #7bb1e4; }
+.restaurant-procedure p, .quick-service-stack p { margin: 12px 0 8px 48px; color: #526782; font-size: 19px; line-height: 1.6; }
+.restaurant-procedure [hidden] { display: none !important; }
+.restaurant-procedure a:focus-visible, .quick-step-heading:focus-visible { outline: 2px solid #287fd2; outline-offset: 4px; border-radius: 4px; }
+.procedure-island { display: none; }
+.quick-step-heading { width: 100%; padding: 0; border: 0; background: none; font-family: inherit; cursor: pointer; }
+.quick-service-stack [hidden] { display: none !important; }
+@media (max-width: 991px), (max-width: 1366px) and (pointer: coarse) {
+    .restaurant-scroll__diagram { display: none; }
+    :host ::ng-deep .industry-islands { width: 100% !important; margin: 0; }
+    :host ::ng-deep .industry-islands__map { width: 100%; }
+    :host ::ng-deep .industry-islands__mobile-controls { display: none; }
+    .restaurant-mode__timeline { position: static; }
+    .restaurant-mode__timeline, .quick-service-compact .container {
+        width: 100%; max-width: 800px; margin-inline: auto;
+        padding: clamp(20px, 4vw, 36px); border: 1px solid #dce6f0;
+        border-radius: 20px; background: #fff; box-sizing: border-box;
+    }
+    .restaurant-mode__markers { display: none; }
+    .restaurant-mode__timeline h2, .quick-service-compact h2 { text-align: center; }
+    .restaurant-procedure { min-height: 0; padding: 24px 0; }
+    .restaurant-procedure:not(:last-child), .quick-service-stack > .oc-item:not(:last-child) { border-bottom: 1px solid #e5edf5; }
+    .restaurant-procedure:not(:last-child)::before { display: none; }
+    .restaurant-procedure > a, .quick-step-heading { justify-content: center; text-align: center; }
+    .restaurant-procedure p, .quick-service-stack p { max-width: 58ch; margin: 16px auto 0; text-align: center; }
+    :host #webview.quick-service-desktop { display: none; }
+    :host #mobile_view.quick-service-compact { display: block; width: calc(100% - 32px); margin: 0 auto 40px; }
+    .quick-service-compact > .section { padding: 0 !important; margin: 0 !important; background: transparent; }
+    .quick-service-stack { display: grid; grid-template-columns: minmax(0, 1fr); }
+    .quick-service-stack > .oc-item { padding: 24px 0; }
+    .quick-service-stack article { padding: 0 !important; border: 0; box-shadow: none; }
+}

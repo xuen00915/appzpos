@@ -135,6 +135,18 @@ describe('APPZPOS home hero', () => {
     expect(orderFlow?.nextElementSibling?.getAttribute('id')).toBe('content');
   });
 
+  it('places integrated POS and revenue content directly after the island ecosystem', () => {
+    const content = (fixture.nativeElement as HTMLElement).querySelector<HTMLElement>('#content');
+    const sectionOrder = Array.from(content?.children ?? [])
+      .map((element) => element.tagName.toLowerCase());
+
+    expect(sectionOrder.slice(0, 3)).toEqual([
+      'app-home-ecosystem',
+      'app-home-industries',
+      'app-home-proof'
+    ]);
+  });
+
   it('rebuilds illuminated module cards around the machine for the selected industry', fakeAsync(() => {
     const host = fixture.nativeElement as HTMLElement;
     const moduleCards = () => Array.from(

@@ -1,0 +1,19 @@
+<section class="proof appz-section" aria-labelledby="proof-title">
+  <header class="proof__header" appMarketingReveal>
+    <div><p class="appz-kicker">OUR VALUED CUSTOMERS</p><h2 id="proof-title" class="appz-display">Our Commitment to Local Excellence</h2></div>
+    <p class="appz-lede">Customer feedback is the measure of our success. We take pride in the experiences our satisfied customers have had with our Best POS System Singapore. Discover what our satisfied customers have to say about their experiences with us.</p>
+  </header>
+
+  <div class="appz-proof-rail" aria-label="APPZPOS customers" appMarketingReveal>
+    <img *ngFor="let customer of customers" [src]="imageUrl(customer.image)" [alt]="customer.alt" width="150" height="90" loading="lazy">
+  </div>
+
+  <div class="proof__quote" appMarketingReveal>
+    <div class="proof__mark" aria-hidden="true">“</div>
+    <blockquote>{{ testimonials[activeIndex].quote }}</blockquote>
+    <footer><strong>{{ testimonials[activeIndex].name }}</strong><span>{{ testimonials[activeIndex].role }}</span></footer>
+    <nav aria-label="Customer testimonials">
+      <button *ngFor="let testimonial of testimonials; let index = index" type="button" [class.is-active]="index === activeIndex" [attr.aria-label]="'Show testimonial from ' + testimonial.name" (click)="select(index)">{{ index + 1 }}</button>
+    </nav>
+  </div>
+</section>

@@ -1,27 +1,45 @@
+import { BEAUTY_ISLANDS } from '../industry-page/beauty-islands';
 import { Component, Inject } from '@angular/core';
 import { CommonFunctionService } from '../../../../src/app/services/shared_function/common-function.service';
 import {Meta, Title} from "@angular/platform-browser";
 import {MatDialog} from '@angular/material/dialog';
 import { ModalRequestDemoComponent } from '../modal-request-demo/modal-request-demo.component';
- 
+
 @Component({
   selector: 'app-salon-cloud-pos-system',
   templateUrl: './salon-cloud-pos-system.component.html',
-  styleUrls: ['./salon-cloud-pos-system.component.css']
+  styleUrls: ['../industry-page/industry-layout.css', '../industry-page/industry-overview.css', '../industry-page/industry-procedures.css', '../industry-page/industry-solutions.css', '../industry-page/industry-content-width.css', '../industry-page/industry-workflow.css']
 })
 export class CustomIndustryBeautySalonsComponent  {
-  
+  openSolution: number | null = null;
+
+  hoverSolution(index: number): void {
+    if (window.matchMedia('(hover: hover)').matches) this.openSolution = index;
+  }
+
+  leaveSolution(event: Event): void {
+    const host = event.currentTarget as HTMLElement;
+    const next = (event as FocusEvent).relatedTarget as Node | null;
+    if (next && host.contains(next)) return;
+    if (event.type === 'mouseleave' && host.contains(document.activeElement)) return;
+    this.openSolution = null;
+  }
+
+  readonly industryIslands = BEAUTY_ISLANDS;
+  readonly procedureFocusIds = ["online","services","reception","management","services","reception","management"];
+
+
   constructor(private titleService: Title,private commonFunctionService: CommonFunctionService,private meta: Meta,public dialog: MatDialog) {
-   
+
     this.titleService.setTitle("Cloud POS System for Salons | APPZPOS Point of Sales");
-   }; 
+   };
 
   BindURL_Image(FileName: string): string {
     return this.commonFunctionService.BindURL_Image(FileName);
   }
 
   ngOnInit() {
-    this.meta.updateTag({ 
+    this.meta.updateTag({
         name: 'description',
         content: 'Elevate your Salon Operations - Manage / schedule appointments, streamline transactions, incorporate loyalty memberships. WhatsApp us on +𝟔𝟓 𝟖𝟑𝟏𝟎 𝟗𝟔𝟑𝟏'
     });

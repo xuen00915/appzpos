@@ -1,18 +1,245 @@
-b, strong {
-    font-weight: 500 !important;
+:host {
+    display: block;
 }
 
-@media   screen and (min-width: 0px) and (max-width: 768px) {
-    #mobile_view { display: block; }  
-    #logo_mobileview{display: block;}
-    #webview { display: none; }
-    #logo_webview{display: none;} 
+.appz-demo {
+    display: grid;
+    gap: clamp(36px, 6vw, 84px);
+    grid-template-columns: minmax(0, .86fr) minmax(420px, 1.14fr);
+    margin: 0 auto;
+    max-width: 1120px;
+}
 
-  }
-   
-    @media   screen and (min-width: 769px)   {
-    #mobile_view { display: none; }   
-    #logo_mobileview {display: none;}
-    #webview { display: block; }  
-    #logo_webview {display: block;}
-  } 
+.appz-demo__copy {
+    align-self: center;
+    color: rgba(255, 255, 255, .76);
+}
+
+.appz-demo__eyebrow {
+    color: #ff8a4b;
+    font-size: .72rem;
+    font-weight: 800;
+    letter-spacing: .16em;
+    margin: 0 0 15px;
+}
+
+.appz-demo h2 {
+    color: #fff;
+    font-size: clamp(2rem, 3.5vw, 3.35rem);
+    font-weight: 760;
+    letter-spacing: -.055em;
+    line-height: 1;
+    margin: 0 0 22px;
+}
+
+.appz-demo__lead {
+    color: #fff;
+    font-size: clamp(1rem, 1.3vw, 1.14rem);
+    line-height: 1.6;
+    margin: 0;
+    max-width: 480px;
+}
+
+.appz-demo__intro {
+    font-size: .96rem;
+    line-height: 1.6;
+    margin: 8px 0 0;
+}
+
+.appz-demo__contact {
+    display: grid;
+    font-style: normal;
+    gap: 14px;
+    margin-top: 34px;
+}
+
+.appz-demo__contact a,
+.appz-demo__contact p {
+    align-items: start;
+    color: rgba(255, 255, 255, .82);
+    display: grid;
+    font-size: .88rem;
+    gap: 12px;
+    grid-template-columns: 20px minmax(0, 1fr);
+    line-height: 1.5;
+    margin: 0;
+    text-decoration: none;
+}
+
+.appz-demo__contact a:hover,
+.appz-demo__contact a:focus-visible {
+    color: #fff;
+}
+
+.appz-demo__contact a:focus-visible {
+    outline: 2px solid #75c5ff;
+    outline-offset: 4px;
+}
+
+.appz-demo__contact i {
+    color: #57b7ff;
+    font-size: 1rem;
+    margin-top: 2px;
+}
+
+.appz-demo__form {
+    background: #fff;
+    border: 1px solid rgba(10, 134, 232, .14);
+    border-radius: 22px;
+    box-shadow: 0 30px 70px rgba(0, 12, 34, .22);
+    padding: clamp(26px, 4vw, 42px);
+}
+
+.appz-demo__fields {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.appz-demo__field {
+    min-width: 0;
+}
+
+.appz-demo__field label {
+    color: #0b2347;
+    display: block;
+    font-size: .78rem;
+    font-weight: 760;
+    margin-bottom: 8px;
+}
+
+.appz-demo__field input {
+    appearance: none;
+    background: #f7fbff;
+    border: 1px solid #d9e6f2;
+    border-radius: 11px;
+    color: #0b2347;
+    font: inherit;
+    font-size: 1rem;
+    height: 50px;
+    outline: none;
+    padding: 0 14px;
+    transition: background-color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+    width: 100%;
+}
+
+.appz-demo__field input:hover {
+    border-color: #b8cde0;
+}
+
+.appz-demo__field input:focus {
+    background: #fff;
+    border-color: #0a86e8;
+    box-shadow: 0 0 0 3px rgba(10, 134, 232, .12);
+}
+
+.appz-demo__field input.is-invalid {
+    border-color: #d43c3c;
+}
+
+.invalid-feedback {
+    color: #b3261e;
+    display: block;
+    font-size: .75rem;
+    line-height: 1.35;
+    margin-top: 6px;
+}
+
+.invalid-feedback span {
+    display: block;
+}
+
+.appz-demo__submit {
+    align-items: center;
+    appearance: none;
+    background: #0a86e8;
+    border: 0;
+    border-radius: 999px;
+    box-shadow: 0 12px 24px rgba(10, 134, 232, .22);
+    color: #fff;
+    cursor: pointer;
+    display: inline-flex;
+    font: inherit;
+    font-size: .94rem;
+    font-weight: 760;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 26px;
+    min-height: 48px;
+    padding: 0 24px;
+    transition: background-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
+}
+
+.appz-demo__submit svg {
+    fill: none;
+    height: 18px;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.8;
+    width: 18px;
+}
+
+.appz-demo__submit:hover,
+.appz-demo__submit:focus-visible {
+    background: #0877cc;
+    box-shadow: 0 15px 30px rgba(10, 134, 232, .3);
+    outline: none;
+    transform: translateY(-2px);
+}
+
+.appz-demo__submit:focus-visible {
+    box-shadow: 0 0 0 3px #fff, 0 0 0 6px rgba(91, 188, 255, .7);
+}
+
+.appz-demo__submit:active {
+    transform: translateY(0);
+}
+
+.alert {
+    border: 0;
+    border-radius: 10px;
+    font-size: .86rem;
+    margin: 0 0 20px;
+    padding: 12px 14px;
+}
+
+@media (max-width: 900px) {
+    .appz-demo {
+        grid-template-columns: 1fr;
+    }
+
+    .appz-demo__copy {
+        max-width: 620px;
+    }
+}
+
+@media (max-width: 560px) {
+    .appz-demo {
+        gap: 28px;
+    }
+
+    .appz-demo__contact {
+        margin-top: 26px;
+    }
+
+    .appz-demo__fields {
+        grid-template-columns: 1fr;
+    }
+
+    .appz-demo__form {
+        border-radius: 18px;
+        padding: 24px 18px;
+    }
+
+    .appz-demo__submit {
+        width: 100%;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .appz-demo__field input,
+    .appz-demo__submit {
+        transition: none;
+    }
+}

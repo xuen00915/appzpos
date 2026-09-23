@@ -1,0 +1,2 @@
+/* Compatibility entry point; shared industry styles are maintained centrally. */
+@import '../industry-page/industry-content-width.css';

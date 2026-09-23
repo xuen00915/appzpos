@@ -1,4 +1,4 @@
-import { Component, ElementRef, HostListener, Inject } from '@angular/core';
+import { Component, ElementRef, HostListener, Inject, OnDestroy } from '@angular/core';
 import { CommonFunctionService } from '../../../../src/app/services/shared_function/common-function.service';
 import { DOCUMENT } from '@angular/common';
 import {Title} from "@angular/platform-browser";
@@ -11,7 +11,7 @@ import { environment } from 'src/environment';
   templateUrl: './custom-white-header.component.html',
   styleUrls: ['./custom-white-header.component.css']
 })
-export class CustomWhiteHeaderComponent  {
+export class CustomWhiteHeaderComponent implements OnDestroy {
   openMenu: 'solutions' | 'industries' | 'resources' | null = null;
   mobileMenuOpen = false;
 
@@ -33,14 +33,30 @@ export class CustomWhiteHeaderComponent  {
     this.openMenu = this.openMenu === menu ? null : menu;
   }
 
+  isCurrentPage(path: string): boolean {
+    const current = this._document.location?.pathname.replace(/\/$/, '') || '/';
+    return current === path || (path === '/blog' && current.startsWith('/blog/'));
+  }
+
   toggleMobileMenu(): void {
     this.mobileMenuOpen = !this.mobileMenuOpen;
+    this.syncScrollLock();
     if (!this.mobileMenuOpen) this.openMenu = null;
   }
 
   closeMenus(): void {
     this.openMenu = null;
     this.mobileMenuOpen = false;
+    this.syncScrollLock();
+  }
+
+  ngOnDestroy(): void {
+    this._document.body.style.removeProperty('overflow');
+  }
+
+  private syncScrollLock(): void {
+    if (this.mobileMenuOpen) this._document.body.style.overflow = 'hidden';
+    else this._document.body.style.removeProperty('overflow');
   }
 
   @HostListener('document:keydown.escape')

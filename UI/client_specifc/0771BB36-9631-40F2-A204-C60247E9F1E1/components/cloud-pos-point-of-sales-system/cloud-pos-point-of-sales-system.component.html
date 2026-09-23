@@ -1,78 +1,29 @@
-<div id="webview">
-    <section id="slider" class="slider-element slider-parallax swiper_wrapper">
-        <div class="section dark"
-            style="height: 400px; background-size:cover; margin: 0; padding: 0;
-            background-repeat:no-repeat;
-            background-position:center center;background-image: url('{{BindURL_Image(&#39;APPZPOS-All-in-one-Point-of-sales-software-pos -solutions.png&#39;)}}');" role="img" alt="APPZPOS-All-in-one-Point-of-sales-software-pos -solutions">
-            <div class="container">
-                <div class="slider-caption slider-caption-center" style="max-width:1200px !important">
-                    <h1 data-animate="fadeInUp" style="font-size:55px !important; line-height: 1.3; margin-bottom: 0; text-align:center">APPZPOS Cutting-Edge POS Point of Sales<br />and E-Menu System</h1>
-                </div>
-            </div>
-        </div>
-    </section> 
-</div>
-<div id="mobile_view">
-    <section id="slider" class="slider-element slider-parallax swiper_wrapper" style="max-height:250px">
-        <div class="section dark"
-            style="height: 400px; background-size:cover; margin: 0; padding: 0;max-height:250px;
-            background-repeat:no-repeat;
-            background-position:center center;background-image: url('{{BindURL_Image(&#39;APPZPOS-All-in-one-Point-of-sales-software-pos -solutions.png&#39;)}}');" role="img" alt="APPZPOS-All-in-one-Point-of-sales-software-pos -solutions">
-            <div class="container">
-                <div class="slider-caption slider-caption-center" style="max-width:1200px !important">
-                    <h1 data-animate="fadeInUp" style="font-size:28px !important; line-height: 1.3; margin-bottom: 0; text-align:center">APPZPOS Cutting-Edge POS Point of Sales<br />and E-Menu System</h1>
-                </div>
-            </div>
-        </div>
-    </section> 
-</div>
+<app-solution-page>
+<app-solution-hero solutionHero [config]="solutionHero"></app-solution-hero>
 
-<section id="content">
-    <div class="content-wrap">
-        <div id="webview">
-            <div class="container mx-auto" style="margin-top:0px">
-                <div class="row g-5 col-mb-50" style="height: 100%; display: flex; align-items: center; justify-content: center;">
-                    <div class="col-md-5" style="text-align: center;">
-                        <img data-animate="fadeIn" src="{{BindURL_Image('APPZPOS-All-in-one-Point-of-sales-system-machine.png')}}" alt="APPZPOS-All-in-one-Point-of-sales-system-machine" style="max-width: 90% !important;">
+        <section class="pos-overview" data-pos-overview>
+            <div class="container mx-auto">
+                <p class="pos-overview__eyebrow">Up to 50% PSG Grants</p>
+                <h2>All-In-One Point of Sale Software</h2>
+                <div class="pos-overview__layout" data-pos-overview-layout>
+                    <div class="pos-overview__copy" data-pos-overview-column="copy">
+                        <p>APPZPOS POS Solutions boost profits by streamlining sales, inventory, and memberships across chains. Quick setup, user-friendly, and cloud-powered, it transforms restaurant management with ease and efficiency!</p>
+                        <a href="#" class="button button-large button-circle" data-scrollto="#requestdemo">Book a Demo</a>
                     </div>
-                    <div class="col-md-7" style="display: flex;align-items: center;">
-                        <div class="heading-block border-0">
-                            <div style="width:100%">
-                                <p class="d-none d-sm-block" style="margin-bottom:0 !important">Up to 50% PSG Grants</p>
-                                <h2 style="padding-bottom:20px">All-In-One<br />Point of Sale Software</h2>
-                                <p style="font-size:16px">APPZPOS POS Solutions boost profits by streamlining sales, inventory, and memberships across chains. Quick setup, user-friendly, and cloud-powered, it transforms restaurant management with ease and efficiency!</p>
-                                <div class="page-title-buttons mt-5" style="margin-top:1rem !important">
-                                    <a href="#" class="button button-large button-circle" data-scrollto="#requestdemo">Book a Demo</a>
-                                </div>
-                            </div>
-                        </div>
+                    <div class="pos-overview__visual" data-pos-overview-column="visual">
+                        <img data-animate="fadeIn" src="{{BindURL_Image('APPZPOS-All-in-one-Point-of-sales-system-machine.png')}}" alt="APPZPOS-All-in-one-Point-of-sales-system-machine">
                     </div>
                 </div>
             </div>
-        </div>
-        <div id="mobile_view" style="background-color: #f8f9fa; padding: 30px 0;">
-            <div class="container mx-auto" style="margin-top:0px">
-                <div style="height: 100%; display: flex; align-items: center; justify-content: center;">
-                    <div style="text-align: center;">
-                        <img data-animate="fadeIn" src="{{BindURL_Image('APPZPOS-All-in-one-Point-of-sales-system-machine.png')}}" alt="APPZPOS-All-in-one-Point-of-sales-system-machine" style="max-width: 90% !important;">
-                    </div>
-                </div>
-                <div class="heading-block border-0">
-                    <div style="width:100%">
-                        <p class="" style="margin-bottom:0 !important">Up to 50% PSG Grants</p>
-                        <h2 style="padding-bottom:20px; font-size:28px">All-In-One Point of Sale Software</h2>
-                        <p style="font-size:16px">APPZPOS POS Solutions boost profits by streamlining sales, inventory, and memberships across chains. Quick setup, user-friendly, and cloud-powered, it transforms restaurant management with ease and efficiency!</p>
-                        <div class="page-title-buttons mt-5" style="margin-top:1rem !important">
-                            <a href="#" class="button button-large button-circle" data-scrollto="#requestdemo">Book a Demo</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </section>
 
-        <div class="container" style="margin-top: 90px;">
-            <div class="row col-mb-50 mb-0 gx-5">
-                <div class="col-sm-6 col-lg-4">
+        <div class="container pos-feature-section">
+            <app-solution-feature-heading
+                title="Everything You Need to Run Your Restaurant"
+                description="Manage orders, payments, inventory, customers and reporting from one connected POS platform.">
+            </app-solution-feature-heading>
+            <div class="row g-4 mb-0 pos-feature-grid" data-pos-feature-grid>
+                <div class="col-sm-6 col-lg-3" data-pos-feature data-feature-tone="blue">
                     <div class="feature-box fbox-effect">
                         <div class="fbox-icon">
                             <img src="{{BindURL_Image('APPZPOS-Point-of-sales-POS-Solutions-order-management.png')}}" alt="APPZPOS-Point-of-sales-POS-Solutions-order-management">
@@ -83,7 +34,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-4">
+                <div class="col-sm-6 col-lg-3" data-pos-feature data-feature-tone="blue">
                     <div class="feature-box fbox-effect">
                         <div class="fbox-icon">
                             <img src="{{BindURL_Image('APPZPOS-Point-of-sales-sotfware-POS-Solutions-customized-layout.png')}}" alt="APPZPOS-Point-of-sales-sotfware-POS-Solutions-customized-layout">
@@ -94,7 +45,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-4">
+                <div class="col-sm-6 col-lg-3" data-pos-feature data-feature-tone="blue">
                     <div class="feature-box fbox-effect">
                         <div class="fbox-icon">
                             <img src="{{BindURL_Image('APPZPOS-Point-of-sales-sotfware-POS-Solutions-Inventory-management.png')}}" alt="APPZPOS-Point-of-sales-sotfware-POS-Solutions-Inventory-management">
@@ -105,7 +56,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-4">
+                <div class="col-sm-6 col-lg-3" data-pos-feature data-feature-tone="blue">
                     <div class="feature-box fbox-effect">
                         <div class="fbox-icon">
                             <img src="{{BindURL_Image('APPZPOS-Point-of-sales-POS-Solutions-CRM-loyalty-membership.png')}}" alt="APPZPOS-Point-of-sales-POS-Solutions-CRM-loyalty-membership">
@@ -116,7 +67,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-4">
+                <div class="col-sm-6 col-lg-3" data-pos-feature data-feature-tone="orange">
                     <div class="feature-box fbox-effect">
                         <div class="fbox-icon">
                             <img src="{{BindURL_Image('APPZPOS-Point-of-sales-POS-Solutions-secure-payment-integrations.png')}}" alt="APPZPOS-Point-of-sales-POS-Solutions-secure-payment-integrations">
@@ -127,7 +78,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-4">
+                <div class="col-sm-6 col-lg-3" data-pos-feature data-feature-tone="orange">
                     <div class="feature-box fbox-effect">
                         <div class="fbox-icon">
                             <img src="{{BindURL_Image('APPZPOS-Point-of-sales-sotfware-POS-Solutions-report-analytics.png')}}" alt="APPZPOS-Point-of-sales-sotfware-POS-Solutions-report-analytics">
@@ -138,7 +89,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-4">
+                <div class="col-sm-6 col-lg-3" data-pos-feature data-feature-tone="orange">
                     <div class="feature-box fbox-effect">
                         <div class="fbox-icon">
                             <img src="{{BindURL_Image('APPZPOS-Point-of-sales-sotfware-POS-Solutions-Multi-Language.png')}}" alt="APPZPOS-Point-of-sales-sotfware-POS-Solutions-Multi-Language">
@@ -149,7 +100,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-4">
+                <div class="col-sm-6 col-lg-3" data-pos-feature data-feature-tone="orange">
                     <div class="feature-box fbox-border fbox-light fbox-effect">
                         <div class="fbox-icon">
                             <img src="{{BindURL_Image('APPZPOS-Point-of-sales-POS-Solutions-Multiple-Outlets-franchises.png')}}" alt="APPZPOS-Point-of-sales-POS-Solutions-Multiple-Outlets-franchises">
@@ -160,7 +111,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-4">
+                <div class="col-sm-6 col-lg-3" data-pos-feature data-feature-tone="green">
                     <div class="feature-box fbox-border fbox-light fbox-effect">
                         <div class="fbox-icon">
                             <img src="{{BindURL_Image('APPZPOS-Point-of-sales-sotfware-POS-Solutions-Staff-Manpower.png')}}" alt="APPZPOS-Point-of-sales-sotfware-POS-Solutions-Staff-Manpower">
@@ -171,7 +122,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-4">
+                <div class="col-sm-6 col-lg-3" data-pos-feature data-feature-tone="green">
                     <div class="feature-box fbox-border fbox-light fbox-effect">
                         <div class="fbox-icon">
                             <img src="{{BindURL_Image('APPZPOS-Point-of-sales-POS-Solutions-delivery-management-integration.png')}}" alt="APPZPOS-Point-of-sales-POS-Solutions-delivery-management-integration">
@@ -182,7 +133,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-4">
+                <div class="col-sm-6 col-lg-3" data-pos-feature data-feature-tone="green">
                     <div class="feature-box fbox-border fbox-light fbox-effect">
                         <div class="fbox-icon">
                             <img src="{{BindURL_Image('APPZPOS-Point-of-sales-POS-Solutions-delivery-management-integration.png')}}" alt="APPZPOS-Point-of-sales-POS-Solutions-delivery-management-integration">
@@ -193,7 +144,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6 col-lg-4">
+                <div class="col-sm-6 col-lg-3" data-pos-feature data-feature-tone="green">
                     <div class="feature-box fbox-border fbox-light fbox-effect">
                         <div class="fbox-icon">
                             <img src="{{BindURL_Image('APPZPOS-Point-of-sales-sotfware-POS-Solutions-Table-floorplan.png')}}" alt="APPZPOS-Point-of-sales-sotfware-POS-Solutions-Table-floorplan">
@@ -207,284 +158,268 @@
             </div>
         </div>
 
-        <div id="webview">
-            <div class="container mx-auto" style="margin-top:95px">
-                <div class="row align-items-center gutter-40 col-mb-50">
-                    <div class="col-md-6">
-                        <img data-animate="fadeIn" src="{{BindURL_Image('APPZPOS-All-in-one-Point-of-sales-system-Cloud-pos-system.png')}}" alt="APPZPOS-All-in-one-Point-of-sales-system-Cloud-pos-system" style="max-width: 100% !important;">
-                    </div>
-                    <div class="col-md-6" style="display: flex;align-items: center;">
-                        <div class="heading-block border-0">
-                            <div style="width:100%">
-                                <h2 style="padding-bottom:20px">Powerful Cloud POS System<br />To Grow Your Restaurant</h2>
-                                <p>We are experts in the F&B industry, and the APPZPOS POS system is built with exceptionally high usability standards, designed to assist you in effortlessly and instantly serving your customers. The POS system is easy to learn and use; you can manage everything - from sales, in-store and online orders, deliveries, inventory, daily reporting, payments, to accounting - all on one online cloud platform.</p>
-                                <a target="_blank" href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!" class="button button-large button-circle button-green"  
-                                onMouseOver="this.style.backgroundColor='#5fca45'"
-                                onMouseOut="this.style.backgroundColor='#58B841'">
-                                    <i class="bi-whatsapp"></i>WhatsApp Us</a>
-                            </div>
+        <section class="pos-system-showcase" aria-label="APPZPOS point of sale systems" data-pos-system-showcase>
+            <div class="container mx-auto">
+                <div class="pos-system-showcase__grid">
+                    <article class="pos-system-card pos-system-card--featured" id="pos-cloud" data-pos-system-card="cloud">
+                        <span class="pos-section-anchor" id="pos-cloud-mobile" aria-hidden="true"></span>
+                        <div class="pos-system-card__visual">
+                            <img data-animate="fadeIn" src="assets/images/cloud-pos-transparent.png" alt="APPZPOS cloud point of sale system">
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="container mx-auto" style="margin-top:25px">
-                <div class="row g-5 col-mb-50">
-                    <div class="col-md-6" style="display: flex;align-items: center;">
-                        <div class="heading-block border-0">
-                            <div style="width:100%">
-                                <h2 style="padding-bottom:20px">Tablet POS System on Ipad<br />| E-Waiter</h2>
-                                <p style="font-size:16px">The tablet point of sale is part of the cloud-based technology stack powered by APPZPOS online POS system, designed especially for small businesses with limited space. Our single tablet system empowers staff to effortlessly take orders at each table, send kitchen orders, and handle payments, ensuring a seamless restaurant operation.</p>
-                            </div>
+                        <div class="pos-system-card__body">
+                            <p class="pos-system-card__eyebrow">Cloud POS</p>
+                            <h2>Powerful Cloud POS System To Grow Your Restaurant</h2>
+                            <p>We are experts in the F&B industry, and the APPZPOS POS system is built with exceptionally high usability standards, designed to assist you in effortlessly and instantly serving your customers. The POS system is easy to learn and use; you can manage everything - from sales, in-store and online orders, deliveries, inventory, daily reporting, payments, to accounting - all on one online cloud platform.</p>
+                            <a target="_blank" rel="noopener" href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!" class="button button-large button-circle button-green pos-whatsapp-button">
+                                <i class="bi-whatsapp"></i>WhatsApp Us
+                            </a>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <img data-animate="fadeIn" src="{{BindURL_Image('APPZPOS-All-in-one-Point-of-sales-system-machine-tablet-online-pos.png')}}" alt="APPZPOS-All-in-one-Point-of-sales-system-machine-tablet-online-pos" style="max-width: 100% !important;">
-                    </div>
-                </div>
-            </div>
-            <div class="container mx-auto" style="margin-top:25px">
-                <div class="row align-items-center gutter-40 col-mb-50">
-                    <div class="col-md-6">
-                        <img data-animate="fadeIn" src="{{BindURL_Image('APPZPOS-All-in-one-Point-of-sales-software-pos -solutions-pos-terminal.png')}}" alt="APPZPOS-All-in-one-Point-of-sales-software-pos -solutions-pos-terminal" style="max-width: 100% !important;">
-                    </div>
-                    <div class="col-md-6" style="display: flex;align-items: center;">
-                        <div class="heading-block border-0">
-                            <div style="width:100%">
-                                <h2 style="padding-bottom:20px">POS Integration with Leading<br />Third-party Platforms</h2>
-                                <p>APPZPOS is partnered with leading food ordering platforms, delivery partners, payment gateways, accounting software, and mall management systems for better efficiency of your operations.</p>
-                                <a href="pos-solutions-partner-integrations" class="button button-large button-circle">Browse All Integrations</a>
-                            </div>
+                    </article>
+
+                    <article class="pos-system-card" id="pos-tablet" data-pos-system-card="tablet">
+                        <span class="pos-section-anchor" id="pos-tablet-mobile" aria-hidden="true"></span>
+                        <div class="pos-system-card__visual">
+                            <img data-animate="fadeIn" src="{{BindURL_Image('APPZPOS-All-in-one-Point-of-sales-system-machine-tablet-online-pos.png')}}" alt="APPZPOS tablet POS and E-Waiter system">
                         </div>
-                    </div>
+                        <div class="pos-system-card__body">
+                            <p class="pos-system-card__eyebrow">Tablet POS / E-Waiter</p>
+                            <h2>Tablet POS System on Ipad | E-Waiter</h2>
+                            <p>The tablet point of sale is part of the cloud-based technology stack powered by APPZPOS online POS system, designed especially for small businesses with limited space. Our single tablet system empowers staff to effortlessly take orders at each table, send kitchen orders, and handle payments, ensuring a seamless restaurant operation.</p>
+                            <a target="_blank" rel="noopener" href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20Tablet%20POS%20and%20E-Waiter!" class="button button-large button-circle button-green pos-whatsapp-button">
+                                <i class="bi-whatsapp"></i>WhatsApp Us
+                            </a>
+                        </div>
+                    </article>
+
+                    <article class="pos-system-card" id="pos-integrations" data-pos-system-card="integrations">
+                        <span class="pos-section-anchor" id="pos-integrations-mobile" aria-hidden="true"></span>
+                        <div class="pos-system-card__visual">
+                            <img data-animate="fadeIn" src="{{BindURL_Image('APPZPOS-All-in-one-Point-of-sales-software-pos -solutions-pos-terminal.png')}}" alt="APPZPOS POS integrations with leading third-party platforms">
+                        </div>
+                        <div class="pos-system-card__body">
+                            <p class="pos-system-card__eyebrow">Connected Integrations</p>
+                            <h2>POS Integration with Leading Third-party Platforms</h2>
+                            <p>APPZPOS is partnered with leading food ordering platforms, delivery partners, payment gateways, accounting software, and mall management systems for better efficiency of your operations.</p>
+                            <a href="pos-solutions-partner-integrations" class="button button-large button-circle">Browse All Integrations</a>
+                        </div>
+                    </article>
                 </div>
             </div>
-        </div>
-        <div id="mobile_view" style="background-color: #f8f9fa; padding: 30px 0;">
-            <div class="container mx-auto" style="margin-top:0px">
-                <div class="heading-block border-0">
-                    <div style="width:100%">
-                        <h2 style="padding-bottom:20px; font-size: 28px;">Powerful Cloud POS System To Grow Your Restaurant</h2>
-                        <p>We are experts in the F&B industry, and the APPZPOS POS system is built with exceptionally high usability standards, designed to assist you in effortlessly and instantly serving your customers. The POS system is easy to learn and use; you can manage everything - from sales, in-store and online orders, deliveries, inventory, daily reporting, payments, to accounting - all on one online cloud platform.</p>
-                        <a target="_blank" href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!" class="button button-large button-circle button-green"  
-                        onMouseOver="this.style.backgroundColor='#5fca45'"
-                        onMouseOut="this.style.backgroundColor='#58B841'">
-                            <i class="bi-whatsapp"></i>WhatsApp Us</a>
-                    </div>
-                </div>
-                <img data-animate="fadeIn" src="{{BindURL_Image('APPZPOS-All-in-one-Point-of-sales-system-Cloud-pos-system.png')}}" alt="APPZPOS-All-in-one-Point-of-sales-system-Cloud-pos-system" style="max-width: 100% !important;">
+        </section>
+        <section class="container pos-hardware" data-pos-hardware aria-labelledby="related-pos-hardware-title">
+            <div class="heading-block border-0 mb-4 text-center" data-hardware-heading>
+                <h2 id="related-pos-hardware-title">Related POS Hardware</h2>
+                <p class="pos-hardware__intro">Choose the POS machines, printers and accessories that fit your business setup.</p>
             </div>
-            <div class="container mx-auto" style="margin-top:25px">
-                <div class="heading-block border-0">
-                    <div style="width:100%">
-                        <h2 style="padding-bottom:20px; font-size: 28px;">Tablet POS System on Ipad | E-Waiter</h2>
-                        <p style="font-size:16px">The tablet point of sale is part of the cloud-based technology stack powered by APPZPOS online POS system, designed especially for small businesses with limited space. Our single tablet system empowers staff to effortlessly take orders at each table, send kitchen orders, and handle payments, ensuring a seamless restaurant operation.</p>
-                    </div>
+            <app-solution-hardware-filters [grid]="hardwareGrid" [existingControls]="true">
+            <div class="pos-hardware__filters" aria-label="Filter POS hardware" data-hardware-filters>
+                <div class="pos-hardware__categories" role="group" aria-label="Hardware category">
+                    <button type="button" [class.is-active]="hardwareCategory === 'all'" (click)="setHardwareCategory('all')">All</button>
+                    <button type="button" [class.is-active]="hardwareCategory === 'pos'" (click)="setHardwareCategory('pos')">POS Machines</button>
+                    <button type="button" [class.is-active]="hardwareCategory === 'printer'" (click)="setHardwareCategory('printer')">Printers</button>
+                    <button type="button" [class.is-active]="hardwareCategory === 'accessory'" (click)="setHardwareCategory('accessory')">Accessories</button>
                 </div>
-                <img data-animate="fadeIn" src="{{BindURL_Image('APPZPOS-All-in-one-Point-of-sales-system-machine-tablet-online-pos.png')}}" alt="APPZPOS-All-in-one-Point-of-sales-system-machine-tablet-online-pos" style="max-width: 100% !important;">
+                <label class="pos-hardware__size">
+                    <span>Filter by</span>
+                    <select [value]="hardwareFilter" (change)="setHardwareFilter($event)" aria-label="Filter hardware by configuration">
+                        <option value="all">All</option>
+                        <option value="tablet">Tablet</option>
+                        <option value="10">10 inch</option>
+                        <option value="15.6">15.6 inch</option>
+                        <option value="other">Accessories / Other</option>
+                        <option value="printer">With printer</option>
+                        <option value="customer-display">With customer display</option>
+                    </select>
+                </label>
             </div>
-            <div class="container mx-auto" style="margin-top:25px">
-                <div class="heading-block border-0">
-                    <div style="width:100%">
-                        <h2 style="padding-bottom:20px; font-size: 28px;">POS Integration with Leading Third-party Platforms
-                            </h2>
-                        <p>APPZPOS is partnered with leading food ordering platforms, delivery partners, payment gateways, accounting software, and mall management systems for better efficiency of your operations.</p>
-                        <a href="pos-solutions-partner-integrations" class="button button-large button-circle">Browse All Integrations</a>
-                    </div>
-                </div>
-                <img data-animate="fadeIn" src="{{BindURL_Image('APPZPOS-All-in-one-Point-of-sales-software-pos -solutions-pos-terminal.png')}}" alt="APPZPOS-All-in-one-Point-of-sales-software-pos -solutions-pos-terminal" style="max-width: 100% !important;">
-            </div>
-        </div>
-        <div class="container" style="margin-top: 90px;">  
-            <div class="heading-block border-1 mb-4 text-center">
-                <h2>Related POS Hardware</h2>
-            </div> 
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 align-items-stretch mb-3" style="margin-top: 20px;">
-                <a class="col" href="pos-hardware-machine-receipt-printer?scrollTo=POSMachine">
-                    <div class="overflow-hidden h-100" style="background-color: #f8f9fa;">
+            </app-solution-hardware-filters>
+            <div #hardwareGrid class="row row-cols-1 row-cols-sm-2 row-cols-lg-4 g-4 align-items-stretch mb-3 pos-hardware__grid" data-hardware-grid>
+                <a class="col" data-hardware-item data-hardware-category="pos" data-hardware-feature="none" [class.is-hidden]="!isHardwareVisible('pos', '10')" href="pos-hardware-machine-receipt-printer?scrollTo=POSMachine">
+                    <div class="pos-hardware-card overflow-hidden h-100">
                         <div class="card-body p-4">
                             <div class="row">
                                 <div class="col" style="text-align: center;">
-                                    <img src="{{BindURL_Image('APPZPOS-POS-Machine-10-Windows-POS.png')}}" alt="APPZPOS-POS-Machine-10-Windows-POS" style="max-width:70% !important">
+                                    <img src="{{BindURL_Image('APPZPOS-POS-Machine-10-Windows-POS.png')}}" alt="APPZPOS-POS-Machine-10-Windows-POS">
                                     <h4 style="margin: 40px 0 20px 0; font-size:20px;">10” Windows POS</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
-                <a class="col" href="pos-hardware-machine-receipt-printer?scrollTo=POSMachine">
-                    <div class="overflow-hidden h-100" style=" background-color: #f8f9fa;">
+                <a class="col" data-hardware-item data-hardware-category="pos" data-hardware-feature="none" [class.is-hidden]="!isHardwareVisible('pos', 'tablet')" href="pos-hardware-machine-receipt-printer?scrollTo=POSMachine">
+                    <div class="pos-hardware-card overflow-hidden h-100">
                         <div class="card-body p-4">
                             <div class="row">
                                 <div class="col" style="text-align: center;">
-                                    <img src="{{BindURL_Image('APPZPOS-POS-Machine-Android-Tablet-IOS-iPad-POS.png')}}" alt="APPZPOS-POS-Machine-Android-Tablet-IOS-iPad-POS" style="max-width:70% !important">
+                                    <img src="{{BindURL_Image('APPZPOS-POS-Machine-Android-Tablet-IOS-iPad-POS.png')}}" alt="APPZPOS-POS-Machine-Android-Tablet-IOS-iPad-POS">
                                     <h4 style="margin: 40px 0 20px 0; font-size:20px;">Android Tablet / IOS iPad POS</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
-                <a class="col" href="pos-hardware-machine-receipt-printer?scrollTo=POSMachine">
-                    <div class="overflow-hidden h-100" style=" background-color: #f8f9fa;">
+                <a class="col" data-hardware-item data-hardware-category="pos" data-hardware-feature="none" [class.is-hidden]="!isHardwareVisible('pos', '15.6')" href="pos-hardware-machine-receipt-printer?scrollTo=POSMachine">
+                    <div class="pos-hardware-card overflow-hidden h-100">
                         <div class="card-body p-4">
                             <div class="row">
                                 <div class="col" style="text-align: center;">
-                                    <img src="{{BindURL_Image('APPZPOS-POS-Machine-15.6-Windows-POS.png')}}" alt="APPZPOS-POS-Machine-15.6-Windows-POS" style="max-width:70% !important">
+                                    <img src="{{BindURL_Image('APPZPOS-POS-Machine-15.6-Windows-POS.png')}}" alt="APPZPOS-POS-Machine-15.6-Windows-POS">
                                     <h4 style="margin: 40px 0 20px 0; font-size:20px;">15.6" Windows POS</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
-                <a class="col" href="pos-hardware-machine-receipt-printer?scrollTo=POSMachine">
-                    <div class="overflow-hidden h-100" style=" background-color: #f8f9fa;">
+                <a class="col" data-hardware-item data-hardware-category="pos" data-hardware-feature="customer-display" [class.is-hidden]="!isHardwareVisible('pos', '15.6 customer-display')" href="pos-hardware-machine-receipt-printer?scrollTo=POSMachine">
+                    <div class="pos-hardware-card overflow-hidden h-100">
                         <div class="card-body p-4">
                             <div class="row">
                                 <div class="col" style="text-align: center;">
-                                    <img src="{{BindURL_Image('APPZPOS-POS-Machine-15.6-Windows-POS-2-line-Customer-display.png')}}" alt="APPZPOS-POS-Machine-15.6-Windows-POS-2-line-Customer-display" style="max-width:70% !important">
+                                    <img src="{{BindURL_Image('APPZPOS-POS-Machine-15.6-Windows-POS-2-line-Customer-display.png')}}" alt="APPZPOS-POS-Machine-15.6-Windows-POS-2-line-Customer-display">
                                     <h4 style="margin: 40px 0 20px 0; font-size:20px;">15.6" Windows POS with <br/>2 Line Customer Display</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
-                <a class="col" href="pos-hardware-machine-receipt-printer?scrollTo=POSMachine">
-                    <div class="overflow-hidden h-100" style=" background-color: #f8f9fa;">
+                <a class="col" data-hardware-item data-hardware-category="pos" data-hardware-feature="customer-display" [class.is-hidden]="!isHardwareVisible('pos', '15.6 customer-display')" href="pos-hardware-machine-receipt-printer?scrollTo=POSMachine">
+                    <div class="pos-hardware-card overflow-hidden h-100">
                         <div class="card-body p-4">
                             <div class="row">
                                 <div class="col" style="text-align: center;">
-                                    <img src="{{BindURL_Image('APPZPOS-POS-Machine-15.6-Windows-POS-9.7-Customer-Display.png')}}" alt="APPZPOS-POS-Machine-15.6-Windows-POS-9.7-Customer-Display" style="max-width:70% !important">
+                                    <img src="{{BindURL_Image('APPZPOS-POS-Machine-15.6-Windows-POS-9.7-Customer-Display.png')}}" alt="APPZPOS-POS-Machine-15.6-Windows-POS-9.7-Customer-Display">
                                     <h4 style="margin: 40px 0 20px 0; font-size:20px;">15.6" Windows POS with <br/>9.7” Customer Display</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
-                <a class="col" href="pos-hardware-machine-receipt-printer?scrollTo=POSMachine">
-                    <div class="overflow-hidden h-100" style=" background-color: #f8f9fa;">
+                <a class="col" data-hardware-item data-hardware-category="pos" data-hardware-feature="none" [class.is-hidden]="!isHardwareVisible('pos', '15.6')" href="pos-hardware-machine-receipt-printer?scrollTo=POSMachine">
+                    <div class="pos-hardware-card overflow-hidden h-100">
                         <div class="card-body p-4">
                             <div class="row">
                                 <div class="col" style="text-align: center;">
-                                    <img src="{{BindURL_Image('APPZPOS-POS-Machine-15.6-Android-POS.png')}}" alt="APPZPOS-POS-Machine-15.6-Android-POS" style="max-width:70% !important">
+                                    <img src="{{BindURL_Image('APPZPOS-POS-Machine-15.6-Android-POS.png')}}" alt="APPZPOS-POS-Machine-15.6-Android-POS">
                                     <h4 style="margin: 40px 0 20px 0; font-size:20px;">15.6" Android POS</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
-                <a class="col" href="pos-hardware-machine-receipt-printer?scrollTo=POSMachine">
-                    <div class="overflow-hidden h-100" style=" background-color: #f8f9fa;">
+                <a class="col" data-hardware-item data-hardware-category="pos" data-hardware-feature="customer-display" [class.is-hidden]="!isHardwareVisible('pos', '15.6 customer-display')" href="pos-hardware-machine-receipt-printer?scrollTo=POSMachine">
+                    <div class="pos-hardware-card overflow-hidden h-100">
                         <div class="card-body p-4">
                             <div class="row">
                                 <div class="col" style="text-align: center;">
-                                    <img src="{{BindURL_Image('APPZPOS-POS-Machine-15.6-Android-POS-10.1-Customer-Display.png')}}" alt="APPZPOS-POS-Machine-15.6-Android-POS-10.1-Customer-Display" style="max-width:70% !important">
+                                    <img src="{{BindURL_Image('APPZPOS-POS-Machine-15.6-Android-POS-10.1-Customer-Display.png')}}" alt="APPZPOS-POS-Machine-15.6-Android-POS-10.1-Customer-Display">
                                     <h4 style="margin: 40px 0 20px 0; font-size:20px;">15.6" Android POS with <br/>10.1” Customer Display</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
-                <a class="col" href="pos-hardware-machine-receipt-printer?scrollTo=POSMachine">
-                    <div class="overflow-hidden h-100" style=" background-color: #f8f9fa;">
+                <a class="col" data-hardware-item data-hardware-category="pos" data-hardware-feature="customer-display" [class.is-hidden]="!isHardwareVisible('pos', '15.6 customer-display')" href="pos-hardware-machine-receipt-printer?scrollTo=POSMachine">
+                    <div class="pos-hardware-card overflow-hidden h-100">
                         <div class="card-body p-4">
                             <div class="row">
                                 <div class="col" style="text-align: center;">
-                                    <img src="{{BindURL_Image('APPZPOS-POS-Machine-15.6-Android-POS-15.6-Customer-Display.png')}}" alt="APPZPOS-POS-Machine-15.6-Android-POS-15.6-Customer-Display" style="max-width:70% !important">
+                                    <img src="{{BindURL_Image('APPZPOS-POS-Machine-15.6-Android-POS-15.6-Customer-Display.png')}}" alt="APPZPOS-POS-Machine-15.6-Android-POS-15.6-Customer-Display">
                                     <h4 style="margin: 40px 0 20px 0; font-size:20px;">15.6" Android POS with <br/>15.6” Customer Display</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
-                <a class="col" href="pos-hardware-machine-receipt-printer?scrollTo=POSMachine">
-                    <div class="overflow-hidden h-100" style=" background-color: #f8f9fa;">
+                <a class="col" data-hardware-item data-hardware-category="pos" data-hardware-feature="printer" [class.is-hidden]="!isHardwareVisible('pos', '15.6 printer')" href="pos-hardware-machine-receipt-printer?scrollTo=POSMachine">
+                    <div class="pos-hardware-card overflow-hidden h-100">
                         <div class="card-body p-4">
                             <div class="row">
                                 <div class="col" style="text-align: center;">
-                                    <img src="{{BindURL_Image('APPZPOS-POS-Machine-15.6-Android-POS-with-printer.png')}}" alt="APPZPOS-POS-Machine-15.6-Android-POS-with-printer" style="max-width:70% !important">
+                                    <img src="{{BindURL_Image('APPZPOS-POS-Machine-15.6-Android-POS-with-printer.png')}}" alt="APPZPOS-POS-Machine-15.6-Android-POS-with-printer">
                                     <h4 style="margin: 40px 0 20px 0; font-size:20px;">15.6" Android POS with Printer</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
-                <a class="col" href="pos-hardware-machine-receipt-printer?scrollTo=POSMachine">
-                    <div class="overflow-hidden h-100" style=" background-color: #f8f9fa;">
+                <a class="col" data-hardware-item data-hardware-category="pos" data-hardware-feature="printer customer-display" [class.is-hidden]="!isHardwareVisible('pos', '15.6 printer customer-display')" href="pos-hardware-machine-receipt-printer?scrollTo=POSMachine">
+                    <div class="pos-hardware-card overflow-hidden h-100">
                         <div class="card-body p-4">
                             <div class="row">
                                 <div class="col" style="text-align: center;">
-                                    <img src="{{BindURL_Image('APPZPOS-POS-Machine-15.6-Android-POS-printer-10.1-Customer-Display.png')}}" alt="APPZPOS-POS-Machine-15.6-Android-POS-printer-10.1-Customer-Display" style="max-width:70% !important">
+                                    <img src="{{BindURL_Image('APPZPOS-POS-Machine-15.6-Android-POS-printer-10.1-Customer-Display.png')}}" alt="APPZPOS-POS-Machine-15.6-Android-POS-printer-10.1-Customer-Display">
                                     <h4 style="margin: 40px 0 20px 0; font-size:20px;">15.6" Android POS with Printer and <br/>10.1” Customer Display</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
-                <a class="col" href="pos-hardware-machine-receipt-printer?scrollTo=POSMachine">
-                    <div class="overflow-hidden h-100" style=" background-color: #f8f9fa;">
+                <a class="col" data-hardware-item data-hardware-category="pos" data-hardware-feature="printer customer-display" [class.is-hidden]="!isHardwareVisible('pos', '15.6 printer customer-display')" href="pos-hardware-machine-receipt-printer?scrollTo=POSMachine">
+                    <div class="pos-hardware-card overflow-hidden h-100">
                         <div class="card-body p-4">
                             <div class="row">
                                 <div class="col" style="text-align: center;">
-                                    <img src="{{BindURL_Image('APPZPOS-POS-Machine-15.6-inch-Android-POS-printer-15.6-Customer-Display.png')}}" alt="APPZPOS-POS-Machine-15.6-inch-Android-POS-printer-15.6-Customer-Display" style="max-width:70% !important">
+                                    <img src="{{BindURL_Image('APPZPOS-POS-Machine-15.6-inch-Android-POS-printer-15.6-Customer-Display.png')}}" alt="APPZPOS-POS-Machine-15.6-inch-Android-POS-printer-15.6-Customer-Display">
                                     <h4 style="margin: 40px 0 20px 0; font-size:20px;">15.6" Android POS with Printer and <br/>15.6” Customer Display</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
-                <a class="col" href="pos-hardware-machine-receipt-printer?scrollTo=Printers">
-                    <div class="overflow-hidden h-100" style=" background-color: #f8f9fa;">
+                <a class="col" data-hardware-item data-hardware-category="printer" data-hardware-feature="none" [class.is-hidden]="!isHardwareVisible('printer', 'other')" href="pos-hardware-machine-receipt-printer?scrollTo=Printers">
+                    <div class="pos-hardware-card overflow-hidden h-100">
                         <div class="card-body p-4">
                             <div class="row">
                                 <div class="col" style="text-align: center;">
-                                    <img src="{{BindURL_Image('APPZPOS-POS-Hardware-Thermal-Printer.png')}}" alt="APPZPOS-POS-Hardware-Thermal-Printer" style="max-width:70% !important">
+                                    <img src="{{BindURL_Image('APPZPOS-POS-Hardware-Thermal-Printer.png')}}" alt="APPZPOS-POS-Hardware-Thermal-Printer">
                                     <h4 style="margin: 40px 0 20px 0; font-size:20px;">Thermal Printer</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
-                <a class="col" href="pos-hardware-machine-receipt-printer?scrollTo=Printers">
-                    <div class="overflow-hidden h-100" style=" background-color: #f8f9fa;">
+                <a class="col" data-hardware-item data-hardware-category="printer" data-hardware-feature="none" [class.is-hidden]="!isHardwareVisible('printer', 'other')" href="pos-hardware-machine-receipt-printer?scrollTo=Printers">
+                    <div class="pos-hardware-card overflow-hidden h-100">
                         <div class="card-body p-4">
                             <div class="row">
                                 <div class="col" style="text-align: center;">
-                                    <img src="{{BindURL_Image('APPZPOS-POS-Hardware-Label-Printer.png')}}" alt="APPZPOS-POS-Hardware-Label-Printer" style="max-width:70% !important">
+                                    <img src="{{BindURL_Image('APPZPOS-POS-Hardware-Label-Printer.png')}}" alt="APPZPOS-POS-Hardware-Label-Printer">
                                     <h4 style="margin: 40px 0 20px 0; font-size:20px;">Label Printer</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
-                <a class="col" href="pos-hardware-machine-receipt-printer?scrollTo=Accessories">
-                    <div class="overflow-hidden h-100" style=" background-color: #f8f9fa;">
+                <a class="col" data-hardware-item data-hardware-category="accessory" data-hardware-feature="none" [class.is-hidden]="!isHardwareVisible('accessory', 'other')" href="pos-hardware-machine-receipt-printer?scrollTo=Accessories">
+                    <div class="pos-hardware-card overflow-hidden h-100">
                         <div class="card-body p-4">
                             <div class="row">
                                 <div class="col" style="text-align: center;">
-                                    <img src="{{BindURL_Image('APPZPOS-POS-Hardware-Cash-Drawer-Big.png')}}" alt="APPZPOS-POS-Hardware-Cash-Drawer-Big" style="max-width:70% !important">
+                                    <img src="{{BindURL_Image('APPZPOS-POS-Hardware-Cash-Drawer-Big.png')}}" alt="APPZPOS-POS-Hardware-Cash-Drawer-Big">
                                     <h4 style="margin: 40px 0 20px 0; font-size:20px;">Cash Drawer Big</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
-                <a class="col" href="pos-hardware-machine-receipt-printer?scrollTo=Accessories">
-                    <div class="overflow-hidden h-100" style=" background-color: #f8f9fa;">
+                <a class="col" data-hardware-item data-hardware-category="accessory" data-hardware-feature="none" [class.is-hidden]="!isHardwareVisible('accessory', 'other')" href="pos-hardware-machine-receipt-printer?scrollTo=Accessories">
+                    <div class="pos-hardware-card overflow-hidden h-100">
                         <div class="card-body p-4">
                             <div class="row">
                                 <div class="col" style="text-align: center;">
-                                    <img src="{{BindURL_Image('APPZPOS-POS-Hardware-Cash-Drawer-Small.png')}}" alt="APPZPOS-POS-Hardware-Cash-Drawer-Small" style="max-width:70% !important">
+                                    <img src="{{BindURL_Image('APPZPOS-POS-Hardware-Cash-Drawer-Small.png')}}" alt="APPZPOS-POS-Hardware-Cash-Drawer-Small">
                                     <h4 style="margin: 40px 0 20px 0; font-size:20px;">Cash Drawer Small</h4>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </a>
-                <a class="col" href="pos-hardware-machine-receipt-printer?scrollTo=Accessories">
-                    <div class="overflow-hidden h-100" style=" background-color: #f8f9fa;">
+                <a class="col" data-hardware-item data-hardware-category="accessory" data-hardware-feature="none" [class.is-hidden]="!isHardwareVisible('accessory', 'other')" href="pos-hardware-machine-receipt-printer?scrollTo=Accessories">
+                    <div class="pos-hardware-card overflow-hidden h-100">
                         <div class="card-body p-4">
                             <div class="row">
                                 <div class="col" style="text-align: center;">
-                                    <img src="{{BindURL_Image('APPZPOS-POS-Hardware-2D-Scanner.png')}}" alt="APPZPOS-POS-Hardware-2D-Scanner" style="max-width:70% !important">
+                                    <img src="{{BindURL_Image('APPZPOS-POS-Hardware-2D-Scanner.png')}}" alt="APPZPOS-POS-Hardware-2D-Scanner">
                                     <h4 style="margin: 40px 0 20px 0; font-size:20px;">2D Scanner</h4>
                                 </div>
                             </div>
@@ -492,14 +427,13 @@
                     </div>
                 </a>
             </div>
+            <p class="pos-hardware__empty" *ngIf="!hasVisibleHardware()">No hardware matches these filters.</p>
+        </section>
+       <div class="appz-conversion-panel" id="requestdemo">
+             <app-custom-request-demo></app-custom-request-demo>
         </div>
-       <div class="container" id="requestdemo">
-             <app-custom-request-demo></app-custom-request-demo> 
-        </div>
-    </div>
-</section>
 
-<div id="webview">
+<div id="webview" solutionFloating>
     <div style="position:fixed; top: 22%; right: 0; border: 0;z-index:10000">
         <a target="_blank" href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!" class="btn-whatsapp"
         >
@@ -513,3 +447,4 @@
     </a>
     </div>
 </div>
+</app-solution-page>

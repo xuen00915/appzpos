@@ -1,4 +1,7 @@
+import { IndustryWorkflowDirective } from '../components/industry-page/industry-workflow.directive';
 import { NgModule } from '@angular/core';
+import { IndustryPageComponent, IndustryIslandsComponent } from '../components/industry-page/industry-page.component';
+import { IndustryDiagramHandoffDirective } from '../components/industry-page/industry-diagram-handoff.directive';
 import { CommonModule } from '@angular/common';
 import { CustomAppRoutingModule } from '../modules/custom-app-routing.module';
 import { CustomHeaderComponent } from '../components/custom-header/custom-header.component';
@@ -30,7 +33,13 @@ import { CustomOrderHubComponent } from '../components/f&b-restaurant-delivery-i
 import { CustomFeaturesComponent } from '../components/pos-features-crm-payment-gateway/pos-features-crm-payment-gateway.component';
 import { CustomHardwareComponent } from '../components/pos-hardware-machine-receipt-printer/pos-hardware-machine-receipt-printer.component';
 import { HomeOrderFlowComponent } from '../components/home-order-flow/home-order-flow.component';
+import { HomeProductSuiteComponent } from '../components/home-product-suite/home-product-suite.component';
+import { HomeIndustriesComponent } from '../components/home-industries/home-industries.component';
+import { HomeEcosystemComponent } from '../components/home-ecosystem/home-ecosystem.component';
+import { HomeProofComponent } from '../components/home-proof/home-proof.component';
 import { MarketingRevealDirective } from '../components/marketing-reveal/marketing-reveal.directive';
+import { SolutionHeroComponent } from '../components/solution-hero/solution-hero.component';
+import { SolutionPageComponent, SolutionFeatureHeadingComponent, SolutionHardwareFiltersComponent } from '../components/solution-page/solution-page.component';
 import { MatDialogRef } from '@angular/material/dialog';
 
 
@@ -62,9 +71,17 @@ import { MatDialogRef } from '@angular/material/dialog';
     CustomFeaturesComponent,
     CustomHardwareComponent,
     HomeOrderFlowComponent,
+    HomeProductSuiteComponent,
+    HomeIndustriesComponent,
+    HomeEcosystemComponent,
+    HomeProofComponent,
     MarketingRevealDirective,
+    SolutionHeroComponent,
   ],
   imports: [
+    IndustryPageComponent, IndustryIslandsComponent, IndustryDiagramHandoffDirective, IndustryWorkflowDirective,
+    SolutionPageComponent,
+    SolutionFeatureHeadingComponent, SolutionHardwareFiltersComponent,
     CommonModule,
     CustomAppRoutingModule,
     BrowserModule,
@@ -74,7 +91,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   exports: [
     CustomHeaderComponent,
     CustomFooterComponent,
-    CustomHomeComponent 
+    CustomHomeComponent
   ],
   providers: [
     {

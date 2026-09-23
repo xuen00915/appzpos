@@ -1,4 +1,11 @@
 :root {
+  --appz-font: "Manrope", "Avenir Next", Arial, sans-serif;
+  --appz-gutter: clamp(20px, 4vw, 64px);
+  --appz-section-space: clamp(80px, 11vw, 168px);
+  --appz-content-width: 1320px;
+  --appz-reading-width: 65ch;
+  --appz-radius-surface: 16px;
+  --appz-radius-control: 9px;
   --appz-ink: #101d39;
   --appz-ink-soft: #536681;
   --appz-blue: #1688d8;
@@ -30,9 +37,24 @@ html {
 body {
   color: var(--appz-ink);
   background: var(--appz-surface);
-  font-family: Inter, "Helvetica Neue", Arial, sans-serif !important;
+  font-family: var(--appz-font) !important;
   text-rendering: optimizeLegibility;
   overflow-x: clip;
+}
+
+/* Shared content-heading rhythm across the homepage and internal pages.
+   Masthead h1 elements sit outside #content and keep their own hero scale. */
+#content h2:not(.fs-6) {
+  font-size: clamp(1.75rem, 2.7vw, 3rem) !important;
+  font-weight: 750;
+  letter-spacing: .025em !important;
+  line-height: 1.1 !important;
+  text-wrap: balance;
+}
+
+#content .appz-display,
+#content .ecosystem__features h2 {
+  max-width: 16ch !important;
 }
 
 a,
@@ -90,6 +112,11 @@ a {
 }
 
 @media (max-width: 767px) {
+  #content h2:not(.fs-6) {
+    font-size: clamp(1.65rem, 7vw, 2.1rem) !important;
+    letter-spacing: .018em !important;
+  }
+
   .appzpos-container {
     width: min(calc(100% - 32px), var(--appz-container));
   }

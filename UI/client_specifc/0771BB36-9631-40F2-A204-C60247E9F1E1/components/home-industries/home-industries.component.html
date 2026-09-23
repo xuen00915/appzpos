@@ -1,0 +1,21 @@
+<section class="industries" aria-labelledby="industries-title">
+  <header class="appz-section industries__intro" appMarketingReveal>
+    <p class="appz-kicker">INDUSTRIES</p>
+    <h2 id="industries-title" class="appz-display">POS Integration Across Diverse Sectors</h2>
+  </header>
+  <div class="industries__stories">
+    <article *ngFor="let story of stories; let index = index" class="industry-story" [class.industry-story--reverse]="index % 2 === 1" appMarketingReveal>
+      <a class="industry-story__media" [href]="story.href" [attr.aria-label]="story.title">
+        <img [src]="imageUrl(story.image)" [alt]="story.alt" width="960" height="720" loading="lazy">
+        <span aria-hidden="true">0{{ index + 1 }}</span>
+      </a>
+      <div class="industry-story__copy">
+        <p class="industry-story__eyebrow">Our Solutions</p>
+        <h3>{{ story.title }}</h3>
+        <p>{{ story.description }}</p>
+        <ul><li *ngFor="let module of story.modules">{{ module }}</li></ul>
+        <a [href]="story.href">More Info <span aria-hidden="true">→</span></a>
+      </div>
+    </article>
+  </div>
+</section>

@@ -1,7 +1,7 @@
 <header id="header" class="appzpos-header" data-mobile-sticky="true" data-sticky-class="not-dark">
   <div id="header-wrap">
     <div class="appzpos-header__inner">
-      <a class="appzpos-header__logo" href="/" aria-label="APPZPOS home">
+      <a class="appzpos-header__logo" href="/" [attr.aria-current]="isCurrentPage('/') ? 'page' : null" aria-label="APPZPOS home">
         <img src="{{BindURL_Image('APPZPOS-300X150px.png')}}" alt="software companies in singapore appzgate logo">
       </a>
 
@@ -22,15 +22,15 @@
             [class.is-open]="openMenu === 'solutions'">
             <p class="appzpos-nav__panel-label">SOLUTIONS</p>
             <div class="appzpos-nav__link-grid">
-              <a href="/cloud-pos-point-of-sales-system"><strong>POS / E-Waiter</strong><span>Cloud point of sale</span></a>
-              <a href="/f&b-restaurant-online-ordering-website"><strong>Website Ordering</strong><span>Direct online orders</span></a>
-              <a href="/f&b-restaurant-emenu-qr-code-ordering-system"><strong>Table QR Ordering</strong><span>Mobile table ordering</span></a>
-              <a href="/self-order-kiosk-restaurant"><strong>Self Ordering Kiosk</strong><span>Contactless ordering</span></a>
-              <a href="/f&b-restaurant-kitchen-display-system"><strong>Kitchen Display System (KDS)</strong><span>Kitchen order flow</span></a>
-              <a href="/f&b-restaurant-queue-number-display-system"><strong>Queue Number Display</strong><span>Real-time pickup status</span></a>
-              <a href="/f&b-restaurant-delivery-integration"><strong>Order Hub</strong><span>Delivery integration</span></a>
-              <a href="/pos-hardware-machine-receipt-printer"><strong>HARDWARE</strong><span>POS machines and printers</span></a>
-              <a href="/pos-features-crm-payment-gateway"><strong>FEATURES</strong><span>CRM, payments and more</span></a>
+              <a href="/cloud-pos-point-of-sales-system" [attr.aria-current]="isCurrentPage('/cloud-pos-point-of-sales-system') ? 'page' : null"><strong>POS / E-Waiter</strong><span>Cloud point of sale</span></a>
+              <a href="/f&b-restaurant-online-ordering-website" [attr.aria-current]="isCurrentPage('/f&b-restaurant-online-ordering-website') ? 'page' : null"><strong>Website Ordering</strong><span>Direct online orders</span></a>
+              <a href="/f&b-restaurant-emenu-qr-code-ordering-system" [attr.aria-current]="isCurrentPage('/f&b-restaurant-emenu-qr-code-ordering-system') ? 'page' : null"><strong>Table QR Ordering</strong><span>Mobile table ordering</span></a>
+              <a href="/self-order-kiosk-restaurant" [attr.aria-current]="isCurrentPage('/self-order-kiosk-restaurant') ? 'page' : null"><strong>Self Ordering Kiosk</strong><span>Contactless ordering</span></a>
+              <a href="/f&b-restaurant-kitchen-display-system" [attr.aria-current]="isCurrentPage('/f&b-restaurant-kitchen-display-system') ? 'page' : null"><strong>Kitchen Display System (KDS)</strong><span>Kitchen order flow</span></a>
+              <a href="/f&b-restaurant-queue-number-display-system" [attr.aria-current]="isCurrentPage('/f&b-restaurant-queue-number-display-system') ? 'page' : null"><strong>Queue Number Display</strong><span>Real-time pickup status</span></a>
+              <a href="/f&b-restaurant-delivery-integration" [attr.aria-current]="isCurrentPage('/f&b-restaurant-delivery-integration') ? 'page' : null"><strong>Order Hub</strong><span>Delivery integration</span></a>
+              <a href="/pos-hardware-machine-receipt-printer" [attr.aria-current]="isCurrentPage('/pos-hardware-machine-receipt-printer') ? 'page' : null"><strong>HARDWARE</strong><span>POS machines and printers</span></a>
+              <a href="/pos-features-crm-payment-gateway" [attr.aria-current]="isCurrentPage('/pos-features-crm-payment-gateway') ? 'page' : null"><strong>FEATURES</strong><span>CRM, payments and more</span></a>
             </div>
           </div>
         </div>
@@ -42,13 +42,11 @@
           </button>
           <div id="industries-menu" class="appzpos-nav__panel" [class.is-open]="openMenu === 'industries'">
             <p class="appzpos-nav__panel-label">INDUSTRIES</p>
-            <a href="/f&b-restaurant-cloud-pos-system">F&B Restaurant</a>
-            <a href="/retail-store-cloud-pos-system">Retail Stores & Boutiques</a>
-            <a href="/salon-cloud-pos-system">Beauty Salons, SPA & Wellness</a>
+            <a href="/f&b-restaurant-cloud-pos-system" [attr.aria-current]="isCurrentPage('/f&b-restaurant-cloud-pos-system') ? 'page' : null">F&B Restaurant</a>
+            <a href="/retail-store-cloud-pos-system" [attr.aria-current]="isCurrentPage('/retail-store-cloud-pos-system') ? 'page' : null">Retail Stores & Boutiques</a>
+            <a href="/salon-cloud-pos-system" [attr.aria-current]="isCurrentPage('/salon-cloud-pos-system') ? 'page' : null">Beauty Salons, SPA & Wellness</a>
           </div>
         </div>
-
-        <a class="appzpos-nav__link appzpos-nav__primary-item" href="/psg-pos-system-grant-singapore">PSG Grant</a>
 
         <div class="appzpos-nav__group">
           <button type="button" class="appzpos-nav__trigger appzpos-nav__primary-item" aria-controls="resources-menu"
@@ -57,16 +55,24 @@
           </button>
           <div id="resources-menu" class="appzpos-nav__panel" [class.is-open]="openMenu === 'resources'">
             <p class="appzpos-nav__panel-label">RESOURCES</p>
-            <a href="/blog">BLOGS</a>
-            <a href="/pos-solutions-partner-integrations">Partner Integrations</a>
-            <a href="/point-of-sales-demo-quotation">CONTACT US</a>
-            <a href="tel:83109631">Phone: +65 8310 9631</a>
-            <a target="_blank" rel="noopener" href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!">WhatsApp</a>
+            <a href="/blog" [attr.aria-current]="isCurrentPage('/blog') ? 'page' : null">Blog</a>
+            <a href="/psg-pos-system-grant-singapore" [attr.aria-current]="isCurrentPage('/psg-pos-system-grant-singapore') ? 'page' : null">PSG Grant</a>
           </div>
         </div>
 
-        <a class="appzpos-nav__link appzpos-nav__primary-item" href="/cn-f&b-restaurant-cloud-pos-system">POS餐饮系统</a>
-        <a class="appzpos-nav__cta appzpos-nav__primary-item" href="/point-of-sales-demo-quotation">Request a Demo</a>
+        <a class="appzpos-nav__link appzpos-nav__primary-item" href="/cn-f&b-restaurant-cloud-pos-system" [attr.aria-current]="isCurrentPage('/cn-f&b-restaurant-cloud-pos-system') ? 'page' : null" aria-label="POS餐饮系统中文网站">POS餐饮系统</a>
+        <a class="appzpos-nav__cta appzpos-nav__primary-item" href="/point-of-sales-demo-quotation" [attr.aria-current]="isCurrentPage('/point-of-sales-demo-quotation') ? 'page' : null">Request a Demo</a>
+        <a class="appzpos-nav__utility appzpos-nav__utility--call" href="tel:+6583109631" aria-label="Call APPZPOS">
+          <i class="fa-solid fa-phone" aria-hidden="true"></i>
+          <span class="appzpos-nav__utility-label">Call Us</span>
+        </a>
+        <a class="appzpos-nav__utility appzpos-nav__utility--whatsapp"
+          target="_blank" rel="noopener"
+          href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!"
+          aria-label="WhatsApp APPZPOS">
+          <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
+          <span class="appzpos-nav__utility-label">WhatsApp</span>
+        </a>
       </nav>
     </div>
   </div>

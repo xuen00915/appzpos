@@ -1,0 +1,36 @@
+:host { display: block; color: #15223e; }
+.industry-islands { width: min(1320px, calc(100% - 48px)); margin: 0 auto 40px; }
+.industry-islands__heading { text-align: center; margin-bottom: 20px; }
+:host ::ng-deep [industryHeading] { max-width: 1100px; margin: 0 auto 12px; font-size: clamp(26px, 3vw, 42px); line-height: 1.18; letter-spacing: -.025em; }
+.industry-islands__heading p { margin: 0; color: #526782; font-size: 18px; }
+.industry-islands__map { position: relative; width: 100%; }
+.industry-islands__artwork { position: relative; }
+.industry-floor-filter { position: absolute; pointer-events: none; }
+.industry-island__floor { position: absolute; inset: 0; width: 100%; height: 100%; opacity: 0; pointer-events: none; }
+.industry-island.is-lit .industry-island__floor,
+.industry-island.is-selected .industry-island__floor,
+.industry-island:not(:disabled):hover .industry-island__floor,
+.industry-island:focus-visible .industry-island__floor { opacity: 1; }
+.industry-islands__original { display: block; width: 100%; height: auto; }
+.industry-island { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; background: transparent; cursor: pointer; }
+.industry-island:disabled { pointer-events: none; cursor: default; background: transparent; }
+.industry-island:focus-visible { outline: 2px solid #aa7800; }
+.industry-islands__detail { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 8px 40px; padding: 24px 0; border-top: 1px solid #dbe7f2; }
+.industry-islands__detail h3 { margin: 0; font-size: clamp(24px, 2.4vw, 32px); line-height: 1.2; }
+.industry-islands__detail p { grid-column: 1; margin: 0; color: #526782; font-size: 18px; line-height: 1.65; }
+.industry-islands__detail ul { grid-column: 2; grid-row: 1 / span 2; list-style: none; padding: 0; margin: 0; }
+.industry-islands__detail li + li { border-top: 1px solid #dbe7f2; }
+.industry-islands__detail a { display: flex; justify-content: space-between; align-items: center; gap: 14px; min-height: 48px; padding: 10px 0; color: #0867b0; font-size: 17px; font-weight: 650; line-height: 1.4; }
+.industry-islands__detail a:hover { text-decoration: underline; }
+.industry-islands__detail a:focus-visible { outline: 2px solid #147ac2; outline-offset: 4px; }
+.industry-islands__mobile-controls { display: none; }
+@media (max-width: 767px) {
+  .industry-islands { width: calc(100% - 32px); }
+  .industry-islands__heading { text-align: left; }
+  .industry-islands__heading p { font-size: 17px; }
+  .industry-islands__mobile-controls { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 16px 0 24px; }
+  .industry-islands__mobile-controls button { min-height: 44px; padding: 8px 12px; border: 1px solid #b9d9f2; border-radius: 10px; background: #fff; color: #263b58; font: inherit; }
+  .industry-islands__mobile-controls button[aria-pressed="true"] { background: #e4f2ff; color: #075a9e; border-color: #147ac2; }
+  .industry-islands__detail { display: block; }
+  .industry-islands__detail p { margin: 12px 0 16px; font-size: 17px; }
+}
