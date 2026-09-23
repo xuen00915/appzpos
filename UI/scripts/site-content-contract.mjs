@@ -42,13 +42,19 @@ const approvedRemovedPhrases = new Set([
   'Through APPZPOS Order Hub'
 ]);
 
-function extractHero(source) {
-  const pageConfig = source.indexOf('export const ENGLISH_HOME_PAGE_CONFIG');
+function extractHero(source, configName = 'ENGLISH_HOME_PAGE_CONFIG') {
+  const pageConfig = source.indexOf(`export const ${configName}`);
   const start = source.indexOf('  hero: {', pageConfig);
   const end = source.indexOf('  solutions:', start);
   if (pageConfig < 0 || start < 0 || end < 0) return '';
   return source.slice(start, end);
 }
+
+const chineseHeroTitle = [...extractHero(homeConfigSource, 'CHINESE_HOME_PAGE_CONFIG')
+  .matchAll(/\btitle(?:Accent)?:\s*'([^']+)'/g)]
+  .map((match) => match[1])
+  .join(' ')
+  .replace(/\s+/g, '');
 
 const failures = expectedPhrases
   .filter((phrase) => {
@@ -60,6 +66,7 @@ const failures = expectedPhrases
     const preservedCustomerHeading = phrase === 'OUR VALUED CUSTOMERS'
       && currentPhrases.has('Our Valued Customers');
     const preservedInHomeConfig = homeConfigSource.includes(phrase);
+    const preservedInSplitChineseHero = chineseHeroTitle.includes(phrase.replace(/\s+/g, ''));
     const preservedConfiguredFeature = phrase.startsWith('- ')
       && homeConfigSource.includes(phrase.slice(2))
       && homeOrderFlowSource.includes('<span> - {{ feature.description }}</span>');
@@ -70,6 +77,7 @@ const failures = expectedPhrases
       && !preservedInCombinedCopy
       && !preservedCustomerHeading
       && !preservedInHomeConfig
+      && !preservedInSplitChineseHero
       && !preservedConfiguredFeature
       && !preservedIndustryStatus
       && !preservedInSharedPosHero;

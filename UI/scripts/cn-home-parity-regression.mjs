@@ -58,12 +58,27 @@ const diagrams = {
   hub: 'assets/images/ecosystem/ecosystem-delivery.webp'
 };
 const failures = [];
+const viewportProfiles = [
+  { width: 1440, height: 1000, maxSectionSpace: 80, minTitleTracking: 1.4 },
+  { width: 1024, height: 900, maxSectionSpace: 64, minTitleTracking: 1.3 },
+  { width: 768, height: 1024, maxSectionSpace: 56, minTitleTracking: 1.2 },
+  { width: 390, height: 844, maxSectionSpace: 44, minTitleTracking: 1 }
+];
+const expectedHomeSectionTags = ['hero', 'island', 'grant', 'key-features', 'form'];
+const expectedTitleIds = [
+  'appz-ecosystem-title',
+  'cn-custom-pos-title',
+  'cn-unified-management-title',
+  'grant-title',
+  'features-title',
+  'customers-title',
+  'appz-demo-title'
+];
 
 await send('Page.enable');
 await send('Runtime.enable');
 
-for (const width of [1440, 390]) {
-  const height = width === 390 ? 844 : 1000;
+for (const { width, height, maxSectionSpace, minTitleTracking } of viewportProfiles) {
   await send('Emulation.setDeviceMetricsOverride', {
     width, height, deviceScaleFactor: 1, mobile: width === 390,
     screenWidth: width, screenHeight: height
@@ -91,6 +106,81 @@ for (const width of [1440, 390]) {
     failures.push(`${width}px: Chinese industry tabs changed ${JSON.stringify(hero.tabLabels)}`);
   }
   if (hero.pageOverflow) failures.push(`${width}px: page has horizontal overflow`);
+
+  const pageContract = JSON.parse(await evaluate(`JSON.stringify((() => {
+    const root = document.querySelector('[data-home-page-template]');
+    const titleIds = ${JSON.stringify(expectedTitleIds)};
+    const titles = titleIds.map((id) => {
+      const element = document.getElementById(id);
+      return {
+        id,
+        exists: Boolean(element),
+        letterSpacing: element ? Number.parseFloat(getComputedStyle(element).letterSpacing) : null
+      };
+    });
+    const appzSections = [...document.querySelectorAll('.appz-section')]
+      .filter((section) => section.getBoundingClientRect().height > 0);
+    const orderFlow = document.querySelector('.appz-ecosystem');
+    const storyGrid = document.querySelector('.home-story-sections');
+    const marginSections = [
+      document.querySelector('.ecosystem__grant'),
+      document.querySelector('.ecosystem__features')
+    ].filter(Boolean);
+    const labelledSections = [...document.querySelectorAll('[aria-labelledby]')]
+      .filter((section) => section.matches('section, article'));
+    return {
+      rootLang: root?.getAttribute('lang'),
+      homeSectionTags: [...document.querySelectorAll('[data-home-section]')]
+        .map((section) => section.getAttribute('data-home-section')),
+      labelledSectionsResolve: labelledSections.every((section) => {
+        const id = section.getAttribute('aria-labelledby');
+        return Boolean(id && document.getElementById(id));
+      }),
+      gtm: Boolean(document.querySelector('script[src*="googletagmanager.com/gtm.js?id=GTM-N7VKTGG"]')),
+      pixel: Boolean(document.querySelector('script[src*="connect.facebook.net/en_US/fbevents.js"]')),
+      whatsappLinks: [...document.querySelectorAll('a[href^="https://wa.me/6583109631"]')]
+        .map((link) => ({ href: link.getAttribute('href'), rel: link.getAttribute('rel') })),
+      titles,
+      maxSectionPadding: Math.max(0, ...appzSections.flatMap((section) => {
+        const styles = getComputedStyle(section);
+        return [Number.parseFloat(styles.paddingTop), Number.parseFloat(styles.paddingBottom)];
+      })),
+      orderFlowPadding: orderFlow ? Math.max(
+        Number.parseFloat(getComputedStyle(orderFlow).paddingTop),
+        Number.parseFloat(getComputedStyle(orderFlow).paddingBottom)
+      ) : null,
+      storyGap: storyGrid ? Number.parseFloat(getComputedStyle(storyGrid).gap) : null,
+      maxSectionMargin: Math.max(0, ...marginSections.map((section) =>
+        Number.parseFloat(getComputedStyle(section).marginBottom)))
+    };
+  })())`));
+
+  if (pageContract.rootLang !== 'zh'
+    || JSON.stringify(pageContract.homeSectionTags) !== JSON.stringify(expectedHomeSectionTags)
+    || !pageContract.labelledSectionsResolve) {
+    failures.push(`${width}px: homepage semantic tags changed ${JSON.stringify(pageContract)}`);
+  }
+  if (!pageContract.gtm || !pageContract.pixel || pageContract.whatsappLinks.length !== 5
+    || pageContract.whatsappLinks.some((link) => !link.href)) {
+    failures.push(`${width}px: analytics or CTA tracking hooks changed ${JSON.stringify(pageContract)}`);
+  }
+  const tightTitle = pageContract.titles.find((title) =>
+    !title.exists || title.letterSpacing === null || title.letterSpacing < minTitleTracking);
+  if (tightTitle) {
+    failures.push(`${width}px: Chinese section title tracking is too tight ${JSON.stringify(tightTitle)}`);
+  }
+  if (pageContract.maxSectionPadding > maxSectionSpace
+    || pageContract.orderFlowPadding > maxSectionSpace
+    || pageContract.maxSectionMargin > maxSectionSpace
+    || pageContract.storyGap !== 0) {
+    failures.push(`${width}px: section rhythm is too loose ${JSON.stringify({
+      maxSectionPadding: pageContract.maxSectionPadding,
+      orderFlowPadding: pageContract.orderFlowPadding,
+      maxSectionMargin: pageContract.maxSectionMargin,
+      storyGap: pageContract.storyGap,
+      allowed: maxSectionSpace
+    })}`);
+  }
 
   await evaluate(`document.querySelector('#cn-custom-pos')?.scrollIntoView({ block: 'center' })`);
   await wait(350);
@@ -194,4 +284,4 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log('Chinese homepage parity regression passed at 1440px and 390px for the hero, story layouts, benefit cards, grant artwork, and solution diagrams.');
+console.log('Chinese homepage parity regression passed at desktop, laptop, tablet, and mobile widths with preserved tracking hooks, compact section rhythm, and readable title tracking.');

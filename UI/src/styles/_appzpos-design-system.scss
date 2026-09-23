@@ -85,6 +85,26 @@ body {
   text-wrap: pretty;
 }
 
+/* Keep the Chinese landing page compact across devices while giving Han
+   section titles enough tracking to stay legible at display sizes. */
+[data-home-page-template][lang="zh"] {
+  --appz-section-space: clamp(56px, 5vw, 72px);
+}
+
+[data-home-page-template][lang="zh"] .appz-section-title,
+[data-home-page-template][lang="zh"] .home-story-section .appz-display {
+  letter-spacing: .055em !important;
+}
+
+[data-home-page-template][lang="zh"] .home-story-sections {
+  gap: 0;
+}
+
+[data-home-page-template][lang="zh"] .appz-ecosystem {
+  padding-top: clamp(52px, 4.5vw, 68px);
+  padding-bottom: clamp(52px, 4.5vw, 68px);
+}
+
 a,
 button,
 input,
@@ -151,6 +171,20 @@ a {
 
   [data-home-page-template][lang="en"] .appz-section-title {
     font-size: clamp(1.75rem, 7vw, 2.2rem) !important;
+  }
+
+  [data-home-page-template][lang="zh"] {
+    --appz-section-space: 38px;
+  }
+
+  [data-home-page-template][lang="zh"] .appz-section-title,
+  [data-home-page-template][lang="zh"] .home-story-section .appz-display {
+    letter-spacing: .05em !important;
+  }
+
+  [data-home-page-template][lang="zh"] .appz-ecosystem {
+    padding-top: 38px;
+    padding-bottom: 42px;
   }
 }
 
