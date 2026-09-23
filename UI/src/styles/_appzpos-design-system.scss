@@ -1,9 +1,16 @@
 :root {
   --appz-font: "Manrope", "Avenir Next", Arial, sans-serif;
-  --appz-gutter: clamp(20px, 4vw, 64px);
-  --appz-section-space: clamp(64px, 8vw, 112px);
-  --appz-content-width: 1320px;
+  --appz-shell-width: 1240px;
+  --appz-page-gutter: clamp(16px, 3vw, 32px);
+  --appz-header-height: 76px;
+  --appz-gutter: var(--appz-page-gutter);
+  --appz-section-space: clamp(52px, 6vw, 84px);
+  --appz-content-width: var(--appz-shell-width);
   --appz-reading-width: 65ch;
+  --appz-section-title-size: clamp(1.9rem, 2.7vw, 3rem);
+  --appz-section-title-line: 1.08;
+  --appz-section-description-size: clamp(1rem, 1.2vw, 1.1rem);
+  --appz-section-description-line: 1.65;
   --appz-radius-surface: 16px;
   --appz-radius-control: 9px;
   --appz-ink: #101d39;
@@ -17,7 +24,7 @@
   --appz-surface-soft: #f6f9fc;
   --appz-line: #dce8f2;
   --appz-success: #209366;
-  --appz-container: 1240px;
+  --appz-container: var(--appz-shell-width);
   --appz-radius-sm: 12px;
   --appz-radius: 20px;
   --appz-radius-lg: 30px;
@@ -42,16 +49,6 @@ body {
   overflow-x: clip;
 }
 
-/* Shared content-heading rhythm across the homepage and internal pages.
-   Masthead h1 elements sit outside #content and keep their own hero scale. */
-#content h2:not(.fs-6) {
-  font-size: clamp(1.75rem, 2.7vw, 3rem) !important;
-  font-weight: 750;
-  letter-spacing: .025em !important;
-  line-height: 1.1 !important;
-  text-wrap: balance;
-}
-
 #content .appz-display {
   max-width: 16ch !important;
 }
@@ -60,28 +57,24 @@ body {
   max-width: 100% !important;
 }
 
-#content .ecosystem__features h2 {
-  max-width: 100% !important;
-  letter-spacing: -.035em !important;
-}
-
-/* One typographic system for every English homepage section. Component styles
-   continue to own colour and spacing, while these hooks own type rhythm. */
-[data-home-page-template][lang="en"] .appz-section-title {
+.appz-section-title,
+[data-home-page-template] .home-story-section .appz-display {
+  margin-top: 0;
   font-family: var(--appz-font) !important;
-  font-size: clamp(1.9rem, 2.7vw, 3rem) !important;
+  font-size: var(--appz-section-title-size) !important;
   font-weight: 750 !important;
   letter-spacing: -.04em !important;
-  line-height: 1.08 !important;
+  line-height: var(--appz-section-title-line) !important;
   text-wrap: balance;
 }
 
-[data-home-page-template][lang="en"] .appz-section-description {
+.appz-section-description {
+  max-width: var(--appz-reading-width);
   font-family: var(--appz-font) !important;
-  font-size: clamp(1rem, 1.2vw, 1.1rem) !important;
+  font-size: var(--appz-section-description-size) !important;
   font-weight: 400 !important;
   letter-spacing: 0 !important;
-  line-height: 1.65 !important;
+  line-height: var(--appz-section-description-line) !important;
   text-wrap: pretty;
 }
 
@@ -123,7 +116,7 @@ a {
 }
 
 .appzpos-container {
-  width: min(calc(100% - 48px), var(--appz-container));
+  width: min(calc(100% - (var(--appz-page-gutter) * 2)), var(--appz-shell-width));
   margin-inline: auto;
 }
 
@@ -160,19 +153,6 @@ a {
 }
 
 @media (max-width: 767px) {
-  #content h2:not(.fs-6) {
-    font-size: clamp(1.65rem, 7vw, 2.1rem) !important;
-    letter-spacing: .018em !important;
-  }
-
-  .appzpos-container {
-    width: min(calc(100% - 32px), var(--appz-container));
-  }
-
-  [data-home-page-template][lang="en"] .appz-section-title {
-    font-size: clamp(1.75rem, 7vw, 2.2rem) !important;
-  }
-
   [data-home-page-template][lang="zh"] {
     --appz-section-space: 38px;
   }

@@ -22,3 +22,19 @@ test('responsive design tokens expose content, reading and spacing constraints',
     '--appz-content-width', '--appz-reading-width'
   ]) assert.match(tokens, new RegExp(token));
 });
+
+test('sitewide shell aliases retain one 1240px source of truth', () => {
+  assert.match(tokens, /--appz-shell-width:\s*1240px/);
+  assert.match(tokens, /--appz-page-gutter:\s*clamp\(16px,\s*3vw,\s*32px\)/);
+  assert.match(tokens, /--appz-header-height:\s*76px/);
+  assert.match(tokens, /--appz-container:\s*var\(--appz-shell-width\)/);
+  assert.match(tokens, /--appz-content-width:\s*var\(--appz-shell-width\)/);
+});
+
+test('section typography is scoped to explicit title and description hooks', () => {
+  assert.match(tokens, /--appz-section-title-size:\s*clamp\(1\.9rem,\s*2\.7vw,\s*3rem\)/);
+  assert.match(tokens, /--appz-section-title-line:\s*1\.08/);
+  assert.match(tokens, /--appz-section-description-line:\s*1\.65/);
+  assert.doesNotMatch(tokens, /#content h2:not\(\.fs-6\)/);
+  assert.match(tokens, /\[data-home-page-template\]\[lang="zh"\][\s\S]*letter-spacing:\s*\.055em/);
+});
