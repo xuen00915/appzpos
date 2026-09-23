@@ -1,0 +1,14 @@
+:host {
+  display: block;
+}
+
+.appz-home-template__hero-copy {
+  margin-inline: auto;
+  max-width: var(--appz-content-width, 1320px);
+}
+
+.appz-home-template__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
