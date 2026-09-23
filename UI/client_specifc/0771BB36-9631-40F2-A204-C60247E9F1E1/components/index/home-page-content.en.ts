@@ -1,4 +1,11 @@
-import { HomeSolutionsConfig } from '../home-page-template/home-page-template.models';
+import { HomePageTemplateConfig, HomeSolutionsConfig } from '../home-page-template/home-page-template.models';
+import { ENGLISH_HOME_PROOF_CONFIG } from './home-page-proof.en';
+import {
+  ENGLISH_HOME_FEATURES_CONFIG,
+  ENGLISH_HOME_GRANT_CONFIG,
+  ENGLISH_HOME_HARDWARE_CONFIG,
+  ENGLISH_HOME_INDUSTRIES_CONFIG
+} from './home-page-sections.en';
 
 export const ENGLISH_HOME_SOLUTIONS_CONFIG: HomeSolutionsConfig = {
   eyebrow: 'CONNECTED APPZPOS ECOSYSTEM',
@@ -111,4 +118,61 @@ export const ENGLISH_HOME_SOLUTIONS_CONFIG: HomeSolutionsConfig = {
       ]
     }
   ]
+};
+
+export const ENGLISH_HOME_PAGE_CONFIG: HomePageTemplateConfig = {
+  language: 'en',
+  hero: {
+    headingId: 'appzpos-hero-title',
+    title: 'All-In-One POS System',
+    titleAccent: 'in Singapore with PSG Grant',
+    description: 'Transform your F&B, Retail, & Salon Businesses with APPZPOS Cutting-Edge Point of Sales Software',
+    industryTabLabel: 'Preview APPZPOS by business type',
+    industryStatusPrefix: 'Showing APPZPOS for',
+    visual: {
+      kind: 'product-showcase',
+      hardwareImage: 'assets/images/appzpos-pos-terminal-hardware-only.png',
+      hardwareAlt: 'APPZPOS touchscreen POS terminal with receipt printer',
+      hardwareWidth: 1672,
+      hardwareHeight: 941,
+      brandImage: 'https://appzpos.com/admin/Upload/0771BB36-9631-40F2-A204-C60247E9F1E1/Images/APPZPOS-300X150px.png',
+      industries: [
+        {
+          id: 'quick-service', label: 'Quick Service', eyebrow: 'F&B QUICK SERVICE',
+          workspaceTitle: 'Counter & pickup orders', screenImage: 'assets/images/appzpos-screen-quick-service.png',
+          modules: ['POS System', 'Website Ordering', 'Self Order Kiosk', 'Kitchen Display System (KDS)', 'Queue Number Display']
+        },
+        {
+          id: 'restaurant', label: 'Restaurant', eyebrow: 'F&B RESTAURANT',
+          workspaceTitle: 'Table & kitchen orders', screenImage: 'assets/images/appzpos-screen-restaurant.png',
+          modules: ['POS System', 'Website Ordering', 'Table QR Ordering', 'Kitchen Display System (KDS)']
+        },
+        {
+          id: 'retail', label: 'Retail', eyebrow: 'RETAIL',
+          workspaceTitle: 'Products & checkout', screenImage: 'assets/images/appzpos-screen-retail.png',
+          modules: ['POS System', 'Website Ordering', 'Self Order Kiosk']
+        },
+        {
+          id: 'salon', label: 'Salon', eyebrow: 'BEAUTY / SALON',
+          workspaceTitle: 'Services & customers', screenImage: 'assets/images/appzpos-screen-salon.png',
+          modules: ['POS System', 'Website Ordering', 'CRM', 'Inventory Management', 'Payment Integration']
+        }
+      ]
+    },
+    ctas: [
+      { kind: 'action', action: 'request-demo', label: 'Request a Demo' },
+      {
+        kind: 'link', label: 'WhatsApp Us',
+        href: "https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!",
+        target: '_blank', rel: 'noopener noreferrer'
+      }
+    ]
+  },
+  solutions: ENGLISH_HOME_SOLUTIONS_CONFIG,
+  hardware: ENGLISH_HOME_HARDWARE_CONFIG,
+  grant: ENGLISH_HOME_GRANT_CONFIG,
+  features: ENGLISH_HOME_FEATURES_CONFIG,
+  industries: ENGLISH_HOME_INDUSTRIES_CONFIG,
+  proof: ENGLISH_HOME_PROOF_CONFIG,
+  conversion: { locale: 'en', sectionId: 'requestdemo' }
 };

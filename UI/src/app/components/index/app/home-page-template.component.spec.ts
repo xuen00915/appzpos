@@ -5,6 +5,9 @@ import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { HomePageTemplateComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/home-page-template/home-page-template.component';
 import { HomeHeroConfig } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/home-page-template/home-page-template.models';
 import { HomeHeroComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/home-hero/home-hero.component';
+import { CustomHomeComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/index/index.component';
+import { CommonFunctionService } from '../../../services/shared_function/common-function.service';
+import { MatDialog } from '@angular/material/dialog';
 
 describe('HomePageTemplateComponent', () => {
   let fixture: ComponentFixture<HomePageTemplateComponent>;
@@ -102,5 +105,44 @@ describe('HomePageTemplateComponent', () => {
 
     expect(element.querySelector('#requestdemo app-custom-request-demo')).not.toBeNull();
     expect(element.querySelector('app-cn-custom-request-demo')).toBeNull();
+  });
+});
+
+describe('English homepage shared-template parity', () => {
+  it('provides the complete English homepage through one shared template config', () => {
+    const dialog = { open: jasmine.createSpy('open').and.returnValue({ afterClosed: () => ({ subscribe: () => undefined }) }) };
+    TestBed.configureTestingModule({
+      imports: [CommonModule],
+      declarations: [CustomHomeComponent],
+      providers: [
+        { provide: MatDialog, useValue: dialog },
+        { provide: CommonFunctionService, useValue: { BindURL_Image: (name: string) => `/images/${name}` } }
+      ],
+      schemas: [NO_ERRORS_SCHEMA]
+    });
+    const fixture = TestBed.createComponent(CustomHomeComponent);
+    fixture.detectChanges();
+
+    const host = fixture.nativeElement as HTMLElement;
+    const config = (fixture.componentInstance as any).pageConfig;
+    expect(host.querySelector('app-home-page-template')).not.toBeNull();
+    expect(config.language).toBe('en');
+    expect(config.hero.title).toBe('All-In-One POS System');
+    expect(config.hero.titleAccent).toBe('in Singapore with PSG Grant');
+    expect(config.hero.ctas.map((cta: any) => cta.label)).toEqual(['Request a Demo', 'WhatsApp Us']);
+    expect(config.hero.visual.industries.length).toBe(4);
+    expect(config.solutions.items.length).toBe(7);
+    expect(config.features.items.length).toBe(6);
+    expect(config.industries.stories.length).toBe(4);
+    expect(new Set(config.proof.customers.map((customer: any) => customer.image)).size).toBe(76);
+    expect(config.proof.testimonials.length).toBe(4);
+    expect(config.grant.cta.href).toBe('/psg-pos-system-grant-singapore');
+    expect(config.proof.reviewCta.href).toBe('https://g.page/r/CZDr77wgfEgaEAI/review');
+    expect(config.conversion).toEqual({ locale: 'en', sectionId: 'requestdemo' });
+    expect(host.querySelector('.appzpos-legacy-copy-bank')?.hasAttribute('hidden')).toBeTrue();
+
+    fixture.componentInstance.openDialog();
+    expect(dialog.open).toHaveBeenCalled();
+    fixture.destroy();
   });
 });

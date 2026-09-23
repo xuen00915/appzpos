@@ -22,7 +22,7 @@ const posSolutionSource = readFileSync(resolve(
 ), 'utf8');
 const posSolutionHeroTitle = 'APPZPOS Cutting-Edge POS Point of Sales and E-Menu System';
 // Approved homepage hero changes: remove the eyebrow label and CTA arrows.
-const expectedHeroHash = '5f69fd342699bfb7d80fe52fd62e4c636619ea04453cc51b3029589af934ff8a';
+const expectedHeroHash = '0935fcc0d345b887d9dbaf089fe700f02c3ea4d76d8eaceb53009563d2d9c398';
 const approvedRemovedPhrases = new Set([
   // Approved CTA cleanup: decorative arrows are not button wording.
   '→',
@@ -37,10 +37,11 @@ const approvedRemovedPhrases = new Set([
 ]);
 
 function extractHero(source) {
-  const start = source.indexOf('<section class="appzpos-product-hero');
-  const end = source.indexOf('</section>', start);
-  if (start < 0 || end < 0) return '';
-  return source.slice(start, end + '</section>'.length);
+  const pageConfig = source.indexOf('export const ENGLISH_HOME_PAGE_CONFIG');
+  const start = source.indexOf('  hero: {', pageConfig);
+  const end = source.indexOf('  solutions:', start);
+  if (pageConfig < 0 || start < 0 || end < 0) return '';
+  return source.slice(start, end);
 }
 
 const failures = expectedPhrases
@@ -53,18 +54,22 @@ const failures = expectedPhrases
     const preservedCustomerHeading = phrase === 'OUR VALUED CUSTOMERS'
       && currentPhrases.has('Our Valued Customers');
     const preservedInHomeConfig = homeConfigSource.includes(phrase);
+    const preservedIndustryStatus = phrase === 'Showing APPZPOS for {{ activeIndustry.label }}'
+      && homeConfigSource.includes("industryStatusPrefix: 'Showing APPZPOS for'");
     return !approvedRemovedPhrases.has(phrase)
       && !currentPhrases.has(phrase)
       && !preservedInCombinedCopy
       && !preservedCustomerHeading
       && !preservedInHomeConfig
+      && !preservedIndustryStatus
       && !preservedInSharedPosHero;
   })
   .map((phrase) => `visible wording removed: ${phrase}`);
 
 const homeSource = readFileSync(homePath, 'utf8');
-const heroHash = createHash('sha256').update(extractHero(homeSource)).digest('hex');
-if (heroHash !== expectedHeroHash) failures.push('appzpos-product-hero source changed');
+const heroHash = createHash('sha256').update(extractHero(homeConfigSource)).digest('hex');
+if (heroHash !== expectedHeroHash) failures.push('English homepage hero configuration changed');
+if (!homeSource.includes('<app-home-page-template')) failures.push('English homepage no longer uses the shared template');
 
 const routesSource = readFileSync(resolve(componentRoot, '../modules/custom-app-routing.module.ts'), 'utf8');
 for (const route of [
