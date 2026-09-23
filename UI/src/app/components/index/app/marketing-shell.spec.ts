@@ -34,13 +34,45 @@ describe('APPZPOS marketing shell', () => {
     footerFixture.destroy();
   });
 
-  it('groups the desktop navigation into six focused actions', () => {
+  it('groups the desktop navigation into five focused actions', () => {
     const host = headerFixture.nativeElement as HTMLElement;
     const labels = Array.from(host.querySelectorAll<HTMLElement>('.appzpos-nav__primary-item'))
       .map((item) => item.textContent?.replace(/\s+/g, ' ').trim());
     expect(labels).toEqual([
-      'Solutions', 'Industries', 'PSG Grant', 'Resources', 'POS餐饮系统', 'Request a Demo'
+      'Solutions', 'Industries', 'Resources', 'POS餐饮系统', 'Request a Demo'
     ]);
+  });
+
+  it('keeps Resources focused on Blog and PSG Grant', () => {
+    const host = headerFixture.nativeElement as HTMLElement;
+    const resourceLinks = Array.from(
+      host.querySelectorAll<HTMLAnchorElement>('#resources-menu a[href]')
+    ).map((anchor) => ({
+      label: anchor.textContent?.replace(/\s+/g, ' ').trim(),
+      href: anchor.getAttribute('href')
+    }));
+
+    expect(resourceLinks).toEqual([
+      { label: 'Blog', href: '/blog' },
+      { label: 'PSG Grant', href: '/psg-pos-system-grant-singapore' }
+    ]);
+  });
+
+  it('marks only the current navigation destination without changing its URL', () => {
+    const initialUrl = location.href;
+    try {
+      history.replaceState(null, '', '/f&b-restaurant-kitchen-display-system');
+      headerFixture.detectChanges();
+      const current = headerFixture.nativeElement.querySelectorAll('a[aria-current="page"]');
+      expect(current.length).toBe(1);
+      expect(current[0].getAttribute('href')).toBe('/f&b-restaurant-kitchen-display-system');
+      expect(current[0].closest('#solutions-menu')).not.toBeNull();
+      history.replaceState(null, '', '/psg-pos-system-grant-singapore');
+      headerFixture.detectChanges();
+      expect(headerFixture.nativeElement.querySelector('#resources-menu a[aria-current="page"]')?.textContent).toBe('PSG Grant');
+    } finally {
+      history.replaceState(null, '', initialUrl);
+    }
   });
 
   it('keeps every commercial destination reachable', () => {
@@ -51,6 +83,25 @@ describe('APPZPOS marketing shell', () => {
     expect(hrefs).toContain('/f&b-restaurant-cloud-pos-system');
     expect(hrefs).toContain('/cn-f&b-restaurant-cloud-pos-system');
     expect(hrefs).toContain('/point-of-sales-demo-quotation');
+  });
+
+  it('offers direct call and WhatsApp actions in the header', () => {
+    const host = headerFixture.nativeElement as HTMLElement;
+    const callLink = host.querySelector<HTMLAnchorElement>('[aria-label="Call APPZPOS"]');
+    const whatsappLink = host.querySelector<HTMLAnchorElement>('[aria-label="WhatsApp APPZPOS"]');
+
+    expect(callLink?.getAttribute('href')).toBe('tel:+6583109631');
+    expect(whatsappLink?.getAttribute('href')).toBe(
+      "https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!"
+    );
+    expect(whatsappLink?.getAttribute('target')).toBe('_blank');
+    expect(whatsappLink?.getAttribute('rel')).toBe('noopener');
+
+    const headerActions = Array.from(
+      host.querySelectorAll<HTMLAnchorElement>('.appzpos-nav > a[href]')
+    ).map((anchor) => anchor.getAttribute('aria-label') || anchor.textContent?.trim());
+    expect(headerActions.indexOf('Request a Demo')).toBeLessThan(headerActions.indexOf('Call APPZPOS'));
+    expect(headerActions.indexOf('Call APPZPOS')).toBeLessThan(headerActions.indexOf('WhatsApp APPZPOS'));
   });
 
   it('opens and closes menu state with accessible attributes', () => {

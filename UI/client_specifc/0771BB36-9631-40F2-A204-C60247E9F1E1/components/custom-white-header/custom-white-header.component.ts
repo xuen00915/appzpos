@@ -33,6 +33,11 @@ export class CustomWhiteHeaderComponent implements OnDestroy {
     this.openMenu = this.openMenu === menu ? null : menu;
   }
 
+  isCurrentPage(path: string): boolean {
+    const current = this._document.location?.pathname.replace(/\/$/, '') || '/';
+    return current === path || (path === '/blog' && current.startsWith('/blog/'));
+  }
+
   toggleMobileMenu(): void {
     this.mobileMenuOpen = !this.mobileMenuOpen;
     this.syncScrollLock();
