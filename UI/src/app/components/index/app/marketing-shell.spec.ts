@@ -195,12 +195,16 @@ describe('APPZPOS marketing shell', () => {
     expect(credit?.getAttribute('rel')).toContain('noopener');
   });
 
-  it('keeps the footer details in one integrated desktop row', () => {
+  it('places the designer credit directly under the copyright phrase', () => {
     const host = footerFixture.nativeElement as HTMLElement;
     const footer = host.querySelector<HTMLElement>('#footer.appzpos-footer')!;
     const bottom = host.querySelector<HTMLElement>('#copyrights.appzpos-footer__bottom')!;
+    const legal = bottom.querySelector<HTMLElement>('.appzpos-footer__legal')!;
 
-    expect(bottom.children.length).toBe(3);
+    expect(bottom.children.length).toBe(2);
+    expect(legal.children.length).toBe(2);
+    expect(legal.firstElementChild?.textContent).toContain('Copyrights 2016-2023');
+    expect(legal.lastElementChild).toHaveClass('appzpos-footer__credit');
     expect(getComputedStyle(bottom).flexDirection).toBe('row');
     expect(getComputedStyle(bottom).backgroundColor).toBe(getComputedStyle(footer).backgroundColor);
   });
