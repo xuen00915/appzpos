@@ -1,5 +1,6 @@
 <section #ecosystemSection
          class="appz-ecosystem"
+         data-home-section="island"
          [class.is-visible]="isVisible"
          [class.has-active-island]="activeIslandId"
          aria-labelledby="appz-ecosystem-title">
@@ -7,8 +8,8 @@
 
     <header class="appz-ecosystem__heading">
         <p *ngIf="config.eyebrow" class="appz-ecosystem__eyebrow">{{ config.eyebrow }}</p>
-        <h2 id="appz-ecosystem-title">{{ config.title }}</h2>
-        <p *ngIf="config.description" class="appz-ecosystem__intro">{{ config.description }}</p>
+        <h2 id="appz-ecosystem-title" class="appz-section-title">{{ config.title }}</h2>
+        <p *ngIf="config.description" class="appz-ecosystem__intro appz-section-description">{{ config.description }}</p>
     </header>
 
     <div class="appz-ecosystem__layout appz-ecosystem__window" data-ecosystem-layout>

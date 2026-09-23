@@ -1,4 +1,4 @@
-<section class="appzpos-product-hero appzpos-product-hero--reclined" [attr.aria-labelledby]="config.headingId">
+<section class="appzpos-product-hero appzpos-product-hero--reclined" data-home-section="hero" [attr.aria-labelledby]="config.headingId">
   <div class="appzpos-product-hero__frame">
     <div class="appzpos-product-hero__copy">
       <h1 [id]="config.headingId">
@@ -54,22 +54,6 @@
     <div *ngIf="productVisual as product"
          class="appzpos-product-hero__visual"
          [attr.aria-label]="product.hardwareAlt">
-      <aside class="appzpos-module-orbit"
-             [class.is-breaking]="transitionPhase === 'breaking'"
-             [class.is-rebuilding]="transitionPhase === 'rebuilding'"
-             [class.is-settled]="transitionPhase === 'settled'"
-             [attr.aria-label]="activeIndustry ? activeIndustry.label + ' APPZPOS modules' : null">
-        <div class="appzpos-module-orbit__list" role="list">
-          <div *ngFor="let module of activeIndustry?.modules; let moduleIndex = index; trackBy: trackModule"
-               class="appzpos-module-orbit__card"
-               [class.appzpos-module-orbit__card--primary]="moduleIndex === 0"
-               role="listitem"
-               [style.--module-order]="moduleIndex">
-            <span class="appzpos-module-orbit__label">{{ module }}</span>
-          </div>
-        </div>
-      </aside>
-
       <div class="appzpos-product-hero__machine">
         <img [src]="product.hardwareImage"
              [alt]="product.hardwareAlt"
@@ -101,6 +85,22 @@
           </div>
         </div>
       </div>
+
+      <aside class="appzpos-module-orbit"
+             [class.is-breaking]="transitionPhase === 'breaking'"
+             [class.is-rebuilding]="transitionPhase === 'rebuilding'"
+             [class.is-settled]="transitionPhase === 'settled'"
+             [attr.aria-label]="activeIndustry ? activeIndustry.label + ' APPZPOS modules' : null">
+        <div class="appzpos-module-orbit__list" role="list">
+          <div *ngFor="let module of activeIndustry?.modules; let moduleIndex = index; trackBy: trackModule"
+               class="appzpos-module-orbit__card"
+               [class.appzpos-module-orbit__card--primary]="moduleIndex === 0"
+               role="listitem"
+               [style.--module-order]="moduleIndex">
+            <span class="appzpos-module-orbit__label">{{ module }}</span>
+          </div>
+        </div>
+      </aside>
     </div>
 
     <div *ngIf="responsiveVisual as image"

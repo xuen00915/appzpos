@@ -81,7 +81,7 @@ for (const width of viewports) {
     const contactFields = [...document.querySelectorAll('#requestdemo .appz-demo__field input')];
     const heading = section?.querySelector('h2');
     const hubLogo = document.querySelector('[data-ecosystem-hub-logo]');
-    const integratedTitle = document.querySelector('#ecosystem-title');
+    const integratedTitle = document.querySelector('#integrated-pos-title');
     const hardwareWhatsapp = document.querySelector('[data-hardware-whatsapp]');
     const grant = document.querySelector('.ecosystem__grant');
     const grantVisual = document.querySelector('.ecosystem__grant-visual');
@@ -182,7 +182,15 @@ for (const width of viewports) {
   if (!layout.exists) failures.push(`${width}px: ecosystem structure is incomplete`);
   if (layout.placement !== 'app-home-order-flow') failures.push(`${width}px: ecosystem is not directly after the hero`);
   if (!String(layout.nextSectionClass).includes('appz-home-story')) failures.push(`${width}px: existing homepage content does not follow the ecosystem`);
-  if (JSON.stringify(layout.contentOrder) !== JSON.stringify(['app-home-ecosystem', 'app-home-industries', 'app-home-proof'])) failures.push(`${width}px: homepage sections are in the wrong order`);
+  if (JSON.stringify(layout.contentOrder) !== JSON.stringify([
+    'app-home-ecosystem',
+    'app-home-ecosystem',
+    'app-home-ecosystem',
+    'app-home-industries',
+    'app-home-ecosystem',
+    'app-home-proof',
+    'app-home-proof'
+  ])) failures.push(`${width}px: homepage sections are in the wrong order`);
   if (layout.productSuitePresent) failures.push(`${width}px: removed product-suite section still renders`);
   if (layout.heading !== 'Everything Works Together') failures.push(`${width}px: ecosystem heading changed`);
   if (layout.headingSize > 74) failures.push(`${width}px: ecosystem heading is still oversized (${layout.headingSize}px)`);

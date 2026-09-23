@@ -59,6 +59,9 @@ for (const width of viewports) {
       const screenImages = [...document.querySelectorAll('.appzpos-screen-slice img')];
       const moduleCards = [...document.querySelectorAll('.appzpos-module-orbit__card')];
       const moduleList = document.querySelector('.appzpos-module-orbit__list');
+      const moduleOrbit = document.querySelector('.appzpos-module-orbit');
+      const machine = document.querySelector('.appzpos-product-hero__machine');
+      const visual = document.querySelector('.appzpos-product-hero__visual');
       const heroTitle = document.querySelector('.appzpos-product-hero h1');
       const heroIntro = document.querySelector('.appzpos-product-hero__intro');
       const heroTitleRange = document.createRange();
@@ -85,12 +88,17 @@ for (const width of viewports) {
         moduleCardAnimations: moduleCards.map((card) => ({
           card: getComputedStyle(card).animationName,
           border: getComputedStyle(card, '::before').animationName,
-          surface: getComputedStyle(card, '::after').animationName,
-          surfaceColor: getComputedStyle(card, '::after').backgroundColor
+          borderImage: getComputedStyle(card, '::before').backgroundImage,
+          shadow: getComputedStyle(card).boxShadow
         })),
         moduleList: {
           ...rect(moduleList),
           overflowX: getComputedStyle(moduleList).overflowX
+        },
+        modulePlacement: {
+          machine: rect(machine),
+          orbit: rect(moduleOrbit),
+          machineBeforeOrbit: [...visual.children].indexOf(machine) < [...visual.children].indexOf(moduleOrbit)
         },
         heroCopy: {
           title: rect(heroTitle),
@@ -163,10 +171,6 @@ for (const [width, layout] of Object.entries(layouts)) {
     failures.push(`${width}px: hero description extends outside the viewport`);
   }
   if (Number(width) > 1024) {
-    const [primaryCard, ...satelliteCards] = layout.moduleCards;
-    if (primaryCard && satelliteCards.some((card) => primaryCard.width <= card.width)) {
-      failures.push(`${width}px: POS System does not have stronger width hierarchy than its satellite modules`);
-    }
     for (const [index, card] of layout.moduleCards.entries()) {
       if (card.x < -0.75 || card.x + card.width > Number(width) + 0.75) {
         failures.push(`${width}px: desktop module card ${index + 1} extends outside the viewport`);
@@ -180,15 +184,19 @@ for (const [width, layout] of Object.entries(layouts)) {
       failures.push(`${width}px: the module cards are not horizontally scrollable`);
     }
   }
+  if (!layout.modulePlacement.machineBeforeOrbit
+    || layout.modulePlacement.orbit.y + .75 < layout.modulePlacement.machine.y + layout.modulePlacement.machine.height) {
+    failures.push(`${width}px: function tags do not follow the POS device`);
+  }
   for (const [index, animation] of layout.moduleCardAnimations.entries()) {
-    if (animation.card !== 'none' || animation.surface !== 'none') {
-      failures.push(`${width}px: settled module card ${index + 1} moves instead of limiting motion to its border`);
+    if (animation.card !== 'none' || animation.border !== 'none') {
+      failures.push(`${width}px: settled function tag ${index + 1} still animates`);
     }
-    if (animation.border === 'none') {
-      failures.push(`${width}px: module card ${index + 1} is missing the animated orange gradient border`);
+    if (animation.borderImage !== 'none') {
+      failures.push(`${width}px: function tag ${index + 1} still has a gradient border effect`);
     }
-    if (!/^rgba?\(255, 255, 255/.test(animation.surfaceColor)) {
-      failures.push(`${width}px: module card ${index + 1} does not retain a white inner surface`);
+    if (animation.shadow !== 'none') {
+      failures.push(`${width}px: function tag ${index + 1} still has a glow or shadow`);
     }
   }
 

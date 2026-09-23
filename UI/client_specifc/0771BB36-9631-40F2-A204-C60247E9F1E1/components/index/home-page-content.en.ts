@@ -3,6 +3,7 @@ import { ENGLISH_HOME_PROOF_CONFIG } from './home-page-proof.en';
 import {
   ENGLISH_HOME_FEATURES_CONFIG,
   ENGLISH_HOME_GRANT_CONFIG,
+  ENGLISH_HOME_GROWTH_CONFIG,
   ENGLISH_HOME_HARDWARE_CONFIG,
   ENGLISH_HOME_INDUSTRIES_CONFIG
 } from './home-page-sections.en';
@@ -122,6 +123,7 @@ export const ENGLISH_HOME_SOLUTIONS_CONFIG: HomeSolutionsConfig = {
 
 export const ENGLISH_HOME_PAGE_CONFIG: HomePageTemplateConfig = {
   language: 'en',
+  layout: 'english-landing',
   hero: {
     headingId: 'appzpos-hero-title',
     title: 'All-In-One POS System',
@@ -170,6 +172,7 @@ export const ENGLISH_HOME_PAGE_CONFIG: HomePageTemplateConfig = {
   },
   solutions: ENGLISH_HOME_SOLUTIONS_CONFIG,
   hardware: ENGLISH_HOME_HARDWARE_CONFIG,
+  growth: ENGLISH_HOME_GROWTH_CONFIG,
   grant: ENGLISH_HOME_GRANT_CONFIG,
   features: ENGLISH_HOME_FEATURES_CONFIG,
   industries: ENGLISH_HOME_INDUSTRIES_CONFIG,

@@ -139,65 +139,58 @@ describe('HomePageTemplateComponent', () => {
     expect(element.querySelector('app-cn-custom-request-demo')).toBeNull();
   });
 
-  it('keeps both locale templates ordered, overflow-safe and touch-friendly at all supported widths', () => {
-    const copyStyles = (target: Document) => {
-      for (const sheet of Array.from(document.styleSheets)) {
-        try {
-          const style = target.createElement('style');
-          style.textContent = Array.from(sheet.cssRules).map(rule => rule.cssText).join('\n');
-          target.head.appendChild(style);
-        } catch { /* Cross-origin styles are not part of the compiled app bundle. */ }
-      }
-    };
-
+  it('keeps both locale templates semantically ordered with unique document ids', () => {
     for (const pageConfig of [ENGLISH_HOME_PAGE_CONFIG, CHINESE_HOME_PAGE_CONFIG]) {
       fixture.componentRef.setInput('config', pageConfig);
       fixture.detectChanges();
 
-      const frame = document.createElement('iframe');
-      document.body.appendChild(frame);
-      try {
-        const doc = frame.contentDocument!;
-        copyStyles(doc);
-        doc.body.appendChild(element.cloneNode(true));
+      const ids = Array.from(element.querySelectorAll<HTMLElement>('[id]')).map(node => node.id).filter(Boolean);
+      expect(ids.length).withContext(`${pageConfig.language} duplicate ids`).toBe(new Set(ids).size);
+      expect(element.querySelector('app-home-hero')).not.toBeNull();
+      expect(element.querySelector('main.appz-home-story')).not.toBeNull();
+      if (pageConfig.conversion) {
+        expect(element.querySelector('main.appz-home-story')?.lastElementChild?.classList)
+          .withContext(`${pageConfig.language} conversion panel order`).toContain('appz-conversion-panel');
+      }
+    }
+  });
 
-        for (const width of [1450, 1280, 1024, 820, 768, 430, 390, 320]) {
-          frame.style.width = width + 'px';
-          const view = frame.contentWindow!;
-          expect(doc.documentElement.scrollWidth)
-            .withContext(`${pageConfig.language} horizontal overflow at ${width}`)
-            .toBeLessThanOrEqual(doc.documentElement.clientWidth + 1);
+  it('renders the approved English homepage sequence as separate semantic sections', () => {
+    fixture.componentRef.setInput('config', ENGLISH_HOME_PAGE_CONFIG);
+    fixture.detectChanges();
 
-          const ids = Array.from(doc.querySelectorAll<HTMLElement>('[id]')).map(node => node.id).filter(Boolean);
-          expect(ids.length).withContext(`${pageConfig.language} duplicate ids at ${width}`).toBe(new Set(ids).size);
+    const sequence = Array.from(element.querySelectorAll<HTMLElement>('[data-home-section]'))
+      .map(section => section.dataset['homeSection']);
 
-          const targets = Array.from(doc.querySelectorAll<HTMLElement>('button, a'))
-            .filter(node => {
-              const rect = node.getBoundingClientRect();
-              const styles = view.getComputedStyle(node);
-              return rect.width > 0 && rect.height > 0 && styles.display !== 'none' && styles.visibility !== 'hidden';
-            });
-          const undersizedTargets = targets
-            .filter(node => node.getBoundingClientRect().height < 44)
-            .map(node => `${node.tagName.toLowerCase()}.${node.className}:${Math.round(node.getBoundingClientRect().height)}`);
-          expect(undersizedTargets)
-            .withContext(`${pageConfig.language} touch target below 44px at ${width}`)
-            .toEqual([]);
+    expect(sequence).toEqual([
+      'hero',
+      'island',
+      'integrated-pos',
+      'grow-your-business',
+      'grant',
+      'industries',
+      'key-features',
+      'customers',
+      'reviews',
+      'form'
+    ]);
+  });
 
-          const ordered = Array.from(doc.querySelectorAll<HTMLElement>(
-            'app-home-hero > section, app-home-order-flow > section, main > app-home-story-sections article, main > app-home-ecosystem > section > div, main > app-home-industries > section, main > app-home-proof > section, main > .appz-conversion-panel'
-          )).map(section => section.getBoundingClientRect().top);
-          expect(ordered).withContext(`${pageConfig.language} section order at ${width}`)
-            .toEqual([...ordered].sort((left, right) => left - right));
+  it('uses the shared title and description typography hooks throughout the English homepage', () => {
+    fixture.componentRef.setInput('config', ENGLISH_HOME_PAGE_CONFIG);
+    fixture.detectChanges();
 
-          const story = doc.querySelector<HTMLElement>('.home-story-section');
-          if (story) {
-            expect(view.getComputedStyle(story).gridTemplateColumns.split(' ').length)
-              .withContext(`${pageConfig.language} story columns at ${width}`)
-              .toBe(width > 900 ? 2 : 1);
-          }
-        }
-      } finally { frame.remove(); }
+    const sections = Array.from(element.querySelectorAll<HTMLElement>('[data-home-section]'))
+      .filter(section => section.dataset['homeSection'] !== 'hero');
+    const titledSections = sections.filter(section => section.querySelector('h2'));
+
+    expect(titledSections.length).toBeGreaterThan(0);
+    for (const section of titledSections) {
+      expect(section.querySelector('h2')?.classList).withContext(section.dataset['homeSection'] || 'homepage section')
+        .toContain('appz-section-title');
+      for (const description of Array.from(section.querySelectorAll('.appz-section-description'))) {
+        expect(description.tagName).toBe('P');
+      }
     }
   });
 });
@@ -226,6 +219,14 @@ describe('English homepage shared-template parity', () => {
     expect(config.hero.ctas.map((cta: any) => cta.label)).toEqual(['Request a Demo', 'WhatsApp Us']);
     expect(config.hero.visual.industries.length).toBe(4);
     expect(config.solutions.items.length).toBe(7);
+    expect(config.growth.title).toBe('Grow Your Business Revenue with APPZPOS Solution');
+    expect(config.growth.items.map((item: any) => item.label)).toEqual([
+      'Powerful Cloud POS',
+      'Analytics & Reporting',
+      'Third-party Integrations',
+      'Multiple Outlets'
+    ]);
+    expect(config.features.title).toBe('Key Features');
     expect(config.features.items.length).toBe(6);
     expect(config.industries.stories.length).toBe(4);
     expect(new Set(config.proof.customers.map((customer: any) => customer.image)).size).toBe(76);

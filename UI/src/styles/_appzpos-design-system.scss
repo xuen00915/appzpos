@@ -65,6 +65,26 @@ body {
   letter-spacing: -.035em !important;
 }
 
+/* One typographic system for every English homepage section. Component styles
+   continue to own colour and spacing, while these hooks own type rhythm. */
+[data-home-page-template][lang="en"] .appz-section-title {
+  font-family: var(--appz-font) !important;
+  font-size: clamp(1.9rem, 2.7vw, 3rem) !important;
+  font-weight: 750 !important;
+  letter-spacing: -.04em !important;
+  line-height: 1.08 !important;
+  text-wrap: balance;
+}
+
+[data-home-page-template][lang="en"] .appz-section-description {
+  font-family: var(--appz-font) !important;
+  font-size: clamp(1rem, 1.2vw, 1.1rem) !important;
+  font-weight: 400 !important;
+  letter-spacing: 0 !important;
+  line-height: 1.65 !important;
+  text-wrap: pretty;
+}
+
 a,
 button,
 input,
@@ -127,6 +147,10 @@ a {
 
   .appzpos-container {
     width: min(calc(100% - 32px), var(--appz-container));
+  }
+
+  [data-home-page-template][lang="en"] .appz-section-title {
+    font-size: clamp(1.75rem, 7vw, 2.2rem) !important;
   }
 }
 

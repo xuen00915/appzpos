@@ -1,6 +1,7 @@
 import {
   HomeFeatureSectionConfig,
   HomeGrantConfig,
+  HomeGrowthSectionConfig,
   HomeHardwareConfig,
   HomeIndustrySectionConfig
 } from '../home-page-template/home-page-template.models';
@@ -37,9 +38,32 @@ export const ENGLISH_HOME_GRANT_CONFIG: HomeGrantConfig = {
   cta: { kind: 'link', href: '/psg-pos-system-grant-singapore', label: 'Learn More' }
 };
 
+export const ENGLISH_HOME_GROWTH_CONFIG: HomeGrowthSectionConfig = {
+  eyebrow: 'GROW YOUR BUSINESS',
+  title: 'Grow Your Business Revenue with APPZPOS Solution',
+  items: [
+    {
+      label: 'Powerful Cloud POS',
+      text: 'Boost revenue, delight customers, enhance restaurant operations, all managed on one platform.'
+    },
+    {
+      label: 'Analytics & Reporting',
+      text: 'A powerful business dashboard that provides real-time, valuable insights into your restaurant’s performance anytime, anywhere.'
+    },
+    {
+      label: 'Third-party Integrations',
+      text: 'Partnered with leading food ordering platforms, delivery partners, payment gateways, accounting software, and mall management systems.'
+    },
+    {
+      label: 'Multiple Outlets',
+      text: 'If you are expanding to more locations, our system ensures a smooth and intuitive transition, allowing you to easily manage them from one simple dashboard.'
+    }
+  ]
+};
+
 export const ENGLISH_HOME_FEATURES_CONFIG: HomeFeatureSectionConfig = {
   eyebrow: 'KEY FEATURES',
-  title: 'Grow Your Business Revenue with APPZPOS Solution',
+  title: 'Key Features',
   items: [
     {
       id: 'crm', title: 'Customer Relationship Management(CRM)',

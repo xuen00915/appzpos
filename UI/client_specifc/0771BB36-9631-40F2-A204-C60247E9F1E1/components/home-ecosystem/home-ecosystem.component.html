@@ -1,9 +1,9 @@
-<section class="ecosystem" aria-labelledby="ecosystem-title">
-  <div *ngIf="hardware as hardwareConfig" class="appz-section ecosystem__hardware appz-split" appMarketingReveal>
+<section class="ecosystem">
+  <div *ngIf="hardware as hardwareConfig" class="appz-section ecosystem__hardware appz-split" data-home-section="integrated-pos" aria-labelledby="integrated-pos-title" appMarketingReveal>
     <div class="ecosystem__hardware-copy">
       <p *ngIf="hardwareConfig.eyebrow" class="appz-kicker">{{ hardwareConfig.eyebrow }}</p>
-      <h2 id="ecosystem-title" class="appz-display">{{ hardwareConfig.title }}</h2>
-      <p *ngFor="let paragraph of hardwareConfig.paragraphs" class="appz-lede">{{ paragraph }}</p>
+      <h2 id="integrated-pos-title" class="appz-display appz-section-title">{{ hardwareConfig.title }}</h2>
+      <p *ngFor="let paragraph of hardwareConfig.paragraphs" class="appz-lede appz-section-description">{{ paragraph }}</p>
       <a *ngIf="hardwareConfig.cta as cta" class="ecosystem__whatsapp"
          data-hardware-whatsapp
          [href]="cta.href" [target]="cta.target || null" [rel]="cta.rel || null">
@@ -16,14 +16,28 @@
     </div>
   </div>
 
-  <div *ngIf="grant as grantConfig" class="appz-section ecosystem__grant" appMarketingReveal>
+  <div *ngIf="growth as growthConfig" class="appz-section ecosystem__growth" data-home-section="grow-your-business" aria-labelledby="growth-title" appMarketingReveal>
+    <header class="ecosystem__growth-intro">
+      <p *ngIf="growthConfig.eyebrow" class="appz-kicker">{{ growthConfig.eyebrow }}</p>
+      <h2 id="growth-title" class="appz-section-title">{{ growthConfig.title }}</h2>
+      <p *ngIf="growthConfig.description" class="appz-section-description">{{ growthConfig.description }}</p>
+    </header>
+    <ul class="ecosystem__growth-list">
+      <li *ngFor="let item of growthConfig.items" class="ecosystem__growth-item">
+        <span class="ecosystem__growth-marker" aria-hidden="true"></span>
+        <p><strong *ngIf="item.label">{{ item.label }}</strong><span *ngIf="item.label"> — </span>{{ item.text }}</p>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="grant as grantConfig" class="appz-section ecosystem__grant" data-home-section="grant" aria-labelledby="grant-title" appMarketingReveal>
     <div class="ecosystem__grant-visual">
       <img [src]="imageUrl(grantConfig.image)" [alt]="grantConfig.imageAlt"
            [attr.width]="grantConfig.imageWidth" [attr.height]="grantConfig.imageHeight" loading="lazy">
     </div>
     <div class="ecosystem__grant-copy">
-      <h2>{{ grantConfig.title }}<br *ngIf="grantConfig.secondaryTitle">{{ grantConfig.secondaryTitle }}</h2>
-      <p *ngFor="let paragraph of grantConfig.paragraphs">{{ paragraph }}</p>
+      <h2 id="grant-title" class="appz-section-title">{{ grantConfig.title }}<br *ngIf="grantConfig.secondaryTitle">{{ grantConfig.secondaryTitle }}</h2>
+      <p *ngFor="let paragraph of grantConfig.paragraphs" class="appz-section-description">{{ paragraph }}</p>
       <a class="ecosystem__grant-link" [href]="grantConfig.cta.href">{{ grantConfig.cta.label }}</a>
       <img *ngIf="grantConfig.secondaryImage" class="ecosystem__grant-lockup"
         [src]="imageUrl(grantConfig.secondaryImage)" [alt]="grantConfig.secondaryImageAlt || ''"
@@ -31,11 +45,11 @@
     </div>
   </div>
 
-  <div *ngIf="features as featureConfig" class="ecosystem__features" appMarketingReveal>
+  <div *ngIf="features as featureConfig" class="ecosystem__features" data-home-section="key-features" aria-labelledby="features-title" appMarketingReveal>
     <header class="ecosystem__features-intro">
       <p *ngIf="featureConfig.eyebrow" class="appz-kicker">{{ featureConfig.eyebrow }}</p>
-      <h2>{{ featureConfig.title }}</h2>
-      <p *ngIf="featureConfig.description">{{ featureConfig.description }}</p>
+      <h2 id="features-title" class="appz-section-title">{{ featureConfig.title }}</h2>
+      <p *ngIf="featureConfig.description" class="appz-section-description">{{ featureConfig.description }}</p>
     </header>
     <ol class="ecosystem__feature-list">
       <li *ngFor="let feature of featureConfig.items; index as featureIndex"

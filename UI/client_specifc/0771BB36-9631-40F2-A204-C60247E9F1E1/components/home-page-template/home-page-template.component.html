@@ -5,12 +5,27 @@
 
   <main class="appz-page appz-home-story">
     <app-home-story-sections *ngIf="config.storySections?.length" [sections]="config.storySections!" (requestDemo)="requestDemo.emit()"></app-home-story-sections>
-    <app-home-ecosystem *ngIf="config.hardware || config.grant || config.features"
-      [hardware]="config.hardware" [grant]="config.grant" [features]="config.features"></app-home-ecosystem>
-    <app-home-industries *ngIf="config.industries as industries" [config]="industries"></app-home-industries>
-    <app-home-proof *ngIf="config.proof as proof" [config]="proof"></app-home-proof>
 
-    <section *ngIf="config.conversion" class="appz-conversion-panel" [id]="config.conversion.sectionId">
+    <ng-container *ngIf="config.layout === 'english-landing'; else defaultHomepageSections">
+      <app-home-ecosystem *ngIf="config.hardware as hardware" [hardware]="hardware"></app-home-ecosystem>
+      <app-home-ecosystem *ngIf="config.growth as growth" [growth]="growth"></app-home-ecosystem>
+      <app-home-ecosystem *ngIf="config.grant as grant" [grant]="grant"></app-home-ecosystem>
+      <app-home-industries *ngIf="config.industries as industries" [config]="industries"></app-home-industries>
+      <app-home-ecosystem *ngIf="config.features as features" [features]="features"></app-home-ecosystem>
+      <ng-container *ngIf="config.proof as proof">
+        <app-home-proof [config]="proof" mode="customers"></app-home-proof>
+        <app-home-proof [config]="proof" mode="reviews"></app-home-proof>
+      </ng-container>
+    </ng-container>
+
+    <ng-template #defaultHomepageSections>
+      <app-home-ecosystem *ngIf="config.hardware || config.growth || config.grant || config.features"
+        [hardware]="config.hardware" [growth]="config.growth" [grant]="config.grant" [features]="config.features"></app-home-ecosystem>
+      <app-home-industries *ngIf="config.industries as industries" [config]="industries"></app-home-industries>
+      <app-home-proof *ngIf="config.proof as proof" [config]="proof"></app-home-proof>
+    </ng-template>
+
+    <section *ngIf="config.conversion" class="appz-conversion-panel" data-home-section="form" [id]="config.conversion.sectionId">
       <app-custom-request-demo [locale]="config.conversion.locale"></app-custom-request-demo>
     </section>
   </main>

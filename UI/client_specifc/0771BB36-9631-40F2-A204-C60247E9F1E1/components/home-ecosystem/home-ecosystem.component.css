@@ -11,10 +11,9 @@
   align-items: center;
 }
 
-.ecosystem__hardware #ecosystem-title {
+.ecosystem__hardware .appz-section-title {
   width: min(100%, 22ch);
   max-width: 22ch !important;
-  font-size: clamp(2.2rem, 3.8vw, 4rem);
 }
 
 .ecosystem__hardware-copy {
@@ -75,6 +74,69 @@
   padding: clamp(24px, 4vw, 56px);
   filter: none;
   object-fit: contain;
+}
+
+.ecosystem__growth {
+  display: grid;
+  gap: clamp(38px, 5vw, 64px);
+}
+
+.ecosystem__growth-intro {
+  display: grid;
+  justify-items: center;
+  text-align: center;
+}
+
+.ecosystem__growth-intro > * {
+  margin-top: 0;
+}
+
+.ecosystem__growth-intro h2 {
+  width: min(100%, 24ch);
+  margin-bottom: 0;
+  color: #101d39;
+}
+
+.ecosystem__growth-intro .appz-section-description {
+  max-width: 65ch;
+  margin-bottom: 0;
+  color: #536681;
+}
+
+.ecosystem__growth-list {
+  display: grid;
+  width: min(100%, 1120px);
+  gap: clamp(22px, 2.6vw, 34px);
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+
+.ecosystem__growth-item {
+  display: grid;
+  grid-template-columns: 18px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+  color: #23272f;
+}
+
+.ecosystem__growth-marker {
+  width: 0;
+  height: 0;
+  margin-top: .52em;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-left: 11px solid #3c9beb;
+}
+
+.ecosystem__growth-item p {
+  margin: 0;
+  font-size: clamp(1.08rem, 1.55vw, 1.35rem);
+  line-height: 1.55;
+}
+
+.ecosystem__growth-item strong {
+  font-weight: 760;
 }
 
 .ecosystem__features {
@@ -304,9 +366,29 @@
 }
 
 @media (max-width: 767px) {
-  .ecosystem__hardware #ecosystem-title {
+  .ecosystem__hardware .appz-section-title {
     width: 100%;
     max-width: 16ch !important;
+  }
+
+  .ecosystem__growth {
+    gap: 32px;
+  }
+
+  .ecosystem__growth-item {
+    grid-template-columns: 13px minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  .ecosystem__growth-marker {
+    margin-top: .48em;
+    border-top-width: 6px;
+    border-bottom-width: 6px;
+    border-left-width: 9px;
+  }
+
+  .ecosystem__growth-item p {
+    font-size: 1rem;
   }
 
   .ecosystem__whatsapp {

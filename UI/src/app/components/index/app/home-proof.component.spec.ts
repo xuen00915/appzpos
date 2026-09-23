@@ -161,4 +161,22 @@ describe('HomeProofComponent', () => {
     expect(duplicates.length).toBe(3);
     expect(host.querySelector('.proof__testimonial-layout')).toBeNull();
   });
+
+  it('can render customers and reviews as separate homepage sections', () => {
+    const component = fixture.componentInstance as any;
+    const host = fixture.nativeElement as HTMLElement;
+
+    component.mode = 'customers';
+    fixture.detectChanges();
+    expect(host.querySelector('.proof__customers')).not.toBeNull();
+    expect(host.querySelector('.proof__testimonial-layout')).toBeNull();
+    expect(host.querySelector('section')?.dataset['homeSection']).toBe('customers');
+
+    component.mode = 'reviews';
+    fixture.detectChanges();
+    expect(host.querySelector('.proof__customers')).toBeNull();
+    expect(host.querySelector('.proof__customer-dialog')).toBeNull();
+    expect(host.querySelector('.proof__testimonial-layout')).not.toBeNull();
+    expect(host.querySelector('section')?.dataset['homeSection']).toBe('reviews');
+  });
 });

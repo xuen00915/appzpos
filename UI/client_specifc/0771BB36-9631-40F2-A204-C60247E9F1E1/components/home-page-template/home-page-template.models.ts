@@ -144,6 +144,13 @@ export interface HomeFeatureSectionConfig {
   readonly items: readonly HomeFeatureItem[];
 }
 
+export interface HomeGrowthSectionConfig {
+  readonly eyebrow?: string;
+  readonly title: string;
+  readonly description?: string;
+  readonly items: readonly HomeStoryBullet[];
+}
+
 export interface HomeIndustryModule {
   readonly id: string;
   readonly title: string;
@@ -210,10 +217,12 @@ export interface HomeFloatingContact {
 
 export interface HomePageTemplateConfig {
   readonly language: HomeLanguage;
+  readonly layout?: 'default' | 'english-landing';
   readonly hero: HomeHeroConfig;
   readonly solutions?: HomeSolutionsConfig;
   readonly storySections?: readonly HomeStorySectionConfig[];
   readonly hardware?: HomeHardwareConfig;
+  readonly growth?: HomeGrowthSectionConfig;
   readonly grant?: HomeGrantConfig;
   readonly features?: HomeFeatureSectionConfig;
   readonly industries?: HomeIndustrySectionConfig;

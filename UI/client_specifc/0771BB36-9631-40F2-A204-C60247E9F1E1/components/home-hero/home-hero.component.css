@@ -23,6 +23,47 @@
   min-height: 44px;
 }
 
+.appzpos-product-hero__visual:not(.appzpos-product-hero__visual--responsive) {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.appzpos-module-orbit {
+  position: relative;
+  inset: auto;
+  width: 100%;
+  pointer-events: auto;
+}
+
+.appzpos-module-orbit__list {
+  position: relative;
+  inset: auto;
+  display: flex;
+  justify-content: center;
+  gap: .72rem;
+  width: 100%;
+  overflow-x: auto;
+}
+
+.appzpos-module-orbit__card,
+.appzpos-module-orbit__card:nth-child(n) {
+  position: relative;
+  inset: auto;
+  flex: 0 0 auto;
+  border: 1px solid #afd8f5;
+  background: #fff;
+  box-shadow: none;
+}
+
+.appzpos-module-orbit__card::before,
+.appzpos-module-orbit__card::after {
+  display: none;
+  background: none;
+  animation: none;
+  content: none;
+}
+
 @media (max-width: 767px) {
   .appzpos-product-hero__visual--responsive {
     min-height: 260px;

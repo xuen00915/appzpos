@@ -1,8 +1,8 @@
 <section class="appz-demo" aria-labelledby="appz-demo-title">
     <div class="appz-demo__copy">
         <p *ngIf="copy.eyebrow" class="appz-demo__eyebrow">{{ copy.eyebrow }}</p>
-        <h2 id="appz-demo-title">{{ copy.title }}</h2>
-        <p class="appz-demo__lead">{{ copy.lead }}</p>
+        <h2 id="appz-demo-title" class="appz-section-title">{{ copy.title }}</h2>
+        <p class="appz-demo__lead appz-section-description">{{ copy.lead }}</p>
         <p *ngFor="let paragraph of copy.intro" class="appz-demo__intro">{{ paragraph }}</p>
 
         <address class="appz-demo__contact">

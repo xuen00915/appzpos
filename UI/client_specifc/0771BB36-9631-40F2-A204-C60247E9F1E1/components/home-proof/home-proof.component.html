@@ -1,6 +1,7 @@
-<section class="proof appz-section" [attr.aria-labelledby]="testimonials.length ? 'proof-title' : 'customers-title'">
+<section class="proof appz-section" [attr.data-home-section]="homeSection" [attr.aria-labelledby]="showReviews ? 'proof-title' : 'customers-title'">
+  <ng-container *ngIf="showCustomers">
   <div class="proof__customers" appMarketingReveal aria-labelledby="customers-title">
-    <h2 id="customers-title" class="proof__customers-title">{{ config.customersTitle }}</h2>
+    <h2 id="customers-title" class="proof__customers-title appz-section-title">{{ config.customersTitle }}</h2>
     <button *ngIf="config.showAllLabel" class="proof__show-all" type="button" aria-haspopup="dialog" aria-controls="customer-dialog" (click)="customerDialog.showModal()">{{ config.showAllLabel }}</button>
     <div id="customer-panel" class="proof__customer-panel">
       <div class="proof__customer-row" *ngFor="let row of customerRows; let index = index" tabindex="0" [attr.aria-label]="'Customer logos, row ' + (index + 1)">
@@ -33,11 +34,12 @@
       </ul>
     </div>
   </dialog>
+  </ng-container>
 
-  <div *ngIf="testimonials.length" class="proof__testimonial-layout" appMarketingReveal>
+  <div *ngIf="showReviews" class="proof__testimonial-layout" appMarketingReveal>
     <header class="proof__intro">
-      <h2 id="proof-title">{{ config.testimonialTitle }}</h2>
-      <p *ngIf="config.testimonialDescription">{{ config.testimonialDescription }}</p>
+      <h2 id="proof-title" class="appz-section-title">{{ config.testimonialTitle }}</h2>
+      <p *ngIf="config.testimonialDescription" class="appz-section-description">{{ config.testimonialDescription }}</p>
       <a *ngIf="config.reviewCta as reviewCta" class="proof__review-link" [href]="reviewCta.href" [target]="reviewCta.target || null" [rel]="reviewCta.rel || null">{{ reviewCta.label }}</a>
     </header>
 

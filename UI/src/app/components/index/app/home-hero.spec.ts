@@ -139,14 +139,18 @@ describe('APPZPOS home hero', () => {
     expect(orderFlow?.nextElementSibling?.tagName.toLowerCase()).toBe('main');
   });
 
-  it('keeps the configured ecosystem, industries, proof and conversion order', () => {
+  it('keeps the configured English landing-page section order', () => {
     const content = (fixture.nativeElement as HTMLElement).querySelector<HTMLElement>('main.appz-home-story');
     const sectionOrder = Array.from(content?.children ?? [])
       .map((element) => element.tagName.toLowerCase());
 
     expect(sectionOrder).toEqual([
       'app-home-ecosystem',
+      'app-home-ecosystem',
+      'app-home-ecosystem',
       'app-home-industries',
+      'app-home-ecosystem',
+      'app-home-proof',
       'app-home-proof',
       'section'
     ]);

@@ -22,6 +22,15 @@ describe('HomeEcosystemComponent', () => {
     fixture.componentInstance.hardware = ENGLISH_HOME_HARDWARE_CONFIG;
     fixture.componentInstance.grant = ENGLISH_HOME_GRANT_CONFIG;
     fixture.componentInstance.features = ENGLISH_HOME_FEATURES_CONFIG;
+    (fixture.componentInstance as any).growth = {
+      title: 'Grow Your Business Revenue with APPZPOS Solution',
+      items: [
+        { label: 'Powerful Cloud POS', text: 'Boost revenue from one platform.' },
+        { label: 'Analytics & Reporting', text: 'See real-time performance.' },
+        { label: 'Third-party Integrations', text: 'Connect leading partners.' },
+        { label: 'Multiple Outlets', text: 'Manage every location simply.' }
+      ]
+    };
     fixture.detectChanges();
   });
 
@@ -118,15 +127,22 @@ describe('HomeEcosystemComponent', () => {
     expect(grant.querySelector('.ecosystem__grant-link span')).toBeNull();
   });
 
-  it('places the compact grant directly after the integrated POS section', () => {
+  it('places the growth benefits between the integrated POS and grant sections', () => {
     const ecosystem = (fixture.nativeElement as HTMLElement)
       .querySelector<HTMLElement>('.ecosystem')!;
     const sections = Array.from(ecosystem.children)
       .map((element) => element.className);
 
     expect(sections[0]).toContain('ecosystem__hardware');
-    expect(sections[1]).toContain('ecosystem__grant');
-    expect(sections[2]).toContain('ecosystem__features');
+    expect(sections[1]).toContain('ecosystem__growth');
+    expect(sections[2]).toContain('ecosystem__grant');
+    expect(sections[3]).toContain('ecosystem__features');
+
+    const benefits = Array.from(ecosystem.querySelectorAll<HTMLElement>('.ecosystem__growth-item'));
+    expect(benefits.length).toBe(4);
+    expect(benefits[0].textContent).toContain('Powerful Cloud POS');
+    expect(benefits[3].textContent).toContain('Manage every location simply.');
+    expect(benefits[0].querySelector('.ecosystem__growth-marker')?.textContent).toBe('');
   });
 
   it('renders all six original key features with their complete wording', () => {

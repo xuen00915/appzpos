@@ -1,8 +1,8 @@
-<section class="industries" aria-labelledby="industries-title">
+<section class="industries" data-home-section="industries" aria-labelledby="industries-title">
   <header class="appz-section industries__intro" appMarketingReveal>
     <p *ngIf="config.eyebrow" class="appz-kicker">{{ config.eyebrow }}</p>
-    <h2 id="industries-title" class="appz-display">{{ config.title }}</h2>
-    <p *ngIf="config.description" class="appz-lede">{{ config.description }}</p>
+    <h2 id="industries-title" class="appz-display appz-section-title">{{ config.title }}</h2>
+    <p *ngIf="config.description" class="appz-lede appz-section-description">{{ config.description }}</p>
   </header>
 
   <div class="industries__experience" appMarketingReveal>

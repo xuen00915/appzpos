@@ -92,6 +92,22 @@ describe('HomeHeroComponent', () => {
     expect(host.querySelector('[role="tabpanel"]')?.getAttribute('data-industry')).toBe('quick-service');
   });
 
+  it('places flat function tags after the POS device in one responsive row', () => {
+    component.config = englishHero;
+    fixture.detectChanges();
+    const host = fixture.nativeElement as HTMLElement;
+    const visual = host.querySelector<HTMLElement>('.appzpos-product-hero__visual')!;
+    const machine = visual.querySelector<HTMLElement>('.appzpos-product-hero__machine')!;
+    const orbit = visual.querySelector<HTMLElement>('.appzpos-module-orbit')!;
+    const list = visual.querySelector<HTMLElement>('.appzpos-module-orbit__list')!;
+    const card = visual.querySelector<HTMLElement>('.appzpos-module-orbit__card')!;
+
+    expect(Array.from(visual.children).indexOf(machine)).toBeLessThan(Array.from(visual.children).indexOf(orbit));
+    expect(getComputedStyle(list).display).toBe('flex');
+    expect(getComputedStyle(card).position).toBe('relative');
+    expect(getComputedStyle(card, '::before').backgroundImage).not.toContain('conic-gradient');
+  });
+
   it('changes industry after the existing transition and stops autoplay after manual selection', fakeAsync(() => {
     component.config = englishHero;
     fixture.detectChanges();

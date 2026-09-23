@@ -6,12 +6,16 @@ import { HomeCustomerLogo, HomeProofConfig, HomeTestimonial } from '../home-page
 @Component({ selector: 'app-home-proof', templateUrl: './home-proof.component.html', styleUrls: ['./home-proof.component.css'] })
 export class HomeProofComponent {
   @Input() config!: HomeProofConfig;
+  @Input() mode: 'all' | 'customers' | 'reviews' = 'all';
   readonly expandedTestimonials = new Set<number>();
 
   constructor(private readonly commonFunctionService: CommonFunctionService) {}
 
   get customers(): readonly HomeCustomerLogo[] { return this.config?.customers ?? []; }
   get testimonials(): readonly HomeTestimonial[] { return this.config?.testimonials ?? []; }
+  get showCustomers(): boolean { return this.mode !== 'reviews'; }
+  get showReviews(): boolean { return this.mode !== 'customers' && this.testimonials.length > 0; }
+  get homeSection(): string | null { return this.mode === 'all' ? null : this.mode; }
   get customerRows(): readonly (readonly HomeCustomerLogo[])[] {
     return [0, 1, 2]
       .map(row => this.customers.filter((_, index) => index % 3 === row))
