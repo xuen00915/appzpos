@@ -58,6 +58,17 @@ describe('APPZPOS marketing shell', () => {
     ]);
   });
 
+  it('uses Title Case for Hardware and Features without changing destinations', () => {
+    const host = headerFixture.nativeElement as HTMLElement;
+    const links = Array.from(host.querySelectorAll<HTMLAnchorElement>('#solutions-menu a'));
+    const byHref = (href: string) => links.find(link => link.getAttribute('href') === href);
+
+    expect(byHref('/pos-hardware-machine-receipt-printer')?.querySelector('strong')?.textContent?.trim())
+      .toBe('Hardware');
+    expect(byHref('/pos-features-crm-payment-gateway')?.querySelector('strong')?.textContent?.trim())
+      .toBe('Features');
+  });
+
   it('marks only the current navigation destination without changing its URL', () => {
     const initialUrl = location.href;
     try {

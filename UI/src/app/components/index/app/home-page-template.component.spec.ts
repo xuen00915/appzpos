@@ -169,10 +169,14 @@ describe('HomePageTemplateComponent', () => {
     expect(whatsapp?.rel).toContain('noopener');
     expect(whatsapp?.querySelector('.fa-whatsapp')).not.toBeNull();
     expect(whatsapp?.querySelector('img')?.alt).toBe('APPZPOS Point of Sales WhatsApp Us');
+    expect(whatsapp?.classList).toContain('btn-whatsapp');
+    expect(whatsapp?.getAttribute('href')).toBe(CHINESE_HOME_PAGE_CONFIG.floatingContacts?.[0].href ?? null);
     expect(messenger?.href).toContain('http://m.me/APPZPOS');
     expect(messenger?.target).toBe('_blank');
     expect(messenger?.rel).toContain('noopener');
     expect(messenger?.querySelector('img')?.alt).toBe('APPZPOS Point of Sales Messenger Us');
+    expect(messenger?.classList).toContain('btn-fb');
+    expect(messenger?.getAttribute('href')).toBe(CHINESE_HOME_PAGE_CONFIG.floatingContacts?.[1].href ?? null);
   });
 
   it('renders the approved English homepage sequence as separate semantic sections', () => {

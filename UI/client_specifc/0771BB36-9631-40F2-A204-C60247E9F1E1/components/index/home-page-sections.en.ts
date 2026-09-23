@@ -7,7 +7,7 @@ import {
 } from '../home-page-template/home-page-template.models';
 
 export const ENGLISH_HOME_HARDWARE_CONFIG: HomeHardwareConfig = {
-  eyebrow: 'SOFTWARE + HARDWARE',
+  eyebrow: 'Software + Hardware',
   title: 'Integrated POS System with Customized Software and Hardware',
   paragraphs: [
     'APPZPOS delivers comprehensive POS solutions, featuring flexible software and hardware setups designed to meet your specific business requirements. Our system provides complete restaurant management, equipped with powerful tools for third-party integrations, contactless ordering, delivery, inventory management, data analytics, and more.'
@@ -66,7 +66,7 @@ export const ENGLISH_HOME_GROWTH_CONFIG: HomeGrowthSectionConfig = {
 };
 
 export const ENGLISH_HOME_FEATURES_CONFIG: HomeFeatureSectionConfig = {
-  eyebrow: 'KEY FEATURES',
+  eyebrow: 'Key Features',
   title: 'Key Features',
   items: [
     {

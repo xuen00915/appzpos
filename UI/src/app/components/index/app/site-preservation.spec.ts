@@ -42,6 +42,12 @@ describe('APPZPOS preservation contract', () => {
     const host = fixture.nativeElement as HTMLElement;
     expect(Array.from(host.querySelectorAll('button')).some((button) =>
       button.textContent?.trim() === 'Request a Demo')).toBeTrue();
-    expect(host.querySelector<HTMLAnchorElement>('a[href^="https://wa.me/6583109631"]')).not.toBeNull();
+    expect(host.querySelector<HTMLButtonElement>('[data-track-cta="request-demo"]')).not.toBeNull();
+    expect(host.querySelectorAll('app-home-page-template #requestdemo').length).toBe(1);
+    expect(host.querySelector<HTMLAnchorElement>('a[href^="https://wa.me/6583109631"]')?.getAttribute('href'))
+      .toBe("https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!");
+    const config = (fixture.componentInstance as any).pageConfig;
+    expect(config.hardware.eyebrow).toBe('Software + Hardware');
+    expect(config.features.eyebrow).toBe('Key Features');
   });
 });

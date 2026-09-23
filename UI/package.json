@@ -11,7 +11,8 @@
     "test:site-runtime": "node scripts/site-runtime-contract.mjs",
     "test:cn-home-content": "node scripts/cn-home-content-contract.mjs",
     "test:contact-hero": "node scripts/contact-hero-regression.mjs",
-    "test:footer-responsive": "node scripts/footer-responsive-regression.mjs"
+    "test:footer-responsive": "node scripts/footer-responsive-regression.mjs",
+    "test:tracking-preservation": "node --test scripts/tracking-preservation-contract.mjs"
   },
   "private": true,
   "dependencies": {
