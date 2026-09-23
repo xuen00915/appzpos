@@ -1341,6 +1341,134 @@
   }
 }
 
+/* The sticky header and shared hero form one exact viewport on every device. */
+.appzpos-product-hero {
+  --hero-copy-pad: clamp(.8rem, 2.4dvh, 1.8rem);
+  --hero-title-size: clamp(2.55rem, min(5vw, 8dvh), 4.4rem);
+  --hero-machine-width: min(58rem, 82vw, calc((100dvh - 13rem) * 1.72));
+  block-size: calc(100vh - var(--appz-header-height));
+  block-size: calc(100svh - var(--appz-header-height));
+  block-size: calc(100dvh - var(--appz-header-height));
+  min-block-size: 0 !important;
+}
+
+.appzpos-product-hero__frame {
+  width: min(calc(100% - (var(--appz-page-gutter) * 2)), var(--appz-shell-width));
+  block-size: 100%;
+  min-block-size: 0;
+}
+
+.appzpos-product-hero__copy {
+  flex: 0 0 auto;
+  padding-top: var(--hero-copy-pad);
+}
+
+.appzpos-product-hero h1 {
+  font-size: var(--hero-title-size);
+}
+
+.appzpos-product-hero__intro {
+  margin-top: clamp(.45rem, 1.4dvh, .85rem);
+}
+
+.appzpos-product-hero__actions {
+  margin-top: clamp(.55rem, 1.6dvh, 1rem);
+}
+
+.appzpos-product-hero__visual {
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+}
+
+.appzpos-product-hero__machine {
+  width: var(--hero-machine-width);
+  margin-top: clamp(-4rem, -7dvh, -2.4rem);
+}
+
+.appzpos-module-orbit {
+  flex: 0 0 auto;
+  min-width: 0;
+  margin-bottom: clamp(.35rem, 1.5dvh, 1rem);
+}
+
+@media (max-height: 768px) {
+  .appzpos-product-hero {
+    --hero-copy-pad: .6rem;
+    --hero-title-size: clamp(2.15rem, min(4.4vw, 7.4dvh), 3.35rem);
+    --hero-machine-width: min(52rem, 80vw, calc((100dvh - 11.5rem) * 1.72));
+  }
+
+  .appzpos-product-hero__eyebrow { margin-bottom: .45rem; }
+  .appzpos-product-hero__intro { font-size: .9rem; line-height: 1.38; }
+  .appzpos-product-hero__actions { margin-top: .55rem; }
+  .appzpos-product-hero__button,
+  .appzpos-product-hero__button.mat-mdc-raised-button { min-height: 44px; padding-block: 9px; }
+  .appzpos-industry-switcher { margin-top: .35rem; }
+  .appzpos-module-orbit__card:nth-child(n),
+  .appzpos-module-orbit__card--primary:nth-child(n) { min-height: 2.35rem; padding-block: .55rem; }
+}
+
+@media (max-width: 64rem) {
+  .appzpos-product-hero__frame {
+    width: min(calc(100% - (var(--appz-page-gutter) * 2)), var(--appz-shell-width));
+  }
+
+  .appzpos-module-orbit__list {
+    justify-content: flex-start;
+    overscroll-behavior-inline: contain;
+  }
+}
+
+@media (max-width: 39.99rem) {
+  .appzpos-product-hero {
+    --hero-copy-pad: .45rem;
+    --hero-title-size: clamp(1.78rem, min(8vw, 5.7dvh), 2.25rem);
+    --hero-machine-width: min(calc(100vw - 1rem), calc((100dvh - 11rem) * 1.72));
+  }
+
+  .appzpos-product-hero__eyebrow { margin-bottom: .25rem; font-size: .56rem; }
+  .appzpos-product-hero__intro { margin-top: .35rem; font-size: .78rem; line-height: 1.34; }
+  .appzpos-product-hero__actions {
+    display: flex;
+    width: 100%;
+    flex-wrap: nowrap;
+    gap: .45rem;
+    margin-top: .45rem;
+  }
+  .appzpos-product-hero__button--primary,
+  .appzpos-product-hero__button--primary.mat-mdc-raised-button,
+  .appzpos-product-hero__button--secondary {
+    width: auto;
+    min-width: 0;
+    flex: 1 1 0;
+    min-height: 42px;
+    padding: 8px 10px;
+    font-size: .72rem;
+  }
+  .appzpos-product-hero__machine { margin-top: -.2rem; }
+  .appzpos-industry-switcher { margin-top: .2rem; }
+  .appzpos-module-orbit__list { padding-block: .2rem .35rem; }
+  .appzpos-module-orbit__card:nth-child(n),
+  .appzpos-module-orbit__card--primary:nth-child(n) {
+    min-height: 2rem;
+    padding: .45rem .65rem;
+    font-size: .58rem;
+  }
+}
+
+@media (max-height: 667px) {
+  .appzpos-product-hero {
+    --hero-copy-pad: .3rem;
+    --hero-title-size: clamp(1.65rem, min(7.4vw, 5.2dvh), 2rem);
+  }
+  .appzpos-product-hero__intro { font-size: .72rem; line-height: 1.28; }
+  .appzpos-product-hero__button--primary,
+  .appzpos-product-hero__button--primary.mat-mdc-raised-button,
+  .appzpos-product-hero__button--secondary { min-height: 40px; }
+  .appzpos-industry-switcher button { min-height: 36px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .appzpos-product-hero__copy {
     animation: appzpos-copy-enter .35s ease-out both;
@@ -1574,4 +1702,53 @@
     padding-inline: .5rem;
     scroll-padding-inline: .5rem;
   }
+}
+
+/* Final geometry overrides: keep these after the legacy responsive rules. */
+.appzpos-product-hero {
+  block-size: calc(100vh - var(--appz-header-height));
+  block-size: calc(100svh - var(--appz-header-height));
+  block-size: calc(100dvh - var(--appz-header-height));
+  min-block-size: 0 !important;
+}
+
+.appzpos-product-hero__frame {
+  width: min(calc(100% - (var(--appz-page-gutter) * 2)), var(--appz-shell-width));
+  block-size: 100%;
+  min-block-size: 0;
+}
+
+.appzpos-product-hero .appzpos-product-hero__visual:not(.appzpos-product-hero__visual--responsive) {
+  display: grid;
+  flex: 1 1 auto;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-width: 0;
+  min-height: 0;
+  align-items: stretch;
+}
+
+.appzpos-product-hero .appzpos-product-hero__machine {
+  width: auto;
+  height: 100%;
+  max-width: min(58rem, 100%);
+  max-height: 100%;
+  min-height: 0;
+  aspect-ratio: 1672 / 941;
+  justify-self: center;
+  margin-top: 0;
+}
+
+.appzpos-product-hero .appzpos-product-hero__machine > img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.appzpos-product-hero .appzpos-module-orbit {
+  width: min(100%, var(--appz-shell-width));
+  margin: 0 auto;
+}
+
+.appzpos-product-hero .appzpos-product-hero__screen-plane {
+  transform: none;
 }

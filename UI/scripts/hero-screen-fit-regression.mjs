@@ -33,6 +33,16 @@ const wait = (milliseconds) => new Promise((resolve) => setTimeout(resolve, mill
 const closeEnough = (first, second, tolerance = 0.75) => Math.abs(first - second) <= tolerance;
 const viewports = [1440, 1280, 1024, 768, 430, 390];
 const layouts = {};
+const fitRoutes = ['/', '/cn-f&b-restaurant-cloud-pos-system'];
+const fitViewports = [
+  { width: 1440, height: 900 },
+  { width: 1366, height: 768 },
+  { width: 1024, height: 768 },
+  { width: 768, height: 1024 },
+  { width: 390, height: 844 },
+  { width: 375, height: 667 }
+];
+const fitLayouts = {};
 
 await send('Page.enable');
 for (const width of viewports) {
@@ -133,6 +143,44 @@ for (const width of viewports) {
   layouts[width] = JSON.parse(evaluation.result.value);
 }
 
+for (const route of fitRoutes) {
+  for (const viewport of fitViewports) {
+    await send('Emulation.setDeviceMetricsOverride', {
+      ...viewport,
+      deviceScaleFactor: 1,
+      mobile: viewport.width <= 768,
+      screenWidth: viewport.width,
+      screenHeight: viewport.height
+    });
+    const routeUrl = new URL(route, previewUrl);
+    routeUrl.searchParams.set('screen-fit-regression', `${viewport.width}x${viewport.height}`);
+    await send('Page.navigate', { url: routeUrl.href });
+    await wait(1200);
+    const evaluation = await send('Runtime.evaluate', {
+      expression: `JSON.stringify((() => {
+        const header = document.querySelector('#header.appzpos-header');
+        const hero = document.querySelector('.appzpos-product-hero');
+        const semanticNodes = [
+          document.querySelector('.appzpos-product-hero__copy'),
+          document.querySelector('.appzpos-product-hero__machine'),
+          document.querySelector('.appzpos-module-orbit__list')
+        ].filter(Boolean);
+        return {
+          headerHeight: header.getBoundingClientRect().height,
+          heroHeight: hero.getBoundingClientRect().height,
+          viewportHeight: window.innerHeight,
+          heroBounds: hero.getBoundingClientRect().toJSON(),
+          semanticBounds: semanticNodes.map(node => node.getBoundingClientRect().toJSON()),
+          scrollWidth: document.documentElement.scrollWidth,
+          clientWidth: document.documentElement.clientWidth
+        };
+      })())`,
+      returnByValue: true
+    });
+    fitLayouts[`${route}:${viewport.width}x${viewport.height}`] = JSON.parse(evaluation.result.value);
+  }
+}
+
 await send('Emulation.setDeviceMetricsOverride', {
   width: 1280,
   height: 1000,
@@ -179,6 +227,17 @@ const reducedMotionBorderAnimation = reducedMotionEvaluation.result.value;
 
 socket.close();
 const failures = [];
+
+for (const [profile, layout] of Object.entries(fitLayouts)) {
+  const heightDelta = Math.abs(layout.headerHeight + layout.heroHeight - layout.viewportHeight);
+  if (heightDelta > 1) failures.push(`${profile}: header plus hero differs from viewport by ${heightDelta}px`);
+  if (layout.scrollWidth > layout.clientWidth + 1) failures.push(`${profile}: page has horizontal overflow`);
+  for (const [index, bounds] of layout.semanticBounds.entries()) {
+    if (bounds.top < layout.heroBounds.top - 1 || bounds.bottom > layout.heroBounds.bottom + 1) {
+      failures.push(`${profile}: semantic hero node ${index + 1} is clipped by the hero`);
+    }
+  }
+}
 
 for (const [width, layout] of Object.entries(layouts)) {
   if (layout.images.length !== 4) {
@@ -285,8 +344,8 @@ if (industrySync.tagAnimations.some((animation) => animation !== 'appzpos-screen
 }
 
 if (failures.length) {
-  console.error(JSON.stringify({ failures, layouts, industrySync }, null, 2));
+  console.error(JSON.stringify({ failures, layouts, fitLayouts, industrySync }, null, 2));
   process.exit(1);
 }
 
-console.log(JSON.stringify({ status: 'pass', layouts, industrySync }, null, 2));
+console.log(JSON.stringify({ status: 'pass', layouts, fitLayouts, industrySync }, null, 2));
