@@ -94,6 +94,16 @@ describe('Shared Retail and Beauty industry template', () => {
           frame.style.width = width + 'px'; frame.style.height = '900px';
           expect(doc.documentElement.scrollWidth).withContext(page.title + ' overflow at ' + width).toBeLessThanOrEqual(width);
           const hero = doc.querySelector('.restaurant-hero__inner')!.getBoundingClientRect();
+
+          if (width < 768) {
+          const heroArea = doc.querySelector('.restaurant-hero')!.getBoundingClientRect();
+          const photo = doc.querySelector('.restaurant-hero__photo')!;
+          const photoStyle = frame.contentWindow!.getComputedStyle(photo);
+          expect(photoStyle.position).toBe('absolute');
+          expect(Number(photoStyle.opacity)).toBe(.18);
+          expect(photo.getBoundingClientRect().height).toBeCloseTo(heroArea.height, 0);
+          expect(photo.getBoundingClientRect().width).toBeCloseTo(heroArea.width, 0);
+        }
           const cards = Array.from(doc.querySelectorAll('.solution-sign')).map(card => card.getBoundingClientRect());
           const columns = width >= 992 ? 3 : width >= 600 ? 2 : 1;
           expect(cards.filter(card => Math.abs(card.top - cards[0].top) < 1).length).toBe(columns);
