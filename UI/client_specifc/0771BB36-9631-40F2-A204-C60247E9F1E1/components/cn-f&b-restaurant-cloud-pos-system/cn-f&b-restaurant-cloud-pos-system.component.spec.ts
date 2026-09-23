@@ -93,6 +93,7 @@ describe('CustomHomeCNComponent', () => {
     expect(ids.length).toBe(new Set(ids).size);
     expect(host.querySelector('#webview')).toBeNull();
     expect(host.querySelector('#mobile_view')).toBeNull();
-    expect(host.querySelector('#requestdemo app-cn-custom-request-demo')).not.toBeNull();
+    expect(host.querySelector('#requestdemo app-custom-request-demo')).not.toBeNull();
+    expect(host.querySelector('app-cn-custom-request-demo')).toBeNull();
   });
 });

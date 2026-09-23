@@ -197,7 +197,7 @@ for (const width of viewports) {
   if (!layout.islandLabelsVisible) failures.push(`${width}px: island module wording is not always visible`);
   if (layout.hubCount !== 1) failures.push(`${width}px: expected one central cloud hub, found ${layout.hubCount}`);
   if (!layout.hubLogo.loaded || layout.hubLogo.src !== 'https://appzpos.com/admin/Upload/0771BB36-9631-40F2-A204-C60247E9F1E1/Images/APPZPOS-300X150px.png') failures.push(`${width}px: APPZPOS hub logo is missing or did not load`);
-  if (layout.connectionCount !== 7) failures.push(`${width}px: expected seven connections, found ${layout.connectionCount}`);
+  if (layout.connectionCount !== 0) failures.push(`${width}px: expected no connection lines, found ${layout.connectionCount}`);
   if (layout.moduleTabCount !== 0 || layout.modulePanelCount !== 0) failures.push(`${width}px: duplicated seven-category explorer still renders`);
   if (!layout.persistentDetails || layout.defaultDetailsTitle !== 'Table QR Ordering' || layout.detailsCloseCount !== 0) failures.push(`${width}px: persistent dining detail rail is missing`);
   if (layout.detailsHeading.whiteSpace !== 'nowrap' || layout.detailsHeading.overflows) failures.push(`${width}px: connected-modules heading is not a single visible row`);
@@ -271,8 +271,8 @@ for (const width of viewports) {
       labelOpacity: label ? getComputedStyle(label).opacity : null
     };
   })())`));
-  if (!interaction.active || !interaction.activeConnection || interaction.labelOpacity !== '1') {
-    failures.push(`${width}px: focus interaction does not activate the island, path and label ${JSON.stringify(interaction)}`);
+  if (!interaction.active || interaction.labelOpacity !== '1') {
+    failures.push(`${width}px: focus interaction does not activate the island and label ${JSON.stringify(interaction)}`);
   }
 
   await evaluate(`document.querySelector('[data-island-id="kitchen"]')?.click()`);
@@ -405,7 +405,7 @@ const reducedMotion = JSON.parse(await evaluate(`JSON.stringify((() => {
 if (reducedMotion.islands !== 7) failures.push('reduced motion: seven islands are not present');
 if (Number.parseFloat(reducedMotion.islandOpacity ?? '0') < .75) failures.push('reduced motion: islands are not immediately visible');
 if (reducedMotion.floatAnimation !== 'none') failures.push('reduced motion: floating animation is still active');
-if (reducedMotion.pathAnimation !== 'none') failures.push('reduced motion: path animation is still active');
+if (reducedMotion.pathAnimation !== null) failures.push('reduced motion: path animation is still active');
 
 const solutionHeroes = [
   {
@@ -530,12 +530,23 @@ for (const width of [1440, 768, 430]) {
         overview: overview ? {
           count: document.querySelectorAll('[data-pos-overview]').length,
           headingAlignment: overviewHeading ? getComputedStyle(overviewHeading).textAlign : null,
+          headingLines: (() => {
+            if (!overviewHeading) return 0;
+            const range = document.createRange();
+            range.selectNodeContents(overviewHeading);
+            return [...range.getClientRects()].filter((rect) => rect.width > 0 && rect.height > 0).length;
+          })(),
           columns: overviewColumns.map((column) => column.getAttribute('data-pos-overview-column')),
           copyLeftOfVisual: Boolean(overviewCopyBox && overviewVisualBox && overviewCopyBox.right <= overviewVisualBox.left + 1),
           copyAboveVisual: Boolean(overviewCopyBox && overviewVisualBox && overviewCopyBox.bottom <= overviewVisualBox.top + 1)
         } : null,
         features: featureCards.length ? {
           count: featureCards.length,
+          sectionTitle: document.querySelector('[data-pos-feature-heading] h2')?.textContent.replace(/\\s+/g, ' ').trim(),
+          sectionDescription: document.querySelector('[data-pos-feature-heading] p')?.textContent.replace(/\\s+/g, ' ').trim(),
+          sectionAlignment: document.querySelector('[data-pos-feature-heading]')
+            ? getComputedStyle(document.querySelector('[data-pos-feature-heading]')).textAlign
+            : null,
           firstRowCount: featureCards.filter((card) => Math.abs(card.getBoundingClientRect().top - firstFeatureTop) < 2).length,
           tones: featureCards.map((card) => card.dataset.featureTone),
           stacked: featureCards.every((card) => {
@@ -571,6 +582,21 @@ for (const width of [1440, 768, 430]) {
               && image.left >= visual.left - 1
               && image.right <= visual.right + 1;
           }),
+          cloudLayout: (() => {
+            const card = document.querySelector('#pos-cloud');
+            const visual = card?.querySelector('.pos-system-card__visual')?.getBoundingClientRect();
+            const body = card?.querySelector('.pos-system-card__body')?.getBoundingClientRect();
+            return {
+              visualRightOfCopy: Boolean(visual && body && body.right <= visual.left + 1),
+              visualAboveCopy: Boolean(visual && body && visual.bottom <= body.top + 1)
+            };
+          })(),
+          whatsappActions: [...document.querySelectorAll('#pos-cloud .pos-whatsapp-button, #pos-tablet .pos-whatsapp-button')]
+            .map((action) => ({
+              text: action.textContent.replace(/\\s+/g, ' ').trim(),
+              href: action.getAttribute('href'),
+              background: getComputedStyle(action).backgroundColor
+            })),
           mobileAnchors: ['pos-cloud-mobile', 'pos-tablet-mobile', 'pos-integrations-mobile']
             .every((id) => Boolean(document.getElementById(id)))
         } : null,
@@ -580,10 +606,47 @@ for (const width of [1440, 768, 430]) {
           firstRowCount: visibleHardware.filter((item) => Math.abs(item.getBoundingClientRect().top - firstHardwareTop) < 2).length,
           categoryButtons: document.querySelectorAll('[data-hardware-filters] button').length,
           sizeOptions: document.querySelectorAll('[data-hardware-filters] select option').length,
+          filterLabel: document.querySelector('[data-hardware-filters] label span')?.textContent.trim(),
+          filterOptions: [...document.querySelectorAll('[data-hardware-filters] select option')]
+            .map((option) => option.textContent.trim()),
+          intro: document.querySelector('.pos-hardware__intro')?.textContent.trim(),
+          introAlignment: document.querySelector('.pos-hardware__intro')
+            ? getComputedStyle(document.querySelector('.pos-hardware__intro')).textAlign
+            : null,
           bordersRemoved: hardwareItems.every((item) => {
             const card = item.querySelector('.pos-hardware-card');
             return card && Number.parseFloat(getComputedStyle(card).borderTopWidth) === 0;
-          })
+          }),
+          transparentCards: hardwareItems.every((item) => {
+            const card = item.querySelector('.pos-hardware-card');
+            return card && getComputedStyle(card).backgroundColor === 'rgba(0, 0, 0, 0)';
+          }),
+          centeredCleanImages: hardwareItems.every((item) => {
+            const image = item.querySelector('img');
+            const heading = item.querySelector('h4');
+            const imageStyles = image ? getComputedStyle(image) : null;
+            return imageStyles && heading
+              && Number.parseFloat(imageStyles.borderTopWidth) === 0
+              && imageStyles.backgroundColor === 'rgba(0, 0, 0, 0)'
+              && imageStyles.boxShadow === 'none'
+              && getComputedStyle(heading).textAlign === 'center';
+          }),
+          mobileImageRatio: (() => {
+            const item = visibleHardware[0]?.getBoundingClientRect();
+            const image = visibleHardware[0]?.querySelector('img')?.getBoundingClientRect();
+            return item && image ? image.width / item.width : 0;
+          })(),
+          imageRatios: visibleHardware.map((item) => {
+            const itemBox = item.getBoundingClientRect();
+            const imageBox = item.querySelector('img')?.getBoundingClientRect();
+            return imageBox ? imageBox.width / itemBox.width : 0;
+          }),
+          imagesClearTitles: visibleHardware.every((item) => {
+            const image = item.querySelector('img')?.getBoundingClientRect();
+            const heading = item.querySelector('h4')?.getBoundingClientRect();
+            return image && heading && image.bottom <= heading.top + 1;
+          }),
+          descriptionCount: document.querySelectorAll('[data-hardware-item] .pos-hardware-card__description').length
         } : null,
         requestDemo: (() => {
           const requestDemo = document.querySelector('#requestdemo');
@@ -620,12 +683,16 @@ for (const width of [1440, 768, 430]) {
     }
     if (heroCase.key === 'pos' && (!hero.overview || hero.overview.count !== 1
       || hero.overview.headingAlignment !== 'center'
+      || (width > 768 && hero.overview.headingLines !== 1)
       || JSON.stringify(hero.overview.columns) !== JSON.stringify(['copy', 'visual'])
       || (width > 768 ? !hero.overview.copyLeftOfVisual : !hero.overview.copyAboveVisual))) {
       failures.push(`${width}px pos: All-In-One overview layout is incorrect ${JSON.stringify(hero.overview)}`);
     }
-    const expectedFeatureRowCount = width >= 992 ? 4 : width >= 576 ? 2 : 1;
+    const expectedFeatureRowCount = width >= 1200 ? 4 : width >= 600 ? 2 : 1;
     if (heroCase.key === 'pos' && (!hero.features || hero.features.count !== 12
+      || hero.features.sectionTitle !== 'Everything You Need to Run Your Restaurant'
+      || hero.features.sectionDescription !== 'Manage orders, payments, inventory, customers and reporting from one connected POS platform.'
+      || hero.features.sectionAlignment !== 'center'
       || hero.features.firstRowCount !== expectedFeatureRowCount
       || !hero.features.stacked
       || JSON.stringify(hero.features.tones) !== JSON.stringify([
@@ -641,17 +708,33 @@ for (const width of [1440, 768, 430]) {
       || !hero.systemShowcase.imagesContained
       || !hero.systemShowcase.mobileAnchors
       || (width > 768
-        ? (!hero.systemShowcase.featuredIsLarger || !hero.systemShowcase.supportCardsShareRow)
-        : (hero.systemShowcase.featuredIsLarger || hero.systemShowcase.supportCardsShareRow)))) {
+        ? (!hero.systemShowcase.featuredIsLarger || !hero.systemShowcase.supportCardsShareRow || !hero.systemShowcase.cloudLayout.visualRightOfCopy)
+        : (hero.systemShowcase.featuredIsLarger || hero.systemShowcase.supportCardsShareRow || !hero.systemShowcase.cloudLayout.visualAboveCopy))
+      || hero.systemShowcase.whatsappActions.length !== 2
+      || hero.systemShowcase.whatsappActions.some((action) => action.text !== 'WhatsApp Us'
+        || !action.href?.startsWith('https://wa.me/6583109631')
+        || action.background !== 'rgb(37, 211, 102)'))) {
       failures.push(`${width}px pos: POS system card showcase is incorrect ${JSON.stringify(hero.systemShowcase)}`);
     }
-    const expectedHardwareRowCount = width >= 992 ? 4 : width >= 576 ? 2 : 1;
+    const expectedHardwareRowCount = width >= 992 ? 4 : 2;
     if (heroCase.key === 'pos' && (!hero.hardware || hero.hardware.count !== 16
       || hero.hardware.visibleCount !== 16
       || hero.hardware.firstRowCount !== expectedHardwareRowCount
       || hero.hardware.categoryButtons !== 4
-      || hero.hardware.sizeOptions !== 5
-      || !hero.hardware.bordersRemoved)) {
+      || hero.hardware.sizeOptions !== 7
+      || hero.hardware.filterLabel !== 'Filter by'
+      || JSON.stringify(hero.hardware.filterOptions) !== JSON.stringify([
+        'All', 'Tablet', '10 inch', '15.6 inch', 'Accessories / Other',
+        'With printer', 'With customer display'
+      ])
+      || hero.hardware.intro !== 'Choose the POS machines, printers and accessories that fit your business setup.'
+      || hero.hardware.introAlignment !== 'center'
+      || !hero.hardware.bordersRemoved
+      || !hero.hardware.transparentCards
+      || !hero.hardware.centeredCleanImages
+      || hero.hardware.imageRatios.some((ratio) => ratio < (width <= 768 ? .65 : .55) || ratio > .95)
+      || !hero.hardware.imagesClearTitles
+      || hero.hardware.descriptionCount !== 0)) {
       failures.push(`${width}px pos: hardware collection is incorrect ${JSON.stringify(hero.hardware)}`);
     }
     if (heroCase.key === 'pos' && (!hero.requestDemo.exists
@@ -695,14 +778,22 @@ for (const width of [1440, 768, 430]) {
         const printers = visibleCount();
         buttons.find((button) => button.textContent.trim() === 'All')?.click();
         const select = document.querySelector('[data-hardware-filters] select');
+        select.value = 'printer';
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+        const withPrinter = visibleCount();
+        select.value = 'customer-display';
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+        const withCustomerDisplay = visibleCount();
         select.value = '15.6';
         select.dispatchEvent(new Event('change', { bubbles: true }));
         const large = visibleCount();
         select.value = 'all';
         select.dispatchEvent(new Event('change', { bubbles: true }));
-        return { printers, large, reset: visibleCount() };
+        return { printers, withPrinter, withCustomerDisplay, large, reset: visibleCount() };
       })())`));
-      if (hardwareFiltering.printers !== 2 || hardwareFiltering.large !== 9 || hardwareFiltering.reset !== 16) {
+      if (hardwareFiltering.printers !== 2 || hardwareFiltering.withPrinter !== 3
+        || hardwareFiltering.withCustomerDisplay !== 6 || hardwareFiltering.large !== 9
+        || hardwareFiltering.reset !== 16) {
         failures.push(`${width}px pos: hardware filters do not work ${JSON.stringify(hardwareFiltering)}`);
       }
     }

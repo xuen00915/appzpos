@@ -203,6 +203,10 @@
   }
 }
 
+#content.appz-home-story {
+  padding-bottom: clamp(32px, 5vw, 64px);
+}
+
 .appz-conversion-panel {
   width: min(calc(100% - (var(--appz-gutter) * 2)), var(--appz-content-width));
   margin-inline: auto;
@@ -254,15 +258,17 @@
   justify-self: center;
   width: 100%;
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, .2);
-  border-radius: 14px;
-  background: #fff;
-  box-shadow: 0 24px 56px rgba(0, 0, 0, .18);
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-shadow: none;
 
   img {
     display: block;
     width: 100%;
     height: auto;
+    background: #fff;
+    border-radius: 6.4%;
   }
 }
 
@@ -321,7 +327,7 @@
 
   .appz-home-story app-home-ecosystem .ecosystem__grant-visual {
     width: 100%;
-    border-radius: 10px;
+    border-radius: 0;
   }
 
   .appz-home-story app-home-ecosystem .ecosystem__grant-link {

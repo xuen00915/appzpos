@@ -20,8 +20,8 @@ const files = [
   resolve(componentRoot, 'home-ecosystem/home-ecosystem.component.html'),
   resolve(componentRoot, 'home-proof/home-proof.component.html'),
   resolve(componentRoot, 'index/home-page-proof.en.ts'),
-  resolve(componentRoot, 'cn-custom-request-demo/cn-custom-request-demo.component.html'),
-  resolve(componentRoot, 'cn-custom-request-demo/cn-custom-request-demo.component.ts')
+  resolve(componentRoot, 'custom-request-demo/custom-request-demo.component.html'),
+  resolve(componentRoot, 'custom-request-demo/custom-request-demo.component.ts')
 ];
 
 for (const file of files) {

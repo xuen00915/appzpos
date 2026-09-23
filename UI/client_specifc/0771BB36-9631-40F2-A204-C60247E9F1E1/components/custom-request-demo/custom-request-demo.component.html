@@ -1,9 +1,9 @@
 <section class="appz-demo" aria-labelledby="appz-demo-title">
     <div class="appz-demo__copy">
-        <p class="appz-demo__eyebrow">REQUEST A DEMO</p>
-        <h2 id="appz-demo-title">Request For Demo</h2>
-        <p class="appz-demo__lead">Discover the best pos system in Singapore to upgrade your business.</p>
-        <p class="appz-demo__intro">Contact us and schedule a free POS demo today!</p>
+        <p *ngIf="copy.eyebrow" class="appz-demo__eyebrow">{{ copy.eyebrow }}</p>
+        <h2 id="appz-demo-title">{{ copy.title }}</h2>
+        <p class="appz-demo__lead">{{ copy.lead }}</p>
+        <p *ngFor="let paragraph of copy.intro" class="appz-demo__intro">{{ paragraph }}</p>
 
         <address class="appz-demo__contact">
             <a href="mailto:enquiry@appzgate.com">
@@ -31,33 +31,33 @@
 
         <div class="appz-demo__fields">
             <div class="appz-demo__field">
-                <label for="name">Name</label>
+                <label for="name">{{ copy.nameLabel }}</label>
                 <input type="text"
                        id="name"
                        formControlName="name"
                        autocomplete="name"
                        [ngClass]="{ 'is-invalid': submitted && objData['name'].errors }">
                 <div *ngIf="submitted && objData['name'].errors" class="invalid-feedback">
-                    <span *ngIf="objData['name'].errors['required']">Name is required!</span>
-                    <span *ngIf="objData['name'].errors['pattern']">Invalid Name!</span>
+                    <span *ngIf="objData['name'].errors['required']">{{ copy.nameRequired }}</span>
+                    <span *ngIf="objData['name'].errors['pattern']">{{ copy.nameInvalid }}</span>
                 </div>
             </div>
 
             <div class="appz-demo__field">
-                <label for="email">Email</label>
+                <label for="email">{{ copy.emailLabel }}</label>
                 <input type="email"
                        id="email"
                        formControlName="email"
                        autocomplete="email"
                        [ngClass]="{ 'is-invalid': submitted && objData['email'].errors }">
                 <div *ngIf="submitted && objData['email'].errors" class="invalid-feedback">
-                    <span *ngIf="objData['email'].errors['required']">Email is required!</span>
-                    <span *ngIf="objData['email'].errors['email']">Invalid Email!</span>
+                    <span *ngIf="objData['email'].errors['required']">{{ copy.emailRequired }}</span>
+                    <span *ngIf="objData['email'].errors['email']">{{ copy.emailInvalid }}</span>
                 </div>
             </div>
 
             <div class="appz-demo__field">
-                <label for="mobilenum">Mobile Number</label>
+                <label for="mobilenum">{{ copy.mobileLabel }}</label>
                 <input type="tel"
                        id="mobilenum"
                        formControlName="mobilenum"
@@ -65,30 +65,27 @@
                        inputmode="tel"
                        [ngClass]="{ 'is-invalid': submitted && objData['mobilenum'].errors }">
                 <div *ngIf="submitted && objData['mobilenum'].errors" class="invalid-feedback">
-                    <span *ngIf="objData['mobilenum'].errors['required']">Mobile Number is required!</span>
-                    <span *ngIf="objData['mobilenum'].errors['pattern']">Mobile Number is not valid!</span>
+                    <span *ngIf="objData['mobilenum'].errors['required']">{{ copy.mobileRequired }}</span>
+                    <span *ngIf="objData['mobilenum'].errors['pattern']">{{ copy.mobileInvalid }}</span>
                 </div>
             </div>
 
             <div class="appz-demo__field">
-                <label for="restaurant_name">Restaurant Name</label>
+                <label for="restaurant_name">{{ copy.businessLabel }}</label>
                 <input type="text"
                        id="restaurant_name"
                        formControlName="restaurant_name"
                        autocomplete="organization"
                        [ngClass]="{ 'is-invalid': submitted && objData['restaurant_name'].errors }">
                 <div *ngIf="submitted && objData['restaurant_name'].errors" class="invalid-feedback">
-                    <span *ngIf="objData['restaurant_name'].errors['required']">Restaurant Name is required!</span>
-                    <span *ngIf="objData['restaurant_name'].errors['pattern']">Invalid Restaurant Name!</span>
+                    <span *ngIf="objData['restaurant_name'].errors['required']">{{ copy.businessRequired }}</span>
+                    <span *ngIf="objData['restaurant_name'].errors['pattern']">{{ copy.businessInvalid }}</span>
                 </div>
             </div>
         </div>
 
         <button type="submit" class="appz-demo__submit">
-            Submit
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M5 12h14M13 6l6 6-6 6"></path>
-            </svg>
+            {{ copy.submitLabel }}
         </button>
     </form>
 </section>

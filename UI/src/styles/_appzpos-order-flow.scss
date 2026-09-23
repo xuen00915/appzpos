@@ -5,6 +5,86 @@ $ecosystem-sky: #ddf2ff;
 $ecosystem-bg: #f3faff;
 $ecosystem-muted: #667a95;
 
+/* Window layout: persistent solution menu and a single selected scene. */
+.appz-ecosystem .appz-ecosystem__window {
+  grid-template-columns: minmax(210px, .3fr) minmax(0, 1fr);
+  gap: 0;
+  max-width: 1400px;
+  border: 1px solid #dce6ef;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 16px 48px rgba(11, 35, 71, .08);
+  overflow: hidden;
+  align-items: stretch;
+}
+.appz-ecosystem__options { display: flex; flex-direction: column; gap: 8px; padding: 24px 16px; background: #f6f9fc; border-right: 1px solid #dce6ef; }
+.appz-ecosystem__option {
+  min-height: 52px; padding: 14px 16px; border: 1px solid transparent; border-radius: 12px;
+  background: transparent; color: #536681; font: inherit; text-align: left; cursor: pointer;
+  strong { font-weight: 650; }
+  &:hover { background: #fff5ed; color: #8a390f; }
+  &[aria-pressed="true"] { background: #fff0e2; color: #8a390f; border-color: #f6c69f; }
+  &:focus-visible { outline: 2px solid #c66b2b; outline-offset: 2px; }
+}
+.appz-ecosystem__window .appz-ecosystem__copy {
+  grid-column: 2; grid-row: 1; align-self: stretch; padding: 28px;
+  display: grid; grid-template-columns: minmax(180px, .8fr) minmax(0, 1.2fr);
+  gap: 24px; align-items: start;
+}
+.appz-ecosystem__selected-visual { min-width: 0; align-self: center; }
+.appz-ecosystem__selected-visual img { display: block; width: 100%; height: auto; filter: drop-shadow(0 12px 18px rgba(255, 107, 34, .18)); }
+.appz-ecosystem__window .appz-ecosystem__details { border: 0; border-radius: 0; box-shadow: none; background: transparent; }
+.appz-ecosystem__window .appz-ecosystem__details::before { display: none; }
+.appz-ecosystem__window .appz-ecosystem__details-header { padding: 0 0 20px; }
+.appz-ecosystem__window .appz-ecosystem__details-body { padding: 20px 0 0; }
+.appz-ecosystem__window .appz-ecosystem__details-header h2 { white-space: normal; }
+@media (max-width: 1100px) {
+  .appz-ecosystem__window .appz-ecosystem__copy { grid-template-columns: minmax(0, 1fr); }
+  .appz-ecosystem__selected-visual { width: min(100%, 340px); justify-self: center; }
+}
+@media (max-width: 767px) {
+  .appz-ecosystem .appz-ecosystem__window { grid-template-columns: minmax(0, 1fr); }
+  .appz-ecosystem__window .appz-ecosystem__copy { grid-column: 1; grid-row: 2; padding: 24px 20px; }
+  .appz-ecosystem__options { flex-direction: row; overflow-x: auto; border-right: 0; border-bottom: 1px solid #dce6ef; padding: 12px; }
+  .appz-ecosystem__option { flex: 0 0 auto; max-width: 220px; }
+}
+
+/* Three desktop columns, with two columns on smaller screens. */
+@mixin island-grid {
+  .appz-ecosystem__stage {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    align-items: start;
+    gap: 28px 16px;
+    aspect-ratio: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+  .appz-ecosystem__stage::before { display: none; }
+  .appz-ecosystem__stage .appz-ecosystem__island {
+    position: relative;
+    inset: auto;
+    grid-column: auto;
+    order: 0;
+    width: 100%;
+    min-width: 0;
+    margin: 0;
+    --pointer-x: 0px !important;
+    --pointer-y: 0px !important;
+    --scroll-y: 0px !important;
+  }
+  .appz-ecosystem__island-float { max-width: 280px; margin-inline: auto; }
+  .appz-ecosystem__stage .appz-ecosystem__label {
+    position: relative;
+    inset: auto;
+    width: 100%;
+    max-width: 250px;
+    margin: -8px auto 0;
+    transform: none;
+    box-sizing: border-box;
+  }
+}
+
 app-home-order-flow {
   display: block;
   position: relative;
@@ -17,11 +97,11 @@ app-home-order-flow {
     linear-gradient(180deg, #fff 0%, $ecosystem-bg 56%, #fff 100%);
   color: $ecosystem-navy;
   overflow: clip;
-  padding: clamp(72px, 8vw, 118px) max(20px, var(--appz-gutter, 4vw)) clamp(80px, 9vw, 132px);
+  padding: clamp(58px, 6vw, 88px) max(20px, var(--appz-gutter, 4vw)) clamp(64px, 7vw, 96px);
 
   &__heading {
-    margin: 0 auto clamp(36px, 4.5vw, 62px);
-    max-width: 780px;
+    margin: 0 auto clamp(30px, 3.5vw, 46px);
+    max-width: 1400px;
     text-align: center;
   }
 
@@ -48,14 +128,15 @@ app-home-order-flow {
     font-size: clamp(.98rem, 1.25vw, 1.1rem);
     line-height: 1.65;
     margin: 20px auto 0;
-    max-width: 660px;
+    max-width: none;
+    width: 100%;
   }
 
   &__layout {
     align-items: start;
     display: grid;
     gap: clamp(34px, 4vw, 64px);
-    grid-template-columns: minmax(0, 1.42fr) minmax(360px, .82fr);
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
     margin: 0 auto;
     max-width: 1400px;
     width: 100%;
@@ -69,6 +150,8 @@ app-home-order-flow {
     min-height: 700px;
     position: relative;
     width: 100%;
+    min-width: 0;
+    overflow: clip;
 
     &::before {
       background: radial-gradient(ellipse, rgba($ecosystem-blue, .15), transparent 67%);
@@ -77,6 +160,11 @@ app-home-order-flow {
       pointer-events: none;
       position: absolute;
     }
+  }
+
+  &__copy {
+    min-width: 0;
+    align-self: center;
   }
 
   &__connections {
@@ -291,50 +379,50 @@ app-home-order-flow {
     }
 
     &--admin {
-      right: -1%;
-      top: -1%;
+      right: 5%;
+      top: 5%;
       transition-delay: 520ms;
       width: 29%;
     }
 
     &--kitchen {
-      left: 20%;
-      top: -5%;
+      left: 24%;
+      top: 2%;
       transition-delay: 260ms;
       width: 35%;
     }
 
     &--dining {
-      left: -2%;
-      top: 21%;
+      left: 5%;
+      top: 25%;
       transition-delay: 0ms;
       width: 33%;
       z-index: 3;
     }
 
     &--kiosk {
-      right: 15%;
-      top: 31%;
+      right: 17%;
+      top: 32%;
       transition-delay: 130ms;
       width: 25%;
     }
 
     &--queue {
-      right: -2%;
-      top: 58%;
+      right: 4%;
+      top: 55%;
       transition-delay: 230ms;
       width: 27%;
     }
 
     &--website {
-      bottom: -3%;
-      left: 3%;
+      bottom: 4%;
+      left: 10%;
       transition-delay: 390ms;
       width: 33%;
     }
 
     &--delivery {
-      bottom: -4%;
+      bottom: 3%;
       left: 40%;
       transition-delay: 650ms;
       width: 36%;
@@ -386,15 +474,15 @@ app-home-order-flow {
     display: grid;
     gap: 9px;
     left: 50%;
-    min-width: 214px;
+    min-width: 0;
     opacity: 1;
-    padding: 10px 13px 10px 22px;
+    padding: 9px 13px 9px 21px;
     pointer-events: none;
     position: absolute;
     transform: translate3d(-50%, 0, 0);
     transition: opacity 220ms ease, transform 260ms cubic-bezier(.16, 1, .3, 1), visibility 220ms ease;
     visibility: visible;
-    width: min(250px, 94%);
+    width: min(190px, 88%);
     z-index: 12;
 
     i {
@@ -414,11 +502,6 @@ app-home-order-flow {
       line-height: 1.2;
     }
 
-    small {
-      color: $ecosystem-muted;
-      font-size: .58rem;
-      line-height: 1.42;
-    }
   }
 
   &__island-module {
@@ -666,20 +749,20 @@ app-home-order-flow {
     }
 
     &__island--admin {
-      right: -2%;
-      top: 0;
+      right: 4%;
+      top: 5%;
       width: 32%;
     }
 
     &__island--kitchen {
-      left: 16%;
-      top: -2%;
+      left: 21%;
+      top: 4%;
       width: 40%;
     }
 
     &__island--dining {
-      left: -4%;
-      top: 23%;
+      left: 2%;
+      top: 26%;
       width: 38%;
     }
 
@@ -690,19 +773,19 @@ app-home-order-flow {
     }
 
     &__island--queue {
-      right: -3%;
-      top: 66%;
+      right: 3%;
+      top: 60%;
       width: 29%;
     }
 
     &__island--website {
-      bottom: -2%;
-      left: 1%;
+      bottom: 4%;
+      left: 7%;
       width: 37%;
     }
 
     &__island--delivery {
-      bottom: -3%;
+      bottom: 3%;
       left: 38%;
       width: 41%;
     }
@@ -716,9 +799,19 @@ app-home-order-flow {
   }
 }
 
+/* Keep the complete scene in the left column on laptops as well as desktops. */
+@media (min-width: 901px) {
+  .appz-ecosystem__layout {
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 1fr);
+    max-width: 1400px;
+  }
+  .appz-ecosystem__stage { grid-column: 1; grid-row: 1; }
+  .appz-ecosystem__copy { grid-column: 2; grid-row: 1; }
+}
+
 @media (max-width: 767px) {
   .appz-ecosystem {
-    padding: 64px 16px 80px;
+    padding: 52px 16px 64px;
 
     &__heading {
       margin-bottom: 34px;
@@ -737,7 +830,7 @@ app-home-order-flow {
     &__stage {
       aspect-ratio: auto;
       display: grid;
-      gap: 34px;
+      gap: 24px;
       grid-template-columns: minmax(0, 1fr);
       min-height: 0;
     }
@@ -820,14 +913,14 @@ app-home-order-flow {
     &__label {
       bottom: auto;
       left: auto;
-      margin: -22px auto 0;
+      margin: -16px auto 0;
       min-width: 0;
       opacity: 1;
       padding: 11px 13px 11px 21px;
       position: relative;
       transform: none;
       visibility: visible;
-      width: min(94%, 340px);
+      width: min(82%, 250px);
 
       i {
         left: 8px;
@@ -837,9 +930,6 @@ app-home-order-flow {
         font-size: .76rem;
       }
 
-      small {
-        font-size: .64rem;
-      }
     }
 
     &__island.is-active &__label,
@@ -947,5 +1037,70 @@ app-home-order-flow {
       animation: none;
       transition: none;
     }
+  }
+}
+
+@include island-grid;
+
+@media (max-width: 900px) {
+  .appz-ecosystem__stage { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+/* Static islands at rest; only direct hover, focus and selection animate. */
+.appz-ecosystem .appz-ecosystem__stage .appz-ecosystem__island {
+  opacity: 1 !important;
+  transform: none !important;
+  animation: none !important;
+  transition: none;
+}
+.appz-ecosystem .appz-ecosystem__island .appz-ecosystem__island-float {
+  animation: none !important;
+  transform: none;
+  will-change: auto;
+}
+.appz-ecosystem .appz-ecosystem__stage .appz-ecosystem__label {
+  margin-top: 8px;
+  transform: none !important;
+  background: #fff;
+  box-shadow: none;
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+.appz-ecosystem .appz-ecosystem__stage .appz-ecosystem__island::after {
+  background: radial-gradient(ellipse, rgba(255, 107, 34, .38), transparent 70%);
+  opacity: 0;
+}
+.appz-ecosystem .appz-ecosystem__stage .appz-ecosystem__island img {
+  filter: none;
+  transform: none;
+}
+.appz-ecosystem .appz-ecosystem__stage .appz-ecosystem__island:is(:hover, :focus-visible, .is-active) {
+  &::after { opacity: 1; }
+  img {
+    filter: drop-shadow(0 10px 14px rgba(255, 107, 34, .38));
+    transform: translateY(-4px) scale(1.025);
+  }
+  .appz-ecosystem__label {
+    background: #c64a0d;
+    border-color: #c64a0d;
+    strong { color: #fff; }
+    i { background: #fff; }
+  }
+}
+.appz-ecosystem .appz-ecosystem__stage .appz-ecosystem__island:active img {
+  transform: scale(.98);
+}
+.appz-ecosystem .appz-ecosystem__stage .appz-ecosystem__island[aria-expanded="true"] img {
+  transform-origin: center bottom;
+  transform: translateY(-4px) scale(1.14);
+}
+@media (max-width: 900px) {
+  .appz-ecosystem .appz-ecosystem__stage .appz-ecosystem__island[aria-expanded="true"] img {
+    transform: translateY(-3px) scale(1.1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .appz-ecosystem .appz-ecosystem__stage .appz-ecosystem__island img {
+    transform: none !important;
+    transition: none;
   }
 }

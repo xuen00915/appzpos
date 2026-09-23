@@ -121,13 +121,13 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-height: 3.1rem;
+  min-height: 48px;
   margin: 0;
   appearance: none;
   font: inherit;
   font-size: .9rem;
   font-weight: 700;
-  line-height: 1;
+  line-height: 1.4;
   text-decoration: none;
   cursor: pointer;
   transition: transform .24s ease, box-shadow .24s ease, color .24s ease, background-color .24s ease;
@@ -146,23 +146,23 @@
 .appzpos-product-hero__button--primary,
 .appzpos-product-hero__button--primary.mat-mdc-raised-button {
   gap: .7rem;
-  padding: .82rem 1.4rem;
+  padding: 12px 26px;
   border: 1px solid transparent;
-  border-radius: .7rem;
+  border-radius: 999px;
   color: #fff !important;
-  background: linear-gradient(135deg, #13a8ea, #008ed5) !important;
-  box-shadow: 0 .85rem 1.9rem rgba(0, 139, 210, .2), inset 0 1px 0 rgba(255, 255, 255, .25);
+  background: #1688d8 !important;
+  box-shadow: 0 6px 16px rgba(22, 136, 216, .14);
 }
 
 .appzpos-product-hero__button--secondary {
   gap: .48rem;
-  min-height: 2.7rem;
-  padding: .6rem .12rem;
-  border: 0;
-  border-bottom: 1px solid rgba(0, 120, 186, .28);
-  border-radius: 0;
-  color: var(--hero-blue-dark);
-  background: transparent;
+  min-height: 48px;
+  padding: 12px 26px;
+  border: 1px solid #168c4e;
+  border-radius: 999px;
+  color: #fff;
+  background: #168c4e;
+  box-shadow: 0 6px 16px rgba(22, 140, 78, .14);
 }
 
 .appzpos-product-hero__button:hover {
@@ -172,13 +172,14 @@
 
 .appzpos-product-hero__button--primary:hover {
   color: #fff;
-  background: linear-gradient(135deg, #23b0ef, #007fc5) !important;
-  box-shadow: 0 1rem 2.15rem rgba(0, 139, 210, .27), inset 0 1px 0 rgba(255, 255, 255, .3);
+  background: #116aab !important;
+  box-shadow: 0 8px 20px rgba(22, 136, 216, .2);
 }
 
 .appzpos-product-hero__button--secondary:hover {
-  color: #005f98;
-  border-bottom-color: currentColor;
+  color: #fff;
+  background: #107842;
+  border-color: #107842;
 }
 
 .appzpos-product-hero__button:active {
@@ -1203,10 +1204,10 @@
   }
 
   .appzpos-product-hero__button--secondary {
-    width: max-content;
-    min-height: 2.2rem;
+    width: 100%;
+    min-height: 48px;
     margin-inline: auto;
-    padding-block: .4rem;
+    padding-block: 12px;
   }
 
   .appzpos-product-hero__visual {
@@ -1475,4 +1476,79 @@
 @keyframes appzpos-screen-slice-crossfade {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+/* Keep the function tags in normal flow below the complete device artwork. */
+.appzpos-product-hero__visual {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 24px;
+}
+.appzpos-product-hero__visual .appzpos-product-hero__machine {
+  position: relative;
+  top: auto;
+  left: auto;
+  transform: none;
+  flex-shrink: 0;
+  order: 1;
+  margin: -7rem auto 0;
+}
+.appzpos-product-hero__visual .appzpos-module-orbit {
+  position: relative;
+  inset: auto;
+  order: 2;
+  width: 100%;
+  /* Offset the transparent space below the device image. */
+  margin-top: clamp(-40px, -3vw, -12px);
+}
+.appzpos-product-hero__visual .appzpos-module-orbit__list {
+  position: relative;
+  inset: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  padding: 0 12px 8px;
+  overflow: visible;
+}
+.appzpos-product-hero__visual .appzpos-module-orbit__card:nth-child(n) {
+  position: relative;
+  inset: auto;
+  flex: 0 1 auto;
+  width: auto;
+  min-width: 0;
+  max-width: 100%;
+  min-height: 44px;
+  padding: 12px 18px;
+  font-size: .8rem;
+  text-align: center;
+  white-space: normal;
+  background: #fff;
+  border: 1px solid #f47735;
+  box-shadow: none;
+  --panel-rotate: 0deg;
+  --scatter-x: 0rem;
+  --scatter-y: .4rem;
+}
+.appzpos-product-hero__visual .appzpos-module-orbit__card::before,
+.appzpos-product-hero__visual .appzpos-module-orbit__card::after {
+  content: none;
+  display: none;
+  animation: none;
+  background: none;
+}
+@media (max-width: 80rem) {
+  .appzpos-product-hero__visual .appzpos-product-hero__machine { margin-top: -6.5rem; }
+}
+@media (max-width: 64rem) {
+  .appzpos-product-hero__visual .appzpos-product-hero__machine { margin-top: -5.75rem; }
+}
+@media (max-width: 48rem) {
+  .appzpos-product-hero__visual .appzpos-product-hero__machine { margin-top: -2rem; }
+}
+@media (max-width: 39.99rem) {
+  .appzpos-product-hero__visual .appzpos-product-hero__machine { margin-top: -.35rem; }
+  .appzpos-product-hero__visual .appzpos-module-orbit__list { gap: 8px; }
+  .appzpos-product-hero__visual .appzpos-module-orbit__card:nth-child(n) { font-size: .72rem; padding: 10px 12px; }
 }

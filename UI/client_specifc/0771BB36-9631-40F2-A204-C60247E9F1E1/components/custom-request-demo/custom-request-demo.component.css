@@ -66,6 +66,10 @@
     text-decoration: none;
 }
 
+.appz-demo__contact a {
+    min-height: 44px;
+}
+
 .appz-demo__contact a:hover,
 .appz-demo__contact a:focus-visible {
     color: #fff;
@@ -150,6 +154,8 @@
 }
 
 .appz-demo__submit {
+    width: 100%;
+    box-sizing: border-box;
     align-items: center;
     appearance: none;
     background: #0a86e8;
@@ -168,16 +174,6 @@
     min-height: 48px;
     padding: 0 24px;
     transition: background-color 180ms ease, box-shadow 180ms ease, transform 180ms ease;
-}
-
-.appz-demo__submit svg {
-    fill: none;
-    height: 18px;
-    stroke: currentColor;
-    stroke-linecap: round;
-    stroke-linejoin: round;
-    stroke-width: 1.8;
-    width: 18px;
 }
 
 .appz-demo__submit:hover,

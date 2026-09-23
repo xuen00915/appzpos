@@ -10,7 +10,8 @@ const homeConfigSource = [
   'index/home-page-content.en.ts',
   'index/home-page-sections.en.ts',
   'index/home-page-proof.en.ts',
-  'cn-f&b-restaurant-cloud-pos-system/home-page-content.zh.ts'
+  'cn-f&b-restaurant-cloud-pos-system/home-page-content.zh.ts',
+  'custom-request-demo/custom-request-demo.component.ts'
 ].map((path) => readFileSync(resolve(componentRoot, path), 'utf8')).join('\n');
 const homeOrderFlowSource = readFileSync(
   resolve(componentRoot, 'home-order-flow/home-order-flow.component.html'),

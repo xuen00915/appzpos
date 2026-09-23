@@ -1,7 +1,7 @@
 :root {
   --appz-font: "Manrope", "Avenir Next", Arial, sans-serif;
   --appz-gutter: clamp(20px, 4vw, 64px);
-  --appz-section-space: clamp(80px, 11vw, 168px);
+  --appz-section-space: clamp(64px, 8vw, 112px);
   --appz-content-width: 1320px;
   --appz-reading-width: 65ch;
   --appz-radius-surface: 16px;
@@ -52,9 +52,17 @@ body {
   text-wrap: balance;
 }
 
-#content .appz-display,
-#content .ecosystem__features h2 {
+#content .appz-display {
   max-width: 16ch !important;
+}
+
+#content .industries__intro .appz-display {
+  max-width: 100% !important;
+}
+
+#content .ecosystem__features h2 {
+  max-width: 100% !important;
+  letter-spacing: -.035em !important;
 }
 
 a,

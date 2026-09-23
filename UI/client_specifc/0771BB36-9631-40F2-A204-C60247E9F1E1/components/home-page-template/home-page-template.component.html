@@ -11,8 +11,7 @@
     <app-home-proof *ngIf="config.proof as proof" [config]="proof"></app-home-proof>
 
     <section *ngIf="config.conversion" class="appz-conversion-panel" [id]="config.conversion.sectionId">
-      <app-custom-request-demo *ngIf="config.conversion.locale === 'en'"></app-custom-request-demo>
-      <app-cn-custom-request-demo *ngIf="config.conversion.locale === 'zh'"></app-cn-custom-request-demo>
+      <app-custom-request-demo [locale]="config.conversion.locale"></app-custom-request-demo>
     </section>
   </main>
 

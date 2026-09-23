@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { HomePageTemplateComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/home-page-template/home-page-template.component';
 import { HomeHeroConfig } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/home-page-template/home-page-template.models';
@@ -16,6 +17,8 @@ import { HomeIndustriesComponent } from '../../../../../client_specifc/0771BB36-
 import { HomeProofComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/home-proof/home-proof.component';
 import { ENGLISH_HOME_PAGE_CONFIG } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/index/home-page-content.en';
 import { CHINESE_HOME_PAGE_CONFIG } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/cn-f&b-restaurant-cloud-pos-system/home-page-content.zh';
+import { CustomRequestDemoComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/custom-request-demo/custom-request-demo.component';
+import { ApiService } from '../../../services/shared_function/api.service';
 
 describe('HomePageTemplateComponent', () => {
   let fixture: ComponentFixture<HomePageTemplateComponent>;
@@ -49,7 +52,7 @@ describe('HomePageTemplateComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule, RouterTestingModule],
+      imports: [CommonModule, RouterTestingModule, ReactiveFormsModule],
       declarations: [
         HomePageTemplateComponent,
         HomeHeroComponent,
@@ -57,10 +60,12 @@ describe('HomePageTemplateComponent', () => {
         HomeStorySectionsComponent,
         HomeEcosystemComponent,
         HomeIndustriesComponent,
-        HomeProofComponent
+        HomeProofComponent,
+        CustomRequestDemoComponent
       ],
       providers: [
-        { provide: CommonFunctionService, useValue: { BindURL_Image: (name: string) => `/images/${name}` } }
+        { provide: CommonFunctionService, useValue: { BindURL_Image: (name: string) => `/images/${name}` } },
+        { provide: ApiService, useValue: { apiCallPOST_Sync: () => undefined } }
       ],
       schemas: [NO_ERRORS_SCHEMA]
     });
@@ -82,8 +87,14 @@ describe('HomePageTemplateComponent', () => {
 
     expect(element.textContent).toContain(chineseHero.title);
     expect(element.textContent).not.toContain('Everything Works Together');
-    expect(element.querySelector('app-cn-custom-request-demo')).not.toBeNull();
-    expect(element.querySelector('app-custom-request-demo')).toBeNull();
+    expect(element.querySelector('#requestdemo app-custom-request-demo')).not.toBeNull();
+    expect(element.querySelector('app-cn-custom-request-demo')).toBeNull();
+    expect(element.textContent).toContain('联系APPZPOS');
+    expect(element.textContent).toContain('新加坡最佳POS收银系统，协助您轻松管理餐厅业务。');
+    expect(element.textContent).toContain('名字');
+    expect(element.textContent).toContain('电子邮件地址');
+    expect(element.textContent).toContain('电话号码');
+    expect(element.textContent).toContain('公司名字');
     expect(element.querySelector('app-home-order-flow')).toBeNull();
     expect(element.querySelector('app-home-industries')).toBeNull();
     expect(element.querySelector('app-home-proof')).toBeNull();
