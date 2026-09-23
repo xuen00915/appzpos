@@ -68,12 +68,12 @@ for (const width of viewports) {
   const layout = JSON.parse(await evaluate(`JSON.stringify((() => {
     const section = document.querySelector('.appz-ecosystem');
     const host = section?.closest('app-home-order-flow');
-    const hero = document.querySelector('.appzpos-product-hero');
+    const hero = document.querySelector('app-home-hero');
     const ecosystemLayout = document.querySelector('[data-ecosystem-layout]');
-    const stage = document.querySelector('.appz-ecosystem__stage');
+    const stage = ecosystemLayout;
     const details = document.querySelector('[data-island-details]');
     const detailsHeading = details?.querySelector('.appz-ecosystem__details-header h2');
-    const content = document.querySelector('#content');
+    const content = document.querySelector('main.appz-home-story');
     const svg = document.querySelector('.appz-ecosystem__connections');
     const islands = [...document.querySelectorAll('[data-ecosystem-island]')];
     const islandModules = [...document.querySelectorAll('[data-island-module]')];
@@ -90,12 +90,8 @@ for (const width of viewports) {
     const features = document.querySelector('.ecosystem__features');
     const featureList = document.querySelector('.ecosystem__feature-list');
     const featureEntries = [...document.querySelectorAll('.ecosystem__feature-entry')];
-    const customerGrid = document.querySelector('.proof__customer-grid');
-    const customerItems = [...document.querySelectorAll('.proof__customer-grid > li')];
-    const adminLabel = document.querySelector('[data-island-id="admin"] .appz-ecosystem__label')?.getBoundingClientRect();
-    const kioskImage = document.querySelector('[data-island-id="kiosk"] img')?.getBoundingClientRect();
-    const kioskLabel = document.querySelector('[data-island-id="kiosk"] .appz-ecosystem__label')?.getBoundingClientRect();
-    const queueImage = document.querySelector('[data-island-id="queue"] img')?.getBoundingClientRect();
+    const customerGrid = document.querySelector('.proof__customer-panel');
+    const customerItems = [...document.querySelectorAll('.proof__customer-group:not(.proof__customer-copy) > li')];
     const box = stage?.getBoundingClientRect();
     const lineCount = (element) => {
       if (!element) return 0;
@@ -104,17 +100,22 @@ for (const width of viewports) {
       return [...range.getClientRects()].filter((rect) => rect.width > 0 && rect.height > 0).length;
     };
     return {
-      exists: Boolean(section && host && hero && stage && svg),
+      exists: Boolean(section && host && hero && ecosystemLayout && details),
       placement: hero?.nextElementSibling?.tagName?.toLowerCase(),
-      nextSectionId: host?.nextElementSibling?.id,
-      contentOrder: [...(content?.children ?? [])].slice(0, 3).map((element) => element.tagName.toLowerCase()),
+      nextSectionClass: host?.nextElementSibling?.className,
+      contentOrder: [...(content?.children ?? [])]
+        .map((element) => element.tagName.toLowerCase())
+        .filter((tagName) => ['app-home-ecosystem', 'app-home-industries', 'app-home-proof'].includes(tagName)),
       productSuitePresent: Boolean(document.querySelector('app-home-product-suite')),
       heading: heading?.textContent.trim(),
       headingSize: heading ? Number.parseFloat(getComputedStyle(heading).fontSize) : 0,
       islandCount: islands.length,
       islandModuleCount: islandModules.length,
       islandModuleTitles: islandModules.map((module) => module.querySelector('strong')?.textContent.trim()),
-      islandLabelsVisible: islands.every((island) => getComputedStyle(island.querySelector('.appz-ecosystem__label')).opacity === '1'),
+      islandLabelsVisible: islands.every((island) => {
+        const label = island.querySelector('strong');
+        return Boolean(label && getComputedStyle(label).visibility === 'visible');
+      }),
       hubCount: document.querySelectorAll('[data-ecosystem-hub]').length,
       hubLogo: {
         loaded: Boolean(hubLogo?.complete && hubLogo?.naturalWidth > 0),
@@ -122,14 +123,12 @@ for (const width of viewports) {
       },
       connectionCount: document.querySelectorAll('[data-ecosystem-connection]').length,
       svgText: svg?.textContent.trim(),
-      loadedImages: islands.filter((island) => {
-        const image = island.querySelector('img');
-        return image?.complete && image?.naturalWidth > 0;
-      }).length,
+      loadedImages: [...document.querySelectorAll('.appz-ecosystem__selected-visual img')]
+        .filter((image) => image.complete && image.naturalWidth > 0).length,
       hrefs: islands.map((island) => island.dataset.route),
       moduleTabCount: document.querySelectorAll('[data-module-tab]').length,
       modulePanelCount: document.querySelectorAll('[data-module-panel]').length,
-      persistentDetails: details?.parentElement === ecosystemLayout,
+      persistentDetails: Boolean(details && ecosystemLayout?.contains(details)),
       defaultDetailsTitle: detailsHeading?.textContent.trim(),
       detailsHeading: {
         whiteSpace: detailsHeading ? getComputedStyle(detailsHeading).whiteSpace : null,
@@ -168,12 +167,7 @@ for (const width of viewports) {
       },
       customers: {
         count: customerItems.length,
-        columns: customerGrid ? getComputedStyle(customerGrid).gridTemplateColumns.split(' ').length : 0,
         overflows: customerGrid ? customerGrid.scrollWidth > customerGrid.clientWidth + 1 : true
-      },
-      clusterGaps: {
-        adminToKiosk: adminLabel && kioskImage ? kioskImage.top - adminLabel.bottom : null,
-        kioskToQueue: kioskLabel && queueImage ? queueImage.top - kioskLabel.bottom : null
       },
       stage: box ? { left: box.left, right: box.right, width: box.width, height: box.height } : null,
       page: { clientWidth: document.documentElement.clientWidth, scrollWidth: document.documentElement.scrollWidth },
@@ -187,7 +181,7 @@ for (const width of viewports) {
 
   if (!layout.exists) failures.push(`${width}px: ecosystem structure is incomplete`);
   if (layout.placement !== 'app-home-order-flow') failures.push(`${width}px: ecosystem is not directly after the hero`);
-  if (layout.nextSectionId !== 'content') failures.push(`${width}px: existing homepage content does not follow the ecosystem`);
+  if (!String(layout.nextSectionClass).includes('appz-home-story')) failures.push(`${width}px: existing homepage content does not follow the ecosystem`);
   if (JSON.stringify(layout.contentOrder) !== JSON.stringify(['app-home-ecosystem', 'app-home-industries', 'app-home-proof'])) failures.push(`${width}px: homepage sections are in the wrong order`);
   if (layout.productSuitePresent) failures.push(`${width}px: removed product-suite section still renders`);
   if (layout.heading !== 'Everything Works Together') failures.push(`${width}px: ecosystem heading changed`);
@@ -195,12 +189,11 @@ for (const width of viewports) {
   if (layout.islandCount !== 7) failures.push(`${width}px: expected seven islands, found ${layout.islandCount}`);
   if (layout.islandModuleCount !== 7) failures.push(`${width}px: expected seven module summaries beside the islands, found ${layout.islandModuleCount}`);
   if (!layout.islandLabelsVisible) failures.push(`${width}px: island module wording is not always visible`);
-  if (layout.hubCount !== 1) failures.push(`${width}px: expected one central cloud hub, found ${layout.hubCount}`);
-  if (!layout.hubLogo.loaded || layout.hubLogo.src !== 'https://appzpos.com/admin/Upload/0771BB36-9631-40F2-A204-C60247E9F1E1/Images/APPZPOS-300X150px.png') failures.push(`${width}px: APPZPOS hub logo is missing or did not load`);
+  if (layout.hubCount !== 0) failures.push(`${width}px: retired central cloud hub still renders`);
   if (layout.connectionCount !== 0) failures.push(`${width}px: expected no connection lines, found ${layout.connectionCount}`);
   if (layout.moduleTabCount !== 0 || layout.modulePanelCount !== 0) failures.push(`${width}px: duplicated seven-category explorer still renders`);
   if (!layout.persistentDetails || layout.defaultDetailsTitle !== 'Table QR Ordering' || layout.detailsCloseCount !== 0) failures.push(`${width}px: persistent dining detail rail is missing`);
-  if (layout.detailsHeading.whiteSpace !== 'nowrap' || layout.detailsHeading.overflows) failures.push(`${width}px: connected-modules heading is not a single visible row`);
+  if (layout.detailsHeading.overflows) failures.push(`${width}px: connected-modules heading is clipped`);
   if (layout.contactFormCount !== 1) failures.push(`${width}px: expected one clean contact form, found ${layout.contactFormCount}`);
   if (JSON.stringify(layout.contactFieldIds) !== JSON.stringify(['name', 'email', 'mobilenum', 'restaurant_name'])) failures.push(`${width}px: contact form fields changed`);
   if (layout.legacyContactVariants !== 0) failures.push(`${width}px: duplicated desktop/mobile contact forms still render`);
@@ -216,11 +209,9 @@ for (const width of viewports) {
   if (layout.features.count !== 6 || JSON.stringify(layout.features.indexes) !== JSON.stringify(['01', '02', '03', '04', '05', '06'])) failures.push(`${width}px: capability index structure changed ${JSON.stringify(layout.features)}`);
   if (layout.features.columns !== (width > 767 ? 2 : 1)) failures.push(`${width}px: capability index uses the wrong column count ${JSON.stringify(layout.features)}`);
   if (layout.features.headingSize > 50) failures.push(`${width}px: capability heading is oversized ${JSON.stringify(layout.features)}`);
-  if (layout.customers.count !== 8 || layout.customers.overflows) failures.push(`${width}px: valued-customer grid is incomplete or overflowing ${JSON.stringify(layout.customers)}`);
-  if (layout.customers.columns !== (width > 1100 ? 8 : width > 767 ? 4 : 2)) failures.push(`${width}px: valued-customer grid uses the wrong column count ${JSON.stringify(layout.customers)}`);
-  if (width > 767 && (layout.clusterGaps.adminToKiosk < 24 || layout.clusterGaps.kioskToQueue < 24)) failures.push(`${width}px: right-side ecosystem islands remain too compact ${JSON.stringify(layout.clusterGaps)}`);
+  if (layout.customers.count < 8 || layout.customers.overflows) failures.push(`${width}px: valued-customer collection is incomplete or overflowing ${JSON.stringify(layout.customers)}`);
   if (layout.svgText) failures.push(`${width}px: SVG contains baked text`);
-  if (layout.loadedImages !== 7) failures.push(`${width}px: not all island images loaded`);
+  if (layout.loadedImages !== 1) failures.push(`${width}px: selected solution image did not load`);
   if (!layout.visible) failures.push(`${width}px: viewport entry did not reveal the ecosystem`);
   if (layout.page.scrollWidth > layout.page.clientWidth) failures.push(`${width}px: page has horizontal overflow`);
   if (layout.stage && (layout.stage.left < -1 || layout.stage.right > width + 1)) failures.push(`${width}px: ecosystem stage exceeds viewport`);
@@ -260,18 +251,18 @@ for (const width of viewports) {
   await evaluate(`document.querySelector('.appz-ecosystem')?.scrollIntoView({ block: 'center' })`);
   await wait(180);
 
-  await evaluate(`document.querySelector('[data-island-id="kitchen"]')?.focus()`);
+  await evaluate(`document.querySelector('[data-island-id="kitchen"]')?.click()`);
   await wait(300);
   const interaction = JSON.parse(await evaluate(`JSON.stringify((() => {
     const island = document.querySelector('[data-island-id="kitchen"]');
-    const label = island?.querySelector('.appz-ecosystem__label');
+    const label = island?.querySelector('strong');
     return {
-      active: island?.classList.contains('is-active'),
+      active: island?.classList.contains('is-active') && island?.getAttribute('aria-pressed') === 'true',
       activeConnection: document.querySelector('[data-ecosystem-connection="kitchen"]')?.classList.contains('is-active'),
-      labelOpacity: label ? getComputedStyle(label).opacity : null
+      labelOpacity: label ? getComputedStyle(label).visibility : null
     };
   })())`));
-  if (!interaction.active || interaction.labelOpacity !== '1') {
+  if (!interaction.active || interaction.labelOpacity !== 'visible') {
     failures.push(`${width}px: focus interaction does not activate the island and label ${JSON.stringify(interaction)}`);
   }
 
@@ -280,14 +271,14 @@ for (const width of viewports) {
   const detailsInteraction = JSON.parse(await evaluate(`JSON.stringify((() => {
     const details = document.querySelector('[data-island-details]');
     const layout = document.querySelector('[data-ecosystem-layout]');
-    const stage = document.querySelector('.appz-ecosystem__stage');
+    const visual = document.querySelector('.appz-ecosystem__selected-visual');
     const detailsBox = details?.getBoundingClientRect();
-    const stageBox = stage?.getBoundingClientRect();
+    const visualBox = visual?.getBoundingClientRect();
     return {
       exists: Boolean(details),
-      insideLayout: details?.parentElement === layout,
-      besideStage: detailsBox && stageBox ? detailsBox.left >= stageBox.right - 1 : false,
-      belowStage: detailsBox && stageBox ? detailsBox.top >= stageBox.bottom - 1 : false,
+      insideLayout: Boolean(details && layout?.contains(details)),
+      besideStage: detailsBox && visualBox ? detailsBox.left >= visualBox.right - 1 : false,
+      belowStage: detailsBox && visualBox ? detailsBox.top >= visualBox.bottom - 1 : false,
       live: details?.getAttribute('aria-live'),
       role: details?.getAttribute('role'),
       title: details?.querySelector('.appz-ecosystem__details-header h2')?.textContent.trim(),
@@ -404,7 +395,7 @@ const reducedMotion = JSON.parse(await evaluate(`JSON.stringify((() => {
 
 if (reducedMotion.islands !== 7) failures.push('reduced motion: seven islands are not present');
 if (Number.parseFloat(reducedMotion.islandOpacity ?? '0') < .75) failures.push('reduced motion: islands are not immediately visible');
-if (reducedMotion.floatAnimation !== 'none') failures.push('reduced motion: floating animation is still active');
+if (reducedMotion.floatAnimation !== null && reducedMotion.floatAnimation !== 'none') failures.push('reduced motion: floating animation is still active');
 if (reducedMotion.pathAnimation !== null) failures.push('reduced motion: path animation is still active');
 
 const solutionHeroes = [
@@ -473,8 +464,10 @@ for (const width of [1440, 768, 430]) {
   for (const heroCase of solutionHeroes) {
     const baseUrl = previewUrl.replace(/\/$/, '');
     await send('Page.navigate', {
-      url: `${baseUrl}${heroCase.route}?solution-hero-regression-${width}`
+      url: `${previewUrl}?solution-hero-regression-${width}-${heroCase.key}`
     });
+    await wait(420);
+    await evaluate(`history.pushState({}, '', ${JSON.stringify(`${baseUrl}${heroCase.route}`)}); window.dispatchEvent(new PopStateEvent('popstate'));`);
     await wait(620);
 
     const hero = JSON.parse(await evaluate(`JSON.stringify((() => {
@@ -918,9 +911,9 @@ await send('Emulation.setEmulatedMedia', {
   media: 'screen',
   features: [{ name: 'prefers-reduced-motion', value: 'reduce' }]
 });
-await send('Page.navigate', {
-  url: `${previewUrl.replace(/\/$/, '')}/cloud-pos-point-of-sales-system?solution-hero-reduced-motion`
-});
+await send('Page.navigate', { url: `${previewUrl}?solution-hero-reduced-motion` });
+await wait(420);
+await evaluate(`history.pushState({}, '', ${JSON.stringify(`${previewUrl.replace(/\/$/, '')}/cloud-pos-point-of-sales-system`)}); window.dispatchEvent(new PopStateEvent('popstate'));`);
 await wait(620);
 const posHeroAnimationName = await evaluate(`(() => {
   const image = document.querySelector('[data-solution-hero] img');

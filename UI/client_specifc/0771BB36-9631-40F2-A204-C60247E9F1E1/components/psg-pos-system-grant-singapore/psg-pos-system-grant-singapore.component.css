@@ -89,7 +89,12 @@
 
 #content .psg-vendor .psg-vendor__title {
   color: #fff !important;
+  font-size: clamp(20px, 2.7vw, 34px) !important;
   white-space: nowrap !important;
+}
+
+#content .psg-eligibility .psg-eligibility__title {
+  font-size: clamp(20px, 2.7vw, 34px) !important;
 }
 
 .psg-vendor__grid {

@@ -156,14 +156,14 @@ for (const width of viewports) {
       const image = hero?.querySelector('.psg-hero__art img');
       const requestDemo = document.querySelector('#requestdemo');
       const requestDemoHost = requestDemo?.querySelector('app-custom-request-demo');
-      const requestDemoViews = requestDemoHost ? [...requestDemoHost.querySelectorAll(':scope > #webview, :scope > #mobile_view')] : [];
+      const requestDemoViews = requestDemoHost ? [...requestDemoHost.querySelectorAll(':scope > #webview, :scope > #mobile_view, :scope > .appz-demo')] : [];
       const visibleRequestDemoView = requestDemoViews.find((element) => element.getBoundingClientRect().width > 0 && element.getBoundingClientRect().height > 0);
       const requestDemoRow = visibleRequestDemoView?.querySelector('.row');
-      const requestDemoCopy = requestDemoRow?.querySelector('.col-lg-6:first-child');
-      const requestDemoFormPanel = requestDemoRow?.querySelector('.col-lg-6:last-child');
-      const requestDemoForm = requestDemoFormPanel?.querySelector('form');
+      const requestDemoCopy = requestDemoRow?.querySelector('.col-lg-6:first-child') ?? visibleRequestDemoView?.querySelector('.appz-demo__copy');
+      const requestDemoFormPanel = requestDemoRow?.querySelector('.col-lg-6:last-child') ?? visibleRequestDemoView?.querySelector('.appz-demo__form');
+      const requestDemoForm = requestDemoFormPanel?.matches('form') ? requestDemoFormPanel : requestDemoFormPanel?.querySelector('form');
       const requestDemoControls = requestDemoForm ? [...requestDemoForm.querySelectorAll('input:not([type="submit"])')] : [];
-      const requestDemoSubmit = requestDemoForm?.querySelector('input[type="submit"]');
+      const requestDemoSubmit = requestDemoForm?.querySelector('input[type="submit"], button[type="submit"]');
       const vendor = document.querySelector('.psg-vendor');
       const vendorTitle = vendor?.querySelector('.psg-vendor__title');
       const vendorCopy = vendor?.querySelector('.psg-vendor__copy');
@@ -288,7 +288,7 @@ for (const width of viewports) {
           host: bounds(requestDemoHost),
           hasSharedDesignClass: requestDemoHost?.classList.contains('shared-contact-design') ?? false,
           visibleView: bounds(visibleRequestDemoView),
-          backgroundImage: visibleRequestDemoView ? getComputedStyle(visibleRequestDemoView.querySelector('.overflow-hidden.h-100')).backgroundImage : '',
+          backgroundImage: visibleRequestDemoView ? getComputedStyle(visibleRequestDemoView.querySelector('.overflow-hidden.h-100') ?? visibleRequestDemoView).backgroundImage : '',
           copy: bounds(requestDemoCopy),
           formPanel: bounds(requestDemoFormPanel),
           form: bounds(requestDemoForm),
