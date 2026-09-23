@@ -43,7 +43,7 @@ export class CustomContactComponent implements OnInit{
  }
 
    )
-   this.meta.updateTag({ 
+   this.meta.updateTag({
     name: 'description',
     content: "Singapore #1 POS System Vendor. Contact us now for a Free Quotation or schedule a POS Demo. Call /  WhatsApp us on +𝟔𝟓 𝟖𝟑𝟏𝟎 𝟗𝟔𝟑𝟏"
 });
@@ -57,6 +57,11 @@ export class CustomContactComponent implements OnInit{
     return this.commonFunctionService.BindURL_Image(FileName);
   }
   
+  scrollToTop(): void {
+    // Reuse the existing control so its click handler and tracking still run.
+    document.getElementById('gotoTop')?.click();
+  }
+
   onSubmit( ):void{
     this.showErrorMsg =false;
     this.showSuccessMsg=false;

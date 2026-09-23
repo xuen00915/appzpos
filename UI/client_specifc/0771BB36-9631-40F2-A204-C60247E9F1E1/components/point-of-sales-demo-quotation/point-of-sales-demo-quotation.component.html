@@ -140,12 +140,12 @@
                             <a href="javascript:void(0)"><i class="bi-whatsapp" style="color:#009DF0"></i></a>
                         </div>
                         <div class="fbox-content">
-                            <h3>WhatsApp Us<span class="subtitle">
+                            <h3><span class="contact-whatsapp-heading">WhatsApp Us</span><span class="subtitle">
                                <b>
                                     <a target="_blank" class="a_blue" href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!" style="font-size:16px;font-weight: bold;" 
                                     onMouseOver="this.style.color='#41bdff'"
                                     onMouseOut="this.style.color='#009df0'">
-                                        (65) 8310 9631
+                                        <i class="bi-whatsapp" aria-hidden="true"></i><span>Request Demo</span>
                                     </a>
                                </b>
                                 </span></h3>
@@ -193,17 +193,22 @@
     </div>
 </section>
  
-<div id="webview">
+<div id="webview" class="contact-floating-actions" aria-label="Chat with APPZPOS">
     <div style="position:fixed; top: 22%; right: 0; border: 0;z-index:10000">
-        <a target="_blank" href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!" class="btn-whatsapp"
+        <a target="_blank" href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!" class="btn-whatsapp" aria-label="WhatsApp APPZPOS (opens in a new tab)" rel="noopener"
         >
         <img loading="lazy" src="{{BindURL_Image('APPZPOS Point of Sales WhatsApp Us.png')}}" alt="APPZPOS Point of Sales WhatsApp Us" style="max-width: 90%;">
+        <i class="bi-whatsapp" aria-hidden="true"></i><span>WhatsApp</span>
         </a>
     </div>
     <div style="position:fixed; top: 30%; right: 0; border: 0;z-index:10000">
-        <a target="_blank" href="http://m.me/APPZPOS?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!" class="btn-fb"
+        <a target="_blank" href="http://m.me/APPZPOS?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!" class="btn-fb" aria-label="Message APPZPOS on Messenger (opens in a new tab)" rel="noopener"
         >
         <img loading="lazy" src="{{BindURL_Image('APPZPOS Point of Sales Messenger Us.png')}}" alt="APPZPOS Point of Sales Messenger Us" style="max-width: 90%;">
+        <i class="bi-messenger" aria-hidden="true"></i><span>Messenger</span>
     </a>
     </div>
+    <button type="button" class="contact-scroll-top" aria-label="Scroll to top" (click)="scrollToTop()">
+        <i class="uil uil-angle-up" aria-hidden="true"></i>
+    </button>
 </div>

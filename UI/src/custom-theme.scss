@@ -42,4 +42,47 @@ $eCommerce-theme: mat.define-light-theme((
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
+@import "styles/appzpos-features";
+
+@import "styles/appzpos-blog";
+
+@import "styles/appzpos-partners";
+
 @import "styles/appzpos-contact";
+
+/* Shared bottom conversion link: retain its original anchor and destination. */
+#webview.appzpos-bottom-demo {
+  display: block;
+  position: fixed;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 990;
+  width: max-content;
+  max-width: calc(100% - 32px);
+}
+.appzpos-bottom-demo .row { margin: 0; }
+.appzpos-bottom-demo .col-md-12 { padding: 0; }
+.appzpos-bottom-demo a {
+  display: block;
+  padding: 13px 24px;
+  border: 1px solid #176b35;
+  border-radius: 999px;
+  background: #176b35;
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(16, 43, 70, .14);
+  text-decoration: none;
+}
+.appzpos-bottom-demo a:hover { background: #12562a; color: #fff; }
+.appzpos-bottom-demo a:focus-visible { outline: 3px solid #1688d8; outline-offset: 4px; }
+.appzpos-bottom-demo p {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin: 0;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 22px;
+}
+.appzpos-bottom-demo i { font-size: 22px; }

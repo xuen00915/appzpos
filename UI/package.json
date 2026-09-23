@@ -8,7 +8,9 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:site-content": "node scripts/site-content-contract.mjs",
-    "test:site-runtime": "node scripts/site-runtime-contract.mjs"
+    "test:site-runtime": "node scripts/site-runtime-contract.mjs",
+    "test:contact-hero": "node scripts/contact-hero-regression.mjs",
+    "test:footer-responsive": "node scripts/footer-responsive-regression.mjs"
   },
   "private": true,
   "dependencies": {

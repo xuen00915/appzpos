@@ -135,4 +135,74 @@ describe('APPZPOS marketing shell', () => {
     expect(hrefs).toContain('https://www.youtube.com/@APPZPOS');
     expect(hrefs).toContain('https://www.appzpos.com/docs/APPZPOS-A4-Brochure-EN.pdf');
   });
+
+  it('keeps the conversion and social actions after removing resource navigation', () => {
+    const host = footerFixture.nativeElement as HTMLElement;
+    const actionColumn = host.querySelector<HTMLElement>('.appzpos-footer__socials')?.parentElement;
+    const headings = Array.from(actionColumn?.querySelectorAll<HTMLElement>('h2') ?? [])
+      .map((heading) => heading.textContent?.trim());
+    const directLinks = Array.from(
+      actionColumn?.querySelectorAll<HTMLAnchorElement>(':scope > a') ?? []
+    );
+
+    expect(headings).toEqual(['SOCIAL MEDIA']);
+    expect(directLinks.map((link) => ({
+      label: link.textContent?.trim(),
+      href: link.getAttribute('href')
+    }))).toEqual([
+      { label: 'Request a Demo', href: '/point-of-sales-demo-quotation' }
+    ]);
+    expect(actionColumn?.firstElementChild).toBe(directLinks[0]);
+  });
+
+  it('uses recognizable social brand colors and a larger certification badge', () => {
+    const host = footerFixture.nativeElement as HTMLElement;
+    const socialIcons = Array.from(host.querySelectorAll<HTMLElement>('.appzpos-footer__socials i'));
+    const badge = host.querySelector<HTMLElement>('.appzpos-footer__iso')!;
+
+    expect(getComputedStyle(socialIcons[0]).backgroundImage).toContain('linear-gradient');
+    expect(getComputedStyle(socialIcons[1]).color).toBe('rgb(24, 119, 242)');
+    expect(getComputedStyle(socialIcons[2]).color).toBe('rgb(10, 102, 194)');
+    expect(getComputedStyle(socialIcons[3]).color).toBe('rgb(255, 0, 0)');
+    expect(badge.getBoundingClientRect().width).toBe(190);
+  });
+
+  it('keeps the footer vertically compact on desktop', () => {
+    const host = footerFixture.nativeElement as HTMLElement;
+    const innerStyle = getComputedStyle(host.querySelector<HTMLElement>('.appzpos-footer__inner')!);
+    const bottomStyle = getComputedStyle(host.querySelector<HTMLElement>('.appzpos-footer__bottom')!);
+    const innerVerticalPadding = parseFloat(innerStyle.paddingTop) + parseFloat(innerStyle.paddingBottom);
+    const bottomVerticalPadding = parseFloat(bottomStyle.paddingTop) + parseFloat(bottomStyle.paddingBottom);
+
+    expect(innerVerticalPadding).toBeLessThanOrEqual(100);
+    expect(bottomVerticalPadding).toBeLessThanOrEqual(32);
+  });
+
+  it('does not render a divider above the footer', () => {
+    const host = footerFixture.nativeElement as HTMLElement;
+    const footer = host.querySelector<HTMLElement>('#footer.appzpos-footer')!;
+
+    expect(parseFloat(getComputedStyle(footer).borderTopWidth)).toBe(0);
+  });
+
+  it('exposes the designer credit as a safe external destination', () => {
+    const host = footerFixture.nativeElement as HTMLElement;
+    const credit = host.querySelector<HTMLAnchorElement>('.appzpos-footer__credit a');
+
+    expect(credit?.textContent?.trim()).toBe('Adcendes Pte Ltd');
+    expect(credit?.getAttribute('href')).toBe('https://adcendes.com.sg/');
+    expect(credit?.getAttribute('target')).toBe('_blank');
+    expect(credit?.getAttribute('rel')).toContain('noopener');
+  });
+
+  it('keeps the footer details in one integrated desktop row', () => {
+    const host = footerFixture.nativeElement as HTMLElement;
+    const footer = host.querySelector<HTMLElement>('#footer.appzpos-footer')!;
+    const bottom = host.querySelector<HTMLElement>('#copyrights.appzpos-footer__bottom')!;
+
+    expect(bottom.children.length).toBe(3);
+    expect(getComputedStyle(bottom).flexDirection).toBe('row');
+    expect(getComputedStyle(bottom).backgroundColor).toBe(getComputedStyle(footer).backgroundColor);
+  });
+
 });

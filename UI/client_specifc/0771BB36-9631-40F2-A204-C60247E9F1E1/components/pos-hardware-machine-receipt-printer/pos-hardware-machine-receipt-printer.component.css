@@ -1,79 +1,3 @@
-.list-group-item.active{
-    color:#009DF0;
-}
-.markblue{
-    color:#009DF0;
-}
-.iconlist > li i:first-child, .iconlist > li img:first-child {
-    color:#009DF0;
-}
-.a_blue{
-    color:#009DF0;
-}
-.button owl-dot active{
-    background-color:#009DF0 !important;
-}
-.bubble-btn {
-    color: #009DF0;
-    border-color:#009DF0
-  }
-  
-  .bubble-btn:hover {
-    color: #ffffff;
-    border-color:#009DF0;
-    background-color: #009DF0 !important ;
-  }
-  .default-blue{
-    background-color: #009DF0;
-  }
-
-  .p_16{
-    font-size:16px;
-  }
-  .cuslogo_maxwidth{
-    max-width: 90%
-  }
-  .solu-img_maxwidth{
-    max-width: 75%;
-  }
-  .center-image{
-    text-align: center;
-  }
-  .fbox-content container-modules-loaded active{
-    background-color: darkgrey;
-    transition: 0.3s;
-    left: 0;
-    top: 0;
-  }
-  .solution-label{
-    margin-top:20px;
-    display:flex; 
-    flex-direction: column;
-  }
-  .solution-label:hover{
-    color: #009DF0;
-  }
-  .solution-circleimg:hover{
-    margin-bottom:30px;
-    border-radius: 50%; 
-    border-radius: 50%;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 3px 8px; 
-  } 
-  .solution-circleimg{
-    margin-bottom:30px;
-    border-radius: 50%; 
-    border-radius: 50%;
-    box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 8px;
-  } 
-  .heading-padding{
-    padding-bottom:20px;
-  }
-  .entry-title.title-xs h2, .entry-title.title-xs .h2, .entry-title.title-xs h3, .entry-title.title-xs .h3{
-    margin-bottom: 5px;
-  }
-  .button button-large button-circle button-green :hover{
- background-color: red !important;
-  } 
   @media   screen and (min-width: 0px) and (max-width: 768px) {
     #mobile_view { display: block; }  
     #logo_mobileview{display: block;}
@@ -97,4 +21,57 @@
 
   b, strong {
     font-weight: 500 !important;
+}
+/* Compact hardware introduction, independent of the legacy slider sizing. */
+.hardware-hero { background: #e7f3ff; color: #102b46; }
+.hardware-hero__inner { width: min(100%, var(--appz-container, 1280px)); margin: auto; box-sizing: border-box; padding: clamp(28px, 3.2vw, 40px) clamp(20px, 3vw, 32px); display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); align-items: center; gap: clamp(24px, 3.8vw, 48px); }
+.hardware-hero__copy { min-width: 0; }
+.hardware-hero__eyebrow { color: #086aab; font-size: 11px; font-weight: 700; letter-spacing: .16em; }
+.hardware-hero h1 { width: 100%; max-width: none; color: #102b46; font-size: clamp(36px, 4.2vw, 58px); font-weight: 750; line-height: 1.04; letter-spacing: -.045em; margin: 14px 0 18px; }
+.hardware-hero p { max-width: 440px; color: #415d76; font-size: 15px; line-height: 1.65; margin: 0 0 24px; }
+.hardware-hero__actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.hardware-hero__actions button, .hardware-hero__actions a { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; margin: 0; padding: 0 24px !important; border: 1px solid; border-radius: 999px !important; font: inherit; font-size: 14px; font-weight: 700; letter-spacing: -.01em; line-height: 1.3; height: auto; white-space: normal; text-align: center; text-transform: none; text-decoration: none; cursor: pointer; }
+.hardware-hero__actions .hardware-hero__primary { background: var(--appz-blue, #1688d8) !important; border-color: var(--appz-blue, #1688d8) !important; color: #fff !important; box-shadow: 0 12px 24px rgba(22, 136, 216, .18); }
+.hardware-hero__actions .hardware-hero__primary:hover { background: var(--appz-blue-deep, #075f98) !important; border-color: var(--appz-blue-deep, #075f98) !important; }
+.hardware-hero__actions a { background: transparent !important; border-color: #218744 !important; color: #176b35 !important; box-shadow: none; }
+.hardware-hero__actions a:hover { background: #e0f4e7 !important; border-color: #176b35 !important; color: #12562a !important; }
+.hardware-hero__actions :focus-visible { outline: 3px solid #086aab; outline-offset: 4px; }
+.hardware-hero__diagram { min-width: 0; width: min(100%, 480px); margin: auto; }
+.hardware-hero__diagram img { display: block; width: 100%; height: auto; border-radius: 12px; }
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hardware-hero__inner { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+  .hardware-hero h1 { font-size: clamp(34px, 4.4vw, 44px); }
+  .hardware-hero__actions { gap: 10px; }
+  .hardware-hero__actions button, .hardware-hero__actions a { padding-inline: 18px !important; font-size: 13px; }
+}
+@media (max-width: 767px) {
+  .hardware-hero__inner { grid-template-columns: minmax(0, 1fr); padding: 28px 20px; gap: 24px; max-width: 600px; }
+  .hardware-hero h1 { font-size: clamp(32px, 7.5vw, 42px); margin: 12px 0 16px; }
+  .hardware-hero p { max-width: none; margin-bottom: 20px; }
+  .hardware-hero__actions button, .hardware-hero__actions a { flex: 1 1 140px; padding-inline: 16px !important; }
+  .hardware-hero__diagram { width: min(100%, 360px); }
+}
+@media (max-width: 379px) {
+  .hardware-hero__actions { flex-direction: column; }
+  .hardware-hero__actions button, .hardware-hero__actions a { flex: none; width: 100%; }
+}
+
+
+/* Keep the contact form crisp at every scroll position. */
+#content #requestdemo { animation: none !important; opacity: 1 !important; transform: none !important; }
+
+#content [data-scrollto] > .heading-block { text-align: center !important; }
+
+@media (max-width: 767px) {
+  #content [data-scrollto] > .row { --bs-gutter-x: 12px; --bs-gutter-y: 12px; }
+  #content [data-scrollto] > .row > .col { padding: 3px 6px !important; min-width: 0; }
+  #content [data-scrollto] .card-body { padding: 14px 10px !important; }
+  #content [data-scrollto] .card-body .row { margin: 0; --bs-gutter-x: 0; --bs-gutter-y: 0; }
+  #content [data-scrollto] .card-body img { width: 100%; max-width: 100% !important; height: 120px; object-fit: contain; }
+  #content [data-scrollto] h4 { font-size: 14px !important; line-height: 1.4; margin: 16px 0 4px !important; overflow-wrap: anywhere; }
+}
+
+@media (max-width: 1023px) {
+  .hardware-hero__eyebrow { display: block; text-align: center; }
+  .hardware-hero h1 { text-align: center; }
 }

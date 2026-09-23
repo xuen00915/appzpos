@@ -11,6 +11,7 @@ import { ModalRequestDemoComponent } from '../modal-request-demo/modal-request-d
 })
 export class CustomHardwareComponent {
 
+
   constructor(private titleService: Title,private commonFunctionService: CommonFunctionService,private meta: Meta,public dialog: MatDialog) {
        this.titleService.setTitle("Tailor your POS Machine | Receipt Printer | Kiosk | APPZPOS");
    }; 

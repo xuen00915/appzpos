@@ -1,0 +1,234 @@
+const cdpPort = process.env.APPZPOS_CDP_PORT ?? '9225';
+const previewUrl = process.env.APPZPOS_PREVIEW_URL ?? 'http://127.0.0.1:4300/';
+const target = await fetch(
+  `http://127.0.0.1:${cdpPort}/json/new?${encodeURIComponent(`${previewUrl}?screen-fit-regression`)}`,
+  { method: 'PUT' }
+).then((response) => response.json());
+
+const socket = new WebSocket(target.webSocketDebuggerUrl);
+const pending = new Map();
+let nextId = 0;
+
+socket.addEventListener('message', (event) => {
+  const message = JSON.parse(event.data);
+  if (!message.id || !pending.has(message.id)) return;
+
+  const { resolve, reject } = pending.get(message.id);
+  pending.delete(message.id);
+  message.error ? reject(new Error(message.error.message)) : resolve(message.result);
+});
+
+await new Promise((resolve, reject) => {
+  socket.addEventListener('open', resolve, { once: true });
+  socket.addEventListener('error', reject, { once: true });
+});
+
+function send(method, params = {}) {
+  const id = ++nextId;
+  socket.send(JSON.stringify({ id, method, params }));
+  return new Promise((resolve, reject) => pending.set(id, { resolve, reject }));
+}
+
+const wait = (milliseconds) => new Promise((resolve) => setTimeout(resolve, milliseconds));
+const closeEnough = (first, second, tolerance = 0.75) => Math.abs(first - second) <= tolerance;
+const viewports = [1440, 1280, 1024, 768, 430, 390];
+const layouts = {};
+
+await send('Page.enable');
+for (const width of viewports) {
+  const height = width <= 430 ? 932 : width <= 768 ? 1024 : 1000;
+  await send('Emulation.setDeviceMetricsOverride', {
+    width,
+    height,
+    deviceScaleFactor: 1,
+    mobile: width <= 768,
+    screenWidth: width,
+    screenHeight: height
+  });
+  await send('Page.navigate', { url: `${previewUrl}?screen-fit-regression-${width}` });
+  await wait(1600);
+
+  const evaluation = await send('Runtime.evaluate', {
+    expression: `JSON.stringify((() => {
+      const rect = (element) => {
+        const bounds = element.getBoundingClientRect();
+        return { x: bounds.x, y: bounds.y, width: bounds.width, height: bounds.height };
+      };
+      const screenWindow = document.querySelector('.appzpos-product-hero__screen-window');
+      const screenPlane = document.querySelector('.appzpos-product-hero__screen-plane');
+      const screenImages = [...document.querySelectorAll('.appzpos-screen-slice img')];
+      const moduleCards = [...document.querySelectorAll('.appzpos-module-orbit__card')];
+      const moduleList = document.querySelector('.appzpos-module-orbit__list');
+      const heroTitle = document.querySelector('.appzpos-product-hero h1');
+      const heroIntro = document.querySelector('.appzpos-product-hero__intro');
+      const heroTitleRange = document.createRange();
+      heroTitleRange.selectNodeContents(heroTitle);
+      const machineImage = document.querySelector('.appzpos-product-hero__machine > img');
+      const machineCanvas = document.createElement('canvas');
+      machineCanvas.width = machineImage.naturalWidth;
+      machineCanvas.height = machineImage.naturalHeight;
+      const machineContext = machineCanvas.getContext('2d');
+      machineContext.drawImage(machineImage, 0, 0);
+      const alphaAt = (x, y) => machineContext.getImageData(x, y, 1, 1).data[3];
+      const windowRect = rect(screenWindow);
+      const screenIsHitAt = (xRatio, yRatio) => document
+        .elementsFromPoint(
+          windowRect.x + (windowRect.width * xRatio),
+          windowRect.y + (windowRect.height * yRatio)
+        )
+        .some((element) => element === screenWindow || screenWindow.contains(element));
+      return {
+        window: windowRect,
+        plane: rect(screenPlane),
+        images: screenImages.map(rect),
+        moduleCards: moduleCards.map(rect),
+        moduleCardAnimations: moduleCards.map((card) => ({
+          card: getComputedStyle(card).animationName,
+          border: getComputedStyle(card, '::before').animationName,
+          surface: getComputedStyle(card, '::after').animationName,
+          surfaceColor: getComputedStyle(card, '::after').backgroundColor
+        })),
+        moduleList: {
+          ...rect(moduleList),
+          overflowX: getComputedStyle(moduleList).overflowX
+        },
+        heroCopy: {
+          title: rect(heroTitle),
+          titleLineHeight: parseFloat(getComputedStyle(heroTitle).lineHeight),
+          titleTextLines: [...heroTitleRange.getClientRects()]
+            .map((line) => ({ x: line.x, y: line.y, width: line.width, height: line.height }))
+            .filter((line) => line.width > 1),
+          intro: rect(heroIntro)
+        },
+        page: {
+          clientWidth: document.documentElement.clientWidth,
+          scrollWidth: document.documentElement.scrollWidth
+        },
+        hardwareLayer: {
+          screenCentreAlpha: alphaAt(836, 500),
+          lowerLeftBezelAlpha: alphaAt(110, 650)
+        },
+        cornerGuardLeaks: {
+          bottomLeft: screenIsHitAt(.005, .992),
+          bottomRight: screenIsHitAt(.995, .992),
+          topLeft: screenIsHitAt(.1235, .008),
+          topRight: screenIsHitAt(.8765, .008)
+        },
+        tracking: {
+          googleTagManager: Boolean(document.querySelector('script[src*="googletagmanager.com/gtm.js?id=GTM-N7VKTGG"]')),
+          facebookPixel: Boolean(document.querySelector('script[src*="connect.facebook.net/en_US/fbevents.js"]'))
+        }
+      };
+    })())`,
+    returnByValue: true
+  });
+  layouts[width] = JSON.parse(evaluation.result.value);
+}
+
+await send('Emulation.setEmulatedMedia', {
+  media: 'screen',
+  features: [{ name: 'prefers-reduced-motion', value: 'reduce' }]
+});
+await send('Page.navigate', { url: `${previewUrl}?screen-fit-regression-reduced-motion` });
+await wait(800);
+const reducedMotionEvaluation = await send('Runtime.evaluate', {
+  expression: `getComputedStyle(document.querySelector('.appzpos-module-orbit__card'), '::before').animationName`,
+  returnByValue: true
+});
+const reducedMotionBorderAnimation = reducedMotionEvaluation.result.value;
+
+socket.close();
+const failures = [];
+
+for (const [width, layout] of Object.entries(layouts)) {
+  if (layout.images.length !== 4) {
+    failures.push(`${width}px: expected four image-backed interface slices, found ${layout.images.length}`);
+  }
+
+  if (layout.moduleCards.length !== 5) {
+    failures.push(`${width}px: expected five quick-service module cards, found ${layout.moduleCards.length}`);
+  }
+  if (layout.page.scrollWidth > layout.page.clientWidth) {
+    failures.push(`${width}px: the module cards introduce horizontal page overflow`);
+  }
+  const titleLines = Math.round(layout.heroCopy.title.height / layout.heroCopy.titleLineHeight);
+  const maximumTitleLines = Number(width) <= 430 ? 3 : 2;
+  if (titleLines > maximumTitleLines) {
+    failures.push(`${width}px: hero title uses ${titleLines} lines; expected at most ${maximumTitleLines}`);
+  }
+  if (layout.heroCopy.titleTextLines.some((line) => line.x < 8 || line.x + line.width > Number(width) - 8)) {
+    failures.push(`${width}px: hero title text does not retain an 8px viewport inset`);
+  }
+  if (layout.heroCopy.intro.x < -0.75 || layout.heroCopy.intro.x + layout.heroCopy.intro.width > Number(width) + 0.75) {
+    failures.push(`${width}px: hero description extends outside the viewport`);
+  }
+  if (Number(width) > 1024) {
+    const [primaryCard, ...satelliteCards] = layout.moduleCards;
+    if (primaryCard && satelliteCards.some((card) => primaryCard.width <= card.width)) {
+      failures.push(`${width}px: POS System does not have stronger width hierarchy than its satellite modules`);
+    }
+    for (const [index, card] of layout.moduleCards.entries()) {
+      if (card.x < -0.75 || card.x + card.width > Number(width) + 0.75) {
+        failures.push(`${width}px: desktop module card ${index + 1} extends outside the viewport`);
+      }
+    }
+  } else {
+    if (layout.moduleList.x < -0.75 || layout.moduleList.x + layout.moduleList.width > Number(width) + 0.75) {
+      failures.push(`${width}px: the module-card scroller extends outside the viewport`);
+    }
+    if (layout.moduleList.overflowX !== 'auto') {
+      failures.push(`${width}px: the module cards are not horizontally scrollable`);
+    }
+  }
+  for (const [index, animation] of layout.moduleCardAnimations.entries()) {
+    if (animation.card !== 'none' || animation.surface !== 'none') {
+      failures.push(`${width}px: settled module card ${index + 1} moves instead of limiting motion to its border`);
+    }
+    if (animation.border === 'none') {
+      failures.push(`${width}px: module card ${index + 1} is missing the animated orange gradient border`);
+    }
+    if (!/^rgba?\(255, 255, 255/.test(animation.surfaceColor)) {
+      failures.push(`${width}px: module card ${index + 1} does not retain a white inner surface`);
+    }
+  }
+
+  if (layout.hardwareLayer.screenCentreAlpha !== 0) {
+    failures.push(`${width}px: the physical hardware layer still contains a baked software screen`);
+  }
+  if (layout.hardwareLayer.lowerLeftBezelAlpha === 0) {
+    failures.push(`${width}px: the physical lower-left bezel is missing from the hardware layer`);
+  }
+
+  const [referenceImage, ...remainingImages] = layout.images;
+  for (const [index, image] of remainingImages.entries()) {
+    for (const property of ['x', 'y', 'width', 'height']) {
+      if (!closeEnough(image[property], referenceImage[property])) {
+        failures.push(`${width}px: screen slice ${index + 2} has a different ${property} and cannot reconstruct the full interface`);
+      }
+    }
+  }
+
+  for (const property of ['x', 'y', 'width', 'height']) {
+    if (!closeEnough(layout.plane[property], layout.window[property])) {
+      failures.push(`${width}px: screen plane ${property} does not match the physical screen mask`);
+    }
+  }
+
+  for (const [corner, leaks] of Object.entries(layout.cornerGuardLeaks)) {
+    if (leaks) failures.push(`${width}px: the UI layer reaches the ${corner} bezel guard point`);
+  }
+
+  if (!layout.tracking.googleTagManager) failures.push(`${width}px: Google Tag Manager GTM-N7VKTGG is missing`);
+  if (!layout.tracking.facebookPixel) failures.push(`${width}px: Meta Pixel loader is missing`);
+}
+
+if (reducedMotionBorderAnimation !== 'none') {
+  failures.push('reduced motion: the animated module border remains active');
+}
+
+if (failures.length) {
+  console.error(JSON.stringify({ failures, layouts }, null, 2));
+  process.exit(1);
+}
+
+console.log(JSON.stringify({ status: 'pass', layouts }, null, 2));

@@ -771,6 +771,465 @@ app-cn-f\&b-restaurant-cloud-pos-system {
   background: #fff;
 }
 
+app-psg-pos-system-grant-singapore {
+  #content .psg-overview__grid {
+    align-items: stretch;
+  }
+
+  #content .psg-vendor,
+  #content .psg-eligibility {
+    height: 100%;
+  }
+
+  #content .psg-vendor {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #content .psg-vendor__grid {
+    flex: 1;
+  }
+
+  #content .psg-vendor__copy,
+  #content .psg-vendor__copy ul {
+    height: 100%;
+  }
+
+  #content .psg-vendor__copy ul {
+    align-content: center;
+    gap: 24px;
+  }
+
+  #content .psg-vendor__title,
+  #content .psg-eligibility__title {
+    font-size: clamp(20px, 2.7vw, 34px) !important;
+  }
+
+  #content .psg-eligibility {
+    margin-top: 0;
+  }
+
+  #content #webview.psg-packages-view > .container {
+    margin-top: clamp(64px, 7vw, 88px) !important;
+  }
+
+  .psg-package-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin: 0 0 28px;
+  }
+
+  .psg-package-filters button {
+    appearance: none;
+    min-height: 44px;
+    padding: 10px 18px;
+    border: 1px solid #cfd9e6;
+    border-radius: 999px;
+    background: #fff;
+    color: #17213b;
+    cursor: pointer;
+    font: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 1.25;
+    transition: background-color .2s ease, border-color .2s ease, color .2s ease;
+  }
+
+  .psg-package-filters button:hover,
+  .psg-package-filters button.is-active {
+    border-color: #743995;
+    background: #743995;
+    color: #fff;
+  }
+
+  .psg-package-filters button:focus-visible {
+    outline: 3px solid rgba(116, 57, 149, .28);
+    outline-offset: 2px;
+  }
+
+  .psg-package-hidden {
+    display: none !important;
+  }
+
+  .psg-package-mobile-list {
+    display: grid;
+    gap: 20px;
+  }
+
+  #content #webview.psg-packages-view .heading-block {
+    margin-bottom: 28px !important;
+    text-align: center !important;
+  }
+
+  .psg-package-filter-description {
+    max-width: 620px;
+    margin: -14px auto 22px;
+    color: #536681;
+    font-size: 16px;
+    line-height: 1.5;
+    text-align: center;
+  }
+
+  #content #webview.psg-packages-view .row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+    margin: 24px 0 0 !important;
+  }
+
+  #content #webview.psg-packages-view .row > .col-lg-4 {
+    width: 100%;
+    padding: 0 !important;
+  }
+
+  #content #webview.psg-packages-view .row > .col-lg-2 {
+    display: none;
+  }
+
+  #content #webview.psg-packages-view .card {
+    border: 1px solid #d7e2ed !important;
+    border-radius: 22px !important;
+    background: #f7f9fc;
+    box-shadow: 0 16px 42px rgba(17, 31, 58, .08) !important;
+  }
+
+  #content #webview.psg-packages-view .card-body {
+    display: grid;
+    grid-template-columns: minmax(190px, .68fr) minmax(220px, .88fr) minmax(0, 1.44fr);
+    grid-template-rows: auto auto 1fr auto;
+    gap: 0 clamp(20px, 2.5vw, 34px);
+    padding: clamp(24px, 3vw, 36px) !important;
+    background: #f7f9fc !important;
+    text-align: left;
+  }
+
+  #content #webview.psg-packages-view .card-body > h2 {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 0 0 18px !important;
+    color: #743995;
+    font-size: 16px !important;
+    letter-spacing: .08em;
+  }
+
+  #content #webview.psg-packages-view .card-body > img {
+    align-self: start;
+    width: 100%;
+    max-width: 220px !important;
+    max-height: 210px;
+    grid-column: 1;
+    grid-row: 2;
+    object-fit: contain;
+  }
+
+  #content #webview.psg-packages-view .card-body > h4 {
+    grid-column: 1;
+    grid-row: 3;
+    margin: 18px 0 0 !important;
+    color: #17213b;
+    font-size: clamp(21px, 2vw, 28px) !important;
+    line-height: 1.25 !important;
+  }
+
+  #content #webview.psg-packages-view .card-body > h5 {
+    align-self: stretch;
+    margin: 0 !important;
+    padding: 22px 22px 12px !important;
+    border: 1px solid #dce3ec;
+    border-bottom: 0;
+    border-radius: 16px 16px 0 0;
+    background: #fff;
+    color: #17213b;
+    font-size: 18px !important;
+  }
+
+  #content #webview.psg-packages-view .card-body > h5:first-of-type,
+  #content #webview.psg-packages-view .card-body > ul:first-of-type {
+    grid-column: 2;
+  }
+
+  #content #webview.psg-packages-view .card-body > h5:last-of-type,
+  #content #webview.psg-packages-view .card-body > ul:last-of-type {
+    grid-column: 3;
+  }
+
+  #content #webview.psg-packages-view .card-body > h5:first-of-type,
+  #content #webview.psg-packages-view .card-body > h5:last-of-type {
+    grid-row: 1;
+  }
+
+  #content #webview.psg-packages-view .card-body > ul:first-of-type,
+  #content #webview.psg-packages-view .card-body > ul:last-of-type {
+    align-self: stretch;
+    margin: 0 !important;
+    padding: 4px 22px 22px !important;
+    border: 1px solid #dce3ec;
+    border-top: 0;
+    border-radius: 0 0 16px 16px;
+    background: #fff;
+    grid-row: 2 / 5;
+  }
+
+  #content #webview.psg-packages-view .card-body > ul > li {
+    margin-top: 10px;
+    line-height: 1.55;
+  }
+
+  #content #webview.psg-packages-view .card-body > div {
+    align-self: end;
+    grid-column: 1;
+    grid-row: 4;
+    margin: 24px 0 0 !important;
+  }
+
+  #content #webview.psg-packages-view .card-body > div .button {
+    position: static !important;
+    display: flex;
+    width: 100%;
+    min-height: 48px;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+  }
+
+  #content #mobile_view.psg-packages-view > .container > .heading-block {
+    margin-bottom: 20px !important;
+    text-align: center !important;
+  }
+
+  #content #mobile_view.psg-packages-view .card-body > div .button {
+    position: static !important;
+    width: 100%;
+    margin: 0;
+  }
+
+  #content #requestdemo {
+    animation: none !important;
+    filter: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
+  #content .psg-faq {
+    width: min(100% - 40px, 960px);
+    margin: clamp(72px, 9vw, 112px) auto !important;
+  }
+
+  #content .psg-faq__title {
+    margin: 0 0 36px;
+    font-size: clamp(32px, 4vw, 48px) !important;
+    text-align: center;
+  }
+
+  .psg-faq__list {
+    display: grid;
+    gap: 14px;
+  }
+
+  .psg-faq__item {
+    overflow: hidden;
+    border: 1px solid #dce3ec;
+    border-radius: 14px;
+    background: #fff;
+    box-shadow: 0 10px 30px rgba(17, 31, 58, .06);
+  }
+
+  .psg-faq__item summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+    padding: 22px 24px;
+    color: #17213b;
+    cursor: pointer;
+    font-size: clamp(17px, 1.7vw, 20px);
+    font-weight: 700;
+    line-height: 1.35;
+    list-style: none;
+  }
+
+  .psg-faq__item summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .psg-faq__item summary::after {
+    display: grid;
+    flex: 0 0 32px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #743995;
+    color: #fff;
+    content: '+';
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 1;
+    place-items: center;
+  }
+
+  .psg-faq__item[open] summary::after {
+    content: '\2212';
+  }
+
+  .psg-faq__answer {
+    padding: 0 24px 24px;
+    border-top: 1px solid #edf0f4;
+  }
+
+  #content .psg-faq__answer ul {
+    margin: 20px 0 0;
+    padding-left: 22px;
+  }
+
+  #content .psg-faq__answer li {
+    margin-top: 8px;
+    color: #4d5d73;
+    line-height: 1.65;
+  }
+
+  #content .psg-faq__answer li::marker {
+    color: #743995;
+  }
+
+  #content .psg-faq__answer a,
+  #content .psg-faq__contact a {
+    color: #743995;
+    font-weight: 700;
+  }
+
+  #content .psg-faq__contact {
+    margin: 24px 0 0;
+    text-align: center;
+  }
+
+  #content .psg-apply {
+    margin: clamp(72px, 9vw, 112px) 0;
+    padding: clamp(64px, 8vw, 96px) 0;
+    background: #f4f8fc;
+  }
+
+  .psg-apply__layout {
+    display: grid;
+    grid-template-columns: minmax(250px, .58fr) minmax(0, 1.42fr);
+    align-items: start;
+    gap: clamp(40px, 5vw, 72px);
+  }
+
+  .psg-apply__heading {
+    align-self: center;
+  }
+
+  #content .psg-apply__title {
+    margin: 0;
+    font-size: clamp(34px, 4vw, 52px) !important;
+    line-height: 1.06 !important;
+    text-align: left;
+  }
+
+  .psg-apply__cards {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .psg-apply__card {
+    display: grid;
+    grid-template-columns: 48px minmax(0, 1fr);
+    grid-template-rows: auto 1fr;
+    column-gap: 20px;
+    row-gap: 12px;
+    min-width: 0;
+    padding: 28px 24px;
+    border: 1px solid #d7e2ed;
+    border-radius: 18px;
+    background: #fff;
+    box-shadow: 0 14px 38px rgba(17, 31, 58, .07);
+  }
+
+  .psg-apply__number {
+    display: grid;
+    width: 48px;
+    height: 48px;
+    grid-row: 1 / span 2;
+    border-radius: 50%;
+    background: #743995;
+    color: #fff;
+    font-size: 20px;
+    font-weight: 700;
+    place-items: center;
+  }
+
+  #content .psg-apply__step-title {
+    margin: 0;
+    color: #17213b;
+    font-size: clamp(19px, 1.7vw, 23px) !important;
+    line-height: 1.2;
+  }
+
+  #content .psg-apply__description {
+    margin: 0;
+    color: #536681;
+    font-size: 16px !important;
+    line-height: 1.65;
+    text-align: left;
+  }
+
+  @media (max-width: 1023px) {
+    #content .psg-overview__grid {
+      align-items: start;
+    }
+
+    #content .psg-vendor,
+    #content .psg-eligibility {
+      height: auto;
+    }
+
+    #content .psg-eligibility {
+      margin-top: 34px;
+    }
+
+    .psg-apply__layout {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .psg-apply__heading {
+      align-self: auto;
+    }
+  }
+
+  @media (max-width: 575px) {
+    .psg-package-filter-description {
+      margin: -8px auto 18px;
+      font-size: 14px;
+    }
+
+    .psg-package-filters {
+      justify-content: center;
+      margin-bottom: 22px;
+    }
+
+    #content .psg-faq {
+      width: calc(100% - 40px);
+    }
+
+    .psg-faq__item summary {
+      gap: 16px;
+      padding: 18px;
+    }
+
+    .psg-faq__answer {
+      padding: 0 18px 20px;
+    }
+
+    .psg-apply__card {
+      padding: 24px 22px;
+    }
+  }
+}
+
+
 app-solution-page {
   .solution-island-hero,
   .appz-solution-hero[data-solution-hero] {

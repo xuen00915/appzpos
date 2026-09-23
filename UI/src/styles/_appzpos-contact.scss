@@ -163,3 +163,121 @@ app-point-of-sales-demo-quotation {
     .contact-channels .subtitle a { font-size: 14px !important; }
   }
 }
+
+/* The original contact links and classes remain the conversion hooks. */
+app-point-of-sales-demo-quotation {
+  --contact-float-size: 64px;
+  --contact-float-gap: 18px;
+
+  .contact-channels .contact-channel--whatsapp {
+    min-height: 48px;
+    padding: 0;
+    border: 0;
+    background: transparent;
+  }
+  .contact-channel--whatsapp > .fbox-icon,
+  .contact-whatsapp-heading { display: none; }
+  .contact-channel--whatsapp .subtitle { margin: 0; }
+  .contact-channel--whatsapp .subtitle b { display: block; }
+  .contact-channels .contact-channel--whatsapp .subtitle a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    min-height: 48px;
+    padding: 12px 18px;
+    border: 1px solid #218744;
+    border-radius: 999px;
+    background: #fff;
+    color: #176b35 !important;
+    text-decoration: none;
+    transition: background-color .2s ease;
+  }
+  .contact-channel--whatsapp .subtitle a i { font-size: 20px; }
+  .contact-channels .contact-channel--whatsapp .subtitle a:hover { background: #edf8f0; }
+
+  #webview.contact-floating-actions {
+    position: fixed;
+    top: 42%;
+    right: max(18px, env(safe-area-inset-right));
+    z-index: 990;
+    display: flex;
+    width: var(--contact-float-size);
+    padding: 0;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--contact-float-gap);
+  }
+  .contact-floating-actions > div {
+    position: static !important;
+    flex: 0 0 var(--contact-float-size);
+    width: var(--contact-float-size);
+    height: var(--contact-float-size);
+  }
+  .contact-floating-actions a,
+  .contact-floating-actions .contact-scroll-top {
+    box-sizing: border-box;
+    display: flex;
+    width: var(--contact-float-size);
+    height: var(--contact-float-size);
+    min-height: var(--contact-float-size);
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid #dce5ec;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 0 5px rgba(226, 234, 241, .78), 0 5px 18px rgba(16, 43, 70, .14);
+    line-height: 1;
+    text-decoration: none;
+    cursor: pointer;
+    transition: color .2s ease, box-shadow .2s ease, transform .2s ease;
+  }
+  .contact-floating-actions a img,
+  .contact-floating-actions a span { display: none; }
+  .contact-floating-actions a i,
+  .contact-scroll-top i { pointer-events: none; font-size: 38px; line-height: 1; }
+  .contact-floating-actions .btn-whatsapp { color: #389b43; }
+  .contact-floating-actions .btn-fb { color: #2869d8; }
+  .contact-floating-actions .contact-scroll-top {
+    display: none;
+    color: #415d76;
+  }
+  .contact-floating-actions a:hover,
+  .contact-floating-actions .contact-scroll-top:hover {
+    box-shadow: 0 0 0 5px rgba(218, 229, 238, .88), 0 8px 22px rgba(16, 43, 70, .18);
+    transform: translateY(-1px);
+  }
+  .contact-floating-actions .btn-whatsapp:hover { color: #176b35; }
+  .contact-floating-actions .btn-fb:hover { color: #174eaa; }
+  .contact-floating-actions .contact-scroll-top:hover { color: #1688d8; }
+  .contact-floating-actions a:active,
+  .contact-floating-actions .contact-scroll-top:active { transform: scale(.97); }
+  .contact-floating-actions a:focus-visible,
+  .contact-floating-actions .contact-scroll-top:focus-visible {
+    outline: 3px solid #1688d8;
+    outline-offset: 4px;
+  }
+
+  @media (max-width: 1023px) {
+    #webview.contact-floating-actions { right: max(14px, env(safe-area-inset-right)); }
+  }
+  @media (max-width: 767px) {
+    #webview.contact-floating-actions {
+      top: auto;
+      bottom: calc(88px + env(safe-area-inset-bottom));
+      right: max(12px, env(safe-area-inset-right));
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .contact-channel--whatsapp .subtitle a,
+    .contact-floating-actions a,
+    .contact-floating-actions .contact-scroll-top { transition: none; }
+  }
+}
+
+/* The new stack uses the existing Canvas scroll control through its click handler. */
+body:has(app-point-of-sales-demo-quotation) #gotoTop { display: none !important; }
+body.gototop-active app-point-of-sales-demo-quotation .contact-floating-actions .contact-scroll-top {
+  display: flex;
+}

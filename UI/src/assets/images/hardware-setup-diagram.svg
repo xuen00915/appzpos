@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="340" viewBox="0 0 560 340" fill="none">
+  <defs>
+    <pattern id="grid" width="24" height="24" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r="1" fill="#334660" opacity=".6"/></pattern>
+    <linearGradient id="body" x2="1" y2="1"><stop stop-color="#344a66"/><stop offset="1" stop-color="#15263d"/></linearGradient>
+  </defs>
+  <rect width="560" height="340" rx="16" fill="url(#grid)"/>
+  <g stroke="#4f9cca" stroke-width="1.5" stroke-dasharray="4 5"><path d="M280 203v26H103v17M280 229h180v17M280 229v52"/></g>
+  <g stroke="#82cefa" stroke-width="1.5" stroke-linejoin="round">
+    <rect x="164" y="48" width="232" height="145" rx="12" fill="url(#body)"/>
+    <rect x="175" y="59" width="210" height="120" rx="5" fill="#101e32" stroke="#49637f"/>
+    <path d="M266 194l-7 24h42l-7-24M247 218h66l8 8h-82z" fill="#2b425d"/>
+    <rect x="187" y="72" width="70" height="7" rx="3" fill="#63c7ff" stroke="none"/>
+    <path d="M187 89h186" stroke="#344b65"/>
+    <g fill="#284a66" stroke="none"><rect x="187" y="101" width="45" height="26" rx="4"/><rect x="240" y="101" width="45" height="26" rx="4"/><rect x="187" y="135" width="45" height="26" rx="4"/><rect x="240" y="135" width="45" height="26" rx="4"/></g>
+    <path d="M301 106h60m-60 12h44m-44 12h52" stroke="#61778f"/>
+    <rect x="300" y="146" width="65" height="15" rx="3" fill="#009df0" stroke="none"/>
+    <rect x="56" y="254" width="94" height="49" rx="8" fill="url(#body)"/>
+    <path d="M72 269v-38h62v38" fill="#d7e8f2"/>
+    <path d="M83 240h39m-39 8h29m-29 8h34" stroke="#708ca2"/>
+    <path d="M67 270h72" stroke-width="3"/><circle cx="136" cy="288" r="2" fill="#66caff" stroke="none"/>
+    <rect x="221" y="270" width="119" height="35" rx="5" fill="url(#body)"/>
+    <path d="M231 281h99v17h-99z" stroke="#49637f"/><circle cx="280" cy="289" r="2"/>
+    <path d="M438 250l36-9 17 22-35 12z" fill="url(#body)"/><path d="M457 275l-11 22h15l13-27M434 303h47" fill="#2b425d"/>
+    <path d="M447 253l25-6" stroke="#66caff" stroke-width="3"/>
+  </g>
+  <g fill="#d6e7f5" font-family="Arial, sans-serif" font-size="12" text-anchor="middle">
+    <text x="280" y="30" letter-spacing="2" font-size="10" fill="#66caff">POS TERMINAL</text>
+    <text x="103" y="326">Receipt printer</text><text x="280" y="326">Cash drawer</text><text x="460" y="326">Barcode scanner</text>
+  </g>
+  <g fill="#66caff"><circle cx="280" cy="229" r="3"/><circle cx="103" cy="246" r="3"/><circle cx="460" cy="246" r="3"/></g>
+</svg>
