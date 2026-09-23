@@ -1,3 +1,6 @@
+// Reusable solution-page primitives, scoped to the shared layout.
+app-solution-page {
+  display: block;
 @media (max-width: 768px) { #webview { display: none; } }
 @media (min-width: 769px) { #webview { display: block; } }
 
@@ -15,7 +18,7 @@ b, strong {
 }
 
 .pos-overview {
-  padding: 56px 0 34px;
+  padding: 42px 0 24px;
   background: #fff;
 }
 
@@ -30,14 +33,15 @@ b, strong {
 }
 
 .pos-overview h2 {
-  max-width: 18ch;
-  margin: 0 auto 38px;
+  max-width: none;
+  margin: 0 auto 30px;
   color: #101d39;
   font-size: clamp(2.2rem, 4vw, 3.7rem);
   font-weight: 760;
   letter-spacing: -.045em;
   line-height: 1.04;
   text-align: center;
+  white-space: nowrap;
 }
 
 .pos-overview__layout {
@@ -65,6 +69,10 @@ b, strong {
   width: min(100%, 520px);
   height: auto;
   margin-inline: auto;
+}
+
+.pos-feature-section {
+  margin-top: 48px;
 }
 
 .pos-feature-grid > [data-pos-feature] {
@@ -139,7 +147,7 @@ b, strong {
 }
 
 .pos-system-showcase {
-  padding: 76px 0 28px;
+  padding: 48px 0 22px;
   background: #f5faff;
 }
 
@@ -162,7 +170,10 @@ b, strong {
 }
 
 .pos-system-card--featured {
+  display: grid;
   grid-column: 1 / -1;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
 }
 
 .pos-section-anchor {
@@ -179,7 +190,7 @@ b, strong {
   display: grid;
   overflow: hidden;
   height: 300px;
-  padding: 26px;
+  padding: 0;
   place-items: center;
   border-bottom: 1px solid #e3eef6;
   background:
@@ -188,18 +199,23 @@ b, strong {
 }
 
 .pos-system-card--featured .pos-system-card__visual {
-  height: clamp(320px, 30vw, 420px);
+  grid-column: 2;
+  grid-row: 1;
+  height: 100%;
+  min-height: 430px;
+  border-bottom: 0;
+  border-left: 1px solid #e3eef6;
 }
 
 .pos-system-card__visual img {
   position: absolute;
-  inset: 26px;
+  inset: 0;
   display: block;
-  width: calc(100% - 52px) !important;
+  width: 100% !important;
   max-width: none;
-  height: calc(100% - 52px) !important;
+  height: 100% !important;
   max-height: none;
-  object-fit: contain !important;
+  object-fit: cover !important;
 }
 
 .pos-system-card__body {
@@ -211,6 +227,9 @@ b, strong {
 }
 
 .pos-system-card--featured .pos-system-card__body {
+  grid-column: 1;
+  grid-row: 1;
+  justify-content: center;
   padding: 38px 42px 42px;
 }
 
@@ -251,12 +270,12 @@ b, strong {
   margin-top: auto;
 }
 
-.pos-hardware {
-  margin-top: 84px;
+.pos-system-card--featured .pos-system-card__body .button {
+  margin-top: 4px;
 }
 
-.pos-hardware .heading-block {
-  margin-bottom: 28px !important;
+.pos-hardware {
+  margin-top: 48px;
 }
 
 .pos-hardware__filters {
@@ -320,23 +339,34 @@ b, strong {
 
 .pos-hardware-card {
   border: 0 !important;
-  border-radius: 18px;
-  background: #f5f9fc;
+  border-radius: 0;
+  background: transparent;
   box-shadow: none;
   transition: transform 180ms ease, box-shadow 180ms ease;
 }
 
+.pos-hardware-card .card-body,
+.pos-hardware-card .row,
+.pos-hardware-card .col {
+  width: 100%;
+  text-align: center;
+}
+
 .pos-hardware__grid > a:hover .pos-hardware-card,
 .pos-hardware__grid > a:focus-visible .pos-hardware-card {
-  box-shadow: 0 18px 42px rgba(11, 35, 71, .1);
+  box-shadow: none;
   transform: translate3d(0, -4px, 0);
 }
 
 .pos-hardware-card img {
-  width: auto;
-  max-width: 78% !important;
+  width: 100% !important;
+  max-width: 100% !important;
   height: 190px;
+  border: 0 !important;
+  border-radius: 0 !important;
+  background: transparent !important;
   object-fit: contain;
+  box-shadow: none !important;
 }
 
 .pos-hardware-card h4 {
@@ -344,6 +374,7 @@ b, strong {
   color: #101d39;
   font-size: 18px !important;
   line-height: 1.35;
+  text-align: center;
 }
 
 .pos-hardware__empty {
@@ -356,17 +387,18 @@ b, strong {
 
 @media (max-width: 768px) {
   .pos-overview {
-    padding: 42px 0 24px;
+    padding: 32px 0 18px;
   }
 
   .pos-overview h2 {
-    margin-bottom: 28px;
+    margin-bottom: 22px;
     font-size: clamp(2rem, 10vw, 2.8rem);
+    white-space: normal;
   }
 
   .pos-overview__layout {
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: 22px;
   }
 
   .pos-overview__copy {
@@ -381,8 +413,12 @@ b, strong {
     width: min(88%, 440px);
   }
 
+  .pos-feature-section {
+    margin-top: 32px;
+  }
+
   .pos-system-showcase {
-    padding: 52px 0 18px;
+    padding: 36px 0 16px;
   }
 
   .pos-system-showcase__grid {
@@ -391,19 +427,23 @@ b, strong {
   }
 
   .pos-system-card--featured {
+    display: flex;
     grid-column: auto;
   }
 
   .pos-system-card__visual,
   .pos-system-card--featured .pos-system-card__visual {
     height: 245px;
-    padding: 20px;
+    min-height: 0;
+    padding: 0;
+    border-bottom: 1px solid #e3eef6;
+    border-left: 0;
   }
 
   .pos-system-card__visual img {
-    inset: 20px;
-    width: calc(100% - 40px) !important;
-    height: calc(100% - 40px) !important;
+    inset: 0;
+    width: 100% !important;
+    height: 100% !important;
   }
 
   .pos-system-card__body,
@@ -418,7 +458,7 @@ b, strong {
   }
 
   .pos-hardware {
-    margin-top: 58px;
+    margin-top: 40px;
   }
 
   .pos-hardware__filters {
@@ -434,4 +474,5 @@ b, strong {
     min-width: 0;
     flex: 1;
   }
+}
 }

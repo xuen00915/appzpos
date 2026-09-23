@@ -4,17 +4,19 @@ import {Meta, Title} from "@angular/platform-browser";
 import { SolutionHeroConfig } from '../solution-hero/solution-hero.component';
 
 type HardwareCategory = 'all' | 'pos' | 'printer' | 'accessory';
-type HardwareSize = 'all' | 'tablet' | '10' | '15.6' | 'other';
+type HardwareFilter = 'all' | 'tablet' | '10' | '15.6' | 'other' | 'printer' | 'customer-display';
+type HardwareAttributes = '10' | 'tablet' | '15.6' | '15.6 customer-display'
+  | '15.6 printer' | '15.6 printer customer-display' | 'other';
 
 @Component({
   selector: 'app-cloud-pos-point-of-sales-system',
   templateUrl: './cloud-pos-point-of-sales-system.component.html',
-  styleUrls: ['./cloud-pos-point-of-sales-system.component.css']
+  // Layout styles are shared by app-solution-page.
 })
 export class CustomPOSEWaiterComponent {
 
   hardwareCategory: HardwareCategory = 'all';
-  hardwareSize: HardwareSize = 'all';
+  hardwareFilter: HardwareFilter = 'all';
 
   readonly solutionHero: SolutionHeroConfig = {
     headingId: 'pos-solution-title',
@@ -56,20 +58,19 @@ export class CustomPOSEWaiterComponent {
     this.hardwareCategory = category;
   }
 
-  setHardwareSize(event: Event): void {
-    this.hardwareSize = (event.target as HTMLSelectElement).value as HardwareSize;
+  setHardwareFilter(event: Event): void {
+    this.hardwareFilter = (event.target as HTMLSelectElement).value as HardwareFilter;
   }
 
-  isHardwareVisible(category: Exclude<HardwareCategory, 'all'>, size: Exclude<HardwareSize, 'all'>): boolean {
+  isHardwareVisible(category: Exclude<HardwareCategory, 'all'>, attributes: HardwareAttributes): boolean {
     return (this.hardwareCategory === 'all' || this.hardwareCategory === category)
-      && (this.hardwareSize === 'all' || this.hardwareSize === size);
+      && (this.hardwareFilter === 'all' || attributes.split(' ').includes(this.hardwareFilter));
   }
 
   hasVisibleHardware(): boolean {
-    if (this.hardwareCategory === 'all' && this.hardwareSize === 'all') return true;
-    if (this.hardwareSize === 'other') return this.hardwareCategory !== 'pos';
-    if (this.hardwareSize !== 'all') return this.hardwareCategory === 'all' || this.hardwareCategory === 'pos';
-    return true;
+    if (this.hardwareFilter === 'all') return true;
+    if (this.hardwareFilter === 'other') return this.hardwareCategory !== 'pos';
+    return this.hardwareCategory === 'all' || this.hardwareCategory === 'pos';
   }
 
   ngOnInit() {

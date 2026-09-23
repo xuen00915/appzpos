@@ -10,6 +10,7 @@ import { CustomWebsiteOrderComponent } from '../../../../../client_specifc/0771B
 import { CustomQueueSystemComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/f&b-restaurant-queue-number-display-system/f&b-restaurant-queue-number-display-system.component';
 import { CustomSelfOrderKioskComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/self-order-kiosk-restaurant/self-order-kiosk-restaurant.component';
 import { SolutionHeroComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/solution-hero/solution-hero.component';
+import { SolutionPageComponent, SolutionFeatureHeadingComponent, SolutionHardwareFiltersComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/solution-page/solution-page.component';
 import { CommonFunctionService } from '../../../services/shared_function/common-function.service';
 
 interface HeroCase {
@@ -59,7 +60,7 @@ describe('solution island heroes', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule],
+      imports: [CommonModule, SolutionPageComponent, SolutionFeatureHeadingComponent, SolutionHardwareFiltersComponent],
       declarations: [...cases.map((item) => item.component), SolutionHeroComponent],
       providers: [
         { provide: CommonFunctionService, useValue: { BindURL_Image: (name: string) => `/images/${name}` } }
