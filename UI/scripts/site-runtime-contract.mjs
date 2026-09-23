@@ -37,6 +37,9 @@ const routes = ['', 'custom-solutions', 'point-of-sales-demo-quotation',
   'cn-f&b-restaurant-cloud-pos-system', 'blog', 'blog-bcrs'];
 const failures = [];
 const landingRoutes = new Set(['', 'cn-f&b-restaurant-cloud-pos-system']);
+const requestDemoRoutes = new Set(routes.filter((route) => ![
+  'point-of-sales-demo-quotation', 'blog', 'blog-bcrs'
+].includes(route)));
 const expectedCallHref = 'tel:+6583109631';
 const expectedWhatsAppHref = "https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!";
 const expectedMessengerHref = "https://m.me/APPZPOS?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!";
@@ -88,6 +91,9 @@ for (const route of routes) {
   if (result.whatsappHref !== expectedWhatsAppHref) failures.push(`${route || '/'}: header WhatsApp action changed`);
   if (result.messengerHref !== expectedMessengerHref) failures.push(`${route || '/'}: header Messenger action changed`);
   if (result.requestDemoIds > 1) failures.push(`${route || '/'}: duplicate #requestdemo anchors`);
+  if (requestDemoRoutes.has(route) && result.requestDemoIds !== 1) {
+    failures.push(`${route || '/'}: expected one #requestdemo anchor, found ${result.requestDemoIds}`);
+  }
   if (result.requestDemoIds === 1 && (!result.formNames.length || result.formNames.some((name) => !name))) {
     failures.push(`${route || '/'}: request-demo form field names missing`);
   }
