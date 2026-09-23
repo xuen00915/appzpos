@@ -57,8 +57,10 @@ body {
   max-width: 100% !important;
 }
 
-.appz-section-title,
-[data-home-page-template] .home-story-section .appz-display {
+#content .appz-section-title,
+#content [data-home-page-template] .home-story-section .appz-display,
+body .appz-home-template .appz-section-title,
+body .appz-home-template .home-story-section .appz-display {
   margin-top: 0;
   font-family: var(--appz-font) !important;
   font-size: var(--appz-section-title-size) !important;
@@ -84,8 +86,10 @@ body {
   --appz-section-space: clamp(56px, 5vw, 72px);
 }
 
-[data-home-page-template][lang="zh"] .appz-section-title,
-[data-home-page-template][lang="zh"] .home-story-section .appz-display {
+#content [data-home-page-template][lang="zh"] .appz-section-title,
+#content [data-home-page-template][lang="zh"] .home-story-section .appz-display,
+body .appz-home-template[lang="zh"] .appz-section-title,
+body .appz-home-template[lang="zh"] .home-story-section .appz-display {
   letter-spacing: .055em !important;
 }
 
@@ -157,8 +161,10 @@ a {
     --appz-section-space: 38px;
   }
 
-  [data-home-page-template][lang="zh"] .appz-section-title,
-  [data-home-page-template][lang="zh"] .home-story-section .appz-display {
+  #content [data-home-page-template][lang="zh"] .appz-section-title,
+  #content [data-home-page-template][lang="zh"] .home-story-section .appz-display,
+  body .appz-home-template[lang="zh"] .appz-section-title,
+  body .appz-home-template[lang="zh"] .home-story-section .appz-display {
     letter-spacing: .05em !important;
   }
 

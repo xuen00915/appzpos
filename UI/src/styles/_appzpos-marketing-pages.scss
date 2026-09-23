@@ -443,14 +443,6 @@ main.appz-home-story {
     line-height: .98 !important;
   }
 
-  h2 {
-    margin-bottom: 22px;
-    font-size: clamp(1.75rem, 2.7vw, 3rem) !important;
-    letter-spacing: .025em !important;
-    line-height: 1.1 !important;
-    font-weight: 720 !important;
-  }
-
   h3 {
     font-size: clamp(1.15rem, 1.7vw, 1.55rem) !important;
     line-height: 1.15;
@@ -1633,6 +1625,21 @@ app-solution-page {
 
 }
 
+/* One outer shell for legacy and shared public-page structures. */
+.appz-section,
+.appz-conversion-panel,
+.solution-island-hero__inner,
+[data-solution-hero] .appz-solution-hero__inner,
+.industries__experience,
+.features-hero__inner,
+.hardware-hero__inner,
+.partners-hero__inner,
+.blog-hero__inner {
+  width: min(calc(100% - (var(--appz-page-gutter) * 2)), var(--appz-shell-width)) !important;
+  max-width: var(--appz-shell-width) !important;
+  margin-inline: auto !important;
+}
+
 @media (max-width: 1199px) {
   app-solution-page #content .pos-feature-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1754,11 +1761,6 @@ app-solution-page {
   }
 
   #content {
-    h2:not(.fs-6) {
-      font-size: clamp(1.65rem, 7vw, 2.1rem) !important;
-      letter-spacing: .018em !important;
-    }
-
     .content-wrap { padding: 56px 0; }
     .container,
     .container-fluid { padding-inline: 20px; }
@@ -1799,4 +1801,22 @@ app-solution-page {
     opacity: 1 !important;
     transform: none !important;
   }
+}
+
+/* Explicit legacy section-heading adapters; card, FAQ and article headings are excluded. */
+#content h2.appz-section-title,
+#content .heading-block > h2,
+#content .restaurant-scroll__intro h2,
+#content .pos-solutions > h2,
+#content .solution-overview-variant .pos-overview h2,
+#content .pos-feature-section__header h2,
+#content .pos-hardware .heading-block h2,
+#content .restaurant-mode__timeline > h2,
+#content .quick-service-compact > h2 {
+  font-family: var(--appz-font) !important;
+  font-size: var(--appz-section-title-size) !important;
+  font-weight: 750 !important;
+  letter-spacing: -.04em !important;
+  line-height: var(--appz-section-title-line) !important;
+  text-wrap: balance;
 }
