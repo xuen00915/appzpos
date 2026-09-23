@@ -52,7 +52,14 @@ for (const width of viewports) {
       const inner = document.querySelector('.appzpos-footer__inner');
       const badge = document.querySelector('.appzpos-footer__iso');
       const socialIcons = [...document.querySelectorAll('.appzpos-footer__socials i')];
+      const conversionPanel = document.querySelector('.appz-conversion-panel');
+      const demo = document.querySelector('.appz-demo');
+      const form = document.querySelector('.appz-demo__form');
+      const fields = document.querySelector('.appz-demo__fields');
+      const footer = document.querySelector('.appzpos-footer');
       const columns = inner ? getComputedStyle(inner).gridTemplateColumns.trim().split(/\\s+/).filter(Boolean) : [];
+      const conversionBounds = conversionPanel?.getBoundingClientRect();
+      const footerBounds = footer?.getBoundingClientRect();
       return {
         present: Boolean(inner),
         columns,
@@ -60,6 +67,14 @@ for (const width of viewports) {
         badgeWidth: badge?.getBoundingClientRect().width ?? 0,
         instagramGradient: socialIcons[0] ? getComputedStyle(socialIcons[0]).backgroundImage : '',
         socialColors: socialIcons.slice(1).map((icon) => getComputedStyle(icon).color),
+        conversion: {
+          present: Boolean(conversionPanel && demo && form && fields && footer),
+          panelPaddingTop: conversionPanel ? parseFloat(getComputedStyle(conversionPanel).paddingTop) : 0,
+          demoGap: demo ? parseFloat(getComputedStyle(demo).gap) : 0,
+          formPaddingTop: form ? parseFloat(getComputedStyle(form).paddingTop) : 0,
+          fieldGap: fields ? parseFloat(getComputedStyle(fields).rowGap) : 0,
+          footerGap: conversionBounds && footerBounds ? footerBounds.top - conversionBounds.bottom : 0
+        },
         pageClientWidth: document.documentElement.clientWidth,
         pageScrollWidth: document.documentElement.scrollWidth
       };
@@ -83,6 +98,12 @@ for (const width of viewports) {
   if (!layout.instagramGradient.includes('linear-gradient')) failures.push(`${width}px: Instagram icon is missing its brand gradient`);
   const expectedSocialColors = ['rgb(24, 119, 242)', 'rgb(10, 102, 194)', 'rgb(255, 0, 0)'];
   if (layout.socialColors.some((color, index) => color !== expectedSocialColors[index])) failures.push(`${width}px: social icons do not use their original brand colors`);
+  if (!layout.conversion.present) failures.push(`${width}px: demo form or footer is missing`);
+  if (layout.conversion.panelPaddingTop > 28) failures.push(`${width}px: demo panel top padding is ${layout.conversion.panelPaddingTop}px, expected at most 28px`);
+  if (layout.conversion.demoGap > 32) failures.push(`${width}px: demo copy/form gap is ${layout.conversion.demoGap}px, expected at most 32px`);
+  if (layout.conversion.formPaddingTop > 24) failures.push(`${width}px: form padding is ${layout.conversion.formPaddingTop}px, expected at most 24px`);
+  if (layout.conversion.fieldGap > 16) failures.push(`${width}px: form field gap is ${layout.conversion.fieldGap}px, expected at most 16px`);
+  if (layout.conversion.footerGap < 48 || layout.conversion.footerGap > 80) failures.push(`${width}px: form-to-footer gap is ${layout.conversion.footerGap}px, expected 48–80px`);
   if (layout.pageScrollWidth > layout.pageClientWidth) failures.push(`${width}px: footer creates horizontal overflow`);
 }
 

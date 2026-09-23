@@ -1,4 +1,5 @@
 import {
+  ChangeDetectorRef,
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
@@ -40,6 +41,8 @@ export class HomeHeroComponent implements OnInit, OnChanges, OnDestroy {
   private transitionTimers: ReturnType<typeof setTimeout>[] = [];
   private autoplayStopped = false;
   private destroyed = false;
+
+  constructor(private readonly changeDetectorRef: ChangeDetectorRef) {}
 
   get productVisual(): ProductShowcaseVisual | null {
     return this.config?.visual.kind === 'product-showcase' ? this.config.visual : null;
@@ -146,6 +149,7 @@ export class HomeHeroComponent implements OnInit, OnChanges, OnDestroy {
       this.transitionTimers = this.transitionTimers.filter((candidate) => candidate !== timer);
       if (!this.destroyed) {
         callback();
+        this.changeDetectorRef.markForCheck();
       }
     }, delay);
     this.transitionTimers.push(timer);

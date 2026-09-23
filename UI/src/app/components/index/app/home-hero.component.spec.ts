@@ -124,6 +124,28 @@ describe('HomeHeroComponent', () => {
     expect(component.activeIndustryId).toBe('restaurant');
   }));
 
+  it('keeps the POS screen and function tags on the same selected industry state', fakeAsync(() => {
+    component.config = englishHero;
+    fixture.detectChanges();
+
+    component.selectIndustry('restaurant', true);
+    tick(480);
+    fixture.detectChanges();
+
+    const host = fixture.nativeElement as HTMLElement;
+    const screen = host.querySelector<HTMLElement>('.appzpos-software-screen');
+    const functionTags = host.querySelector<HTMLElement>('.appzpos-module-orbit');
+    const labels = Array.from(
+      host.querySelectorAll<HTMLElement>('.appzpos-module-orbit__label')
+    ).map((label) => label.textContent?.trim());
+
+    expect(screen?.getAttribute('data-industry')).toBe('restaurant');
+    expect(functionTags?.getAttribute('data-industry')).toBe('restaurant');
+    expect(labels).toEqual(['POS System', 'Table QR Ordering']);
+
+    tick(720);
+  }));
+
   it('automatically rebuilds the interface for the next industry after seven seconds', fakeAsync(() => {
     component.config = englishHero;
     fixture.detectChanges();

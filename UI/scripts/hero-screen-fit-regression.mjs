@@ -133,6 +133,38 @@ for (const width of viewports) {
   layouts[width] = JSON.parse(evaluation.result.value);
 }
 
+await send('Emulation.setDeviceMetricsOverride', {
+  width: 1280,
+  height: 1000,
+  deviceScaleFactor: 1,
+  mobile: false,
+  screenWidth: 1280,
+  screenHeight: 1000
+});
+await send('Page.navigate', { url: `${previewUrl}?screen-fit-regression-industry-sync` });
+await wait(1600);
+await send('Runtime.evaluate', {
+  expression: `[...document.querySelectorAll('[role="tab"]')].find((tab) => tab.textContent.toUpperCase().includes('RETAIL'))?.click()`
+});
+await wait(520);
+const industrySyncEvaluation = await send('Runtime.evaluate', {
+  expression: `JSON.stringify((() => {
+    const screen = document.querySelector('.appzpos-software-screen');
+    const tags = document.querySelector('.appzpos-module-orbit');
+    return {
+      selectedTab: document.querySelector('[role="tab"][aria-selected="true"]')?.textContent.replace(/\\s+/g, ' ').trim(),
+      screenIndustry: screen?.dataset.industry,
+      tagsIndustry: tags?.dataset.industry,
+      screenSources: [...document.querySelectorAll('.appzpos-screen-slice img')].map((image) => image.getAttribute('src')),
+      tagLabels: [...document.querySelectorAll('.appzpos-module-orbit__label')].map((label) => label.textContent.trim()),
+      screenAnimations: [...document.querySelectorAll('.appzpos-screen-slice')].map((slice) => getComputedStyle(slice).animationName),
+      tagAnimations: [...document.querySelectorAll('.appzpos-module-orbit__card')].map((tag) => getComputedStyle(tag).animationName)
+    };
+  })())`,
+  returnByValue: true
+});
+const industrySync = JSON.parse(industrySyncEvaluation.result.value);
+
 await send('Emulation.setEmulatedMedia', {
   media: 'screen',
   features: [{ name: 'prefers-reduced-motion', value: 'reduce' }]
@@ -234,9 +266,27 @@ if (reducedMotionBorderAnimation !== 'none') {
   failures.push('reduced motion: the animated module border remains active');
 }
 
+if (industrySync.selectedTab !== 'Retail') failures.push(`industry sync: selected tab is ${industrySync.selectedTab}`);
+if (industrySync.screenIndustry !== 'retail' || industrySync.tagsIndustry !== 'retail') {
+  failures.push(`industry sync: screen (${industrySync.screenIndustry}) and tags (${industrySync.tagsIndustry}) do not share the retail state`);
+}
+if (industrySync.screenSources.length !== 4
+  || industrySync.screenSources.some((source) => source !== 'assets/images/appzpos-screen-retail.png')) {
+  failures.push('industry sync: the Retail state does not use four Retail screen slices');
+}
+if (JSON.stringify(industrySync.tagLabels) !== JSON.stringify(['POS System', 'Website Ordering', 'Self Order Kiosk'])) {
+  failures.push(`industry sync: Retail function tags are ${industrySync.tagLabels.join(', ')}`);
+}
+if (industrySync.screenAnimations.some((animation) => animation !== 'appzpos-screen-slice-rebuild')) {
+  failures.push('industry sync: POS screen slices are not visibly rebuilding');
+}
+if (industrySync.tagAnimations.some((animation) => animation !== 'appzpos-screen-slice-crossfade')) {
+  failures.push('industry sync: function tags are not animating with the POS screen');
+}
+
 if (failures.length) {
-  console.error(JSON.stringify({ failures, layouts }, null, 2));
+  console.error(JSON.stringify({ failures, layouts, industrySync }, null, 2));
   process.exit(1);
 }
 
-console.log(JSON.stringify({ status: 'pass', layouts }, null, 2));
+console.log(JSON.stringify({ status: 'pass', layouts, industrySync }, null, 2));

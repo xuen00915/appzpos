@@ -90,6 +90,7 @@
              [class.is-breaking]="transitionPhase === 'breaking'"
              [class.is-rebuilding]="transitionPhase === 'rebuilding'"
              [class.is-settled]="transitionPhase === 'settled'"
+             [attr.data-industry]="activeIndustryId || null"
              [attr.aria-label]="activeIndustry ? activeIndustry.label + ' APPZPOS modules' : null">
         <div class="appzpos-module-orbit__list" role="list">
           <div *ngFor="let module of activeIndustry?.modules; let moduleIndex = index; trackBy: trackModule"
