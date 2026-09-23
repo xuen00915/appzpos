@@ -1,43 +1,58 @@
 <section class="ecosystem" aria-labelledby="ecosystem-title">
-  <div class="appz-section ecosystem__hardware appz-split" appMarketingReveal>
+  <div *ngIf="hardware as hardwareConfig" class="appz-section ecosystem__hardware appz-split" appMarketingReveal>
     <div class="ecosystem__hardware-copy">
-      <p class="appz-kicker">SOFTWARE + HARDWARE</p>
-      <h2 id="ecosystem-title" class="appz-display">Integrated POS System with Customized Software and Hardware</h2>
-      <p class="appz-lede">APPZPOS delivers comprehensive POS solutions, featuring flexible software and hardware setups designed to meet your specific business requirements. Our system provides complete restaurant management, equipped with powerful tools for third-party integrations, contactless ordering, delivery, inventory management, data analytics, and more.</p>
-      <a class="ecosystem__whatsapp"
+      <p *ngIf="hardwareConfig.eyebrow" class="appz-kicker">{{ hardwareConfig.eyebrow }}</p>
+      <h2 id="ecosystem-title" class="appz-display">{{ hardwareConfig.title }}</h2>
+      <p *ngFor="let paragraph of hardwareConfig.paragraphs" class="appz-lede">{{ paragraph }}</p>
+      <a *ngIf="hardwareConfig.cta as cta" class="ecosystem__whatsapp"
          data-hardware-whatsapp
-         href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!"
-         target="_blank"
-         rel="noopener">
+         [href]="cta.href" [target]="cta.target || null" [rel]="cta.rel || null">
         <i class="bi bi-whatsapp" aria-hidden="true"></i>
-        <span>WhatsApp Us</span>
+        <span>{{ cta.label }}</span>
       </a>
     </div>
     <div class="ecosystem__hardware-media appz-media-stage">
-      <img [src]="imageUrl('APPZPOS-Pos-Point-of-Sales-System-Customized-Software-and-Hardware.png')" alt="APPZPOS Integrated POS System with Customized Software and Hardware" width="900" height="760" loading="lazy">
+      <img [src]="imageUrl(hardwareConfig.image)" [alt]="hardwareConfig.imageAlt" [attr.width]="hardwareConfig.imageWidth" [attr.height]="hardwareConfig.imageHeight" loading="lazy">
     </div>
   </div>
 
-  <div class="ecosystem__features" appMarketingReveal>
-    <header><p class="appz-kicker">KEY FEATURES</p><h2>Grow Your Business Revenue with APPZPOS Solution</h2></header>
-    <div class="ecosystem__feature-list">
-      <a *ngFor="let feature of features; let index = index" href="/pos-features-crm-payment-gateway">
-        <span>0{{ index + 1 }}</span><strong>{{ feature.title }}</strong>
-        <img [src]="imageUrl(feature.image)" [alt]="feature.title" width="180" height="140" loading="lazy">
-      </a>
-    </div>
-  </div>
-
-  <div class="appz-section ecosystem__grant" appMarketingReveal>
+  <div *ngIf="grant as grantConfig" class="appz-section ecosystem__grant" appMarketingReveal>
     <div class="ecosystem__grant-visual">
-      <img src="assets/images/smes-go-digital-imda-pre-approved-solution.png"
-           alt="IMDA pre-approved solution eligible for up to 50% business grant support under SMEs Go Digital"
-           width="3559" height="1259" loading="lazy">
+      <img [src]="imageUrl(grantConfig.image)" [alt]="grantConfig.imageAlt"
+           [attr.width]="grantConfig.imageWidth" [attr.height]="grantConfig.imageHeight" loading="lazy">
     </div>
     <div class="ecosystem__grant-copy">
-      <h2>Up to 50% Monetary Support<br>To Kickstart To Your F&amp;B Business</h2>
-      <p>SMEs are eligible for up to 50% Productivity Solutions Grant (PSG) support for the adoption of APPZPOS F&amp;B Point of Sales, a Pre-Approved Solution under the IMDA SMEs Go Digital programme.</p>
-      <a class="ecosystem__grant-link" href="/psg-pos-system-grant-singapore">Learn More <span aria-hidden="true">↗</span></a>
+      <h2>{{ grantConfig.title }}<br *ngIf="grantConfig.secondaryTitle">{{ grantConfig.secondaryTitle }}</h2>
+      <p *ngFor="let paragraph of grantConfig.paragraphs">{{ paragraph }}</p>
+      <a class="ecosystem__grant-link" [href]="grantConfig.cta.href">{{ grantConfig.cta.label }}</a>
+      <img *ngIf="grantConfig.secondaryImage" class="ecosystem__grant-lockup"
+        [src]="imageUrl(grantConfig.secondaryImage)" [alt]="grantConfig.secondaryImageAlt || ''"
+        [attr.width]="grantConfig.secondaryImageWidth" [attr.height]="grantConfig.secondaryImageHeight" loading="lazy">
     </div>
+  </div>
+
+  <div *ngIf="features as featureConfig" class="ecosystem__features" appMarketingReveal>
+    <header class="ecosystem__features-intro">
+      <p *ngIf="featureConfig.eyebrow" class="appz-kicker">{{ featureConfig.eyebrow }}</p>
+      <h2>{{ featureConfig.title }}</h2>
+      <p *ngIf="featureConfig.description">{{ featureConfig.description }}</p>
+    </header>
+    <ol class="ecosystem__feature-list">
+      <li *ngFor="let feature of featureConfig.items; index as featureIndex"
+          class="ecosystem__feature-entry"
+          [attr.data-feature-index]="featureIndex + 1 < 10 ? '0' + (featureIndex + 1) : featureIndex + 1">
+        <div class="ecosystem__feature-card">
+          <span class="ecosystem__feature-icon" aria-hidden="true">
+            <img [src]="imageUrl(feature.icon)" [alt]="feature.iconAlt" width="96" height="96" loading="lazy">
+          </span>
+          <div class="ecosystem__feature-copy">
+            <h3>{{ feature.title }}</h3>
+            <ul>
+              <li *ngFor="let bullet of feature.points">{{ bullet }}</li>
+            </ul>
+          </div>
+        </div>
+      </li>
+    </ol>
   </div>
 </section>

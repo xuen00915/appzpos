@@ -1,0 +1,25 @@
+<div class="appz-home-template" data-home-page-template [attr.lang]="config.language">
+  <app-home-hero [config]="config.hero" (requestDemo)="requestDemo.emit()"></app-home-hero>
+
+  <app-home-order-flow *ngIf="config.solutions as solutions" [config]="solutions"></app-home-order-flow>
+
+  <main class="appz-page appz-home-story">
+    <app-home-story-sections *ngIf="config.storySections?.length" [sections]="config.storySections!" (requestDemo)="requestDemo.emit()"></app-home-story-sections>
+    <app-home-ecosystem *ngIf="config.hardware || config.grant || config.features"
+      [hardware]="config.hardware" [grant]="config.grant" [features]="config.features"></app-home-ecosystem>
+    <app-home-industries *ngIf="config.industries as industries" [config]="industries"></app-home-industries>
+    <app-home-proof *ngIf="config.proof as proof" [config]="proof"></app-home-proof>
+
+    <section *ngIf="config.conversion" class="appz-conversion-panel" [id]="config.conversion.sectionId">
+      <app-custom-request-demo *ngIf="config.conversion.locale === 'en'"></app-custom-request-demo>
+      <app-cn-custom-request-demo *ngIf="config.conversion.locale === 'zh'"></app-cn-custom-request-demo>
+    </section>
+  </main>
+
+  <nav *ngIf="config.floatingContacts?.length" class="appz-home-floating-contacts" aria-label="Contact APPZPOS">
+    <a *ngFor="let contact of config.floatingContacts" [href]="contact.href"
+      [target]="contact.target || '_self'" [rel]="contact.rel || null">
+      <img [src]="contact.image" [alt]="contact.imageAlt" width="64" height="64" loading="lazy">
+    </a>
+  </nav>
+</div>

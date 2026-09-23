@@ -38,8 +38,13 @@ const routes = ['', 'custom-solutions', 'point-of-sales-demo-quotation',
 const failures = [];
 
 await send('Page.enable');
+await send('Page.navigate', { url: previewUrl });
+await wait(700);
 for (const route of routes) {
-  await send('Page.navigate', { url: new URL(route, previewUrl).href });
+  const routeUrl = new URL(route, previewUrl).href;
+  await send('Runtime.evaluate', {
+    expression: `window.history.pushState({}, '', ${JSON.stringify(routeUrl)}); window.dispatchEvent(new PopStateEvent('popstate'));`
+  });
   await wait(700);
   const evaluation = await send('Runtime.evaluate', {
     expression: `JSON.stringify((() => ({

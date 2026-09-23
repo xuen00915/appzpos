@@ -3,161 +3,33 @@
          [class.is-visible]="isVisible"
          [class.has-active-island]="activeIslandId"
          aria-labelledby="appz-ecosystem-title">
+
+
     <header class="appz-ecosystem__heading">
-        <p class="appz-ecosystem__eyebrow">CONNECTED APPZPOS ECOSYSTEM</p>
-        <h2 id="appz-ecosystem-title">Everything Works Together</h2>
-        <p class="appz-ecosystem__intro">
-            From order to kitchen, pickup, delivery and management — connect the APPZPOS modules that fit your business.
-        </p>
+        <p *ngIf="config.eyebrow" class="appz-ecosystem__eyebrow">{{ config.eyebrow }}</p>
+        <h2 id="appz-ecosystem-title">{{ config.title }}</h2>
+        <p *ngIf="config.description" class="appz-ecosystem__intro">{{ config.description }}</p>
     </header>
 
-    <div class="appz-ecosystem__layout" data-ecosystem-layout>
-        <div #ecosystemStage
-             class="appz-ecosystem__stage"
-             (pointermove)="handlePointerMove($event)"
-             (pointerleave)="resetPointerParallax()">
-        <svg class="appz-ecosystem__connections"
-             viewBox="0 0 1400 1040"
-             preserveAspectRatio="none"
-             aria-hidden="true">
-            <defs>
-                <filter id="appz-ecosystem-signal-glow" x="-200%" y="-200%" width="500%" height="500%">
-                    <feGaussianBlur stdDeviation="5" result="blur" />
-                    <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
-                </filter>
-            </defs>
+    <div class="appz-ecosystem__layout appz-ecosystem__window" data-ecosystem-layout>
+        <nav class="appz-ecosystem__options" aria-label="Choose an APPZPOS solution">
+          <button *ngFor="let island of islands" type="button"
+            class="appz-ecosystem__option"
+            [class.is-active]="activeIslandId === island.id || activeDetailsIslandId === island.id"
+            [attr.data-route]="island.route" [attr.data-island-id]="island.id"
+            [attr.aria-pressed]="activeDetailsIslandId === island.id"
+            aria-controls="appz-island-details" data-ecosystem-island
+            (click)="openIslandDetails($event, island.id)"
+            (keydown.enter)="handleOptionKey($event, island.id)"
+            (keydown.space)="handleOptionKey($event, island.id)">
+            <span *ngFor="let module of island.modules" data-island-module><strong>{{ module.title }}</strong></span>
+          </button>
+        </nav>
 
-            <g data-ecosystem-connection="admin"
-               class="appz-ecosystem__connection"
-               [class.is-active]="activeIslandId === 'admin' || activeDetailsIslandId === 'admin'">
-                <path class="appz-ecosystem__bridge" d="M720 500C858 394 1030 252 1160 188" />
-                <path class="appz-ecosystem__route" pathLength="1" d="M720 500C858 394 1030 252 1160 188" />
-                <circle class="appz-ecosystem__endpoint" cx="1160" cy="188" r="5" />
-                <circle class="appz-ecosystem__signal" r="6">
-                    <animateMotion dur="1.9s" repeatCount="indefinite" path="M1160 188C1030 252 858 394 720 500" />
-                </circle>
-            </g>
-            <g data-ecosystem-connection="kitchen"
-               class="appz-ecosystem__connection appz-ecosystem__connection--orange"
-               [class.is-active]="activeIslandId === 'kitchen' || activeDetailsIslandId === 'kitchen'">
-                <path class="appz-ecosystem__bridge" d="M692 482C674 380 636 254 610 168" />
-                <path class="appz-ecosystem__route" pathLength="1" d="M692 482C674 380 636 254 610 168" />
-                <circle class="appz-ecosystem__endpoint" cx="610" cy="168" r="5" />
-                <circle class="appz-ecosystem__signal" r="6">
-                    <animateMotion dur="1.8s" repeatCount="indefinite" path="M610 168C636 254 674 380 692 482" />
-                </circle>
-            </g>
-            <g data-ecosystem-connection="dining"
-               class="appz-ecosystem__connection"
-               [class.is-active]="activeIslandId === 'dining' || activeDetailsIslandId === 'dining'">
-                <path class="appz-ecosystem__bridge" d="M674 512C542 468 410 411 282 368" />
-                <path class="appz-ecosystem__route" pathLength="1" d="M674 512C542 468 410 411 282 368" />
-                <circle class="appz-ecosystem__endpoint" cx="282" cy="368" r="5" />
-                <circle class="appz-ecosystem__signal" r="6">
-                    <animateMotion dur="1.7s" repeatCount="indefinite" path="M282 368C410 411 542 468 674 512" />
-                </circle>
-            </g>
-            <g data-ecosystem-connection="kiosk"
-               class="appz-ecosystem__connection"
-               [class.is-active]="activeIslandId === 'kiosk' || activeDetailsIslandId === 'kiosk'">
-                <path class="appz-ecosystem__bridge" d="M732 526C826 522 920 494 1012 462" />
-                <path class="appz-ecosystem__route" pathLength="1" d="M732 526C826 522 920 494 1012 462" />
-                <circle class="appz-ecosystem__endpoint" cx="1012" cy="462" r="5" />
-                <circle class="appz-ecosystem__signal" r="6">
-                    <animateMotion dur="1.65s" repeatCount="indefinite" path="M1012 462C920 494 826 522 732 526" />
-                </circle>
-            </g>
-            <g data-ecosystem-connection="queue"
-               class="appz-ecosystem__connection appz-ecosystem__connection--orange"
-               [class.is-active]="activeIslandId === 'queue' || activeDetailsIslandId === 'queue'">
-                <path class="appz-ecosystem__bridge" d="M734 544C882 612 1056 704 1190 764" />
-                <path class="appz-ecosystem__route" pathLength="1" d="M734 544C882 612 1056 704 1190 764" />
-                <circle class="appz-ecosystem__endpoint" cx="1190" cy="764" r="5" />
-                <circle class="appz-ecosystem__signal" r="6">
-                    <animateMotion dur="1.72s" repeatCount="indefinite" path="M1190 764C1056 704 882 612 734 544" />
-                </circle>
-            </g>
-            <g data-ecosystem-connection="website"
-               class="appz-ecosystem__connection"
-               [class.is-active]="activeIslandId === 'website' || activeDetailsIslandId === 'website'">
-                <path class="appz-ecosystem__bridge" d="M686 548C576 636 460 735 338 817" />
-                <path class="appz-ecosystem__route" pathLength="1" d="M686 548C576 636 460 735 338 817" />
-                <circle class="appz-ecosystem__endpoint" cx="338" cy="817" r="5" />
-                <circle class="appz-ecosystem__signal" r="6">
-                    <animateMotion dur="1.75s" repeatCount="indefinite" path="M338 817C460 735 576 636 686 548" />
-                </circle>
-            </g>
-            <g data-ecosystem-connection="delivery"
-               class="appz-ecosystem__connection appz-ecosystem__connection--orange"
-               [class.is-active]="activeIslandId === 'delivery' || activeDetailsIslandId === 'delivery'">
-                <path class="appz-ecosystem__bridge" d="M712 554C740 654 784 761 824 850" />
-                <path class="appz-ecosystem__route" pathLength="1" d="M712 554C740 654 784 761 824 850" />
-                <circle class="appz-ecosystem__endpoint" cx="824" cy="850" r="5" />
-                <circle class="appz-ecosystem__signal" r="6">
-                    <animateMotion dur="1.85s" repeatCount="indefinite" path="M824 850C784 761 740 654 712 554" />
-                </circle>
-            </g>
-        </svg>
-
-        <div class="appz-ecosystem__hub" data-ecosystem-hub aria-hidden="true">
-            <span class="appz-ecosystem__hub-glow"></span>
-            <img class="appz-ecosystem__hub-art"
-                 src="assets/images/ecosystem/ecosystem-hub.webp"
-                 alt=""
-                 width="1536"
-                 height="1024"
-                 loading="lazy"
-                 decoding="async" />
-            <img class="appz-ecosystem__hub-logo"
-                 data-ecosystem-hub-logo
-                 src="https://appzpos.com/admin/Upload/0771BB36-9631-40F2-A204-C60247E9F1E1/Images/APPZPOS-300X150px.png"
-                 alt=""
-                 width="300"
-                 height="150"
-                 loading="lazy"
-                 decoding="async" />
-        </div>
-
-        <button *ngFor="let island of islands; let index = index"
-           type="button"
-           class="appz-ecosystem__island"
-           [ngClass]="[
-               'appz-ecosystem__island--' + island.id,
-               island.id === 'kiosk' || island.id === 'queue' || island.id === 'website' || island.id === 'delivery'
-                   ? 'appz-ecosystem__island--lower'
-                   : ''
-           ]"
-           [class.is-active]="activeIslandId === island.id || activeDetailsIslandId === island.id"
-           [class.is-muted]="!!(activeIslandId || activeDetailsIslandId) && activeIslandId !== island.id && activeDetailsIslandId !== island.id"
-           [attr.data-route]="island.route"
-           [attr.data-island-id]="island.id"
-           [attr.data-depth]="island.depth"
-           [attr.aria-label]="island.ariaLabel"
-           [attr.aria-expanded]="activeDetailsIslandId === island.id"
-           aria-controls="appz-island-details"
-           data-ecosystem-island
-           (click)="openIslandDetails($event, island.id)"
-           (pointerenter)="setActiveIsland(island.id)"
-           (pointerleave)="clearActiveIsland()"
-           (focus)="setActiveIsland(island.id)"
-           (blur)="clearActiveIsland()">
-            <span class="appz-ecosystem__island-float">
-                <img [src]="island.image"
-                     alt=""
-                     width="1536"
-                     height="1024"
-                     loading="lazy"
-                     decoding="async" />
-            </span>
-            <span class="appz-ecosystem__label">
-                <i aria-hidden="true"></i>
-                <span *ngFor="let module of island.modules" class="appz-ecosystem__island-module" data-island-module>
-                    <strong>{{ module.title }}</strong>
-                    <small>{{ module.summary }}</small>
-                </span>
-            </span>
-        </button>
-        </div>
+        <div class="appz-ecosystem__copy">
+          <div class="appz-ecosystem__selected-visual" *ngIf="activeDetailsIsland as selected">
+            <img [src]="selected.image" [alt]="selected.imageAlt" width="1536" height="1024" decoding="async">
+          </div>
 
         <section *ngIf="activeDetailsIsland as detailsIsland"
                  id="appz-island-details"
@@ -169,14 +41,13 @@
             <header class="appz-ecosystem__details-header">
                 <div>
                     <p>{{ detailsIsland.title }}</p>
-                    <h2 [id]="'appz-island-details-title-' + detailsIsland.id">Explore the connected modules</h2>
+                    <h2 [id]="'appz-island-details-title-' + detailsIsland.id">{{ activeDetailsModules[0]?.title }}</h2>
                 </div>
             </header>
 
             <div class="appz-ecosystem__details-body"
                  [class.appz-ecosystem__details-body--multiple]="activeDetailsModules.length > 1">
                 <article *ngFor="let module of activeDetailsModules" class="appz-ecosystem__details-module">
-                    <h3>{{ module.title }}</h3>
                     <ul>
                         <li *ngFor="let feature of module.features" data-details-feature>
                             <i aria-hidden="true"></i>
@@ -185,10 +56,11 @@
                     </ul>
                     <a class="appz-ecosystem__details-learn-more"
                        data-details-learn-more
-                       [routerLink]="module.route">Learn More</a>
+                       [routerLink]="module.route">{{ config.learnMoreLabel }}</a>
                 </article>
             </div>
         </section>
+        </div>
     </div>
 
 </section>

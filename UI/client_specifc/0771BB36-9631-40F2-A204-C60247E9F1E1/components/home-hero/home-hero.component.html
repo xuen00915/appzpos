@@ -1,0 +1,118 @@
+<section class="appzpos-product-hero appzpos-product-hero--reclined" [attr.aria-labelledby]="config.headingId">
+  <div class="appzpos-product-hero__frame">
+    <div class="appzpos-product-hero__copy">
+      <h1 [id]="config.headingId">
+        {{ config.title }}
+        <span *ngIf="config.titleAccent">{{ config.titleAccent }}</span>
+      </h1>
+      <p class="appzpos-product-hero__intro">{{ config.description }}</p>
+
+      <div class="appzpos-product-hero__actions">
+        <ng-container *ngFor="let cta of config.ctas">
+          <button *ngIf="cta.kind === 'action'"
+                  class="appzpos-product-hero__button appzpos-product-hero__button--primary"
+                  [ngClass]="cta.trackingClass"
+                  type="button"
+                  [attr.data-track-cta]="cta.action"
+                  (click)="handleCta(cta)">
+            {{ cta.label }}
+          </button>
+          <a *ngIf="cta.kind === 'link'"
+             class="appzpos-product-hero__button appzpos-product-hero__button--secondary"
+             [ngClass]="cta.trackingClass"
+             [href]="cta.href"
+             [target]="cta.target || '_self'"
+             [rel]="cta.rel || null"
+             data-track-cta="link">
+            {{ cta.label }}
+          </a>
+        </ng-container>
+      </div>
+
+      <div *ngIf="productVisual as product"
+           class="appzpos-industry-switcher"
+           role="tablist"
+           [attr.aria-label]="config.industryTabLabel">
+        <button *ngFor="let industry of product.industries; trackBy: trackIndustry"
+                type="button"
+                role="tab"
+                [attr.data-industry-tab]="industry.id"
+                [class.is-active]="industry.id === activeIndustryId"
+                [attr.aria-selected]="industry.id === activeIndustryId"
+                aria-controls="appzpos-industry-panel"
+                (click)="selectIndustry(industry.id, true)">
+          <i aria-hidden="true"></i>{{ industry.label }}
+        </button>
+      </div>
+      <p *ngIf="activeIndustry"
+         class="appzpos-industry-status visually-hidden"
+         aria-live="polite">
+        {{ config.industryStatusPrefix }} {{ activeIndustry.label }}
+      </p>
+    </div>
+
+    <div *ngIf="productVisual as product"
+         class="appzpos-product-hero__visual"
+         [attr.aria-label]="product.hardwareAlt">
+      <aside class="appzpos-module-orbit"
+             [class.is-breaking]="transitionPhase === 'breaking'"
+             [class.is-rebuilding]="transitionPhase === 'rebuilding'"
+             [class.is-settled]="transitionPhase === 'settled'"
+             [attr.aria-label]="activeIndustry ? activeIndustry.label + ' APPZPOS modules' : null">
+        <div class="appzpos-module-orbit__list" role="list">
+          <div *ngFor="let module of activeIndustry?.modules; let moduleIndex = index; trackBy: trackModule"
+               class="appzpos-module-orbit__card"
+               [class.appzpos-module-orbit__card--primary]="moduleIndex === 0"
+               role="listitem"
+               [style.--module-order]="moduleIndex">
+            <span class="appzpos-module-orbit__label">{{ module }}</span>
+          </div>
+        </div>
+      </aside>
+
+      <div class="appzpos-product-hero__machine">
+        <img [src]="product.hardwareImage"
+             [alt]="product.hardwareAlt"
+             [width]="product.hardwareWidth"
+             [height]="product.hardwareHeight"
+             fetchpriority="high" />
+        <div class="appzpos-product-hero__screen-window">
+          <div class="appzpos-product-hero__screen-plane">
+            <article *ngIf="activeIndustry"
+                     class="appzpos-software-screen"
+                     id="appzpos-industry-panel"
+                     role="tabpanel"
+                     [attr.data-industry]="activeIndustryId"
+                     [class.is-breaking]="transitionPhase === 'breaking'"
+                     [class.is-rebuilding]="transitionPhase === 'rebuilding'"
+                     [class.is-settled]="transitionPhase === 'settled'"
+                     [attr.aria-label]="activeIndustry.label + ' APPZPOS interface'">
+              <div *ngFor="let slice of ['chrome', 'navigation', 'workspace', 'checkout']"
+                   class="appzpos-screen-slice"
+                   [ngClass]="'appzpos-screen-slice--' + slice"
+                   aria-hidden="true">
+                <img [src]="activeIndustry.screenImage" alt="" decoding="async" />
+              </div>
+              <div *ngIf="product.brandImage" class="appzpos-software-screen__brand">
+                <img [src]="product.brandImage" alt="APPZPOS" width="300" height="150" decoding="async" />
+              </div>
+              <span class="appzpos-software-screen__reflection" aria-hidden="true"></span>
+            </article>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="responsiveVisual as image"
+         class="appzpos-product-hero__visual appzpos-product-hero__visual--responsive">
+      <picture>
+        <source media="(max-width: 767px)" [srcset]="image.mobileSrc" />
+        <img [src]="image.desktopSrc"
+             [alt]="image.alt"
+             [width]="image.width"
+             [height]="image.height"
+             fetchpriority="high" />
+      </picture>
+    </div>
+  </div>
+</section>

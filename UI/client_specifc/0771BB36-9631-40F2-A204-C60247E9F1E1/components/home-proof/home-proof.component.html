@@ -1,19 +1,59 @@
-<section class="proof appz-section" aria-labelledby="proof-title">
-  <header class="proof__header" appMarketingReveal>
-    <div><p class="appz-kicker">OUR VALUED CUSTOMERS</p><h2 id="proof-title" class="appz-display">Our Commitment to Local Excellence</h2></div>
-    <p class="appz-lede">Customer feedback is the measure of our success. We take pride in the experiences our satisfied customers have had with our Best POS System Singapore. Discover what our satisfied customers have to say about their experiences with us.</p>
-  </header>
-
-  <div class="appz-proof-rail" aria-label="APPZPOS customers" appMarketingReveal>
-    <img *ngFor="let customer of customers" [src]="imageUrl(customer.image)" [alt]="customer.alt" width="150" height="90" loading="lazy">
+<section class="proof appz-section" [attr.aria-labelledby]="testimonials.length ? 'proof-title' : 'customers-title'">
+  <div class="proof__customers" appMarketingReveal aria-labelledby="customers-title">
+    <h2 id="customers-title" class="proof__customers-title">{{ config.customersTitle }}</h2>
+    <button *ngIf="config.showAllLabel" class="proof__show-all" type="button" aria-haspopup="dialog" aria-controls="customer-dialog" (click)="customerDialog.showModal()">{{ config.showAllLabel }}</button>
+    <div id="customer-panel" class="proof__customer-panel">
+      <div class="proof__customer-row" *ngFor="let row of customerRows; let index = index" tabindex="0" [attr.aria-label]="'Customer logos, row ' + (index + 1)">
+        <div class="proof__customer-track" [class.is-reversed]="index === 1">
+          <ul class="proof__customer-group" aria-label="APPZPOS customers">
+            <li *ngFor="let customer of row">
+              <img [src]="imageUrl(customer.image)" [alt]="customer.alt" width="150" height="90" loading="lazy">
+            </li>
+          </ul>
+          <ul class="proof__customer-group proof__customer-copy" aria-hidden="true">
+            <li *ngFor="let customer of row">
+              <img [src]="imageUrl(customer.image)" alt="" width="150" height="90" loading="lazy">
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="proof__quote" appMarketingReveal>
-    <div class="proof__mark" aria-hidden="true">“</div>
-    <blockquote>{{ testimonials[activeIndex].quote }}</blockquote>
-    <footer><strong>{{ testimonials[activeIndex].name }}</strong><span>{{ testimonials[activeIndex].role }}</span></footer>
-    <nav aria-label="Customer testimonials">
-      <button *ngFor="let testimonial of testimonials; let index = index" type="button" [class.is-active]="index === activeIndex" [attr.aria-label]="'Show testimonial from ' + testimonial.name" (click)="select(index)">{{ index + 1 }}</button>
-    </nav>
+  <dialog #customerDialog id="customer-dialog" class="proof__customer-dialog" aria-labelledby="customer-dialog-title" (click)="$event.target === customerDialog && customerDialog.close()">
+    <div class="proof__dialog-content">
+      <header class="proof__dialog-header">
+        <h2 id="customer-dialog-title">{{ config.customersTitle }}</h2>
+        <button type="button" class="proof__dialog-close" [attr.aria-label]="config.closeDialogLabel" autofocus (click)="customerDialog.close()">×</button>
+      </header>
+      <ul class="proof__all-customers" aria-label="All APPZPOS customer logos">
+        <li *ngFor="let customer of customers">
+          <img [src]="imageUrl(customer.image)" [alt]="customer.alt" width="150" height="90" loading="lazy">
+        </li>
+      </ul>
+    </div>
+  </dialog>
+
+  <div *ngIf="testimonials.length" class="proof__testimonial-layout" appMarketingReveal>
+    <header class="proof__intro">
+      <h2 id="proof-title">{{ config.testimonialTitle }}</h2>
+      <p *ngIf="config.testimonialDescription">{{ config.testimonialDescription }}</p>
+      <a *ngIf="config.reviewCta as reviewCta" class="proof__review-link" [href]="reviewCta.href" [target]="reviewCta.target || null" [rel]="reviewCta.rel || null">{{ reviewCta.label }}</a>
+    </header>
+
+    <div class="proof__testimonial-grid">
+    <article class="proof__quote-card" *ngFor="let testimonial of testimonials; let index = index">
+      <span class="proof__quote-mark" aria-hidden="true">“</span>
+      <blockquote [id]="'testimonial-' + index" [class.is-expanded]="expandedTestimonials.has(index)">{{ testimonial.quote }}</blockquote>
+      <button class="proof__show-more" type="button" [attr.aria-expanded]="expandedTestimonials.has(index)" [attr.aria-controls]="'testimonial-' + index" [attr.aria-label]="(expandedTestimonials.has(index) ? config.showLessLabel : config.showMoreLabel) + ': ' + testimonial.name" (click)="toggleTestimonial(index)">{{ expandedTestimonials.has(index) ? config.showLessLabel : config.showMoreLabel }}</button>
+      <footer>
+        <div>
+          <strong>{{ testimonial.name }}</strong>
+          <span>{{ testimonial.role }}</span>
+        </div>
+        <img *ngIf="testimonial.logo" class="proof__customer-logo" [src]="imageUrl(testimonial.logo)" [alt]="testimonial.logoAlt || testimonial.role || testimonial.name" width="110" height="84" loading="lazy">
+      </footer>
+    </article>
+    </div>
   </div>
 </section>

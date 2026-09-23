@@ -1,0 +1,28 @@
+:host {
+  display: block;
+}
+
+.appz-home-floating-contacts {
+  position: fixed;
+  z-index: 10000;
+  top: 22%;
+  right: 0;
+  display: grid;
+  gap: .5rem;
+}
+
+.appz-home-floating-contacts a,
+.appz-home-floating-contacts img { display: block; }
+
+.appz-home-floating-contacts img { width: clamp(48px, 5vw, 64px); height: auto; }
+
+.appz-home-template__hero-copy {
+  margin-inline: auto;
+  max-width: var(--appz-content-width, 1320px);
+}
+
+.appz-home-template__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
