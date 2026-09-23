@@ -20,15 +20,17 @@
           <span>{{ bullet.text }}</span>
         </li>
       </ul>
-      <a *ngIf="section.cta?.kind === 'link'" class="appz-button"
-        [href]="$any(section.cta).href" [target]="$any(section.cta).target || null"
-        [rel]="$any(section.cta).rel || null" [class]="$any(section.cta).trackingClass || ''">
-        {{ section.cta.label }}
-      </a>
-      <button *ngIf="section.cta?.kind === 'action'" type="button" class="appz-button"
-        [class]="$any(section.cta).trackingClass || ''" (click)="requestDemo.emit()">
-        {{ section.cta.label }}
-      </button>
+      <ng-container *ngIf="section.cta as cta">
+        <a *ngIf="cta.kind === 'link'" class="appz-button"
+          [href]="$any(cta).href" [target]="$any(cta).target || null"
+          [rel]="$any(cta).rel || null" [class]="$any(cta).trackingClass || ''">
+          {{ cta.label }}
+        </a>
+        <button *ngIf="cta.kind === 'action'" type="button" class="appz-button"
+          [class]="$any(cta).trackingClass || ''" (click)="requestDemo.emit()">
+          {{ cta.label }}
+        </button>
+      </ng-container>
     </div>
   </article>
 </section>

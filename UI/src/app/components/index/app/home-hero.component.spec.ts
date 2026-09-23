@@ -108,6 +108,18 @@ describe('HomeHeroComponent', () => {
     expect(component.activeIndustryId).toBe('restaurant');
   }));
 
+  it('automatically rebuilds the interface for the next industry after seven seconds', fakeAsync(() => {
+    component.config = englishHero;
+    fixture.detectChanges();
+
+    tick(8200);
+    fixture.detectChanges();
+
+    expect(component.activeIndustryId).toBe('restaurant');
+    expect(component.transitionPhase).toBe('settled');
+    fixture.destroy();
+  }));
+
   it('renders the Chinese responsive image and exact configured wording', () => {
     component.config = chineseHero;
     fixture.detectChanges();

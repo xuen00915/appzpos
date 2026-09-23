@@ -1,4 +1,4 @@
-<section class="proof appz-section" aria-labelledby="proof-title">
+<section class="proof appz-section" [attr.aria-labelledby]="testimonials.length ? 'proof-title' : 'customers-title'">
   <div class="proof__customers" appMarketingReveal aria-labelledby="customers-title">
     <h2 id="customers-title" class="proof__customers-title">{{ config.customersTitle }}</h2>
     <button *ngIf="config.showAllLabel" class="proof__show-all" type="button" aria-haspopup="dialog" aria-controls="customer-dialog" (click)="customerDialog.showModal()">{{ config.showAllLabel }}</button>

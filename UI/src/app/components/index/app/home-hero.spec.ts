@@ -1,17 +1,21 @@
+import { CommonModule } from '@angular/common';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { ComponentFixture, discardPeriodicTasks, fakeAsync, TestBed, tick } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { Meta, Title } from '@angular/platform-browser';
 
 import { CustomHomeComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/index/index.component';
 import { CommonFunctionService } from '../../../services/shared_function/common-function.service';
+import { HomeHeroComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/home-hero/home-hero.component';
+import { HomePageTemplateComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/home-page-template/home-page-template.component';
 
 describe('APPZPOS home hero', () => {
   let fixture: ComponentFixture<CustomHomeComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [CustomHomeComponent],
+      imports: [CommonModule],
+      declarations: [CustomHomeComponent, HomePageTemplateComponent, HomeHeroComponent],
       providers: [
         {
           provide: CommonFunctionService,
@@ -128,22 +132,23 @@ describe('APPZPOS home hero', () => {
 
   it('places the order-flow story directly after the homepage hero', () => {
     const host = fixture.nativeElement as HTMLElement;
-    const hero = host.querySelector('.appzpos-product-hero');
+    const hero = host.querySelector('app-home-hero');
     const orderFlow = hero?.nextElementSibling;
 
     expect(orderFlow?.tagName.toLowerCase()).toBe('app-home-order-flow');
-    expect(orderFlow?.nextElementSibling?.getAttribute('id')).toBe('content');
+    expect(orderFlow?.nextElementSibling?.tagName.toLowerCase()).toBe('main');
   });
 
-  it('places integrated POS and revenue content directly after the island ecosystem', () => {
-    const content = (fixture.nativeElement as HTMLElement).querySelector<HTMLElement>('#content');
+  it('keeps the configured ecosystem, industries, proof and conversion order', () => {
+    const content = (fixture.nativeElement as HTMLElement).querySelector<HTMLElement>('main.appz-home-story');
     const sectionOrder = Array.from(content?.children ?? [])
       .map((element) => element.tagName.toLowerCase());
 
-    expect(sectionOrder.slice(0, 3)).toEqual([
+    expect(sectionOrder).toEqual([
       'app-home-ecosystem',
       'app-home-industries',
-      'app-home-proof'
+      'app-home-proof',
+      'section'
     ]);
   });
 
@@ -218,36 +223,21 @@ describe('APPZPOS home hero', () => {
       .toBeNull();
   });
 
-  it('automatically rebuilds the interface for the next industry after seven seconds', fakeAsync(() => {
-    fixture.destroy();
-    fixture = TestBed.createComponent(CustomHomeComponent);
-    fixture.detectChanges();
-
-    tick(8200);
-    fixture.detectChanges();
-
-    const host = fixture.nativeElement as HTMLElement;
-    const activeTab = host.querySelector<HTMLButtonElement>('[role="tab"][aria-selected="true"]');
-    expect(activeTab?.textContent?.replace(/\s+/g, ' ').trim()).toBe('Restaurant');
-
-    discardPeriodicTasks();
-  }));
-
   it('stops autoplay permanently after a visitor chooses an industry', fakeAsync(() => {
     const host = fixture.nativeElement as HTMLElement;
     const tabs = Array.from(
-      host.querySelectorAll<HTMLButtonElement>('[role="tab"]')
+      host.querySelectorAll<HTMLButtonElement>('.appzpos-product-hero [role="tab"]')
     );
     tabs.find((tab) => tab.textContent?.trim() === 'Retail')?.click();
 
     tick(1200);
     fixture.detectChanges();
-    expect(host.querySelector('[role="tab"][aria-selected="true"]')?.textContent?.trim())
+    expect(host.querySelector('.appzpos-product-hero [role="tab"][aria-selected="true"]')?.textContent?.trim())
       .toBe('Retail');
 
     tick(14000);
     fixture.detectChanges();
-    expect(host.querySelector('[role="tab"][aria-selected="true"]')?.textContent?.trim())
+    expect(host.querySelector('.appzpos-product-hero [role="tab"][aria-selected="true"]')?.textContent?.trim())
       .toBe('Retail');
   }));
 });

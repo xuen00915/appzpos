@@ -129,8 +129,9 @@ export class HomeOrderFlowComponent implements OnInit, OnChanges, AfterViewInit,
     return false;
   }
 
-  handleOptionKey(event: KeyboardEvent, islandId: string): void {
-    if (event.key !== 'Enter' && event.key !== ' ') return;
+  handleOptionKey(event: Event, islandId: string): void {
+    const key = (event as KeyboardEvent).key;
+    if (key !== 'Enter' && key !== ' ') return;
     this.openIslandDetails(event, islandId);
   }
 

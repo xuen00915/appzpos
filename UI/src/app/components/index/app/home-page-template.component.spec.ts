@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
+import { RouterTestingModule } from '@angular/router/testing';
 
 import { HomePageTemplateComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/home-page-template/home-page-template.component';
 import { HomeHeroConfig } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/home-page-template/home-page-template.models';
@@ -8,6 +9,13 @@ import { HomeHeroComponent } from '../../../../../client_specifc/0771BB36-9631-4
 import { CustomHomeComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/index/index.component';
 import { CommonFunctionService } from '../../../services/shared_function/common-function.service';
 import { MatDialog } from '@angular/material/dialog';
+import { HomeOrderFlowComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/home-order-flow/home-order-flow.component';
+import { HomeStorySectionsComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/home-story-sections/home-story-sections.component';
+import { HomeEcosystemComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/home-ecosystem/home-ecosystem.component';
+import { HomeIndustriesComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/home-industries/home-industries.component';
+import { HomeProofComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/home-proof/home-proof.component';
+import { ENGLISH_HOME_PAGE_CONFIG } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/index/home-page-content.en';
+import { CHINESE_HOME_PAGE_CONFIG } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/cn-f&b-restaurant-cloud-pos-system/home-page-content.zh';
 
 describe('HomePageTemplateComponent', () => {
   let fixture: ComponentFixture<HomePageTemplateComponent>;
@@ -41,14 +49,27 @@ describe('HomePageTemplateComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [CommonModule],
-      declarations: [HomePageTemplateComponent, HomeHeroComponent],
+      imports: [CommonModule, RouterTestingModule],
+      declarations: [
+        HomePageTemplateComponent,
+        HomeHeroComponent,
+        HomeOrderFlowComponent,
+        HomeStorySectionsComponent,
+        HomeEcosystemComponent,
+        HomeIndustriesComponent,
+        HomeProofComponent
+      ],
+      providers: [
+        { provide: CommonFunctionService, useValue: { BindURL_Image: (name: string) => `/images/${name}` } }
+      ],
       schemas: [NO_ERRORS_SCHEMA]
     });
     fixture = TestBed.createComponent(HomePageTemplateComponent);
     component = fixture.componentInstance;
     element = fixture.nativeElement as HTMLElement;
   });
+
+  afterEach(() => fixture.destroy());
 
   it('renders only configured sections without English fallback copy', () => {
     component.config = {
@@ -105,6 +126,68 @@ describe('HomePageTemplateComponent', () => {
 
     expect(element.querySelector('#requestdemo app-custom-request-demo')).not.toBeNull();
     expect(element.querySelector('app-cn-custom-request-demo')).toBeNull();
+  });
+
+  it('keeps both locale templates ordered, overflow-safe and touch-friendly at all supported widths', () => {
+    const copyStyles = (target: Document) => {
+      for (const sheet of Array.from(document.styleSheets)) {
+        try {
+          const style = target.createElement('style');
+          style.textContent = Array.from(sheet.cssRules).map(rule => rule.cssText).join('\n');
+          target.head.appendChild(style);
+        } catch { /* Cross-origin styles are not part of the compiled app bundle. */ }
+      }
+    };
+
+    for (const pageConfig of [ENGLISH_HOME_PAGE_CONFIG, CHINESE_HOME_PAGE_CONFIG]) {
+      fixture.componentRef.setInput('config', pageConfig);
+      fixture.detectChanges();
+
+      const frame = document.createElement('iframe');
+      document.body.appendChild(frame);
+      try {
+        const doc = frame.contentDocument!;
+        copyStyles(doc);
+        doc.body.appendChild(element.cloneNode(true));
+
+        for (const width of [1450, 1280, 1024, 820, 768, 430, 390, 320]) {
+          frame.style.width = width + 'px';
+          const view = frame.contentWindow!;
+          expect(doc.documentElement.scrollWidth)
+            .withContext(`${pageConfig.language} horizontal overflow at ${width}`)
+            .toBeLessThanOrEqual(doc.documentElement.clientWidth + 1);
+
+          const ids = Array.from(doc.querySelectorAll<HTMLElement>('[id]')).map(node => node.id).filter(Boolean);
+          expect(ids.length).withContext(`${pageConfig.language} duplicate ids at ${width}`).toBe(new Set(ids).size);
+
+          const targets = Array.from(doc.querySelectorAll<HTMLElement>('button, a'))
+            .filter(node => {
+              const rect = node.getBoundingClientRect();
+              const styles = view.getComputedStyle(node);
+              return rect.width > 0 && rect.height > 0 && styles.display !== 'none' && styles.visibility !== 'hidden';
+            });
+          const undersizedTargets = targets
+            .filter(node => node.getBoundingClientRect().height < 44)
+            .map(node => `${node.tagName.toLowerCase()}.${node.className}:${Math.round(node.getBoundingClientRect().height)}`);
+          expect(undersizedTargets)
+            .withContext(`${pageConfig.language} touch target below 44px at ${width}`)
+            .toEqual([]);
+
+          const ordered = Array.from(doc.querySelectorAll<HTMLElement>(
+            'app-home-hero > section, app-home-order-flow > section, main > app-home-story-sections article, main > app-home-ecosystem > section > div, main > app-home-industries > section, main > app-home-proof > section, main > .appz-conversion-panel'
+          )).map(section => section.getBoundingClientRect().top);
+          expect(ordered).withContext(`${pageConfig.language} section order at ${width}`)
+            .toEqual([...ordered].sort((left, right) => left - right));
+
+          const story = doc.querySelector<HTMLElement>('.home-story-section');
+          if (story) {
+            expect(view.getComputedStyle(story).gridTemplateColumns.split(' ').length)
+              .withContext(`${pageConfig.language} story columns at ${width}`)
+              .toBe(width > 900 ? 2 : 1);
+          }
+        }
+      } finally { frame.remove(); }
+    }
   });
 });
 

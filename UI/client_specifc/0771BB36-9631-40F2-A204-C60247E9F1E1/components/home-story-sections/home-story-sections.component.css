@@ -13,7 +13,12 @@
 .home-story-section.is-image-right .home-story-section__copy { grid-column: 1; grid-row: 1; }
 .home-story-section__bullets { display: grid; gap: .75rem; margin: 1.5rem 0; padding: 0; list-style: none; }
 .home-story-section__bullets li { display: grid; gap: .2rem; }
-.appz-button { margin-top: 1.25rem; }
+.appz-button {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  margin-top: 1.25rem;
+}
 @media (max-width: 900px) {
   .home-story-section { grid-template-columns: minmax(0, 1fr); }
   .home-story-section.is-image-right .home-story-section__media,
