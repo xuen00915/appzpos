@@ -85,10 +85,11 @@ describe('APPZPOS marketing shell', () => {
     expect(hrefs).toContain('/point-of-sales-demo-quotation');
   });
 
-  it('offers direct call and WhatsApp actions in the header', () => {
+  it('offers ordered call, WhatsApp and Messenger actions after the demo button', () => {
     const host = headerFixture.nativeElement as HTMLElement;
     const callLink = host.querySelector<HTMLAnchorElement>('[aria-label="Call APPZPOS"]');
     const whatsappLink = host.querySelector<HTMLAnchorElement>('[aria-label="WhatsApp APPZPOS"]');
+    const messengerLink = host.querySelector<HTMLAnchorElement>('[aria-label="Message APPZPOS on Messenger"]');
 
     expect(callLink?.getAttribute('href')).toBe('tel:+6583109631');
     expect(whatsappLink?.getAttribute('href')).toBe(
@@ -96,12 +97,24 @@ describe('APPZPOS marketing shell', () => {
     );
     expect(whatsappLink?.getAttribute('target')).toBe('_blank');
     expect(whatsappLink?.getAttribute('rel')).toBe('noopener');
+    expect(messengerLink?.getAttribute('href')).toBe(
+      "https://m.me/APPZPOS?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!"
+    );
+    expect(messengerLink?.getAttribute('target')).toBe('_blank');
+    expect(messengerLink?.getAttribute('rel')).toBe('noopener');
 
     const headerActions = Array.from(
       host.querySelectorAll<HTMLAnchorElement>('.appzpos-nav > a[href]')
     ).map((anchor) => anchor.getAttribute('aria-label') || anchor.textContent?.trim());
     expect(headerActions.indexOf('Request a Demo')).toBeLessThan(headerActions.indexOf('Call APPZPOS'));
     expect(headerActions.indexOf('Call APPZPOS')).toBeLessThan(headerActions.indexOf('WhatsApp APPZPOS'));
+    expect(headerActions.indexOf('WhatsApp APPZPOS')).toBeLessThan(headerActions.indexOf('Message APPZPOS on Messenger'));
+  });
+
+  it('continues loading the configured Google and Facebook marketing tags', () => {
+    expect(GoogleAnalyticsHelpersService.LoadGoogleTag).toHaveBeenCalledTimes(1);
+    expect(FacebookPixelSettingService.LoadFacebookPixelSetting).toHaveBeenCalledTimes(1);
+    expect(FacebookPixelSettingService.LoadFaceBookImgPixelCode).toHaveBeenCalledTimes(1);
   });
 
   it('opens and closes menu state with accessible attributes', () => {
