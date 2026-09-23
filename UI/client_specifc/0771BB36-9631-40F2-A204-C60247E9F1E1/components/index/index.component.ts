@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { CommonFunctionService } from '../../../../src/app/services/shared_function/common-function.service';
 import { ModalRequestDemoComponent } from '../modal-request-demo/modal-request-demo.component';
+import { ENGLISH_HOME_SOLUTIONS_CONFIG } from './home-page-content.en';
 
 export type IndustryId = 'quick-service' | 'restaurant' | 'retail' | 'salon';
 export type HeroTransitionPhase = 'settled' | 'breaking' | 'rebuilding';
@@ -79,6 +80,8 @@ const HERO_INDUSTRIES: HeroIndustry[] = [
   styleUrls: ['./index.component.css']
 })
 export class CustomHomeComponent implements OnInit, OnDestroy {
+
+  readonly homeSolutions = ENGLISH_HOME_SOLUTIONS_CONFIG;
 
   readonly industryOptions = HERO_INDUSTRIES;
   activeIndustry = HERO_INDUSTRIES[0];

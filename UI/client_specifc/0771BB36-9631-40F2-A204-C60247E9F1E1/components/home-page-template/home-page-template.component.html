@@ -1,7 +1,7 @@
 <div class="appz-home-template" data-home-page-template [attr.lang]="config.language">
   <app-home-hero [config]="config.hero" (requestDemo)="requestDemo.emit()"></app-home-hero>
 
-  <app-home-order-flow *ngIf="config.solutions"></app-home-order-flow>
+  <app-home-order-flow *ngIf="config.solutions as solutions" [config]="solutions"></app-home-order-flow>
 
   <main class="appz-page appz-home-story">
     <app-home-ecosystem *ngIf="config.grant || config.features"></app-home-ecosystem>

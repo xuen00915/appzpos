@@ -1,7 +1,6 @@
 <section class="appzpos-product-hero appzpos-product-hero--reclined" aria-labelledby="appzpos-hero-title">
     <div class="appzpos-product-hero__frame">
         <div class="appzpos-product-hero__copy">
-            <p class="appzpos-product-hero__eyebrow">SINGAPORE CLOUD POS</p>
             <h1 id="appzpos-hero-title">
                 All-In-One POS System
                 <span>in Singapore with PSG Grant</span>
@@ -12,13 +11,11 @@
             <div class="appzpos-product-hero__actions">
                 <button class="appzpos-product-hero__button appzpos-product-hero__button--primary" type="button" mat-raised-button (click)="openDialog()">
                     Request a Demo
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
                 </button>
                 <a class="appzpos-product-hero__button appzpos-product-hero__button--secondary"
                    href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!"
                    target="_blank" rel="noopener noreferrer">
                     WhatsApp Us
-                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
                 </a>
             </div>
             <div class="appzpos-industry-switcher" role="tablist" aria-label="Preview APPZPOS by business type">
@@ -96,7 +93,7 @@
     </div>
 </section>
 
-<app-home-order-flow></app-home-order-flow>
+<app-home-order-flow [config]="homeSolutions"></app-home-order-flow>
 
 <main id="content" class="appz-page appz-home-story">
     <app-home-ecosystem></app-home-ecosystem>

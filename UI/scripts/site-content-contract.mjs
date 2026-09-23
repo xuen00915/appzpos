@@ -6,6 +6,7 @@ import { collectVisibleText } from './lib/visible-text.mjs';
 
 const componentRoot = resolve('client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components');
 const homePath = resolve(componentRoot, 'index/index.component.html');
+const homeConfigSource = readFileSync(resolve(componentRoot, 'index/home-page-content.en.ts'), 'utf8');
 const expectedPhrases = JSON.parse(readFileSync(resolve('scripts/site-visible-copy.json'), 'utf8'));
 const currentPhrases = new Set(collectVisibleText(componentRoot, [
   'custom-white-header.component.html',
@@ -16,8 +17,12 @@ const posSolutionSource = readFileSync(resolve(
   'cloud-pos-point-of-sales-system/cloud-pos-point-of-sales-system.component.ts'
 ), 'utf8');
 const posSolutionHeroTitle = 'APPZPOS Cutting-Edge POS Point of Sales and E-Menu System';
-const expectedHeroHash = '3d420a3a19fe647f131fbe524db1902f67fda2963f1bb88a1421cdcb9da744e1';
+// Approved homepage hero changes: remove the eyebrow label and CTA arrows.
+const expectedHeroHash = '5f69fd342699bfb7d80fe52fd62e4c636619ea04453cc51b3029589af934ff8a';
 const approvedRemovedPhrases = new Set([
+  // Approved CTA cleanup: decorative arrows are not button wording.
+  '→',
+  'SINGAPORE CLOUD POS',
   '50%',
   'PRODUCTIVITY SOLUTIONS GRANT',
   'UP TO',
@@ -40,9 +45,15 @@ const failures = expectedPhrases
       && posSolutionSource.includes(`title: '${posSolutionHeroTitle}'`);
     const preservedInCombinedCopy = [...currentPhrases]
       .some((currentPhrase) => currentPhrase.includes(phrase));
+    // Approved homepage change: promote the uppercase label to a title-case H2.
+    const preservedCustomerHeading = phrase === 'OUR VALUED CUSTOMERS'
+      && currentPhrases.has('Our Valued Customers');
+    const preservedInHomeConfig = homeConfigSource.includes(phrase);
     return !approvedRemovedPhrases.has(phrase)
       && !currentPhrases.has(phrase)
       && !preservedInCombinedCopy
+      && !preservedCustomerHeading
+      && !preservedInHomeConfig
       && !preservedInSharedPosHero;
   })
   .map((phrase) => `visible wording removed: ${phrase}`);

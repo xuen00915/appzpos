@@ -80,6 +80,7 @@ export interface HomeSolutionsConfig {
   readonly items: readonly HomeSolutionItem[];
   readonly initialItemId: string;
   readonly learnMoreLabel: string;
+  readonly productOrder?: readonly string[];
 }
 
 export interface HomeStoryBullet {
