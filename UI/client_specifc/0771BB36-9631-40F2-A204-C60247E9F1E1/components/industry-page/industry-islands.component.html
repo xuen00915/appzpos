@@ -1,0 +1,48 @@
+<section class="industry-islands" [attr.aria-labelledby]="idPrefix + '-islands-title'" *ngIf="activeIsland as active">
+  <div class="industry-islands__heading">
+    <ng-content select="[industryHeading]"></ng-content>
+  </div>
+  <div class="industry-islands__layout">
+    <svg class="industry-floor-filter" aria-hidden="true" focusable="false" width="0" height="0">
+      <defs>
+        <filter [id]="idPrefix + '-floor-yellow'" color-interpolation-filters="sRGB">
+          <feComponentTransfer in="SourceGraphic">
+            <feFuncR type="discrete" [attr.tableValues]="floorColourKey"/>
+            <feFuncG type="discrete" [attr.tableValues]="floorColourKey"/>
+            <feFuncB type="discrete" [attr.tableValues]="floorColourKey"/>
+          </feComponentTransfer>
+          <feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  1 1 1 0 -2" result="floor"/>
+          <feComposite in="floor" in2="SourceGraphic" operator="in" result="floorMask"/>
+          <feFlood flood-color="#ffe28a" flood-opacity="0.75"/>
+          <feComposite in2="floorMask" operator="in"/>
+        </filter>
+      </defs>
+    </svg>
+    <div class="industry-islands__map" role="group" aria-label="Business areas">
+      <div class="industry-islands__artwork" [class.is-focused]="!!cameraId" [style.transform]="cameraTransform">
+      <img class="industry-islands__original" [src]="imageSrc" [alt]="imageAlt" width="1920" height="1080" loading="lazy">
+      <button *ngFor="let island of islands; let index = index" type="button"
+        class="industry-island" [class.is-selected]="selectedId === island.id"
+        [disabled]="!interactive" [class.is-lit]="interactive && highlightedIds.includes(island.id)"
+        [style.clip-path]="island.hitArea" [attr.data-industry-island]="island.title" [attr.aria-label]="island.title"
+        [attr.aria-pressed]="interactive && selectedId === island.id" [attr.aria-controls]="interactive && showDetails ? idPrefix + '-island-detail' : null"
+        (click)="select(island)">
+        <img *ngIf="island.floorArea" class="industry-island__floor" [src]="imageSrc" alt="" aria-hidden="true"
+          [style.clip-path]="island.floorArea" [style.filter]="'url(#' + idPrefix + '-floor-yellow)'">
+      </button>
+      </div>
+    </div>
+    <div *ngIf="interactive" class="industry-islands__mobile-controls" role="group" aria-label="Select a business area">
+      <button *ngFor="let island of islands" type="button" [attr.aria-pressed]="selectedId === island.id" (click)="select(island)">{{ island.title }}</button>
+    </div>
+    <div *ngIf="interactive && showDetails" class="industry-islands__detail" [id]="idPrefix + '-island-detail'" data-industry-detail aria-live="polite" aria-atomic="true">
+      <h3>{{ active.title }}</h3>
+      <p>{{ active.description }}</p>
+      <ul>
+        <li *ngFor="let solution of active.solutions">
+          <a [href]="solution.href"><span>{{ solution.title }}</span><i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</section>

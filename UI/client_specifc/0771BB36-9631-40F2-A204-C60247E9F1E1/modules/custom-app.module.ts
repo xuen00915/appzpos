@@ -1,4 +1,7 @@
+import { IndustryWorkflowDirective } from '../components/industry-page/industry-workflow.directive';
 import { NgModule } from '@angular/core';
+import { IndustryPageComponent, IndustryIslandsComponent } from '../components/industry-page/industry-page.component';
+import { IndustryDiagramHandoffDirective } from '../components/industry-page/industry-diagram-handoff.directive';
 import { CommonModule } from '@angular/common';
 import { CustomAppRoutingModule } from '../modules/custom-app-routing.module';
 import { CustomHeaderComponent } from '../components/custom-header/custom-header.component';
@@ -76,7 +79,9 @@ import { MatDialogRef } from '@angular/material/dialog';
     SolutionHeroComponent,
   ],
   imports: [
-    SolutionPageComponent, SolutionFeatureHeadingComponent, SolutionHardwareFiltersComponent,
+    IndustryPageComponent, IndustryIslandsComponent, IndustryDiagramHandoffDirective, IndustryWorkflowDirective,
+    SolutionPageComponent,
+    SolutionFeatureHeadingComponent, SolutionHardwareFiltersComponent,
     CommonModule,
     CustomAppRoutingModule,
     BrowserModule,
@@ -86,7 +91,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   exports: [
     CustomHeaderComponent,
     CustomFooterComponent,
-    CustomHomeComponent 
+    CustomHomeComponent
   ],
   providers: [
     {

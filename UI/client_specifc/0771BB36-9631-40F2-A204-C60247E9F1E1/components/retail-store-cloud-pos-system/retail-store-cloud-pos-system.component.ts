@@ -1,3 +1,4 @@
+import { RETAIL_ISLANDS } from '../industry-page/retail-islands';
 import { Component, Inject } from '@angular/core';
 import { CommonFunctionService } from '../../../../src/app/services/shared_function/common-function.service';
 import {Meta, Title} from "@angular/platform-browser";
@@ -7,20 +8,37 @@ import { ModalRequestDemoComponent } from '../modal-request-demo/modal-request-d
 @Component({
   selector: 'app-retail-store-cloud-pos-system',
   templateUrl: './retail-store-cloud-pos-system.component.html',
-  styleUrls: ['./retail-store-cloud-pos-system.component.css']
+  styleUrls: ['../industry-page/industry-layout.css', '../industry-page/industry-overview.css', '../industry-page/industry-procedures.css', '../industry-page/industry-solutions.css', '../industry-page/industry-content-width.css', '../industry-page/industry-workflow.css']
 })
 export class CustomIndustryRestoreStoreComponent  {
-  
+  openSolution: number | null = null;
+
+  hoverSolution(index: number): void {
+    if (window.matchMedia('(hover: hover)').matches) this.openSolution = index;
+  }
+
+  leaveSolution(event: Event): void {
+    const host = event.currentTarget as HTMLElement;
+    const next = (event as FocusEvent).relatedTarget as Node | null;
+    if (next && host.contains(next)) return;
+    if (event.type === 'mouseleave' && host.contains(document.activeElement)) return;
+    this.openSolution = null;
+  }
+
+  readonly industryIslands = RETAIL_ISLANDS;
+  readonly procedureFocusIds = ["shopping","checkout","management"];
+
+
   constructor(private titleService: Title,private commonFunctionService: CommonFunctionService,private meta: Meta,public dialog: MatDialog) {
        this.titleService.setTitle("Cloud POS System for Retail Stores | APPZPOS POS System");
-   }; 
+   };
 
   BindURL_Image(FileName: string): string {
     return this.commonFunctionService.BindURL_Image(FileName);
   }
 
   ngOnInit() {
-    this.meta.updateTag({ 
+    this.meta.updateTag({
         name: 'description',
         content: 'Empower your Retail Store Operations - Simplify inventory, transaction, customer / employee management, sales and reports. WhatsApp: +𝟔𝟓 𝟖𝟑𝟏𝟎 𝟗𝟔𝟑𝟏'
     });

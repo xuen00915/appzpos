@@ -1,0 +1,22 @@
+/* One industry content rail for every section; artwork backgrounds may bleed. */
+:host {
+  --industry-content-width: 1320px;
+  --industry-gutter: clamp(16px, 2.5vw, 32px);
+  --industry-rail: min(var(--industry-content-width), calc(100% - var(--industry-gutter) * 2));
+}
+:host .restaurant-hero__inner,
+:host .restaurant-scroll__intro,
+:host .restaurant-scroll,
+:host #webview.quick-service-desktop,
+:host #mobile_view.quick-service-compact,
+:host .pos-solutions,
+:host #requestdemo.appz-conversion-panel {
+  width: var(--industry-rail);
+  max-width: var(--industry-content-width);
+  margin-inline: auto;
+  box-sizing: border-box;
+}
+:host .restaurant-scroll__intro h2 { max-width: 100%; }
+:host .restaurant-mode__timeline,
+:host .quick-service-compact .container { max-width: none; }
+:host ::ng-deep #requestdemo .appz-demo { max-width: none; }

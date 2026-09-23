@@ -1,0 +1,32 @@
+/* Keep the complete five-step list together; only the active tint changes. */
+.restaurant-procedure, .quick-service-stack article.quick-service-step {
+  box-sizing: border-box; border: 0; border-radius: 10px;
+  min-height: 0; padding: 12px 14px; margin-bottom: 6px; scroll-margin-top: 140px;
+}
+.restaurant-procedure::before { display: none; }
+.restaurant-procedure.is-active, .quick-service-stack article.quick-service-step.is-active {
+  border: 0; background: #e7f2ff; box-shadow: none;
+}
+.restaurant-scroll__mode .restaurant-procedure.is-active { background: #fff0df; }
+.restaurant-procedure p { margin: 6px 0 0 42px; }
+@media (min-width: 992px) and (pointer: fine), (min-width: 1367px) {
+  .restaurant-mode__track, .quick-service-copy { display: grid; align-items: start; }
+  .restaurant-mode__timeline, .quick-service-timeline { position: sticky; top: 100px; padding: 12px; }
+  .restaurant-mode__timeline h2, .quick-service-timeline h2 { font-size: clamp(24px, 2vw, 32px); margin-bottom: 12px; }
+  .restaurant-procedure > a { min-height: 30px; font-size: clamp(16px, 1.25vw, 19px); gap: 12px; }
+  .restaurant-procedure__number { flex-basis: 30px; height: 30px; font-size: 14px; }
+  .restaurant-procedure p { margin-left: 0; font-size: clamp(14px, 1.05vw, 16px); line-height: 1.45; }
+  .restaurant-mode__marker { min-height: 420px; height: 70svh; }
+  .restaurant-mode__marker:first-child { height: 100svh; }
+}
+@media (min-width: 992px) and (max-height: 850px) and (pointer: fine) {
+  .restaurant-procedure { padding: 8px 12px; margin-bottom: 4px; }
+  .restaurant-procedure p { font-size: 14px; line-height: 1.35; margin-top: 4px; }
+}
+@media (max-width: 991px), (max-width: 1366px) and (pointer: coarse) {
+  .restaurant-procedure:not(:last-child) { border: 0; }
+  .quick-service-stack > .oc-item { padding: 0; border: 0 !important; }
+  .quick-service-stack article.quick-service-step { padding: 14px 12px !important; }
+  .restaurant-procedure { padding: 14px 12px; }
+  .restaurant-procedure p { margin: 8px 0 0; }
+}

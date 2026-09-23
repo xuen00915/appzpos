@@ -1,0 +1,30 @@
+/* Same scroll story as Restaurant Mode, mirrored to diagram / wording. */
+@media (min-width: 992px) and (pointer: fine), (min-width: 1367px) {
+  :host #webview.quick-service-desktop {
+    display: grid;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    align-items: start;
+    gap: 16px;
+    width: min(1800px, calc(100% - 32px));
+    margin: 24px auto 64px;
+    background: transparent;
+  }
+  .quick-service-diagram { position: sticky; top: 96px; min-width: 0; overflow: hidden; }
+  .quick-service-copy { display: grid; align-items: start; min-width: 0; }
+  .quick-service-timeline, .quick-service-markers { grid-area: 1 / 1; min-width: 0; }
+  .quick-service-timeline { position: sticky; top: 108px; z-index: 1; padding: 28px; }
+  .quick-service-timeline h2 { margin: 0 0 20px; font-size: clamp(25px, 2.3vw, 36px); text-align: left; }
+}
+:host ::ng-deep .quick-service-diagram .industry-islands__map {
+  width: min(100%, calc(148svh - 163px));
+  margin-inline: auto;
+}
+:host ::ng-deep .quick-service-diagram .industry-islands__artwork {
+  transform-origin: center;
+  transition: transform 650ms cubic-bezier(.22, 1, .36, 1), width 650ms, margin-left 650ms;
+}
+:host ::ng-deep .quick-service-diagram .industry-islands__artwork.is-focused { width: 100%; margin-left: 0; }
+:host ::ng-deep .quick-service-diagram .is-focused .industry-island__floor { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  :host ::ng-deep .quick-service-diagram .industry-islands__artwork { transition: none; }
+}

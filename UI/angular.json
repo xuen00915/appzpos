@@ -74,7 +74,7 @@
             "buildTarget": "eCommerce:build"
           }
         },
-        "test": {
+"test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "polyfills": [
@@ -88,6 +88,15 @@
             ],
             "styles": [],
             "scripts": []
+          },
+          "configurations": {
+            "responsive": {
+              "styles": [
+                "src/assets/template/canvas/style.css",
+                "src/assets/template/canvas/css/custom.css",
+                "src/custom-theme.scss"
+              ]
+            }
           }
         }
       }
