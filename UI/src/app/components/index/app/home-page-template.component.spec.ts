@@ -155,6 +155,26 @@ describe('HomePageTemplateComponent', () => {
     }
   });
 
+  it('preserves the Chinese floating contact links while exposing branded control hooks', () => {
+    fixture.componentRef.setInput('config', CHINESE_HOME_PAGE_CONFIG);
+    fixture.detectChanges();
+
+    const contacts = element.querySelector<HTMLElement>('.appz-home-floating-contacts');
+    const whatsapp = contacts?.querySelector<HTMLAnchorElement>('.appz-home-floating-contact--whatsapp');
+    const messenger = contacts?.querySelector<HTMLAnchorElement>('.appz-home-floating-contact--messenger');
+
+    expect(contacts?.getAttribute('aria-label')).toBe('Contact APPZPOS');
+    expect(whatsapp?.href).toContain('https://wa.me/6583109631');
+    expect(whatsapp?.target).toBe('_blank');
+    expect(whatsapp?.rel).toContain('noopener');
+    expect(whatsapp?.querySelector('.fa-whatsapp')).not.toBeNull();
+    expect(whatsapp?.querySelector('img')?.alt).toBe('APPZPOS Point of Sales WhatsApp Us');
+    expect(messenger?.href).toContain('http://m.me/APPZPOS');
+    expect(messenger?.target).toBe('_blank');
+    expect(messenger?.rel).toContain('noopener');
+    expect(messenger?.querySelector('img')?.alt).toBe('APPZPOS Point of Sales Messenger Us');
+  });
+
   it('renders the approved English homepage sequence as separate semantic sections', () => {
     fixture.componentRef.setInput('config', ENGLISH_HOME_PAGE_CONFIG);
     fixture.detectChanges();

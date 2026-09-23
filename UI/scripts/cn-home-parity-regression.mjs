@@ -85,6 +85,8 @@ for (const { width, height, maxSectionSpace, minTitleTracking } of viewportProfi
   });
   await send('Page.navigate', { url: `${previewUrl}?cn-parity-regression-${width}` });
   await wait(1400);
+  await evaluate('window.scrollTo(0, 0)');
+  await wait(100);
 
   const hero = JSON.parse(await evaluate(`JSON.stringify((() => ({
     heading: document.querySelector('#cn-home-title')?.textContent.replace(/\\s+/g, ' ').trim(),
@@ -140,6 +142,39 @@ for (const { width, height, maxSectionSpace, minTitleTracking } of viewportProfi
       pixel: Boolean(document.querySelector('script[src*="connect.facebook.net/en_US/fbevents.js"]')),
       whatsappLinks: [...document.querySelectorAll('a[href^="https://wa.me/6583109631"]')]
         .map((link) => ({ href: link.getAttribute('href'), rel: link.getAttribute('rel') })),
+      floating: (() => {
+        const rail = document.querySelector('.appz-home-floating-contacts');
+        const whatsapp = rail?.querySelector('.appz-home-floating-contact--whatsapp');
+        const messenger = rail?.querySelector('.appz-home-floating-contact--messenger');
+        const whatsappIcon = whatsapp?.querySelector('.fa-whatsapp');
+        const whatsappImage = whatsapp?.querySelector('img');
+        const messengerImage = messenger?.querySelector('img');
+        const railBounds = rail?.getBoundingClientRect();
+        const whatsappStyles = whatsapp ? getComputedStyle(whatsapp) : null;
+        const iconStyles = whatsappIcon ? getComputedStyle(whatsappIcon) : null;
+        const scrollTop = document.querySelector('#gotoTop');
+        const scrollTopStyles = scrollTop ? getComputedStyle(scrollTop) : null;
+        return {
+          count: rail?.querySelectorAll('a').length ?? 0,
+          railPosition: rail ? getComputedStyle(rail).position : null,
+          railBottom: railBounds ? Math.round(innerHeight - railBounds.bottom) : null,
+          whatsappHref: whatsapp?.getAttribute('href'),
+          whatsappTarget: whatsapp?.getAttribute('target'),
+          whatsappRel: whatsapp?.getAttribute('rel'),
+          whatsappBackground: whatsappStyles?.backgroundColor,
+          whatsappRadius: whatsappStyles?.borderRadius,
+          whatsappIconColor: iconStyles?.color,
+          whatsappImageLoaded: Boolean(whatsappImage?.complete && whatsappImage?.naturalWidth > 0),
+          messengerHref: messenger?.getAttribute('href'),
+          messengerTarget: messenger?.getAttribute('target'),
+          messengerRel: messenger?.getAttribute('rel'),
+          messengerImageLoaded: Boolean(messengerImage?.complete && messengerImage?.naturalWidth > 0),
+          scrollTopRadius: scrollTopStyles?.borderRadius,
+          scrollTopHidden: scrollTopStyles?.opacity === '0'
+            && scrollTopStyles?.visibility === 'hidden'
+            && scrollTopStyles?.pointerEvents === 'none'
+        };
+      })(),
       titles,
       maxSectionPadding: Math.max(0, ...appzSections.flatMap((section) => {
         const styles = getComputedStyle(section);
@@ -164,6 +199,24 @@ for (const { width, height, maxSectionSpace, minTitleTracking } of viewportProfi
     || pageContract.whatsappLinks.some((link) => !link.href)) {
     failures.push(`${width}px: analytics or CTA tracking hooks changed ${JSON.stringify(pageContract)}`);
   }
+  if (pageContract.floating.count !== 2
+    || pageContract.floating.railPosition !== 'fixed'
+    || Math.abs(pageContract.floating.railBottom - (width <= 768 ? 120 : 134)) > 1
+    || !pageContract.floating.whatsappHref?.startsWith('https://wa.me/6583109631')
+    || pageContract.floating.whatsappTarget !== '_blank'
+    || !pageContract.floating.whatsappRel?.includes('noopener')
+    || pageContract.floating.whatsappBackground !== 'rgb(23, 107, 53)'
+    || pageContract.floating.whatsappRadius !== '50%'
+    || pageContract.floating.whatsappIconColor !== 'rgb(255, 255, 255)'
+    || !pageContract.floating.whatsappImageLoaded
+    || !pageContract.floating.messengerHref?.startsWith('http://m.me/APPZPOS')
+    || pageContract.floating.messengerTarget !== '_blank'
+    || !pageContract.floating.messengerRel?.includes('noopener')
+    || !pageContract.floating.messengerImageLoaded
+    || pageContract.floating.scrollTopRadius !== '50%'
+    || !pageContract.floating.scrollTopHidden) {
+    failures.push(`${width}px: floating contact controls changed ${JSON.stringify(pageContract.floating)}`);
+  }
   const tightTitle = pageContract.titles.find((title) =>
     !title.exists || title.letterSpacing === null || title.letterSpacing < minTitleTracking);
   if (tightTitle) {
@@ -184,6 +237,19 @@ for (const { width, height, maxSectionSpace, minTitleTracking } of viewportProfi
 
   await evaluate(`document.querySelector('#cn-custom-pos')?.scrollIntoView({ block: 'center' })`);
   await wait(350);
+  const floatingAfterScroll = JSON.parse(await evaluate(`JSON.stringify((() => {
+    const railBounds = document.querySelector('.appz-home-floating-contacts')?.getBoundingClientRect();
+    const scrollTop = document.querySelector('#gotoTop');
+    const scrollBounds = scrollTop?.getBoundingClientRect();
+    const styles = scrollTop ? getComputedStyle(scrollTop) : null;
+    return {
+      visible: styles?.opacity === '1' && styles?.visibility === 'visible' && styles?.pointerEvents !== 'none',
+      belowContacts: Boolean(railBounds && scrollBounds && railBounds.bottom < scrollBounds.top)
+    };
+  })())`));
+  if (!floatingAfterScroll.visible || !floatingAfterScroll.belowContacts) {
+    failures.push(`${width}px: scroll-to-top control is not revealed below contacts ${JSON.stringify(floatingAfterScroll)}`);
+  }
   const storySections = JSON.parse(await evaluate(`JSON.stringify((() => {
     const custom = document.querySelector('#cn-custom-pos');
     const customCopy = custom?.querySelector('.home-story-section__copy')?.getBoundingClientRect();
