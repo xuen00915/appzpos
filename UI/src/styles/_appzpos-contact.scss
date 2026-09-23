@@ -189,7 +189,7 @@ app-point-of-sales-demo-quotation {
     border: 1px solid #218744;
     border-radius: 999px;
     background: #fff;
-    color: #176b35 !important;
+    color: var(--channel-color) !important;
     text-decoration: none;
     transition: background-color .2s ease;
   }
