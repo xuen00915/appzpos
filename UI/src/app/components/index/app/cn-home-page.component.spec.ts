@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Meta, Title } from '@angular/platform-browser';
@@ -52,15 +52,32 @@ describe('CustomHomeCNComponent', () => {
     expect(dialog.open).toHaveBeenCalledWith(CNModalRequestDemoComponent, { width: '600px' });
   });
 
-  it('renders one shared-template hero with the original Chinese copy and CTA destinations', () => {
+  it('renders the English product hero interaction with the exact Chinese copy', fakeAsync(() => {
     const host = fixture.nativeElement as HTMLElement;
     expect(host.querySelector('app-home-page-template')).not.toBeNull();
     expect(host.querySelectorAll('h1').length).toBe(1);
-    expect(host.querySelector('h1')?.textContent).toContain('APPZPOS POS系统云端智能POS餐饮系统高达50%政府津贴折扣');
+    expect(host.querySelector('h1')?.textContent?.replace(/\s+/g, ' ').trim())
+      .toBe('APPZPOS POS系统 云端智能POS餐饮系统 高达50%政府津贴折扣');
     expect(host.textContent).toContain('专为餐饮业者设计的全方位餐饮系统，包括收银系统、销售报告分析、会员管理、库存管理、促销优惠，运营流程等');
     expect(host.textContent).toContain('预约免费演示');
     expect(host.querySelector<HTMLAnchorElement>('a[href^="https://wa.me/"]')?.textContent).toContain('WhatsApp联系我们');
-  });
+    expect(host.querySelector('.appzpos-product-hero__machine')).not.toBeNull();
+    expect(host.querySelector('.appzpos-product-hero__visual--responsive')).toBeNull();
+
+    const tabs = Array.from(host.querySelectorAll<HTMLButtonElement>('.appzpos-product-hero [role="tab"]'));
+    expect(tabs.map((tab) => tab.textContent?.replace(/\s+/g, ' ').replace(/^•\s*/, '').trim()))
+      .toEqual(['快餐服务', '餐厅', '零售', '美容美发']);
+
+    tabs[1].click();
+    tick(480);
+    fixture.detectChanges();
+
+    expect(host.querySelector('.appzpos-software-screen')?.getAttribute('data-industry')).toBe('restaurant');
+    expect(Array.from(host.querySelectorAll<HTMLElement>('.appzpos-module-orbit__label'))
+      .map((label) => label.textContent?.trim()))
+      .toEqual(['POS收银系统', '网站点餐系统', '扫码点餐系统', 'KDS厨房系统']);
+    tick(720);
+  }));
 
   it('maps every existing Chinese section without English homepage fallback content', () => {
     const config = (component as any).pageConfig;
@@ -74,6 +91,15 @@ describe('CustomHomeCNComponent', () => {
       '/f&b-restaurant-emenu-qr-code-ordering-system', '/self-order-kiosk-restaurant',
       '/f&b-restaurant-queue-number-display-system', '/f&b-restaurant-kitchen-display-system',
       '/f&b-restaurant-delivery-integration'
+    ]);
+    expect(config.solutions.items.map((item: any) => item.image)).toEqual([
+      'assets/images/ecosystem/ecosystem-dining.webp',
+      'assets/images/ecosystem/ecosystem-website-ordering.webp',
+      'assets/images/ecosystem/ecosystem-table-qr.webp',
+      'assets/images/ecosystem/ecosystem-kiosk.webp',
+      'assets/images/ecosystem/ecosystem-queue.webp',
+      'assets/images/ecosystem/ecosystem-kitchen.webp',
+      'assets/images/ecosystem/ecosystem-delivery.webp'
     ]);
     expect(config.storySections.length).toBe(2);
     expect(config.grant.title).toBe('享受高达50%的政府津贴');

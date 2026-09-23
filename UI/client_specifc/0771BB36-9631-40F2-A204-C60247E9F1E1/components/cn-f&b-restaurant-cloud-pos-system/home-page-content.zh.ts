@@ -13,8 +13,8 @@ export const CHINESE_HOME_SOLUTIONS_CONFIG: HomeSolutionsConfig = {
     {
       id: 'pos', title: '收银机 / 电子点餐', moduleTitle: '收银机 / 电子点餐',
       summary: '通过互联网随时随地访问、管理您的数据，实现实时数据同步',
-      route: '/cloud-pos-point-of-sales-system', image: 'APPZPOS-best-pos-system-singapore-cloud-POS-system.png',
-      imageAlt: 'APPZPOS-best-pos-system-singapore-cloud-POS-system', ariaLabel: '收银机 / 电子点餐',
+      route: '/cloud-pos-point-of-sales-system', image: 'assets/images/ecosystem/ecosystem-dining.webp',
+      imageAlt: '收银机与电子点餐系统', ariaLabel: '收银机 / 电子点餐', depth: .55,
       legacyImages: ['APPZPOS-Pos-System-Singapore-Home-POS-System2.png', 'APPZPOS-Pos-System-Singapore-pos-mobile.png'],
       features: [
         { label: '云端POS系统', description: '通过互联网随时随地访问、管理您的数据，实现实时数据同步' },
@@ -31,8 +31,8 @@ export const CHINESE_HOME_SOLUTIONS_CONFIG: HomeSolutionsConfig = {
     },
     {
       id: 'website', title: '网站 点餐', moduleTitle: '网站点餐系统', summary: '允许顾客进入网站查看菜单、付款，并随时随地轻松点餐',
-      route: '/f&b-restaurant-online-ordering-website', image: 'APPZPOS-best-point-of-sale-system-Website-ordering.png',
-      imageAlt: 'APPZPOS-best-point-of-sale-system-Website-ordering', ariaLabel: '网站点餐系统',
+      route: '/f&b-restaurant-online-ordering-website', image: 'assets/images/ecosystem/ecosystem-website-ordering.webp',
+      imageAlt: '网站点餐系统', ariaLabel: '网站点餐系统', depth: .68,
       legacyImages: ['APPZPOS-Pos-System-Singapore-Home-Website-Order2.png', 'APPZPOS-Pos-System-Singapore-website-order-mobile.png'],
       features: [
         { label: '在线点餐', description: '允许顾客进入网站查看菜单、付款，并随时随地轻松点餐' },
@@ -46,8 +46,8 @@ export const CHINESE_HOME_SOLUTIONS_CONFIG: HomeSolutionsConfig = {
     },
     {
       id: 'qr', title: '扫码 点餐', moduleTitle: '扫码点餐系统', summary: '顾客通过扫描二维码查看菜单，并可以通过手机下单，无需与服务员接触',
-      route: '/f&b-restaurant-emenu-qr-code-ordering-system', image: 'APPZPOS-best-point-of-sale-system-Table-QR-Ordering.png',
-      imageAlt: 'APPZPOS-best-point-of-sale-system-Table-QR-Ordering', ariaLabel: '扫码点餐系统',
+      route: '/f&b-restaurant-emenu-qr-code-ordering-system', image: 'assets/images/ecosystem/ecosystem-table-qr.webp',
+      imageAlt: '扫码点餐系统', ariaLabel: '扫码点餐系统', depth: .35,
       legacyImages: ['APPZPOS-Pos-System-Singapore-Home-Table-QR-Order2.png', 'APPZPOS-Pos-System-Singapore-qr-order-mobile.png'],
       features: [
         { label: '电子菜单', description: '顾客通过扫描二维码查看菜单，并可以通过手机下单，无需与服务员接触' },
@@ -61,8 +61,8 @@ export const CHINESE_HOME_SOLUTIONS_CONFIG: HomeSolutionsConfig = {
     },
     {
       id: 'kiosk', title: '自助 点餐机', moduleTitle: '自助点餐机', summary: '顾客可自主选择菜品和规格，完成点餐和支付，从而减少等待时间',
-      route: '/self-order-kiosk-restaurant', image: 'APPZPOS-all-in-one-pos-system-Self-order-kiosk.png',
-      imageAlt: 'APPZPOS-all-in-one-pos-system-Self-order-kiosk', ariaLabel: '自助点餐机',
+      route: '/self-order-kiosk-restaurant', image: 'assets/images/ecosystem/ecosystem-kiosk.webp',
+      imageAlt: '自助点餐机', ariaLabel: '自助点餐机', depth: .88,
       legacyImages: ['APPZPOS-Pos-System-Singapore-Home-Self-Order-Kiosk2.png', 'APPZPOS-Pos-System-Singapore-self-kiosk-mobile.png'],
       features: [
         { label: '无接触点餐', description: '顾客可自主选择菜品和规格，完成点餐和支付，从而减少等待时间' },
@@ -77,8 +77,8 @@ export const CHINESE_HOME_SOLUTIONS_CONFIG: HomeSolutionsConfig = {
     },
     {
       id: 'queue', title: '排队叫号 系统', moduleTitle: '排队叫号系统', summary: '为所有订单分配特定的排队号，准确地告知顾客等待时间和顺位，减少排队烦恼',
-      route: '/f&b-restaurant-queue-number-display-system', image: 'APPZPOS-point-of-sales-system-singapore-queue-number-display2.png',
-      imageAlt: 'APPZPOS-point-of-sales-system-singapore-queue-number-display2', ariaLabel: '排队叫号系统',
+      route: '/f&b-restaurant-queue-number-display-system', image: 'assets/images/ecosystem/ecosystem-queue.webp',
+      imageAlt: '排队叫号系统', ariaLabel: '排队叫号系统', depth: .78,
       legacyImages: ['APPZPOS-Pos-System-Singapore-Home-Queue-Number-Display2.png', 'APPZPOS-Pos-System-Singapore-queue-number-display-mobile.png'],
       features: [
         { label: '叫号系统', description: '为所有订单分配特定的排队号，准确地告知顾客等待时间和顺位，减少排队烦恼' },
@@ -89,8 +89,8 @@ export const CHINESE_HOME_SOLUTIONS_CONFIG: HomeSolutionsConfig = {
     },
     {
       id: 'kds', title: 'KDS厨房 系统', moduleTitle: 'KDS厨房系统', summary: '实时追踪订单的状态和进度，包括新订单、修改和取消订单等',
-      route: '/f&b-restaurant-kitchen-display-system', image: 'APPZPOS-point-of-sales-system-Kitchen-display-system-KDS.png',
-      imageAlt: 'APPZPOS-point-of-sales-system-Kitchen-display-system-KDS', ariaLabel: 'KDS厨房系统',
+      route: '/f&b-restaurant-kitchen-display-system', image: 'assets/images/ecosystem/ecosystem-kitchen.webp',
+      imageAlt: 'KDS厨房系统', ariaLabel: 'KDS厨房系统', depth: .72,
       legacyImages: ['APPZPOS-Pos-System-Singapore-Home-Kitchen-Display-System2.png', 'APPZPOS-Pos-System-Singapore-kitchen-display-system-mobile.png'],
       features: [
         { label: '订单追踪', description: '实时追踪订单的状态和进度，包括新订单、修改和取消订单等' },
@@ -103,8 +103,8 @@ export const CHINESE_HOME_SOLUTIONS_CONFIG: HomeSolutionsConfig = {
     },
     {
       id: 'hub', title: '外卖订单 中心', moduleTitle: '外卖订单中心', summary: '集中管理所有来自不同平台的外卖订单，包括店内订单，提高了订单处理的效率和准确性',
-      route: '/f&b-restaurant-delivery-integration', image: 'APPZPOS-best-pos-system-singapore-order-hub.png',
-      imageAlt: 'APPZPOS-best-pos-system-singapore-order-hub', ariaLabel: '外卖订单中心',
+      route: '/f&b-restaurant-delivery-integration', image: 'assets/images/ecosystem/ecosystem-delivery.webp',
+      imageAlt: '外卖订单中心', ariaLabel: '外卖订单中心', depth: 1,
       legacyImages: ['APPZPOS-Pos-System-Singapore-Home-Order-Hub2.png', 'APPZPOS-Pos-System-Singapore-order-hub-mobile.png'],
       features: [
         { label: '统一管理', description: '集中管理所有来自不同平台的外卖订单，包括店内订单，提高了订单处理的效率和准确性' },
@@ -123,15 +123,40 @@ export const CHINESE_HOME_PAGE_CONFIG: HomePageTemplateConfig = {
   language: 'zh',
   hero: {
     headingId: 'cn-home-title',
-    title: 'APPZPOS POS系统云端智能POS餐饮系统高达50%政府津贴折扣',
+    title: 'APPZPOS POS系统',
+    titleAccent: '云端智能POS餐饮系统 高达50%政府津贴折扣',
     description: '专为餐饮业者设计的全方位餐饮系统，包括收银系统、销售报告分析、会员管理、库存管理、促销优惠，运营流程等',
+    industryTabLabel: '按行业预览APPZPOS',
+    industryStatusPrefix: '正在显示APPZPOS行业：',
     visual: {
-      kind: 'responsive-image',
-      desktopSrc: imageBase + 'APPZPOS-Pos-Best-Point-of-Sales-System-Banner.png',
-      mobileSrc: imageBase + 'APPZPOS-Pos-Best-Point-of-Sales-System-Banner-mobile.png',
-      alt: 'APPZPOS-Pos-Best-Point-of-Sales-System-Banner',
-      width: 1920,
-      height: 1080
+      kind: 'product-showcase',
+      hardwareImage: 'assets/images/appzpos-pos-terminal-hardware-only.png',
+      hardwareAlt: 'APPZPOS触摸屏POS收银机与小票打印机',
+      hardwareWidth: 1672,
+      hardwareHeight: 941,
+      brandImage: 'https://appzpos.com/admin/Upload/0771BB36-9631-40F2-A204-C60247E9F1E1/Images/APPZPOS-300X150px.png',
+      industries: [
+        {
+          id: 'quick-service', label: '快餐服务', eyebrow: '餐饮 / 快餐服务',
+          workspaceTitle: '柜台与取餐订单', screenImage: 'assets/images/appzpos-screen-quick-service.png',
+          modules: ['POS收银系统', '网站点餐系统', '自助点餐机', 'KDS厨房系统', '排队叫号系统']
+        },
+        {
+          id: 'restaurant', label: '餐厅', eyebrow: '餐饮 / 餐厅',
+          workspaceTitle: '桌位与厨房订单', screenImage: 'assets/images/appzpos-screen-restaurant.png',
+          modules: ['POS收银系统', '网站点餐系统', '扫码点餐系统', 'KDS厨房系统']
+        },
+        {
+          id: 'retail', label: '零售', eyebrow: '零售',
+          workspaceTitle: '商品与结账', screenImage: 'assets/images/appzpos-screen-retail.png',
+          modules: ['POS收银系统', '网站点餐系统', '自助点餐机']
+        },
+        {
+          id: 'salon', label: '美容美发', eyebrow: '美容 / 美发',
+          workspaceTitle: '服务与顾客', screenImage: 'assets/images/appzpos-screen-salon.png',
+          modules: ['POS收银系统', '网站点餐系统', '会员管理 (CRM)', '库存管理', '支付集成']
+        }
+      ]
     },
     ctas: [
       { kind: 'action', action: 'request-demo', label: '预约免费演示' },
