@@ -73,6 +73,37 @@ for (const viewport of viewports) {
     await send('Page.navigate', { url: new URL(route, previewUrl).href });
     await wait(900);
 
+    let heroWhatsApp = null;
+    if (name !== 'psg') {
+      const selector = `.${name}-hero__actions a[href*="wa.me"]`;
+      const readHeroWhatsApp = () => evaluate(`JSON.stringify((() => {
+        const link = document.querySelector(${JSON.stringify(selector)});
+        if (!link) return null;
+        const bounds = link.getBoundingClientRect();
+        const styles = getComputedStyle(link);
+        return {
+          href: link.getAttribute('href'),
+          target: link.target,
+          bounds: { x: bounds.x, y: bounds.y, width: bounds.width, height: bounds.height },
+          borderTopWidth: styles.borderTopWidth,
+          borderTopStyle: styles.borderTopStyle,
+          borderTopColor: styles.borderTopColor
+        };
+      })())`);
+      const defaultState = JSON.parse(await readHeroWhatsApp());
+      if (defaultState?.bounds) {
+        await send('Input.dispatchMouseEvent', {
+          type: 'mouseMoved',
+          x: defaultState.bounds.x + (defaultState.bounds.width / 2),
+          y: defaultState.bounds.y + (defaultState.bounds.height / 2)
+        });
+        await wait(150);
+      }
+      const hoverState = JSON.parse(await readHeroWhatsApp());
+      await send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: 0, y: 0 });
+      heroWhatsApp = { defaultState, hoverState };
+    }
+
     if (name === 'blog') {
       await evaluate(`document.querySelector('.blog-hero__primary')?.click()`);
       await wait(500);
@@ -193,6 +224,22 @@ for (const viewport of viewports) {
       failures.push(`${profile}: submit styling differs from the common form (${JSON.stringify(result.submitStyle)})`);
     }
     if (result.overflow) failures.push(`${profile}: horizontal overflow`);
+    if (name !== 'psg') {
+      const expectedBorder = {
+        borderTopWidth: '1px',
+        borderTopStyle: 'solid',
+        borderTopColor: 'rgb(37, 211, 102)'
+      };
+      for (const [stateName, state] of Object.entries(heroWhatsApp ?? {})) {
+        if (!state || state.href !== "https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!"
+          || state.target !== '_blank'
+          || state.borderTopWidth !== expectedBorder.borderTopWidth
+          || state.borderTopStyle !== expectedBorder.borderTopStyle
+          || state.borderTopColor !== expectedBorder.borderTopColor) {
+          failures.push(`${profile}: hero WhatsApp ${stateName} state does not retain its green border (${JSON.stringify(state)})`);
+        }
+      }
+    }
   }
 }
 
