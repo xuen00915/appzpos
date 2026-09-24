@@ -139,7 +139,7 @@ for (const viewport of viewports) {
       failures.push(`${profile}: ${region} is not centered`);
     }
   }
-  const maximumTitleSize = viewport.width >= 1200 ? 54 : viewport.width >= 600 ? 32 : 30.5;
+  const maximumTitleSize = viewport.width >= 1200 ? 46 : viewport.width >= 600 ? 30 : 27;
   if (result.titleMaxWidth !== 'none' || result.titleTextWrap !== 'wrap' || result.titleFontSize > maximumTitleSize) {
     failures.push(`${profile}: title does not use the wider natural wrap and smaller scale (${JSON.stringify({
       maxWidth: result.titleMaxWidth,
