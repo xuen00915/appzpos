@@ -75,12 +75,22 @@ for (const viewport of viewports) {
         const scrollTopStyles = scrollTop ? getComputedStyle(scrollTop) : null;
         const headerLogo = document.querySelector('.appzpos-header__logo img');
         const headerLogoBounds = headerLogo?.getBoundingClientRect();
+        const headerUtilities = [...document.querySelectorAll('.appzpos-nav__utility')].map(node => {
+          const bounds = node.getBoundingClientRect();
+          const styles = getComputedStyle(node);
+          return {
+            width: Math.round(bounds.width),
+            height: Math.round(bounds.height),
+            fontSize: Math.round(Number.parseFloat(styles.fontSize))
+          };
+        });
         const legacyControls = [...document.querySelectorAll('a.btn-whatsapp, a.btn-fb')]
           .filter(node => !node.closest('.appz-site-floating-contacts'));
         return {
           scrollWidth: document.documentElement.scrollWidth,
           clientWidth: document.documentElement.clientWidth,
           headerLogoWidth: headerLogoBounds ? Math.round(headerLogoBounds.width) : null,
+          headerUtilities,
           shells,
           titles,
           floating: {
@@ -114,6 +124,11 @@ for (const viewport of viewports) {
     if (result.scrollWidth > result.clientWidth + 1) failures.push(`${profile}: horizontal overflow`);
     if (result.headerLogoWidth !== (viewport.width <= 1100 ? 124 : 136)) {
       failures.push(`${profile}: header logo size differs (${result.headerLogoWidth}px)`);
+    }
+    if (viewport.width > 1100 && (result.headerUtilities.length !== 3
+      || result.headerUtilities.some(control => control.width !== 44
+        || control.height !== 44 || control.fontSize !== 24))) {
+      failures.push(`${profile}: header utility icon sizes differ (${JSON.stringify(result.headerUtilities)})`);
     }
     if (result.floating.rails !== 1 || !result.floating.visible || result.floating.position !== 'fixed'
       || Math.abs(result.floating.top - (viewport.width <= 768
