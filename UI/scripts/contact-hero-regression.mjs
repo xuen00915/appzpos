@@ -185,6 +185,12 @@ for (const width of viewports) {
         hero: bounds(hero),
         copy: bounds(copy),
         media: bounds(media),
+        mediaPresentation: media ? {
+          position: getComputedStyle(media).position,
+          opacity: getComputedStyle(media).opacity,
+          borderRadius: getComputedStyle(media).borderRadius,
+          boxShadow: getComputedStyle(media).boxShadow
+        } : null,
         availability: {
           panel: bounds(availability),
           headingAlign: availabilityHeading ? getComputedStyle(availabilityHeading).textAlign : '',
@@ -456,8 +462,16 @@ if (desktop.contact.map && desktop.contact.channels) {
 }
 if (desktop.contact.form && desktop.contact.form.height > 760) failures.push('1280px: contact form remains too tall');
 const mobile = layouts[390];
-if (mobile.copy && mobile.media && mobile.media.y <= mobile.copy.y + mobile.copy.height) {
-  failures.push('390px: support image is not stacked below the hero wording');
+if (mobile.hero && mobile.copy && mobile.media && (
+  mobile.media.y > mobile.hero.y + 1
+  || Math.abs(mobile.media.height - mobile.hero.height) > 2
+  || mobile.media.y + mobile.media.height < mobile.copy.y + mobile.copy.height
+  || mobile.mediaPresentation?.position !== 'absolute'
+  || mobile.mediaPresentation?.opacity !== '0.18'
+  || mobile.mediaPresentation?.borderRadius !== '0px'
+  || mobile.mediaPresentation?.boxShadow !== 'none'
+)) {
+  failures.push('390px: support image is not a subdued full-hero background behind the wording');
 }
 if (mobile.contact.form && mobile.contact.details && mobile.contact.details.y <= mobile.contact.form.y + mobile.contact.form.height) {
   failures.push('390px: contact details are not stacked below the form');
@@ -480,10 +494,10 @@ for (const width of [1440, 1280, 1024]) {
   }
 }
 
-for (const width of [768, 390]) {
+for (const width of [768]) {
   const layout = layouts[width];
   if (layout.copy && layout.media && layout.media.y <= layout.copy.y + layout.copy.height) {
-    failures.push(`${width}px: tablet or mobile hero image is not stacked below the wording`);
+    failures.push(`${width}px: tablet hero image is not stacked below the wording`);
   }
   if (layout.contact.form && layout.contact.details && layout.contact.details.y <= layout.contact.form.y + layout.contact.form.height) {
     failures.push(`${width}px: tablet or mobile contact details are not stacked below the form`);

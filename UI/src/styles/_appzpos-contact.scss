@@ -192,6 +192,29 @@ app-point-of-sales-demo-quotation {
     #content .contact-channels h3 { font-size: 13px !important; }
     .contact-channels .subtitle a { font-size: 12px !important; }
   }
+  @media (max-width: 767px) {
+    .contact-hero__inner {
+      position: relative;
+      isolation: isolate;
+      display: block;
+      padding: 40px 20px;
+    }
+    .contact-hero__copy { position: relative; z-index: 1; }
+    .contact-hero__media {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+      width: 100%;
+      max-width: none;
+      height: 100%;
+      margin: 0;
+      border: 0;
+      border-radius: 0;
+      box-shadow: none;
+      opacity: .18;
+      pointer-events: none;
+    }
+  }
 }
 
 /* The original contact links and classes remain the conversion hooks. */

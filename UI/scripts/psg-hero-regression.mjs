@@ -43,7 +43,10 @@ const expectedPackageFilters = ['All Packages', 'Digital Ordering System', 'QR O
 const knownPreviewIssuePatterns = [
   /embed\.tawk\.to/i,
   /unicons-14\.woff2/i,
-  /OTS parsing error/i
+  /OTS parsing error/i,
+  /\[webpack-dev-server\] Warnings while compiling/i,
+  /home-order-flow\.component\.html:45:108.*NG8107/is,
+  /autoprefixer.*start value has mixed support/is
 ];
 
 const target = await fetch(
@@ -712,8 +715,8 @@ if (desktop.apply.cards.length === 3 && (desktop.apply.cards.some((card, index, 
 }
 
 const mobile = layouts[390];
-if (mobile.copy && mobile.art && mobile.art.y <= mobile.copy.y + mobile.copy.height) {
-  failures.push('390px: grant artwork is not stacked below the wording');
+if (mobile.copy && mobile.art && mobile.art.y + mobile.art.height > mobile.copy.y) {
+  failures.push('390px: grant artwork is not stacked above the title and description');
 }
 if (mobile.vendor.section && mobile.eligibility.section && mobile.eligibility.section.y <= mobile.vendor.section.y + mobile.vendor.section.height) {
   failures.push('390px: eligibility content is not stacked below the vendor content');

@@ -5,6 +5,7 @@
   <div class="appz-solution-hero__inner">
     <div class="appz-solution-hero__visual">
       <a
+        *ngIf="config.interactive !== false"
         class="appz-solution-hero__visual-link"
         [attr.href]="'#' + config.scrollTargetId"
         [attr.aria-label]="config.scrollLabel"
@@ -17,7 +18,16 @@
           loading="eager"
           fetchpriority="high">
       </a>
+      <img
+        *ngIf="config.interactive === false"
+        [src]="config.imageSrc"
+        [alt]="config.imageAlt"
+        [width]="config.imageWidth"
+        [height]="config.imageHeight"
+        loading="eager"
+        fetchpriority="high">
       <a
+        *ngIf="config.interactive !== false"
         class="appz-solution-hero__integration-link"
         [attr.href]="'#' + config.integrationTargetId"
         [attr.aria-label]="config.integrationLabel"
@@ -31,14 +41,16 @@
           </span>
         </span>
       </a>
-      <a
-        *ngFor="let device of config.deviceLinks"
-        class="appz-solution-hero__device-link"
-        [attr.data-solution-device]="device.id"
-        [attr.href]="'#' + device.targetId"
-        [attr.aria-label]="device.label"
-        (click)="scrollToDevice($event, device)">
-      </a>
+      <ng-container *ngIf="config.interactive !== false">
+        <a
+          *ngFor="let device of config.deviceLinks"
+          class="appz-solution-hero__device-link"
+          [attr.data-solution-device]="device.id"
+          [attr.href]="'#' + device.targetId"
+          [attr.aria-label]="device.label"
+          (click)="scrollToDevice($event, device)">
+        </a>
+      </ng-container>
     </div>
     <div class="appz-solution-hero__copy">
       <h1 [id]="config.headingId">{{ config.title }}</h1>

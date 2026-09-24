@@ -25,6 +25,7 @@ export class CustomPOSEWaiterComponent {
     imageAlt: 'APPZPOS waiter taking a table order beside a staffed counter POS system',
     imageWidth: 1547,
     imageHeight: 1016,
+    interactive: false,
     scrollTargetId: 'content',
     scrollLabel: 'Explore APPZPOS POS and E-Waiter features',
     integrationTargetId: 'pos-integrations',

@@ -14,6 +14,7 @@ export interface SolutionHeroConfig {
   readonly imageAlt: string;
   readonly imageWidth: number;
   readonly imageHeight: number;
+  readonly interactive?: boolean;
   readonly scrollTargetId: string;
   readonly scrollLabel: string;
   readonly integrationTargetId: string;

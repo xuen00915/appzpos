@@ -514,6 +514,9 @@ for (const width of [1440, 768, 430]) {
         integrationHref: section?.querySelector('.appz-solution-hero__integration-link')?.getAttribute('href'),
         deviceHrefs: deviceLinks.map((link) => link.getAttribute('href')),
         deviceIds: deviceLinks.map((link) => link.dataset.solutionDevice),
+        diagramOverlayCount: section?.querySelectorAll(
+          '.appz-solution-hero__integration-link, [data-solution-device]'
+        ).length ?? 0,
         screenBetweenDevices: Boolean(
           integrationBox
           && deviceCenters.tablet
@@ -671,13 +674,14 @@ for (const width of [1440, 768, 430]) {
       failures.push(`${width}px ${heroCase.key}: solution hero content is incorrect ${JSON.stringify(hero)}`);
     }
     if (heroCase.key === 'pos' && (!hero.sharedHero || hero.legacyHero
-      || hero.visualHref !== '#content' || hero.integrationHref !== '#pos-integrations')) {
+      || hero.visualHref != null || hero.integrationHref != null)) {
       failures.push(`${width}px pos: shared hero structure is incorrect ${JSON.stringify(hero)}`);
     }
-    if (heroCase.key === 'pos' && (JSON.stringify(hero.deviceIds) !== JSON.stringify(['tablet', 'cloud'])
-      || JSON.stringify(hero.deviceHrefs) !== JSON.stringify(['#pos-tablet', '#pos-cloud'])
-      || !hero.screenBetweenDevices)) {
-      failures.push(`${width}px pos: interactive devices are missing or misplaced ${JSON.stringify(hero)}`);
+    if (heroCase.key === 'pos' && (hero.deviceIds.length !== 0
+      || hero.deviceHrefs.length !== 0
+      || hero.diagramOverlayCount !== 0
+      || hero.screenBetweenDevices)) {
+      failures.push(`${width}px pos: diagram still has interactive or yellow overlays ${JSON.stringify(hero)}`);
     }
     if (heroCase.key === 'pos' && (hero.heroHeight > 540
       || !hero.titleMaxWidth || hero.titleDecoration !== 'none')) {
@@ -752,26 +756,6 @@ for (const width of [1440, 768, 430]) {
     if (!hero.googleTagManager || !hero.facebookPixel) failures.push(`${width}px ${heroCase.key}: solution page tracking is missing ${JSON.stringify(hero)}`);
 
     if (heroCase.key === 'pos') {
-      await evaluate(`document.querySelector('[data-solution-hero] a')?.click()`);
-      await wait(700);
-      const targetOffset = await evaluate(`document.querySelector('#content')?.getBoundingClientRect().top`);
-      if (Math.abs(targetOffset ?? 9999) > 2) failures.push(`${width}px pos: illustration did not scroll to POS content (${targetOffset})`);
-
-      await evaluate(`document.querySelector('.appz-solution-hero__integration-link')?.click()`);
-      await wait(1400);
-      const integrationOffset = await evaluate(`document.querySelector('${width <= 768 ? '#pos-integrations-mobile' : '#pos-integrations'}')?.getBoundingClientRect().top`);
-      if (Math.abs((integrationOffset ?? 9999) - 92) > 3) failures.push(`${width}px pos: floating screen did not scroll to integrations (${integrationOffset})`);
-
-      for (const device of [
-        { id: 'tablet', target: width <= 768 ? '#pos-tablet-mobile' : '#pos-tablet' },
-        { id: 'cloud', target: width <= 768 ? '#pos-cloud-mobile' : '#pos-cloud' }
-      ]) {
-        await evaluate(`document.querySelector('[data-solution-device="${device.id}"]')?.click()`);
-        await wait(1400);
-        const deviceOffset = await evaluate(`document.querySelector('${device.target}')?.getBoundingClientRect().top`);
-        if (Math.abs((deviceOffset ?? 9999) - 92) > 3) failures.push(`${width}px pos: ${device.id} device did not scroll to its section (${deviceOffset})`);
-      }
-
       const hardwareFiltering = JSON.parse(await evaluate(`JSON.stringify((() => {
         const buttons = [...document.querySelectorAll('[data-hardware-filters] button')];
         const visibleCount = () => [...document.querySelectorAll('[data-hardware-item]')]
@@ -933,7 +917,7 @@ const posIntegrationAnimationName = await evaluate(`(() => {
   const screen = document.querySelector('.appz-solution-hero__integration-link');
   return screen ? getComputedStyle(screen).animationName : null;
 })()`);
-if (posIntegrationAnimationName !== 'none') failures.push('POS integration screen animation remains active');
+if (posIntegrationAnimationName && posIntegrationAnimationName !== 'none') failures.push('POS integration screen animation remains active');
 const posDeviceAnimationNames = JSON.parse(await evaluate(`JSON.stringify(
   [...document.querySelectorAll('[data-solution-device]')].map((device) => getComputedStyle(device).animationName)
 )`));

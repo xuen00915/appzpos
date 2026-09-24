@@ -76,6 +76,17 @@ describe('SolutionHeroComponent', () => {
     expect(image.compareDocumentPosition(title) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
   });
 
+  it('renders a clean image without diagram links when interaction is disabled', () => {
+    fixture.componentRef.setInput('config', { ...config, interactive: false });
+    fixture.detectChanges();
+    const section = (fixture.nativeElement as HTMLElement).querySelector('[data-solution-hero]');
+    const image = section?.querySelector('img');
+
+    expect(image?.closest('a')).toBeNull();
+    expect(section?.querySelector('.appz-solution-hero__integration-link')).toBeNull();
+    expect(section?.querySelectorAll('[data-solution-device]').length).toBe(0);
+  });
+
   it('scrolls to the configured solution content when the illustration is activated', () => {
     const target = document.createElement('div');
     target.id = config.scrollTargetId;

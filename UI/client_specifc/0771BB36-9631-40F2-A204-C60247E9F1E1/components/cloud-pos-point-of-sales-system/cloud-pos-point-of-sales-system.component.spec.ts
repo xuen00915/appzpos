@@ -29,6 +29,15 @@ describe('CustomPOSEWaiterComponent', () => {
       .toBe('APPZPOS Cutting-Edge POS Point of Sales and E-Menu System');
   });
 
+  it('renders the POS hero diagram without interactive or yellow hotspot overlays', () => {
+    const hero = (fixture.nativeElement as HTMLElement).querySelector('[data-solution-hero]');
+    const image = hero?.querySelector('img');
+
+    expect(image?.closest('a')).toBeNull();
+    expect(hero?.querySelector('.appz-solution-hero__integration-link')).toBeNull();
+    expect(hero?.querySelectorAll('[data-solution-device]').length).toBe(0);
+  });
+
   it('puts the centered All-In-One title above copy-left and artwork-right', () => {
     const overview = (fixture.nativeElement as HTMLElement).querySelector('[data-pos-overview]');
     expect(overview?.querySelector('h2')?.textContent?.replace(/\s+/g, ' ').trim())
