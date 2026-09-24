@@ -161,6 +161,15 @@ describe('APPZPOS marketing shell', () => {
     host.remove();
   });
 
+  it('shows the contact number beside call and WhatsApp labels in the hamburger menu', () => {
+    const host = headerFixture.nativeElement as HTMLElement;
+    const callLabel = host.querySelector<HTMLElement>('.appzpos-nav__utility--call .appzpos-nav__utility-label');
+    const whatsappLabel = host.querySelector<HTMLElement>('.appzpos-nav__utility--whatsapp .appzpos-nav__utility-label');
+
+    expect(callLabel?.textContent?.replace(/\s+/g, ' ').trim()).toBe('Call Us +65 8310 9631');
+    expect(whatsappLabel?.textContent?.replace(/\s+/g, ' ').trim()).toBe('WhatsApp +65 8310 9631');
+  });
+
   it('continues loading the configured Google and Facebook marketing tags', () => {
     expect(GoogleAnalyticsHelpersService.LoadGoogleTag).toHaveBeenCalledTimes(1);
     expect(FacebookPixelSettingService.LoadFacebookPixelSetting).toHaveBeenCalledTimes(1);
