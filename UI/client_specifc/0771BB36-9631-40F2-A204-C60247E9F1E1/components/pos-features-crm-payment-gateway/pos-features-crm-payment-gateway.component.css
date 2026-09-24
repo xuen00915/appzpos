@@ -260,3 +260,7 @@ b, strong {
     padding: 20px 18px;
   }
 }
+
+/* Keep the conversion form close to the footer instead of leaving a large blank rail. */
+#content .content-wrap { padding-bottom: clamp(24px, 3vw, 40px) !important; }
+#content #requestdemo.appz-conversion-panel { margin-bottom: 0 !important; }

@@ -20,3 +20,7 @@
 :host .restaurant-mode__timeline,
 :host .quick-service-compact .container { max-width: none; }
 :host ::ng-deep #requestdemo .appz-demo { max-width: none; }
+
+/* Keep each industry page's form and footer visually connected. */
+:host #content .content-wrap { padding-bottom: clamp(24px, 3vw, 40px) !important; }
+:host #content #requestdemo.appz-conversion-panel { margin-bottom: 0 !important; }
