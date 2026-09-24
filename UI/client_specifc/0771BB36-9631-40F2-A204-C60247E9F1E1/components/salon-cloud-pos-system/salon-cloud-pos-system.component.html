@@ -66,7 +66,7 @@
     <div class="solution-wall solution-wall--three">
       <article class="solution-sign" [class.is-open]="openSolution === 0"
         (mouseenter)="hoverSolution(0)" (mouseleave)="leaveSolution($event)" (focusin)="openSolution = 0" (focusout)="leaveSolution($event)" (keydown.escape)="openSolution = null">
-        <h3><button type="button" (click)="openSolution = 0"><img class="solution-sign__image" [src]="BindURL_Image('APPZPOS-POS-Systems-for-fnB-POS-system.png')" alt="" loading="lazy"><span>POS System</span></button></h3>
+        <h3><button type="button" (click)="openSolution = 0"><img class="solution-sign__image" src="assets/images/industries-pos-system.webp" alt="" loading="lazy"><span>POS System</span></button></h3>
         <div class="solution-sign__detail"><p>POS system with the combination of hardware (POS, cashdrawer, receipt printer) and software to complete sales transactions.</p></div>
       </article>
       <article class="solution-sign" [class.is-open]="openSolution === 1"
@@ -86,7 +86,7 @@
       </article>
       <article class="solution-sign" [class.is-open]="openSolution === 4"
         (mouseenter)="hoverSolution(4)" (mouseleave)="leaveSolution($event)" (focusin)="openSolution = 4" (focusout)="leaveSolution($event)" (keydown.escape)="openSolution = null">
-        <h3><button type="button" (click)="openSolution = 4"><img class="solution-sign__image" [src]="BindURL_Image('APPZPOS-fnb-POS-System-Singapore-Queue-Number-Display.png')" alt="" loading="lazy"><span>Queue Number Display</span></button></h3>
+        <h3><button type="button" (click)="openSolution = 4"><img class="solution-sign__image" src="assets/images/industries-queue.webp" alt="" loading="lazy"><span>Queue Number Display</span></button></h3>
         <div class="solution-sign__detail"><p>A Digital Display System that shows customers their assigned queue numbers, helping them know when it's their turn for their booking services.</p></div>
       </article>
     </div>
