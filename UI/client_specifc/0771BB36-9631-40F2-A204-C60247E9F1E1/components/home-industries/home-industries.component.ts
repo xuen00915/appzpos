@@ -11,7 +11,11 @@ export class HomeIndustriesComponent {
   constructor(private readonly commonFunctionService: CommonFunctionService) {}
   get stories(): readonly HomeIndustryStory[] { return this.config?.stories ?? []; }
   get activeStory(): HomeIndustryStory { return this.stories[this.activeIndex]; }
-  imageUrl(name: string): string { return this.commonFunctionService.BindURL_Image(name); }
+  imageUrl(name: string): string {
+    return name.startsWith('assets/') || name.startsWith('/') || /^https?:\/\//.test(name)
+      ? name
+      : this.commonFunctionService.BindURL_Image(name);
+  }
   isModuleActive(id: string): boolean { return this.activeStory?.modules.includes(id) ?? false; }
   select(index: number): void {
     this.activeIndex = Math.max(0, Math.min(this.stories.length - 1, Math.round(index)));

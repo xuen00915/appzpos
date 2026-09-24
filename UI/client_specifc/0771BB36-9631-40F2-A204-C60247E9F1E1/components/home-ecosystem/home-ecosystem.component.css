@@ -57,8 +57,10 @@
 }
 
 .ecosystem__hardware-media {
-  align-self: stretch;
-  min-height: 0;
+  width: min(100%, 520px);
+  aspect-ratio: 4 / 3;
+  align-self: center;
+  justify-self: center;
   border: 0;
   background: transparent;
   border-radius: 0;
@@ -66,12 +68,11 @@
 }
 
 .ecosystem__hardware-media img {
-  position: absolute;
-  inset: 0;
+  position: static;
   box-sizing: border-box;
   width: 100%;
   height: 100%;
-  padding: clamp(24px, 4vw, 56px);
+  padding: clamp(14px, 2.5vw, 30px);
   filter: none;
   object-fit: contain;
 }
@@ -301,8 +302,9 @@
   color: #fff;
 }
 
-.ecosystem__grant-visual {
-  width: 100%;
+.ecosystem__grant .ecosystem__grant-visual {
+  width: min(100%, 360px);
+  justify-self: center;
 }
 
 .ecosystem__grant-visual img {
@@ -334,14 +336,8 @@
   }
 
   .ecosystem__hardware-media {
+    width: min(100%, 440px);
     aspect-ratio: 4 / 3;
-    min-height: 500px;
-  }
-
-  .ecosystem__hardware-media img {
-    position: static;
-    inset: auto;
-    height: 100%;
   }
 
   .ecosystem__features {
@@ -364,8 +360,8 @@
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .ecosystem__grant-visual {
-    width: 100%;
+  .ecosystem__grant .ecosystem__grant-visual {
+    width: min(100%, 360px);
   }
 }
 
@@ -401,8 +397,8 @@
   }
 
   .ecosystem__hardware-media {
+    width: min(100%, 320px);
     aspect-ratio: 4 / 3;
-    min-height: 360px;
   }
 
   .ecosystem__feature-list a {
@@ -416,8 +412,8 @@
     padding: 24px 18px 30px;
   }
 
-  .ecosystem__grant-visual {
-    width: min(100%, 520px);
+  .ecosystem__grant .ecosystem__grant-visual {
+    width: min(100%, 260px);
   }
 
   .ecosystem__feature-list {

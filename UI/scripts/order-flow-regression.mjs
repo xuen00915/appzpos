@@ -153,6 +153,7 @@ for (const width of viewports) {
           imageLoaded: Boolean(grantImage?.complete && grantImage?.naturalWidth > 0),
           visualLeftOfCopy: Boolean(visualBox && copyBox && visualBox.right <= copyBox.left + 1),
           visualAboveCopy: Boolean(visualBox && copyBox && visualBox.bottom <= copyBox.top + 1),
+          visualWidth: visualBox?.width ?? 0,
           visualWidthRatio: grantBox && visualBox ? visualBox.width / grantBox.width : 0,
           height: grantBox?.height ?? 0,
           redundantKicker: Boolean(grant?.querySelector('.appz-kicker')),
@@ -212,7 +213,7 @@ for (const width of viewports) {
     || layout.legacyHardwareContactText) failures.push(`${width}px: hardware WhatsApp action is incorrect ${JSON.stringify({ action: layout.hardwareWhatsapp, legacyText: layout.legacyHardwareContactText })}`);
   if (width > 767 && !layout.grant.visualLeftOfCopy) failures.push(`${width}px: grant artwork is not positioned left of its copy ${JSON.stringify(layout.grant)}`);
   if (width <= 767 && !layout.grant.visualAboveCopy) failures.push(`${width}px: grant artwork is not stacked above its copy ${JSON.stringify(layout.grant)}`);
-  if (width >= 1024 && (layout.grant.visualWidthRatio < .3 || layout.grant.visualWidthRatio > .5 || layout.grant.height > 620)) failures.push(`${width}px: side-by-side grant remains oversized ${JSON.stringify(layout.grant)}`);
+  if (width >= 1024 && (layout.grant.visualWidth > 360.5 || layout.grant.height > 620)) failures.push(`${width}px: side-by-side grant remains oversized ${JSON.stringify(layout.grant)}`);
   if (layout.grant.redundantKicker || layout.grant.redundantRate) failures.push(`${width}px: grant repeats its funding message ${JSON.stringify(layout.grant)}`);
   if (layout.features.count !== 6 || JSON.stringify(layout.features.indexes) !== JSON.stringify(['01', '02', '03', '04', '05', '06'])) failures.push(`${width}px: capability index structure changed ${JSON.stringify(layout.features)}`);
   if (layout.features.columns !== (width > 767 ? 2 : 1)) failures.push(`${width}px: capability index uses the wrong column count ${JSON.stringify(layout.features)}`);

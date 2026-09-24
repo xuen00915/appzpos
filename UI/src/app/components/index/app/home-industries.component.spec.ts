@@ -38,7 +38,8 @@ describe('HomeIndustriesComponent', () => {
       expect(moreInfo.getAttribute('href')).toBe(story.href);
       expect(moreInfo.querySelector('span')).toBeNull();
       expect(getComputedStyle(moreInfo).backgroundColor).toBe('rgb(22, 136, 216)');
-      expect(slides[index].querySelector('img')!.getAttribute('src')).toBe('/images/' + story.image);
+      const expectedImage = story.image.startsWith('assets/') ? story.image : '/images/' + story.image;
+      expect(slides[index].querySelector('img')!.getAttribute('src')).toBe(expectedImage);
       expect(Array.from(slides[index].querySelectorAll('.industries__functions li')).map(li => li.getAttribute('data-module'))).toEqual([...story.modules]);
     });
     expect(root.querySelector('.industries__puzzle')).toBeNull();
@@ -120,5 +121,6 @@ describe('HomeIndustriesComponent', () => {
     expect(host.textContent).toContain('中文收银系统');
     expect(host.textContent).not.toContain('F&B Restaurant');
     expect(host.querySelector('.industries__more-info')?.textContent).toBe('了解更多');
+    expect(host.querySelector('img')?.getAttribute('src')).toBe('/images/cn-sector.png');
   });
 });

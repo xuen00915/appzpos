@@ -31,8 +31,22 @@ $ecosystem-muted: #667a95;
   display: grid; grid-template-columns: minmax(180px, .8fr) minmax(0, 1.2fr);
   gap: 24px; align-items: start;
 }
-.appz-ecosystem__selected-visual { min-width: 0; align-self: center; }
-.appz-ecosystem__selected-visual img { display: block; width: 100%; height: auto; filter: drop-shadow(0 12px 18px rgba(255, 107, 34, .18)); }
+.appz-ecosystem__selected-visual {
+  display: grid;
+  width: min(100%, 360px);
+  min-width: 0;
+  aspect-ratio: 4 / 3;
+  align-self: center;
+  justify-self: center;
+  place-items: center;
+}
+.appz-ecosystem__selected-visual img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 18px rgba(255, 107, 34, .18));
+}
 .appz-ecosystem__window .appz-ecosystem__details { border: 0; border-radius: 0; box-shadow: none; background: transparent; }
 .appz-ecosystem__window .appz-ecosystem__details::before { display: none; }
 .appz-ecosystem__window .appz-ecosystem__details-header { padding: 0 0 20px; }
@@ -47,6 +61,7 @@ $ecosystem-muted: #667a95;
   .appz-ecosystem__window .appz-ecosystem__copy { grid-column: 1; grid-row: 2; padding: 24px 20px; }
   .appz-ecosystem__options { flex-direction: row; overflow-x: auto; border-right: 0; border-bottom: 1px solid #dce6ef; padding: 12px; }
   .appz-ecosystem__option { flex: 0 0 auto; max-width: 220px; }
+  .appz-ecosystem__selected-visual { width: min(100%, 300px); }
 }
 
 /* Three desktop columns, with two columns on smaller screens. */
