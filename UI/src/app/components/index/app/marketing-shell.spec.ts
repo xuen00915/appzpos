@@ -232,7 +232,9 @@ describe('APPZPOS marketing shell', () => {
 
     expect(bottom.children.length).toBe(2);
     expect(legal.children.length).toBe(2);
-    expect(legal.firstElementChild?.textContent).toContain('Copyrights 2016-2023');
+    expect(legal.firstElementChild?.textContent?.trim()).toBe(
+      '© Copyrights 2016-2026 by APPZGATE SOLUTIONS PTE LTD'
+    );
     expect(legal.lastElementChild).toHaveClass('appzpos-footer__credit');
     expect(getComputedStyle(bottom).flexDirection).toBe('row');
     expect(getComputedStyle(bottom).backgroundColor).toBe(getComputedStyle(footer).backgroundColor);
