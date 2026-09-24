@@ -1,0 +1,162 @@
+:host {
+    display: block;
+}
+
+#content.blog-detail .content-wrap {
+    padding: clamp(40px, 5vw, 72px) 0 clamp(64px, 7vw, 96px);
+}
+
+#content.blog-detail .blog-detail__shell {
+    width: min(calc(100% - (var(--appz-page-gutter) * 2)), var(--appz-shell-width));
+    max-width: none;
+    margin: 0 auto !important;
+    padding: 0;
+}
+
+.blog-detail__article,
+.blog-detail__article .entry {
+    width: 100%;
+}
+
+#content.blog-detail .blog-detail__article .entry {
+    overflow: visible;
+    border: 0 !important;
+    border-radius: 0 !important;
+    background: transparent;
+    box-shadow: none !important;
+    transform: none;
+}
+
+.blog-detail__hero {
+    padding: clamp(28px, 4.5vw, 56px);
+    border: 1px solid rgba(22, 136, 216, .14);
+    border-radius: clamp(20px, 2.2vw, 28px);
+    background:
+        radial-gradient(circle at 88% 18%, rgba(22, 136, 216, .16), transparent 26rem),
+        linear-gradient(135deg, #f7fbff 0%, #eaf6ff 100%);
+}
+
+#content.blog-detail .blog-detail__hero .entry-title h2 {
+    max-width: 22ch;
+    margin: 0;
+    color: var(--appz-ink);
+    font-family: var(--appz-font);
+    font-size: clamp(2.2rem, 4.4vw, 4rem);
+    font-weight: 780;
+    letter-spacing: -.055em;
+    line-height: 1.04;
+    text-wrap: balance;
+}
+
+#content.blog-detail .blog-detail__hero .entry-meta {
+    margin: clamp(18px, 2.3vw, 26px) 0 0;
+}
+
+#content.blog-detail .blog-detail__hero .entry-meta ul {
+    margin: 0;
+}
+
+#content.blog-detail .blog-detail__hero .entry-meta li {
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    margin: 0;
+    color: var(--appz-ink-soft);
+    font-size: clamp(.92rem, 1.2vw, 1.02rem) !important;
+    font-weight: 650;
+    line-height: 1.4;
+}
+
+#content.blog-detail .blog-detail__hero .entry-meta i {
+    color: var(--appz-blue);
+    font-size: 1.15em;
+}
+
+#content.blog-detail .blog-detail__image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin: clamp(24px, 3.2vw, 40px) 0 0 !important;
+    overflow: hidden;
+    border-radius: clamp(18px, 2vw, 26px);
+    background: var(--appz-blue-pale);
+    box-shadow: 0 22px 64px rgba(37, 83, 124, .13);
+}
+
+#content.blog-detail .blog-detail__image a {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+#content.blog-detail .blog-detail__image img {
+    display: block;
+    width: 100%;
+    height: 100% !important;
+    aspect-ratio: auto;
+    border-radius: inherit;
+    object-fit: cover;
+}
+
+#content.blog-detail .blog-detail__content {
+    width: min(100%, 820px);
+    margin: clamp(36px, 5vw, 64px) auto 0 !important;
+}
+
+#content.blog-detail .blog-detail__content > p {
+    margin-bottom: 1.45em;
+    color: var(--appz-ink-soft);
+    font-size: clamp(1rem, 1.15vw, 1.1rem) !important;
+    line-height: 1.82;
+}
+
+#content.blog-detail .blog-detail__content a {
+    color: var(--appz-blue-deep);
+    font-weight: 680;
+    text-decoration-thickness: .08em;
+    text-underline-offset: .18em;
+}
+
+#content.blog-detail .blog-detail__content blockquote {
+    margin: clamp(28px, 4vw, 42px) 0;
+    padding: clamp(24px, 3.2vw, 34px);
+    border: 0;
+    border-left: 4px solid var(--appz-orange);
+    border-radius: 0 var(--appz-radius) var(--appz-radius) 0;
+    background: var(--appz-orange-pale);
+}
+
+#content.blog-detail .blog-detail__content blockquote p {
+    margin: 0;
+    color: var(--appz-ink);
+    font-size: clamp(1.03rem, 1.3vw, 1.16rem) !important;
+    font-style: normal;
+    font-weight: 560;
+    line-height: 1.7;
+}
+
+@media (max-width: 767px) {
+    #content.blog-detail .content-wrap {
+        padding: 28px 0 64px;
+    }
+
+    .blog-detail__hero {
+        padding: 24px 20px;
+    }
+
+    #content.blog-detail .blog-detail__hero .entry-title h2 {
+        font-size: clamp(1.85rem, 8.3vw, 2.45rem);
+        line-height: 1.08;
+    }
+
+    #content.blog-detail .blog-detail__image {
+        margin-top: 20px !important;
+    }
+
+    #content.blog-detail .blog-detail__content {
+        margin-top: 32px !important;
+    }
+
+    #content.blog-detail .blog-detail__content blockquote {
+        padding: 22px 20px;
+    }
+}

@@ -13,6 +13,7 @@
     "test:contact-hero": "node scripts/contact-hero-regression.mjs",
     "test:footer-responsive": "node scripts/footer-responsive-regression.mjs",
     "test:tracking-preservation": "node --test scripts/tracking-preservation-contract.mjs",
+    "test:blog-detail": "node scripts/blog-detail-regression.mjs",
     "test:hero-screen-fit": "node scripts/hero-screen-fit-regression.mjs",
     "test:sitewide-layout": "node scripts/sitewide-layout-regression.mjs"
   },
