@@ -94,6 +94,9 @@ for (const viewport of viewports) {
       imageSrc: image?.getAttribute('src'),
       imageObjectFit: image ? getComputedStyle(image).objectFit : null,
       imageAspectRatio: imageFrame ? getComputedStyle(imageFrame).aspectRatio : null,
+      titleMaxWidth: title ? getComputedStyle(title).maxWidth : null,
+      titleTextWrap: title ? getComputedStyle(title).textWrap : null,
+      titleFontSize: title ? parseFloat(getComputedStyle(title).fontSize) : null,
       paragraphCount: content?.querySelectorAll(':scope > p').length ?? 0,
       blockquoteCount: content?.querySelectorAll(':scope > blockquote').length ?? 0,
       externalLinkTarget: externalLink?.target,
@@ -127,7 +130,23 @@ for (const viewport of viewports) {
     failures.push(`${profile}: featured image frame is not a responsive 16:9 ratio (${ratio}, ${result.imageAspectRatio})`);
   }
   if (result.imageObjectFit !== 'cover') failures.push(`${profile}: featured image does not use object-fit cover`);
-  if (result.content.width > 820.5) failures.push(`${profile}: article text column is too wide (${result.content.width})`);
+  const sharedWidths = [result.hero.width, result.imageFrame.width, result.content.width];
+  if (Math.max(...sharedWidths) > 900.5 || Math.max(...sharedWidths) - Math.min(...sharedWidths) > 1) {
+    failures.push(`${profile}: hero, featured image, and article do not share the same 900px content width (${JSON.stringify(sharedWidths)})`);
+  }
+  for (const [region, bounds] of [['hero', result.hero], ['featured image', result.imageFrame], ['article', result.content]]) {
+    if (Math.abs(bounds.left - (viewport.width - bounds.width) / 2) > 1) {
+      failures.push(`${profile}: ${region} is not centered`);
+    }
+  }
+  const maximumTitleSize = viewport.width >= 1200 ? 54 : viewport.width >= 600 ? 32 : 30.5;
+  if (result.titleMaxWidth !== 'none' || result.titleTextWrap !== 'wrap' || result.titleFontSize > maximumTitleSize) {
+    failures.push(`${profile}: title does not use the wider natural wrap and smaller scale (${JSON.stringify({
+      maxWidth: result.titleMaxWidth,
+      textWrap: result.titleTextWrap,
+      fontSize: result.titleFontSize
+    })})`);
+  }
   if (result.titleText !== expectedTitle || result.dateText !== '18th March 2026') {
     failures.push(`${profile}: title or publication info changed`);
   }
