@@ -105,6 +105,20 @@
   .home-story-section.is-image-right .home-story-section__copy { grid-row: 2; }
   .home-story-section.is-card-grid .home-story-section__copy { grid-row: 1; }
 }
+
+@media (min-width: 768px) and (max-width: 900px) {
+  /* The Chinese custom POS artwork should not dominate the tablet hero rail. */
+  .home-story-section__media,
+  .home-story-section.is-image-right .home-story-section__media {
+    width: min(100%, 420px);
+    margin-inline: auto;
+  }
+
+  .home-story-section__media img {
+    max-height: 340px;
+    object-fit: contain;
+  }
+}
 @media (max-width: 767px) {
   .home-story-section.is-card-grid .home-story-section__bullets { grid-template-columns: 1fr; }
   .home-story-section.is-card-grid .home-story-section__bullets li {
