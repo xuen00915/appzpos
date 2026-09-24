@@ -108,7 +108,7 @@ for(const [page,count] of pages){
     const headingsUseSharedNaturalWrap=result.showcaseHeadings.length>0&&result.showcaseHeadings.every(heading=>
       !heading.clipped&&heading.forcedBreaks===0&&heading.maxWidth==='none'&&heading.whiteSpace==='normal'
       &&heading.overflowWrap==='normal'&&heading.wordBreak==='normal'&&heading.hyphens==='none'
-      &&heading.textWrap==='balance'
+      &&heading.textWrap==='wrap'
       &&(width<1024||(heading.widthRatio>=.95&&(heading.featured||heading.cardWidthRatio>=.9))));
     const imagesUseFixedResponsiveFrames=result.showcaseImages.length>0&&result.showcaseImages.every(image=>{
       const expectedHeight=width<=599?230:width<=991?280:image.featured?430:320;
