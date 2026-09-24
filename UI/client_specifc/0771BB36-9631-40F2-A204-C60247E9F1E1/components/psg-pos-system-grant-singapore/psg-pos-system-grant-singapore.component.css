@@ -51,6 +51,11 @@
   justify-self: end;
 }
 
+.psg-hero__art picture {
+  display: block;
+  width: 100%;
+}
+
 .psg-hero__art img {
   display: block;
   width: 100%;
@@ -292,6 +297,10 @@
   }
 
   @media screen and (min-width: 768px) and (max-width: 1023px) {
+    .psg-hero__art {
+      width: min(100%, 760px);
+    }
+
     .psg-hero h1 {
       font-size: clamp(34px, 4.4vw, 44px);
     }
