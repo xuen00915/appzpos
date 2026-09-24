@@ -73,11 +73,14 @@ for (const viewport of viewports) {
         const whatsappIcon = whatsapp?.querySelector('.fa-whatsapp');
         const scrollTop = document.querySelector('#gotoTop');
         const scrollTopStyles = scrollTop ? getComputedStyle(scrollTop) : null;
+        const headerLogo = document.querySelector('.appzpos-header__logo img');
+        const headerLogoBounds = headerLogo?.getBoundingClientRect();
         const legacyControls = [...document.querySelectorAll('a.btn-whatsapp, a.btn-fb')]
           .filter(node => !node.closest('.appz-site-floating-contacts'));
         return {
           scrollWidth: document.documentElement.scrollWidth,
           clientWidth: document.documentElement.clientWidth,
+          headerLogoWidth: headerLogoBounds ? Math.round(headerLogoBounds.width) : null,
           shells,
           titles,
           floating: {
@@ -89,12 +92,15 @@ for (const viewport of viewports) {
             whatsappTarget: whatsapp?.getAttribute('target'),
             whatsappRel: whatsapp?.getAttribute('rel'),
             whatsappBackground: whatsapp ? getComputedStyle(whatsapp).backgroundColor : null,
+            whatsappSize: whatsapp ? Math.round(whatsapp.getBoundingClientRect().width) : null,
             whatsappRadius: whatsapp ? getComputedStyle(whatsapp).borderRadius : null,
             whatsappIconColor: whatsappIcon ? getComputedStyle(whatsappIcon).color : null,
             messengerHref: messenger?.getAttribute('href'),
             messengerTarget: messenger?.getAttribute('target'),
             messengerRel: messenger?.getAttribute('rel'),
+            messengerSize: messenger ? Math.round(messenger.getBoundingClientRect().width) : null,
             legacyVisible: legacyControls.filter(visible).length,
+            scrollTopSize: scrollTopStyles ? Math.round(Number.parseFloat(scrollTopStyles.width)) : null,
             scrollTopRadius: scrollTopStyles?.borderRadius,
             scrollTopInitiallyHidden: scrollTopStyles?.opacity === '0'
               && scrollTopStyles?.visibility === 'hidden'
@@ -106,6 +112,9 @@ for (const viewport of viewports) {
     const result = JSON.parse(evaluation.result.value);
     const profile = `${route || '/'} @ ${viewport.width}x${viewport.height}`;
     if (result.scrollWidth > result.clientWidth + 1) failures.push(`${profile}: horizontal overflow`);
+    if (result.headerLogoWidth !== (viewport.width <= 1100 ? 124 : 136)) {
+      failures.push(`${profile}: header logo size differs (${result.headerLogoWidth}px)`);
+    }
     if (result.floating.rails !== 1 || !result.floating.visible || result.floating.position !== 'fixed'
       || Math.abs(result.floating.top - (viewport.width <= 768
         ? Math.min(190, Math.max(140, viewport.height * .18))
@@ -114,12 +123,15 @@ for (const viewport of viewports) {
       || result.floating.whatsappTarget !== '_blank'
       || !result.floating.whatsappRel?.includes('noopener')
       || result.floating.whatsappBackground !== 'rgb(23, 107, 53)'
+      || result.floating.whatsappSize !== (viewport.width <= 768 ? 56 : 60)
       || result.floating.whatsappRadius !== '50%'
       || result.floating.whatsappIconColor !== 'rgb(255, 255, 255)'
       || !result.floating.messengerHref?.includes('m.me/APPZPOS')
       || result.floating.messengerTarget !== '_blank'
       || !result.floating.messengerRel?.includes('noopener')
+      || result.floating.messengerSize !== (viewport.width <= 768 ? 56 : 60)
       || result.floating.legacyVisible !== 0
+      || result.floating.scrollTopSize !== (viewport.width <= 768 ? 56 : 60)
       || result.floating.scrollTopRadius !== '50%'
       || !result.floating.scrollTopInitiallyHidden) {
       failures.push(`${profile}: sitewide floating controls differ (${JSON.stringify(result.floating)})`);

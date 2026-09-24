@@ -227,12 +227,12 @@ for (const { width, height, maxSectionSpace, minTitleTracking } of viewportProfi
   if (pageContract.floating.count !== 2
     || !pageContract.floating.whatsappLegacyClass
     || !pageContract.floating.messengerLegacyClass
-    || pageContract.floating.withLegacyClasses.whatsapp.width !== (width <= 768 ? '48px' : '52px')
-    || pageContract.floating.withLegacyClasses.whatsapp.height !== (width <= 768 ? '48px' : '52px')
+    || pageContract.floating.withLegacyClasses.whatsapp.width !== (width <= 768 ? '56px' : '60px')
+    || pageContract.floating.withLegacyClasses.whatsapp.height !== (width <= 768 ? '56px' : '60px')
     || pageContract.floating.withLegacyClasses.whatsapp.borderRadius !== '50%'
     || pageContract.floating.withLegacyClasses.whatsapp.backgroundColor !== 'rgb(23, 107, 53)'
-    || pageContract.floating.withLegacyClasses.messenger.width !== (width <= 768 ? '48px' : '52px')
-    || pageContract.floating.withLegacyClasses.messenger.height !== (width <= 768 ? '48px' : '52px')
+    || pageContract.floating.withLegacyClasses.messenger.width !== (width <= 768 ? '56px' : '60px')
+    || pageContract.floating.withLegacyClasses.messenger.height !== (width <= 768 ? '56px' : '60px')
     || pageContract.floating.withLegacyClasses.messenger.borderRadius !== '50%'
     || pageContract.floating.withLegacyClasses.messenger.backgroundColor !== 'rgba(255, 255, 255, 0.96)'
     || pageContract.floating.railPosition !== 'fixed'
