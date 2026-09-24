@@ -78,7 +78,13 @@
                 <img [src]="activeIndustry.screenImage" alt="" decoding="async" />
               </div>
               <div *ngIf="product.brandImage" class="appzpos-software-screen__brand">
-                <img [src]="product.brandImage" alt="APPZPOS" width="300" height="150" decoding="async" />
+                <img *ngIf="officialLogoVisible"
+                     [src]="product.brandImage"
+                     alt="APPZPOS"
+                     width="300"
+                     height="150"
+                     decoding="async"
+                     (error)="hideOfficialLogo()" />
               </div>
               <span class="appzpos-software-screen__reflection" aria-hidden="true"></span>
             </article>

@@ -115,19 +115,24 @@ describe('APPZPOS home hero', () => {
     tick(800);
   }));
 
-  it('uses the official APPZPOS logo in the software display', () => {
+  it('shows the official APPZPOS logo once and removes it cleanly if the asset fails', () => {
     const host = fixture.nativeElement as HTMLElement;
-    const displayLogo = host.querySelector<HTMLImageElement>(
-      '.appzpos-software-screen__brand img'
-    );
+    const logoLayer = host.querySelector<HTMLElement>('.appzpos-software-screen__brand');
+    const officialLogo = logoLayer?.querySelector<HTMLImageElement>('img');
 
-    expect(displayLogo)
-      .withContext('the system display should show a dedicated official APPZPOS logo layer')
-      .not.toBeNull();
-    expect(displayLogo?.getAttribute('src')).toBe(
+    expect(host.querySelectorAll('.appzpos-software-screen__brand').length)
+      .withContext('the software display should expose exactly one logo layer')
+      .toBe(1);
+    expect(officialLogo?.getAttribute('src')).toBe(
       'https://appzpos.com/admin/Upload/0771BB36-9631-40F2-A204-C60247E9F1E1/Images/APPZPOS-300X150px.png'
     );
-    expect(displayLogo?.getAttribute('alt')).toBe('APPZPOS');
+
+    officialLogo?.dispatchEvent(new Event('error'));
+    fixture.detectChanges();
+
+    expect(logoLayer?.querySelector('img'))
+      .withContext('a failed official logo should leave a clean covered area instead of a duplicate or broken image')
+      .toBeNull();
   });
 
   it('places the order-flow story directly after the homepage hero', () => {

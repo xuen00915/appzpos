@@ -35,6 +35,7 @@ export class HomeHeroComponent implements OnInit, OnChanges, OnDestroy {
   activeIndustry?: HomeHeroIndustry;
   activeIndustryId = '';
   transitionPhase: HeroTransitionPhase = 'settled';
+  officialLogoVisible = true;
 
   private activeIndustryIndex = 0;
   private autoplayTimer?: ReturnType<typeof setInterval>;
@@ -112,11 +113,16 @@ export class HomeHeroComponent implements OnInit, OnChanges, OnDestroy {
     }
   }
 
+  hideOfficialLogo(): void {
+    this.officialLogoVisible = false;
+  }
+
   private resetFromConfig(): void {
     this.stopAutoplay();
     this.clearTransitionTimers();
     this.activeIndustryIndex = 0;
     this.transitionPhase = 'settled';
+    this.officialLogoVisible = true;
     const firstIndustry = this.productVisual?.industries[0];
     this.activeIndustry = firstIndustry;
     this.activeIndustryId = firstIndustry?.id ?? '';

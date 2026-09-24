@@ -66,7 +66,8 @@ for (const width of viewports) {
       };
       const screenWindow = document.querySelector('.appzpos-product-hero__screen-window');
       const screenPlane = document.querySelector('.appzpos-product-hero__screen-plane');
-      const screenBrand = document.querySelector('.appzpos-software-screen__brand');
+      const screenBrandOverlays = [...document.querySelectorAll('.appzpos-software-screen__brand')];
+      const screenBrand = screenBrandOverlays[0];
       const screenBrandImage = screenBrand?.querySelector('img');
       const screenImages = [...document.querySelectorAll('.appzpos-screen-slice img')];
       const moduleCards = [...document.querySelectorAll('.appzpos-module-orbit__card')];
@@ -86,7 +87,22 @@ for (const width of viewports) {
       machineContext.drawImage(machineImage, 0, 0);
       const alphaAt = (x, y) => machineContext.getImageData(x, y, 1, 1).data[3];
       const windowRect = rect(screenWindow);
-      const brandRect = rect(screenBrand);
+      const planeRect = rect(screenPlane);
+      const planeStyle = getComputedStyle(screenPlane);
+      const planeMatrix = new DOMMatrix(planeStyle.transform === 'none' ? undefined : planeStyle.transform);
+      const [planeOriginX, planeOriginY] = planeStyle.transformOrigin.split(' ').map(parseFloat);
+      const planeLeft = parseFloat(planeStyle.left);
+      const planeTop = parseFloat(planeStyle.top);
+      const planeWidth = parseFloat(planeStyle.width);
+      const planeHeight = parseFloat(planeStyle.height);
+      const brandStyle = screenBrand ? getComputedStyle(screenBrand) : null;
+      const projectPlanePoint = (x, y) => {
+        const point = new DOMPoint(x - planeOriginX, y - planeOriginY).matrixTransform(planeMatrix);
+        return {
+          x: (planeLeft + (point.x / point.w) + planeOriginX) / screenWindow.clientWidth,
+          y: (planeTop + (point.y / point.w) + planeOriginY) / screenWindow.clientHeight
+        };
+      };
       const screenIsHitAt = (xRatio, yRatio) => document
         .elementsFromPoint(
           windowRect.x + (windowRect.width * xRatio),
@@ -95,15 +111,27 @@ for (const width of viewports) {
         .some((element) => element === screenWindow || screenWindow.contains(element));
       return {
         window: windowRect,
-        plane: rect(screenPlane),
+        plane: planeRect,
         screenPresentation: {
-          transform: getComputedStyle(screenPlane).transform,
-          brand: brandRect,
-          brandImageLoaded: Boolean(screenBrandImage?.complete && screenBrandImage.naturalWidth),
-          brandLeftRatio: (brandRect.x - windowRect.x) / windowRect.width,
-          brandTopRatio: (brandRect.y - windowRect.y) / windowRect.height,
-          brandRightRatio: (brandRect.x + brandRect.width - windowRect.x) / windowRect.width,
-          brandBottomRatio: (brandRect.y + brandRect.height - windowRect.y) / windowRect.height
+          transform: planeStyle.transform,
+          brandOverlayCount: screenBrandOverlays.length,
+          officialLogoSource: screenBrandImage?.getAttribute('src') ?? null,
+          brandCover: brandStyle ? {
+            left: parseFloat(brandStyle.left) / planeWidth,
+            top: parseFloat(brandStyle.top) / planeHeight,
+            right: (parseFloat(brandStyle.left) + parseFloat(brandStyle.width)) / planeWidth,
+            bottom: (parseFloat(brandStyle.top) + parseFloat(brandStyle.height)) / planeHeight,
+            backgroundColor: brandStyle.backgroundColor
+          } : null,
+          usesAuthenticScreenArtwork: screenImages.every((image) => image.getAttribute('src') === 'assets/images/appzpos-screen-quick-service.png'),
+          projectedTopRatio: (planeRect.y - windowRect.y) / windowRect.height,
+          projectedBottomRatio: (planeRect.y + planeRect.height - windowRect.y) / windowRect.height,
+          projectedCorners: {
+            topLeft: projectPlanePoint(0, 0),
+            topRight: projectPlanePoint(planeWidth, 0),
+            bottomLeft: projectPlanePoint(0, planeHeight),
+            bottomRight: projectPlanePoint(planeWidth, planeHeight)
+          }
         },
         images: screenImages.map(rect),
         moduleCards: moduleCards.map(rect),
@@ -380,14 +408,36 @@ for (const [width, layout] of Object.entries(layouts)) {
   if (layout.screenPresentation.transform === 'none') {
     failures.push(`${width}px: the POS interface is flattened instead of following the device-screen perspective`);
   }
-  if (!layout.screenPresentation.brandImageLoaded) {
-    failures.push(`${width}px: the APPZPOS screen mark did not load`);
+  if (layout.screenPresentation.brandOverlayCount !== 1) {
+    failures.push(`${width}px: expected one official logo cover, found ${layout.screenPresentation.brandOverlayCount}`);
   }
-  if (layout.screenPresentation.brandLeftRatio < .14
-    || layout.screenPresentation.brandTopRatio < .05
-    || layout.screenPresentation.brandRightRatio > .32
-    || layout.screenPresentation.brandBottomRatio > .28) {
-    failures.push(`${width}px: the APPZPOS screen mark enters the bezel clipping zone`);
+  if (layout.screenPresentation.officialLogoSource !== 'https://appzpos.com/admin/Upload/0771BB36-9631-40F2-A204-C60247E9F1E1/Images/APPZPOS-300X150px.png') {
+    failures.push(`${width}px: the system display does not use the official APPZPOS logo URL`);
+  }
+  const logoCover = layout.screenPresentation.brandCover;
+  if (!logoCover
+    || logoCover.left > .01
+    || logoCover.top > .01
+    || logoCover.right < .18
+    || logoCover.bottom < .13
+    || logoCover.backgroundColor === 'rgba(0, 0, 0, 0)') {
+    failures.push(`${width}px: the official logo layer does not fully cover the baked-in screen logo`);
+  }
+  if (!layout.screenPresentation.usesAuthenticScreenArtwork) {
+    failures.push(`${width}px: the Quick Service device does not use the authentic APPZPOS screen artwork`);
+  }
+
+  const { topLeft, topRight, bottomLeft, bottomRight } = layout.screenPresentation.projectedCorners;
+  const fitsTopEdge = topLeft.x >= .124 && topLeft.x <= .15
+    && topRight.x >= .85 && topRight.x <= .876
+    && layout.screenPresentation.projectedTopRatio >= .0015
+    && layout.screenPresentation.projectedTopRatio <= .015;
+  const fitsBottomEdge = bottomLeft.x >= .0135 && bottomLeft.x <= .03
+    && bottomRight.x >= .97 && bottomRight.x <= .9865
+    && layout.screenPresentation.projectedBottomRatio >= .98
+    && layout.screenPresentation.projectedBottomRatio <= .998;
+  if (!fitsTopEdge || !fitsBottomEdge) {
+    failures.push(`${width}px: the projected interface corners do not fit the physical device screen`);
   }
 
   for (const [corner, leaks] of Object.entries(layout.cornerGuardLeaks)) {
