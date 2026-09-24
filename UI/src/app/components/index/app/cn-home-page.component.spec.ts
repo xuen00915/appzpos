@@ -49,7 +49,10 @@ describe('CustomHomeCNComponent', () => {
     });
 
     component.openDialog();
-    expect(dialog.open).toHaveBeenCalledWith(CNModalRequestDemoComponent, { width: '600px' });
+    expect(dialog.open).toHaveBeenCalledWith(CNModalRequestDemoComponent, {
+      width: '600px',
+      panelClass: 'appz-demo-dialog'
+    });
   });
 
   it('renders the English product hero interaction with the exact Chinese copy', fakeAsync(() => {

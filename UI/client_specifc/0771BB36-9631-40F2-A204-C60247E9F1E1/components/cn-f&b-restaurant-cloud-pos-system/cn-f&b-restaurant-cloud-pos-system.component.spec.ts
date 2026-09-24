@@ -49,7 +49,10 @@ describe('CustomHomeCNComponent', () => {
     });
 
     component.openDialog();
-    expect(dialog.open).toHaveBeenCalledWith(CNModalRequestDemoComponent, { width: '600px' });
+    expect(dialog.open).toHaveBeenCalledWith(CNModalRequestDemoComponent, {
+      width: '600px',
+      panelClass: 'appz-demo-dialog'
+    });
   });
 
   it('renders one shared-template hero with the original Chinese copy and CTA destinations', () => {

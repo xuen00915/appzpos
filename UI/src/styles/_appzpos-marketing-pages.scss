@@ -229,7 +229,7 @@ main.appz-home-story {
   .mat-dialog-container,
   .mat-mdc-dialog-container,
   .mat-mdc-dialog-surface {
-    border-radius: 22px;
+    border-radius: 22px !important;
     overflow: hidden;
     padding: 0;
   }

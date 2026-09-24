@@ -35,7 +35,10 @@ export class CustomHomeCNComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(CNModalRequestDemoComponent, { width: '600px' });
+    const dialogRef = this.dialog.open(CNModalRequestDemoComponent, {
+      width: '600px',
+      panelClass: 'appz-demo-dialog'
+    });
     dialogRef.afterClosed().subscribe(() => console.log('The dialog was closed'));
   }
 }
