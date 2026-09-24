@@ -307,8 +307,8 @@ for (const [width, layout] of Object.entries(layouts)) {
   if (layout.description !== expectedDescription) failures.push(`${width}px: hero description differs from the approved wording`);
   if (!layout.copy || !layout.media || !layout.image) failures.push(`${width}px: hero copy or support image is missing`);
   if (layout.image && !layout.image.loaded) failures.push(`${width}px: support image did not load`);
-  if (layout.image && !layout.image.src.endsWith('appzpos-contact-support-original.png')) failures.push(`${width}px: hero does not use the clean original image asset`);
-  if (layout.image && (layout.image.naturalWidth !== 3000 || layout.image.naturalHeight !== 997)) failures.push(`${width}px: hero image is not the original 3000 by 997 source`);
+  if (layout.image && !layout.image.src.endsWith('contact-us-pos.webp')) failures.push(`${width}px: hero does not use the approved contact image asset`);
+  if (layout.image && (layout.image.naturalWidth !== 2086 || layout.image.naturalHeight !== 754)) failures.push(`${width}px: hero image is not the approved 2086 by 754 source`);
   if (layout.image && !/customer support specialist wearing a headset/i.test(layout.image.alt)) failures.push(`${width}px: support image alt text is not descriptive`);
   if (layout.image && layout.image.objectFit !== 'cover') failures.push(`${width}px: support image is not cropped responsively`);
   if (layout.image && layout.image.objectPosition !== '76% 50%') failures.push(`${width}px: support image crop is not focused on the headset operator`);
