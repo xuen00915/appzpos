@@ -2,7 +2,7 @@
   --appz-floating-gap: 18px;
   --appz-floating-size: 60px;
   position: fixed;
-  top: clamp(170px, 22vh, 260px);
+  top: clamp(240px, 34vh, 360px);
   right: max(22px, env(safe-area-inset-right));
   bottom: auto;
   z-index: 990;
@@ -100,7 +100,7 @@
   .appz-site-floating-contacts {
     --appz-floating-gap: 16px;
     --appz-floating-size: 56px;
-    top: clamp(140px, 18vh, 190px);
+    top: clamp(200px, 28vh, 260px);
     right: max(12px, env(safe-area-inset-right));
   }
 

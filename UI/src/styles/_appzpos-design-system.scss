@@ -200,7 +200,7 @@ app-root .appz-home-floating-contacts {
 body:has(.appz-site-floating-contacts) #gotoTop {
   --cnvs-gotoTop-size: 60px;
   box-sizing: border-box;
-  top: calc(clamp(170px, 22vh, 260px) + 156px);
+  top: calc(clamp(240px, 34vh, 360px) + 156px);
   right: max(22px, env(safe-area-inset-right));
   bottom: auto;
   display: flex;
@@ -254,7 +254,7 @@ body:has(.appz-site-floating-contacts) #gotoTop:focus-visible {
 @media (max-width: 768px) {
   body:has(.appz-site-floating-contacts) #gotoTop {
     --cnvs-gotoTop-size: 56px;
-    top: calc(clamp(140px, 18vh, 190px) + 144px);
+    top: calc(clamp(200px, 28vh, 260px) + 144px);
     right: max(12px, env(safe-area-inset-right));
   }
 }
