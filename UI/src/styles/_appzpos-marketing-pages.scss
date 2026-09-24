@@ -1968,3 +1968,29 @@ app-solution-page {
   line-height: var(--appz-section-title-line) !important;
   text-wrap: balance;
 }
+
+/* English homepage: direct section headings and a compact, single rhythm. */
+[data-home-page-template][lang='en'] {
+  --appz-home-section-edge: clamp(30px, 3vw, 42px);
+  --appz-section-space: var(--appz-home-section-edge);
+}
+
+[data-home-page-template][lang='en'] .appz-ecosystem {
+  padding-top: var(--appz-home-section-edge);
+  padding-bottom: var(--appz-home-section-edge);
+}
+
+[data-home-page-template][lang='en'] .appz-home-story .appz-section,
+[data-home-page-template][lang='en'] .appz-home-story .ecosystem__features {
+  padding-top: var(--appz-home-section-edge);
+  padding-bottom: var(--appz-home-section-edge);
+}
+
+[data-home-page-template][lang='en'] .appz-home-story .ecosystem__grant,
+[data-home-page-template][lang='en'] .appz-home-story .ecosystem__features {
+  margin-bottom: 0;
+}
+
+[data-home-page-template][lang='en'] .appz-demo__eyebrow {
+  display: none;
+}

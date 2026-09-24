@@ -9,7 +9,6 @@ import {
 } from './home-page-sections.en';
 
 export const ENGLISH_HOME_SOLUTIONS_CONFIG: HomeSolutionsConfig = {
-  eyebrow: 'CONNECTED APPZPOS ECOSYSTEM',
   title: 'Everything Works Together',
   description: 'From order to kitchen, pickup, delivery and management — connect the APPZPOS modules that fit your business.',
   initialItemId: 'dining',

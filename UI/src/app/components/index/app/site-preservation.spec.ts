@@ -47,7 +47,10 @@ describe('APPZPOS preservation contract', () => {
     expect(host.querySelector<HTMLAnchorElement>('a[href^="https://wa.me/6583109631"]')?.getAttribute('href'))
       .toBe("https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!");
     const config = (fixture.componentInstance as any).pageConfig;
-    expect(config.hardware.eyebrow).toBe('Software + Hardware');
-    expect(config.features.eyebrow).toBe('Key Features');
+    expect(config.solutions.eyebrow).toBeUndefined();
+    expect(config.hardware.eyebrow).toBeUndefined();
+    expect(config.growth.eyebrow).toBeUndefined();
+    expect(config.features.eyebrow).toBeUndefined();
+    expect(config.industries.eyebrow).toBeUndefined();
   });
 });

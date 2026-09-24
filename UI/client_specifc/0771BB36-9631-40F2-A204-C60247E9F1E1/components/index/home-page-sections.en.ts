@@ -7,7 +7,6 @@ import {
 } from '../home-page-template/home-page-template.models';
 
 export const ENGLISH_HOME_HARDWARE_CONFIG: HomeHardwareConfig = {
-  eyebrow: 'Software + Hardware',
   title: 'Integrated POS System with Customized Software and Hardware',
   paragraphs: [
     'APPZPOS delivers comprehensive POS solutions, featuring flexible software and hardware setups designed to meet your specific business requirements. Our system provides complete restaurant management, equipped with powerful tools for third-party integrations, contactless ordering, delivery, inventory management, data analytics, and more.'
@@ -39,7 +38,6 @@ export const ENGLISH_HOME_GRANT_CONFIG: HomeGrantConfig = {
 };
 
 export const ENGLISH_HOME_GROWTH_CONFIG: HomeGrowthSectionConfig = {
-  eyebrow: 'GROW YOUR BUSINESS',
   title: 'Grow Your Business Revenue with APPZPOS Solution',
   items: [
     {
@@ -66,7 +64,6 @@ export const ENGLISH_HOME_GROWTH_CONFIG: HomeGrowthSectionConfig = {
 };
 
 export const ENGLISH_HOME_FEATURES_CONFIG: HomeFeatureSectionConfig = {
-  eyebrow: 'Key Features',
   title: 'Key Features',
   items: [
     {
@@ -103,7 +100,6 @@ export const ENGLISH_HOME_FEATURES_CONFIG: HomeFeatureSectionConfig = {
 };
 
 export const ENGLISH_HOME_INDUSTRIES_CONFIG: HomeIndustrySectionConfig = {
-  eyebrow: 'INDUSTRIES',
   title: 'POS Integration Across Diverse Sectors',
   description: 'Find the sector that fits your business and see the connected APPZPOS modules built around it.',
   moreInfoLabel: 'More Info',
