@@ -6,12 +6,12 @@ const expectedTitle = 'EDGE Grant Support for Singapore Businesses | F&B POS Pac
 const expectedHeading = 'Up to 50% Monetary Support To Kickstart Your F&B Business';
 const expectedDescription = 'Eligible Singapore companies can receive EDGE Grant support for qualifying APPZPOS digitalisation projects. Support levels vary by activity.';
 const expectedFaqQuestions = [
-  'Q: What will be the reimbursement amount ?',
-  'Q: What are the packages you provide ?',
-  'Q: Who can apply ?',
-  'Q: Where can I apply for EDGE Grant?',
-  'Q: Why Appzgate Solutions ?',
-  'Q: How to Apply ?'
+  'What will be the reimbursement amount ?',
+  'What are the packages you provide ?',
+  'Who can apply ?',
+  'Where can I apply for EDGE Grant?',
+  'Why Appzgate Solutions ?',
+  'How to Apply ?'
 ];
 const expectedFaqAnswerItemCounts = [1, 6, 4, 1, 4, 4];
 const expectedApplySteps = [
@@ -186,6 +186,7 @@ for (const width of viewports) {
       const applyCardsContainer = apply?.querySelector('.psg-apply__cards');
       const packageViews = [...document.querySelectorAll('#content > .content-wrap > #webview, #content > .content-wrap > #mobile_view')];
       const visiblePackageView = packageViews.find((element) => element.getBoundingClientRect().width > 0 && element.getBoundingClientRect().height > 0);
+      const packageContainer = visiblePackageView?.querySelector(':scope > .container');
       const packageCards = visiblePackageView ? [...visiblePackageView.querySelectorAll('.card')] : [];
       const packageFilters = visiblePackageView ? [...visiblePackageView.querySelectorAll('[data-package-filter]')] : [];
       const scriptSources = [...document.scripts].map((script) => script.src).filter(Boolean);
@@ -368,6 +369,20 @@ for (const width of viewports) {
               quoteHref: body?.querySelector('a[href*="wa.me/6583109631"]')?.getAttribute('href') ?? ''
             };
           })
+        },
+        rhythm: {
+          heroPaddingTop: inner ? parseFloat(getComputedStyle(inner).paddingTop) : -1,
+          heroPaddingBottom: inner ? parseFloat(getComputedStyle(inner).paddingBottom) : -1,
+          overviewPaddingTop: overview ? parseFloat(getComputedStyle(overview).paddingTop) : -1,
+          overviewPaddingBottom: overview ? parseFloat(getComputedStyle(overview).paddingBottom) : -1,
+          overviewGridGap: overviewGrid ? parseFloat(getComputedStyle(overviewGrid).rowGap) : -1,
+          packagesMarginTop: packageContainer ? parseFloat(getComputedStyle(packageContainer).marginTop) : -1,
+          applyMarginTop: apply ? parseFloat(getComputedStyle(apply).marginTop) : -1,
+          applyMarginBottom: apply ? parseFloat(getComputedStyle(apply).marginBottom) : -1,
+          applyPaddingTop: apply ? parseFloat(getComputedStyle(apply).paddingTop) : -1,
+          applyPaddingBottom: apply ? parseFloat(getComputedStyle(apply).paddingBottom) : -1,
+          faqMarginTop: faq ? parseFloat(getComputedStyle(faq).marginTop) : -1,
+          faqMarginBottom: faq ? parseFloat(getComputedStyle(faq).marginBottom) : -1
         },
         tagging: {
           googleTagManagerLoaded: scriptSources.some((src) => src.includes('googletagmanager.com/gtm.js?id=GTM-N7VKTGG')),
@@ -565,6 +580,15 @@ for (const [width, layout] of Object.entries(layouts)) {
   if (!layout.faq.firstItemOpen || !layout.faq.firstAnswer || layout.faq.firstAnswer.height <= 0) failures.push(`${width}px: PSG FAQ accordion does not expand its answer when clicked`);
   if (layout.faq.buttonBackgroundColor !== 'rgb(116, 57, 149)' || layout.faq.buttonColor !== 'rgb(255, 255, 255)') failures.push(`${width}px: PSG FAQ plus/minus button does not use the approved purple and white treatment`);
   if (!layout.faq.grantPortalLink || !layout.faq.contactLink) failures.push(`${width}px: PSG FAQ resource or contact link changed or is missing`);
+  const maximumRhythm = Number(width) <= 575
+    ? { hero: 48, overview: 48, packages: 48, applyMargin: 48, applyPadding: 48, faq: 48 }
+    : { hero: 72, overview: 64, packages: 64, applyMargin: 72, applyPadding: 68, faq: 72 };
+  if (layout.rhythm.heroPaddingTop > maximumRhythm.hero || layout.rhythm.heroPaddingBottom > maximumRhythm.hero) failures.push(`${width}px: PSG hero spacing remains too large`);
+  if (layout.rhythm.overviewPaddingTop > maximumRhythm.overview || layout.rhythm.overviewPaddingBottom > maximumRhythm.overview) failures.push(`${width}px: PSG overview spacing remains too large`);
+  if (Number(width) <= 1023 && layout.rhythm.overviewGridGap > 64) failures.push(`${width}px: PSG overview panels remain too far apart`);
+  if (layout.rhythm.packagesMarginTop > maximumRhythm.packages) failures.push(`${width}px: PSG packages spacing remains too large`);
+  if (layout.rhythm.applyMarginTop > maximumRhythm.applyMargin || layout.rhythm.applyMarginBottom > maximumRhythm.applyMargin || layout.rhythm.applyPaddingTop > maximumRhythm.applyPadding || layout.rhythm.applyPaddingBottom > maximumRhythm.applyPadding) failures.push(`${width}px: PSG application section spacing remains too large`);
+  if (layout.rhythm.faqMarginTop > maximumRhythm.faq || layout.rhythm.faqMarginBottom > maximumRhythm.faq) failures.push(`${width}px: PSG FAQ spacing remains too large`);
   if (!layout.apply.section || !layout.apply.title || !layout.apply.cardsContainer) failures.push(`${width}px: responsive PSG application steps section is missing`);
   if (layout.apply.titleText !== 'How to Apply for EDGE Grant for Our POS System') failures.push(`${width}px: EDGE Grant application section title changed`);
   if (JSON.stringify(layout.apply.cards.map(({ number, title, description }) => ({ number, title, description }))) !== JSON.stringify(expectedApplySteps)) failures.push(`${width}px: PSG application steps changed or are not rendered as three cards`);

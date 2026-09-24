@@ -956,8 +956,9 @@ app-psg-pos-system-grant-singapore {
     margin-top: 0;
   }
 
-  #content #webview.psg-packages-view > .container {
-    margin-top: clamp(64px, 7vw, 88px) !important;
+  #content:not(.appz-home-story) .content-wrap > #webview.psg-packages-view > .container,
+  #content:not(.appz-home-story) .content-wrap > #mobile_view.psg-packages-view > .container {
+    margin-top: clamp(44px, 5vw, 64px) !important;
   }
 
   .psg-package-filters {
@@ -1159,9 +1160,9 @@ app-psg-pos-system-grant-singapore {
     transform: none !important;
   }
 
-  #content .psg-faq {
+  #content:not(.appz-home-story) .content-wrap > .container.psg-faq {
     width: min(100% - 40px, 960px);
-    margin: clamp(72px, 9vw, 112px) auto !important;
+    margin: clamp(48px, 6vw, 72px) auto !important;
   }
 
   #content .psg-faq__title {
@@ -1252,8 +1253,8 @@ app-psg-pos-system-grant-singapore {
   }
 
   #content .psg-apply {
-    margin: clamp(72px, 9vw, 112px) 0;
-    padding: clamp(64px, 8vw, 96px) 0;
+    margin: clamp(48px, 6vw, 72px) 0;
+    padding: clamp(44px, 5.5vw, 68px) 0;
     background: #f4f8fc;
   }
 

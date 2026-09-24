@@ -11,8 +11,8 @@
   align-items: center;
   gap: clamp(40px, 6vw, 84px);
   min-height: 520px;
-  padding-top: clamp(56px, 7vw, 92px);
-  padding-bottom: clamp(56px, 7vw, 92px);
+  padding-top: clamp(44px, 5vw, 72px);
+  padding-bottom: clamp(44px, 5vw, 72px);
 }
 
 .psg-hero__copy {
@@ -54,7 +54,7 @@
 }
 
 .psg-overview {
-  padding: clamp(60px, 7vw, 92px) 0;
+  padding: clamp(44px, 5.5vw, 64px) 0;
   background: #fff;
 }
 
@@ -265,7 +265,7 @@
 
     .psg-overview__grid {
       grid-template-columns: minmax(0, 1fr);
-      gap: 88px;
+      gap: 56px;
     }
   }
 
@@ -291,7 +291,7 @@
     }
 
     .psg-overview {
-      padding: 52px 0;
+      padding: 44px 0;
     }
 
     .psg-vendor__title {
