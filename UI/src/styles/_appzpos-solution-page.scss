@@ -410,7 +410,9 @@ b, strong {
   }
 
   .pos-overview__visual img {
-    width: min(88%, 440px);
+    width: min(88%, 360px);
+    max-height: 300px;
+    object-fit: contain;
   }
 
   .pos-feature-section {
@@ -473,6 +475,19 @@ b, strong {
   .pos-hardware__size select {
     min-width: 0;
     flex: 1;
+  }
+}
+
+/* Keep the first post-hero solution artwork compact on laptop-sized tablets. */
+@media (min-width: 769px) and (max-width: 1023px) {
+  .pos-overview__layout {
+    gap: 32px;
+  }
+
+  .pos-overview__visual img {
+    width: min(100%, 380px);
+    max-height: 320px;
+    object-fit: contain;
   }
 }
 }
