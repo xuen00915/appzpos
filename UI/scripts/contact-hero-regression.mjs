@@ -92,6 +92,12 @@ for (const width of viewports) {
   await send('Runtime.evaluate', {
     expression: `(() => {
       window.__contactSendEmailCalls = 0;
+      const initialForm = document.querySelector('.contact-form-panel')?.getBoundingClientRect();
+      const initialDetails = document.querySelector('.contact-details-panel')?.getBoundingClientRect();
+      window.__contactInitialColumnHeights = {
+        form: initialForm?.height ?? 0,
+        details: initialDetails?.height ?? 0
+      };
       const originalOpen = XMLHttpRequest.prototype.open;
       const originalSend = XMLHttpRequest.prototype.send;
       XMLHttpRequest.prototype.open = function(method, url, ...rest) {
@@ -125,9 +131,12 @@ for (const width of viewports) {
         .find((element) => element.getBoundingClientRect().width > 0);
       const availabilityHeading = availability?.querySelector('h2');
       const availabilityDescription = availability?.querySelector('p');
+      const footer = document.querySelector('footer');
       const workspace = document.querySelector('.contact-workspace');
       const formPanel = workspace?.querySelector('.contact-form-panel');
+      const formWidget = formPanel?.querySelector('.form-widget');
       const form = formPanel?.querySelector('form');
+      const formRow = form?.querySelector(':scope > .row');
       const formControls = form ? [...form.querySelectorAll('input:not([type="submit"]), select, textarea')] : [];
       const message = form?.querySelector('#message');
       const submit = form?.querySelector('input[type="submit"]');
@@ -152,7 +161,8 @@ for (const width of viewports) {
           iconColor: icon ? getComputedStyle(icon.querySelector('i')).color : '',
           headingColor: heading ? getComputedStyle(heading).color : '',
           titleColor: title ? getComputedStyle(title).color : '',
-          linkColor: link ? getComputedStyle(link).color : ''
+          linkColor: link ? getComputedStyle(link).color : '',
+          borderTopWidth: getComputedStyle(card).borderTopWidth
         };
       }) : [];
       const scriptSources = [...document.scripts].map((script) => script.src).filter(Boolean);
@@ -180,7 +190,17 @@ for (const width of viewports) {
           description: bounds(availabilityDescription),
           descriptionAlign: availabilityDescription ? getComputedStyle(availabilityDescription).textAlign : ''
         },
+        footer: bounds(footer),
+        spacing: {
+          aboveAvailability: hero && availability
+            ? bounds(availability).y - (bounds(hero).y + bounds(hero).height) : null,
+          belowAvailability: availabilityDescription && workspace
+            ? bounds(workspace).y - (bounds(availabilityDescription).y + bounds(availabilityDescription).height) : null,
+          beforeFooter: workspace && footer
+            ? bounds(footer).y - (bounds(workspace).y + bounds(workspace).height) : null
+        },
         contact: {
+          initialColumnHeights: window.__contactInitialColumnHeights,
           workspace: bounds(workspace),
           workspacePresentation: workspace ? {
             backgroundColor: getComputedStyle(workspace).backgroundColor,
@@ -192,10 +212,23 @@ for (const width of viewports) {
           formPresentation: formPanel ? {
             backgroundColor: getComputedStyle(formPanel).backgroundColor,
             borderTopWidth: getComputedStyle(formPanel).borderTopWidth,
+            borderTopColor: getComputedStyle(formPanel).borderTopColor,
+            boxShadow: getComputedStyle(formPanel).boxShadow,
+            rowBackgroundColor: formRow ? getComputedStyle(formRow).backgroundColor : '',
+            rowBorderTopWidth: formRow ? getComputedStyle(formRow).borderTopWidth : '',
+            rowBoxShadow: formRow ? getComputedStyle(formRow).boxShadow : '',
             messageRows: Number(message?.getAttribute('rows') ?? 0),
             message: bounds(message),
             submit: bounds(submit),
             title: bounds(formPanel.querySelector('.fancy-title')),
+            titleHeading: bounds(formPanel.querySelector('.fancy-title h3')),
+            titleAlign: getComputedStyle(formPanel.querySelector('.fancy-title')).textAlign,
+            widgetBackgroundColor: formWidget ? getComputedStyle(formWidget).backgroundColor : '',
+            widgetBorderTopWidth: formWidget ? getComputedStyle(formWidget).borderTopWidth : '',
+            widgetBoxShadow: formWidget ? getComputedStyle(formWidget).boxShadow : '',
+            formBackgroundColor: form ? getComputedStyle(form).backgroundColor : '',
+            formBorderTopWidth: form ? getComputedStyle(form).borderTopWidth : '',
+            formBoxShadow: form ? getComputedStyle(form).boxShadow : '',
             row: bounds(formPanel.querySelector('form > .row')),
             groups: [...formPanel.querySelectorAll('.form-group')].map((group) => ({
               bounds: bounds(group),
@@ -285,11 +318,34 @@ for (const [width, layout] of Object.entries(layouts)) {
     || layout.contact.workspacePresentation.borderTopWidth !== '0px'
     || layout.contact.workspacePresentation.boxShadow !== 'none'
     || layout.contact.workspacePresentation.paddingTop !== '0px') {
-    failures.push(`${width}px: the large workspace container layer is still visible`);
+    failures.push(`${width}px: the overall two-column workspace is not transparent and borderless`);
   }
   if (!layout.contact.formPresentation) failures.push(`${width}px: contact form presentation could not be measured`);
-  if (layout.contact.formPresentation && layout.contact.formPresentation.backgroundColor !== 'rgba(0, 0, 0, 0)') failures.push(`${width}px: contact form still has a second colored background layer`);
-  if (layout.contact.formPresentation && layout.contact.formPresentation.borderTopWidth !== '0px') failures.push(`${width}px: contact form still has a nested panel border`);
+  if (layout.contact.formPresentation && layout.contact.formPresentation.backgroundColor !== 'rgba(0, 0, 0, 0)') failures.push(`${width}px: contact form has a colored background`);
+  if (layout.contact.formPresentation && (layout.contact.formPresentation.borderTopWidth !== '2px'
+    || layout.contact.formPresentation.borderTopColor !== 'rgb(245, 130, 32)')) {
+    failures.push(`${width}px: contact form is missing its APPZPOS-orange outer line`);
+  }
+  if (layout.contact.formPresentation && (layout.contact.formPresentation.titleAlign !== 'center'
+    || !layout.contact.formPresentation.title || !layout.contact.formPresentation.titleHeading
+    || Math.abs(
+      layout.contact.formPresentation.titleHeading.x + (layout.contact.formPresentation.titleHeading.width / 2)
+      - layout.contact.formPresentation.title.x - (layout.contact.formPresentation.title.width / 2)
+    ) > 2)) failures.push(`${width}px: form heading is not centered`);
+  if (layout.contact.formPresentation && (layout.contact.formPresentation.widgetBackgroundColor !== 'rgba(0, 0, 0, 0)'
+    || layout.contact.formPresentation.widgetBorderTopWidth !== '0px'
+    || layout.contact.formPresentation.widgetBoxShadow !== 'none'
+    || layout.contact.formPresentation.formBackgroundColor !== 'rgba(0, 0, 0, 0)'
+    || layout.contact.formPresentation.formBorderTopWidth !== '0px'
+    || layout.contact.formPresentation.formBoxShadow !== 'none')) {
+    failures.push(`${width}px: the legacy form container layer is still visible`);
+  }
+  if (layout.contact.formPresentation && (layout.contact.formPresentation.boxShadow !== 'none'
+    || layout.contact.formPresentation.rowBackgroundColor !== 'rgba(0, 0, 0, 0)'
+    || layout.contact.formPresentation.rowBorderTopWidth !== '0px'
+    || layout.contact.formPresentation.rowBoxShadow !== 'none')) {
+    failures.push(`${width}px: the form still renders an inner card layer`);
+  }
   if (layout.contact.formPresentation && layout.contact.formPresentation.messageRows > 4) failures.push(`${width}px: message field is not compact`);
   if (layout.contact.formPresentation?.message && layout.contact.formPresentation?.submit && Math.abs(layout.contact.formPresentation.message.width - layout.contact.formPresentation.submit.width) > 1) failures.push(`${width}px: submit button does not span the same width as the form`);
   if (layout.contact.formPresentation && layout.contact.formPresentation.enabledControlCount !== 5) failures.push(`${width}px: one or more contact form controls are missing or disabled`);
@@ -308,7 +364,11 @@ for (const [width, layout] of Object.entries(layouts)) {
     ['Follow Us on Instagram', '@apppzgatesolutions']
   ];
   for (const [index, card] of layout.contact.channelCards.entries()) {
-    if (card.display !== 'flex' || card.flexDirection !== 'column') failures.push(`${width}px: contact card ${index + 1} is not vertically centered`);
+    if (card.display !== 'flex' || card.flexDirection !== 'row' || !card.icon || !card.content
+      || card.content.x <= card.icon.x + card.icon.width) {
+      failures.push(`${width}px: contact card ${index + 1} does not place its icon to the left of the wording`);
+    }
+    if (card.borderTopWidth !== '0px') failures.push(`${width}px: contact card ${index + 1} still has an outer border`);
     if (card.title !== expectedChannelCopy[index][0] || card.detail !== expectedChannelCopy[index][1]) {
       failures.push(`${width}px: contact card ${index + 1} wording differs (${card.title} / ${card.detail})`);
     }
@@ -323,7 +383,7 @@ for (const [width, layout] of Object.entries(layouts)) {
     const [first, second, third, fourth] = layout.contact.channelCards.map(({ card }) => card);
     if (Math.abs(first.y - second.y) > 1 || Math.abs(third.y - fourth.y) > 1
       || Math.abs(first.x - third.x) > 1 || Math.abs(second.x - fourth.x) > 1
-      || third.y <= first.y || first.height > 140) {
+      || third.y <= first.y || first.height > (Number(width) <= 575 ? 92 : 84)) {
       failures.push(`${width}px: contact cards are not a compact 2x2 grid`);
     }
   }
@@ -337,13 +397,25 @@ for (const [width, layout] of Object.entries(layouts)) {
   }
   if (!Object.values(layout.tagging).every(Boolean)) failures.push(`${width}px: Google Tag Manager or Meta Pixel tagging is missing`);
   if (layout.page.scrollWidth > layout.page.clientWidth) failures.push(`${width}px: page has horizontal overflow`);
+  if (layout.hero && layout.availability.panel
+    && layout.availability.panel.y - (layout.hero.y + layout.hero.height) > (Number(width) <= 575 ? 90 : 80)) {
+    failures.push(`${width}px: spacing above Our Availability is still too large`);
+  }
+  if (layout.availability.description && layout.contact.workspace
+    && layout.contact.workspace.y - (layout.availability.description.y + layout.availability.description.height) > 40) {
+    failures.push(`${width}px: spacing below Our Availability is still too large`);
+  }
+  if (layout.contact.workspace && layout.footer
+    && layout.footer.y - (layout.contact.workspace.y + layout.contact.workspace.height) > (Number(width) <= 575 ? 80 : 100)) {
+    failures.push(`${width}px: spacing before the footer is still too large`);
+  }
 }
 
 const desktop = layouts[1280];
 for (const width of [1440, 1280, 1024]) {
-  if (layouts[width].hero?.height !== 460) failures.push(`${width}px: desktop hero height is not reduced to 460px`);
+  if (layouts[width].hero?.height !== 350) failures.push(`${width}px: desktop hero height is not reduced to 350px`);
 }
-if (layouts[768].hero?.height > 600 || layouts[390].hero?.height > 560) {
+if (layouts[768].hero?.height > 460 || layouts[390].hero?.height > 470) {
   failures.push('tablet or mobile hero remains too tall');
 }
 if (desktop.copy && desktop.media && desktop.media.x <= desktop.copy.x + desktop.copy.width) {
@@ -362,6 +434,9 @@ if (desktop.availability.description && desktop.availability.description.width <
 if (desktop.contact.form && desktop.contact.details && desktop.contact.details.x <= desktop.contact.form.x + desktop.contact.form.width) {
   failures.push('1280px: contact form is not positioned to the left of the details column');
 }
+if (desktop.contact.form && desktop.contact.details && Math.abs(desktop.contact.form.height - desktop.contact.details.height) > 2) {
+  failures.push('1280px: contact form and details columns do not share the same total height');
+}
 if (desktop.contact.address && desktop.contact.map) {
   const addressBottom = desktop.contact.address.y + desktop.contact.address.height;
   if (desktop.contact.map.y < addressBottom) failures.push('1280px: address and map are not ordered vertically');
@@ -371,8 +446,6 @@ if (desktop.contact.map && desktop.contact.channels) {
   if (desktop.contact.channels.y <= mapBottom) failures.push('1280px: contact cards are not below the map');
 }
 if (desktop.contact.form && desktop.contact.form.height > 760) failures.push('1280px: contact form remains too tall');
-if (desktop.contact.map && desktop.contact.map.height > 260) failures.push('1280px: contact map remains too tall');
-
 const mobile = layouts[390];
 if (mobile.copy && mobile.media && mobile.media.y <= mobile.copy.y + mobile.copy.height) {
   failures.push('390px: support image is not stacked below the hero wording');
@@ -391,6 +464,10 @@ for (const width of [1440, 1280, 1024]) {
   }
   if (layout.contact.form && layout.contact.details && layout.contact.details.x <= layout.contact.form.x + layout.contact.form.width) {
     failures.push(`${width}px: desktop or laptop contact details are not positioned to the right of the form`);
+  }
+  if (!layout.contact.initialColumnHeights
+    || Math.abs(layout.contact.initialColumnHeights.form - layout.contact.initialColumnHeights.details) > 2) {
+    failures.push(`${width}px: the normal form section does not match the right-side total content height`);
   }
 }
 
