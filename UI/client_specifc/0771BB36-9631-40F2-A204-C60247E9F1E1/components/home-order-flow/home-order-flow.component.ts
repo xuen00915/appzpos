@@ -12,6 +12,7 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
+import { Router } from '@angular/router';
 
 import {
   HomeSolutionFeature,
@@ -68,8 +69,27 @@ export class HomeOrderFlowComponent implements OnInit, OnChanges, AfterViewInit,
   constructor(
     private readonly changeDetectorRef: ChangeDetectorRef,
     private readonly ngZone: NgZone,
-    private readonly commonFunctionService: CommonFunctionService
+    private readonly commonFunctionService: CommonFunctionService,
+    private readonly router: Router
   ) {}
+
+  /** Navigate to the selected solution and always open it at its hero section. */
+  navigateToModule(event: Event, route: string): void {
+    event.preventDefault();
+    void this.router.navigateByUrl(route).then(() => {
+      this.scrollToPageStart();
+      if (typeof window !== 'undefined') {
+        window.requestAnimationFrame(() => this.scrollToPageStart());
+      }
+    });
+  }
+
+  private scrollToPageStart(): void {
+    if (typeof window === 'undefined') return;
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
+    document.documentElement.scrollTop = 0;
+    document.body.scrollTop = 0;
+  }
 
   get activeDetailsIsland(): EcosystemIsland | undefined {
     return this.islands.find((island) => island.id === this.activeDetailsIslandId);

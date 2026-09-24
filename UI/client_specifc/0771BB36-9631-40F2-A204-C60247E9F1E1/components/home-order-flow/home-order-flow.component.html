@@ -57,7 +57,8 @@
                     </ul>
                     <a class="appz-ecosystem__details-learn-more"
                        data-details-learn-more
-                       [routerLink]="module.route">{{ config.learnMoreLabel }}</a>
+                       [routerLink]="module.route"
+                       (click)="navigateToModule($event, module.route)">{{ config.learnMoreLabel }}</a>
                 </article>
             </div>
         </section>
