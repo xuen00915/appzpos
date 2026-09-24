@@ -61,6 +61,7 @@ BindURL_Image(FileName: string): string {
 openDialog(): void {
   const dialogRef = this.dialog.open(ModalRequestDemoComponent, {
     width: '600px',
+    panelClass: 'appz-demo-dialog',
   });
 
   dialogRef.afterClosed().subscribe(result => {
