@@ -10,7 +10,7 @@ const profiles = [
   { width: 390, height: 844, hardwareMax: 320, grantMax: 260, islandMax: 300 }
 ];
 const expectedIndustryImages = [
-  'restaurant-pos.webp',
+  'APPZPOS-All-in-One-Pos-System-quick-service.png',
   'restaurant-pos.webp',
   'retail-pos.webp',
   'beauty-salon-pos.webp'
