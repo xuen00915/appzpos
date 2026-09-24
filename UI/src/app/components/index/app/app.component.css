@@ -2,9 +2,9 @@
   --appz-floating-gap: 18px;
   --appz-floating-size: 60px;
   position: fixed;
-  top: clamp(240px, 34vh, 360px);
+  top: auto;
   right: max(22px, env(safe-area-inset-right));
-  bottom: auto;
+  bottom: calc(100px + env(safe-area-inset-bottom));
   z-index: 990;
   display: flex;
   width: var(--appz-floating-size);
@@ -100,8 +100,9 @@
   .appz-site-floating-contacts {
     --appz-floating-gap: 16px;
     --appz-floating-size: 56px;
-    top: clamp(200px, 28vh, 260px);
+    top: auto;
     right: max(12px, env(safe-area-inset-right));
+    bottom: calc(88px + env(safe-area-inset-bottom));
   }
 
   .appz-site-floating-contacts img {
