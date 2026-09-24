@@ -1762,6 +1762,16 @@ app-solution-page {
     background: #fff;
   }
 
+  #content .pos-system-card__body h2 {
+    width: 100%;
+    max-width: none;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+    text-wrap: balance;
+  }
+
   #content .pos-overview p,
   #content .pos-feature-section p,
   #content .pos-system-card__body > p:not(.pos-system-card__eyebrow),
