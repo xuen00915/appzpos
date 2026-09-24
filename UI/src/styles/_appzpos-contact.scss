@@ -275,9 +275,3 @@ app-point-of-sales-demo-quotation {
     .contact-floating-actions .contact-scroll-top { transition: none; }
   }
 }
-
-/* The new stack uses the existing Canvas scroll control through its click handler. */
-body:has(app-point-of-sales-demo-quotation) #gotoTop { display: none !important; }
-body.gototop-active app-point-of-sales-demo-quotation .contact-floating-actions .contact-scroll-top {
-  display: flex;
-}

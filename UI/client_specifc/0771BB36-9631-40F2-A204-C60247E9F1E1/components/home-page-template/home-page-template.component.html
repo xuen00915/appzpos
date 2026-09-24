@@ -30,16 +30,4 @@
     </section>
   </main>
 
-  <nav *ngIf="config.floatingContacts?.length" class="appz-home-floating-contacts" aria-label="Contact APPZPOS">
-    <a *ngFor="let contact of config.floatingContacts" [href]="contact.href"
-      [target]="contact.target || '_self'" [rel]="contact.rel || null"
-      [class.appz-home-floating-contact--whatsapp]="contact.href.startsWith('https://wa.me/')"
-      [class.appz-home-floating-contact--messenger]="contact.href.startsWith('http://m.me/') || contact.href.startsWith('https://m.me/')"
-      [class.btn-whatsapp]="contact.href.startsWith('https://wa.me/')"
-      [class.btn-fb]="contact.href.startsWith('http://m.me/') || contact.href.startsWith('https://m.me/')"
-      [attr.aria-label]="contact.imageAlt">
-      <i *ngIf="contact.href.startsWith('https://wa.me/')" class="fa-brands fa-whatsapp" aria-hidden="true"></i>
-      <img [src]="contact.image" [alt]="contact.imageAlt" width="64" height="64" loading="lazy">
-    </a>
-  </nav>
 </div>

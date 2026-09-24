@@ -151,9 +151,9 @@ for (const { width, height, maxSectionSpace, minTitleTracking } of viewportProfi
       whatsappLinks: [...document.querySelectorAll('a[href^="https://wa.me/6583109631"]')]
         .map((link) => ({ href: link.getAttribute('href'), rel: link.getAttribute('rel') })),
       floating: (() => {
-        const rail = document.querySelector('.appz-home-floating-contacts');
-        const whatsapp = rail?.querySelector('.appz-home-floating-contact--whatsapp');
-        const messenger = rail?.querySelector('.appz-home-floating-contact--messenger');
+        const rail = document.querySelector('.appz-site-floating-contacts');
+        const whatsapp = rail?.querySelector('.btn-whatsapp');
+        const messenger = rail?.querySelector('.btn-fb');
         const whatsappIcon = whatsapp?.querySelector('.fa-whatsapp');
         const whatsappImage = whatsapp?.querySelector('img');
         const messengerImage = messenger?.querySelector('img');
@@ -172,28 +172,17 @@ for (const { width, height, maxSectionSpace, minTitleTracking } of viewportProfi
             backgroundColor: styles.backgroundColor
           };
         };
-        const legacyClasses = [
-          [whatsapp, 'btn-whatsapp'],
-          [messenger, 'btn-fb']
-        ];
         const withLegacyClasses = {
           whatsapp: styleSnapshot(whatsapp),
           messenger: styleSnapshot(messenger)
         };
-        legacyClasses.forEach(([element, className]) => element?.classList.remove(className));
-        const withoutLegacyClasses = {
-          whatsapp: styleSnapshot(whatsapp),
-          messenger: styleSnapshot(messenger)
-        };
-        legacyClasses.forEach(([element, className]) => element?.classList.add(className));
         return {
           count: rail?.querySelectorAll('a').length ?? 0,
           whatsappLegacyClass: whatsapp?.classList.contains('btn-whatsapp') ?? false,
           messengerLegacyClass: messenger?.classList.contains('btn-fb') ?? false,
           withLegacyClasses,
-          withoutLegacyClasses,
           railPosition: rail ? getComputedStyle(rail).position : null,
-          railBottom: railBounds ? Math.round(innerHeight - railBounds.bottom) : null,
+          railTop: railBounds ? Math.round(railBounds.top) : null,
           whatsappHref: whatsapp?.getAttribute('href'),
           whatsappTarget: whatsapp?.getAttribute('target'),
           whatsappRel: whatsapp?.getAttribute('rel'),
@@ -238,7 +227,6 @@ for (const { width, height, maxSectionSpace, minTitleTracking } of viewportProfi
   if (pageContract.floating.count !== 2
     || !pageContract.floating.whatsappLegacyClass
     || !pageContract.floating.messengerLegacyClass
-    || JSON.stringify(pageContract.floating.withLegacyClasses) !== JSON.stringify(pageContract.floating.withoutLegacyClasses)
     || pageContract.floating.withLegacyClasses.whatsapp.width !== (width <= 768 ? '48px' : '52px')
     || pageContract.floating.withLegacyClasses.whatsapp.height !== (width <= 768 ? '48px' : '52px')
     || pageContract.floating.withLegacyClasses.whatsapp.borderRadius !== '50%'
@@ -248,7 +236,9 @@ for (const { width, height, maxSectionSpace, minTitleTracking } of viewportProfi
     || pageContract.floating.withLegacyClasses.messenger.borderRadius !== '50%'
     || pageContract.floating.withLegacyClasses.messenger.backgroundColor !== 'rgba(255, 255, 255, 0.96)'
     || pageContract.floating.railPosition !== 'fixed'
-    || Math.abs(pageContract.floating.railBottom - (width <= 768 ? 120 : 134)) > 1
+    || Math.abs(pageContract.floating.railTop - (width <= 768
+      ? Math.min(190, Math.max(140, height * .18))
+      : Math.min(260, Math.max(170, height * .22)))) > 1
     || !pageContract.floating.whatsappHref?.startsWith('https://wa.me/6583109631')
     || pageContract.floating.whatsappTarget !== '_blank'
     || !pageContract.floating.whatsappRel?.includes('noopener')
@@ -285,7 +275,7 @@ for (const { width, height, maxSectionSpace, minTitleTracking } of viewportProfi
   await evaluate(`document.querySelector('#cn-custom-pos')?.scrollIntoView({ block: 'center' })`);
   await wait(350);
   const floatingAfterScroll = JSON.parse(await evaluate(`JSON.stringify((() => {
-    const railBounds = document.querySelector('.appz-home-floating-contacts')?.getBoundingClientRect();
+    const railBounds = document.querySelector('.appz-site-floating-contacts')?.getBoundingClientRect();
     const scrollTop = document.querySelector('#gotoTop');
     const scrollBounds = scrollTop?.getBoundingClientRect();
     const styles = scrollTop ? getComputedStyle(scrollTop) : null;

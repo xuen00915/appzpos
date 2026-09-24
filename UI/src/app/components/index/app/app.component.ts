@@ -1,4 +1,4 @@
-import { Component, AfterViewInit } from '@angular/core';
+import { Component, AfterViewInit, HostListener } from '@angular/core';
 
 declare var $: any;
 
@@ -11,5 +11,11 @@ declare var $: any;
 export class AppComponent implements AfterViewInit {
   ngAfterViewInit() {
     $.getScript('assets/template/canvas/js/functions.js');
+    this.updateScrollTopVisibility();
+  }
+
+  @HostListener('window:scroll')
+  updateScrollTopVisibility(): void {
+    document.body.classList.toggle('gototop-active', window.scrollY > 240);
   }
 }

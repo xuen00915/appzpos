@@ -174,11 +174,20 @@ a {
   }
 }
 
-body:has(.appz-home-floating-contacts) #gotoTop {
+/* The shell owns the visible contact rail. Legacy page rails remain in the DOM
+   so their historic links and tracking hooks are preserved without duplication. */
+app-root #webview > div:has(> a.btn-whatsapp),
+app-root #webview > div:has(> a.btn-fb),
+app-root .appz-home-floating-contacts {
+  display: none !important;
+}
+
+body:has(.appz-site-floating-contacts) #gotoTop {
   --cnvs-gotoTop-size: 52px;
   box-sizing: border-box;
+  top: calc(clamp(170px, 22vh, 260px) + 140px);
   right: max(22px, env(safe-area-inset-right));
-  bottom: calc(72px + env(safe-area-inset-bottom));
+  bottom: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -201,7 +210,7 @@ body:has(.appz-home-floating-contacts) #gotoTop {
     visibility 0s linear .22s;
 }
 
-body.gototop-active:has(.appz-home-floating-contacts) #gotoTop {
+body.gototop-active:has(.appz-site-floating-contacts) #gotoTop {
   z-index: 990;
   opacity: 1;
   visibility: visible;
@@ -211,7 +220,7 @@ body.gototop-active:has(.appz-home-floating-contacts) #gotoTop {
 }
 
 @media (hover: hover) {
-  body:has(.appz-home-floating-contacts) #gotoTop:hover {
+  body:has(.appz-site-floating-contacts) #gotoTop:hover {
     background: #1688d8;
     box-shadow:
       0 2px 4px rgba(14, 42, 73, .08),
@@ -220,18 +229,18 @@ body.gototop-active:has(.appz-home-floating-contacts) #gotoTop {
   }
 }
 
-body:has(.appz-home-floating-contacts) #gotoTop:active { transform: scale(.96); }
+body:has(.appz-site-floating-contacts) #gotoTop:active { transform: scale(.96); }
 
-body:has(.appz-home-floating-contacts) #gotoTop:focus-visible {
+body:has(.appz-site-floating-contacts) #gotoTop:focus-visible {
   outline: 3px solid rgba(22, 136, 216, .42);
   outline-offset: 3px;
 }
 
 @media (max-width: 768px) {
-  body:has(.appz-home-floating-contacts) #gotoTop {
+  body:has(.appz-site-floating-contacts) #gotoTop {
     --cnvs-gotoTop-size: 48px;
+    top: calc(clamp(140px, 18vh, 190px) + 128px);
     right: max(12px, env(safe-area-inset-right));
-    bottom: calc(64px + env(safe-area-inset-bottom));
   }
 }
 
