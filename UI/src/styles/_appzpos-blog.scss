@@ -23,6 +23,8 @@ app-blog-main-page {
 }
 @media (max-width: 767px) {
   .blog-hero__inner { grid-template-columns: minmax(0, 1fr); padding: 28px 20px; gap: 24px; max-width: 600px; }
+  .blog-hero__diagram { grid-row: 1; }
+  .blog-hero__copy { grid-row: 2; }
   .blog-hero h1 { font-size: clamp(32px, 7.5vw, 42px); margin: 12px 0 16px; }
   .blog-hero p { max-width: none; margin-bottom: 20px; }
   .blog-hero__actions button, .blog-hero__actions a { flex: 1 1 140px; padding-inline: 16px !important; }

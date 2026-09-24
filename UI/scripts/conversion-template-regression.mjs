@@ -74,6 +74,7 @@ for (const viewport of viewports) {
     await wait(900);
 
     let heroWhatsApp = null;
+    let blogHeroOrder = null;
     if (name !== 'psg') {
       const selector = `.${name}-hero__actions a[href*="wa.me"]`;
       const readHeroWhatsApp = () => evaluate(`JSON.stringify((() => {
@@ -105,6 +106,17 @@ for (const viewport of viewports) {
     }
 
     if (name === 'blog') {
+      blogHeroOrder = JSON.parse(await evaluate(`JSON.stringify((() => {
+        const diagram = document.querySelector('.blog-hero__diagram');
+        const title = document.querySelector('#blog-title');
+        if (!diagram || !title) return null;
+        const diagramBounds = diagram.getBoundingClientRect();
+        const titleBounds = title.getBoundingClientRect();
+        return {
+          diagram: { top: diagramBounds.top, right: diagramBounds.right, bottom: diagramBounds.bottom, left: diagramBounds.left },
+          title: { top: titleBounds.top, right: titleBounds.right, bottom: titleBounds.bottom, left: titleBounds.left }
+        };
+      })())`));
       await evaluate(`document.querySelector('.blog-hero__primary')?.click()`);
       await wait(500);
       await evaluate(`document.activeElement instanceof HTMLElement && document.activeElement.blur()`);
@@ -238,6 +250,16 @@ for (const viewport of viewports) {
           || state.borderTopColor !== expectedBorder.borderTopColor) {
           failures.push(`${profile}: hero WhatsApp ${stateName} state does not retain its green border (${JSON.stringify(state)})`);
         }
+      }
+    }
+    if (name === 'blog') {
+      if (viewport.width <= 767 && (!blogHeroOrder
+        || blogHeroOrder.diagram.bottom > blogHeroOrder.title.top)) {
+        failures.push(`${profile}: mobile hero diagram does not appear before the section title (${JSON.stringify(blogHeroOrder)})`);
+      }
+      if (viewport.width > 767 && (!blogHeroOrder
+        || blogHeroOrder.title.right > blogHeroOrder.diagram.left)) {
+        failures.push(`${profile}: desktop hero no longer keeps the title left of the diagram (${JSON.stringify(blogHeroOrder)})`);
       }
     }
   }
