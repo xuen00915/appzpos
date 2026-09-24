@@ -43,12 +43,46 @@ describe('APPZPOS marketing shell', () => {
     ]);
   });
 
+  it('uses the same wide, descriptive mega-menu structure for every dropdown', () => {
+    const host = headerFixture.nativeElement as HTMLElement;
+    const panels = Array.from(host.querySelectorAll<HTMLElement>('.appzpos-nav__panel'));
+
+    expect(panels.length).toBe(3);
+    panels.forEach((panel) => {
+      expect(panel.classList).toContain('appzpos-nav__panel--wide');
+      expect(panel.querySelector('.appzpos-nav__link-grid')).not.toBeNull();
+
+      Array.from(panel.querySelectorAll<HTMLAnchorElement>('a')).forEach((link) => {
+        expect(link.querySelector('strong')?.textContent?.trim()).toBeTruthy();
+        expect(link.querySelector('span')?.textContent?.trim()).toBeTruthy();
+      });
+    });
+  });
+
+  it('preserves all industry and resource destinations in their mega menus', () => {
+    const host = headerFixture.nativeElement as HTMLElement;
+    const hrefs = (selector: string) => Array.from(
+      host.querySelectorAll<HTMLAnchorElement>(`${selector} a`),
+      (link) => link.getAttribute('href')
+    );
+
+    expect(hrefs('#industries-menu')).toEqual([
+      '/f&b-restaurant-cloud-pos-system',
+      '/retail-store-cloud-pos-system',
+      '/salon-cloud-pos-system'
+    ]);
+    expect(hrefs('#resources-menu')).toEqual([
+      '/blog',
+      '/psg-pos-system-grant-singapore'
+    ]);
+  });
+
   it('keeps Resources focused on Blog and EDGE Grant', () => {
     const host = headerFixture.nativeElement as HTMLElement;
     const resourceLinks = Array.from(
       host.querySelectorAll<HTMLAnchorElement>('#resources-menu a[href]')
     ).map((anchor) => ({
-      label: anchor.textContent?.replace(/\s+/g, ' ').trim(),
+      label: anchor.querySelector('strong')?.textContent?.trim(),
       href: anchor.getAttribute('href')
     }));
 
@@ -80,7 +114,7 @@ describe('APPZPOS marketing shell', () => {
       expect(current[0].closest('#solutions-menu')).not.toBeNull();
       history.replaceState(null, '', '/psg-pos-system-grant-singapore');
       headerFixture.detectChanges();
-      expect(headerFixture.nativeElement.querySelector('#resources-menu a[aria-current="page"]')?.textContent).toBe('EDGE Grant');
+      expect(headerFixture.nativeElement.querySelector('#resources-menu a[aria-current="page"] strong')?.textContent).toBe('EDGE Grant');
     } finally {
       history.replaceState(null, '', initialUrl);
     }
