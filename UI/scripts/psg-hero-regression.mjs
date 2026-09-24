@@ -2,6 +2,7 @@ const cdpPort = process.env.APPZPOS_CDP_PORT ?? '9225';
 const previewUrl = process.env.APPZPOS_PREVIEW_URL ?? 'http://127.0.0.1:4300/';
 const screenshotDir = process.env.APPZPOS_SCREENSHOT_DIR ?? '';
 const psgUrl = new URL('psg-pos-system-grant-singapore', previewUrl).href;
+const featuresUrl = new URL('pos-features-crm-payment-gateway', previewUrl).href;
 const expectedTitle = 'EDGE Grant Support for Singapore Businesses | F&B POS Packages';
 const expectedHeading = 'Up to 50% Monetary Support To Kickstart Your F&B Business';
 const expectedDescription = 'Eligible Singapore companies can receive EDGE Grant support for qualifying APPZPOS digitalisation projects. Support levels vary by activity.';
@@ -89,6 +90,7 @@ const wait = (milliseconds) => new Promise((resolve) => setTimeout(resolve, mill
 const viewports = [390, 768, 1024, 1440];
 const viewportHeights = { 390: 844, 768: 1024, 1024: 768, 1440: 900 };
 const layouts = {};
+const featuresLayouts = {};
 
 await send('Page.enable');
 await send('Runtime.enable');
@@ -522,6 +524,25 @@ for (const width of viewports) {
       await writeFile(`${screenshotDir}/appzpos-psg-packages-${width}.png`, Buffer.from(packageScreenshot.data, 'base64'));
     }
   }
+
+  await send('Page.navigate', { url: `${featuresUrl}?psg-width-reference-${width}-${Date.now()}` });
+  await wait(900);
+  const featuresEvaluation = await send('Runtime.evaluate', {
+    expression: `JSON.stringify((() => {
+      const bounds = (element) => {
+        if (!element) return null;
+        const rect = element.getBoundingClientRect();
+        return { x: rect.x, y: rect.y, width: rect.width, height: rect.height };
+      };
+      const hero = document.querySelector('.features-hero');
+      return {
+        inner: bounds(hero?.querySelector('.features-hero__inner')),
+        copy: bounds(hero?.querySelector('.features-hero__copy'))
+      };
+    })())`,
+    returnByValue: true
+  });
+  featuresLayouts[width] = JSON.parse(featuresEvaluation.result.value);
 }
 
 await send('Page.close');
@@ -529,11 +550,24 @@ socket.close();
 
 const failures = [];
 for (const [width, layout] of Object.entries(layouts)) {
+  const featuresLayout = featuresLayouts[width];
   if (layout.location !== psgUrl) failures.push(`${width}px: browser did not remain on the PSG route`);
   if (layout.title !== expectedTitle) failures.push(`${width}px: PSG page title is missing or incorrect`);
   if (layout.frameworkOverlay) failures.push(`${width}px: a framework error overlay is visible`);
   if (layout.relevantBrowserIssues.length) failures.push(`${width}px: browser console contains relevant errors or warnings: ${layout.relevantBrowserIssues.join(' | ')}`);
   if (!layout.hero || !layout.copy || !layout.art || !layout.image) failures.push(`${width}px: responsive PSG hero structure is missing`);
+  if (!featuresLayout?.inner || !featuresLayout?.copy) {
+    failures.push(`${width}px: Features hero width reference is missing`);
+  } else {
+    const grantInnerRight = layout.inner.x + layout.inner.width;
+    const featuresInnerRight = featuresLayout.inner.x + featuresLayout.inner.width;
+    if (Math.abs(layout.inner.x - featuresLayout.inner.x) > 2 || Math.abs(grantInnerRight - featuresInnerRight) > 2) {
+      failures.push(`${width}px: grant hero container does not match the Features page content width`);
+    }
+    if (Math.abs(layout.copy.x - featuresLayout.copy.x) > 2) {
+      failures.push(`${width}px: grant hero copy does not use the Features page content gutter`);
+    }
+  }
   const maximumHeroImageWidth = Number(width) <= 575 ? 230 : Number(width) <= 1023 ? 280 : 320;
   const maximumHeroHeight = Number(width) <= 575 ? 600 : Number(width) <= 1023 ? 640 : 440;
   if (layout.image?.bounds.width > maximumHeroImageWidth + 1) failures.push(`${width}px: grant hero artwork remains too large`);

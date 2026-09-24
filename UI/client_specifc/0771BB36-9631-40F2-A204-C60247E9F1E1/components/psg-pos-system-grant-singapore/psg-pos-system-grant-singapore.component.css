@@ -10,7 +10,13 @@
   grid-template-columns: minmax(0, 1.05fr) minmax(320px, .95fr);
   align-items: center;
   gap: clamp(28px, 4vw, 56px);
+  box-sizing: border-box;
+  width: min(calc(100% - 32px), 94vw, var(--appz-container, 1280px));
+  max-width: var(--appz-container, 1280px);
+  margin-inline: auto;
   min-height: 400px;
+  padding-right: clamp(20px, 3vw, 32px);
+  padding-left: clamp(20px, 3vw, 32px);
   padding-top: clamp(36px, 4vw, 56px);
   padding-bottom: clamp(36px, 4vw, 56px);
 }
