@@ -62,13 +62,17 @@ for(const [page,count] of pages){
         copyClipped:[...document.querySelectorAll('#content h2,#content h3,#content p')].filter(visible).some(e=>e.scrollWidth>e.clientWidth+2),
         showcaseHeadings:[...document.querySelectorAll('.pos-system-card__body h2')].filter(visible).map(heading=>{
           const body=heading.closest('.pos-system-card__body');
+          const card=heading.closest('.pos-system-card');
           const headingBounds=heading.getBoundingClientRect();
+          const cardBounds=card.getBoundingClientRect();
           const bodyStyles=getComputedStyle(body);
           const headingStyles=getComputedStyle(heading);
           const bodyContentWidth=body.clientWidth-parseFloat(bodyStyles.paddingLeft)-parseFloat(bodyStyles.paddingRight);
           return {
             text:heading.textContent.replace(/\\s+/g,' ').trim(),
+            featured:card.classList.contains('pos-system-card--featured'),
             widthRatio:bodyContentWidth?headingBounds.width/bodyContentWidth:0,
+            cardWidthRatio:cardBounds.width?headingBounds.width/cardBounds.width:0,
             forcedBreaks:heading.querySelectorAll('br').length,
             maxWidth:headingStyles.maxWidth,
             whiteSpace:headingStyles.whiteSpace,
@@ -77,6 +81,20 @@ for(const [page,count] of pages){
             hyphens:headingStyles.hyphens,
             textWrap:headingStyles.textWrap,
             clipped:heading.scrollWidth>heading.clientWidth+2
+          };
+        }),
+        showcaseImages:[...document.querySelectorAll('.pos-system-card__visual')].filter(visible).map(visual=>{
+          const card=visual.closest('.pos-system-card');
+          const image=visual.querySelector('img');
+          const visualBounds=visual.getBoundingClientRect();
+          const imageBounds=image.getBoundingClientRect();
+          const imageStyles=getComputedStyle(image);
+          return {
+            featured:card.classList.contains('pos-system-card--featured'),
+            frameHeight:Math.round(visualBounds.height),
+            imageHeight:Math.round(imageBounds.height),
+            objectFit:imageStyles.objectFit,
+            clipped:image.scrollWidth>image.clientWidth+2
           };
         }),
         overviewCount:[...document.querySelectorAll('.pos-overview')].filter(visible).length,
@@ -91,13 +109,21 @@ for(const [page,count] of pages){
       !heading.clipped&&heading.forcedBreaks===0&&heading.maxWidth==='none'&&heading.whiteSpace==='normal'
       &&heading.overflowWrap==='normal'&&heading.wordBreak==='normal'&&heading.hyphens==='none'
       &&heading.textWrap==='balance'
-      &&(width<1024||heading.widthRatio>=.95));
+      &&(width<1024||(heading.widthRatio>=.95&&(heading.featured||heading.cardWidthRatio>=.9))));
+    const imagesUseFixedResponsiveFrames=result.showcaseImages.length>0&&result.showcaseImages.every(image=>{
+      const expectedHeight=width<=599?230:width<=991?280:image.featured?430:320;
+      return image.frameHeight===expectedHeight&&image.imageHeight===expectedHeight
+        &&image.objectFit==='contain'&&!image.clipped;
+    });
     const maximumHeroLines=width<=320?4:3;
-    if(result.shell!==1||result.content!==1||result.forms!==1||result.overflow||result.copyClipped||result.featureCount!==count||result.columns!==columns||result.overviewCount!==1||!result.imagesLoaded||!result.gtm||!result.meta||!result.whatsapp||result.heroHeight>540||result.heroDecoration!=='none'||result.featureHeading!==1||!result.featureDescription||result.heroLines>maximumHeroLines||(width>=1024&&result.overviewLines!==1)||!headingsUseSharedNaturalWrap){
+    if(result.shell!==1||result.content!==1||result.forms!==1||result.overflow||result.copyClipped||result.featureCount!==count||result.columns!==columns||result.overviewCount!==1||!result.imagesLoaded||!result.gtm||!result.meta||!result.whatsapp||result.heroHeight>540||result.heroDecoration!=='none'||result.featureHeading!==1||!result.featureDescription||result.heroLines>maximumHeroLines||(width>=1024&&result.overviewLines!==1)||!headingsUseSharedNaturalWrap||!imagesUseFixedResponsiveFrames){
       failures.push({page,width,...result});
     }
     if(process.env.APPZPOS_SCREENSHOT_DIR && (width===1440||width===390)){
-      await evaluate(`document.querySelector('.pos-system-showcase').scrollIntoView({block:'start'})`);
+      await evaluate(`([...document.querySelectorAll('.pos-system-showcase')].find(section=>{
+        const bounds=section.getBoundingClientRect();
+        return bounds.width>0&&bounds.height>0;
+      }))?.scrollIntoView({block:'start'})`);
       await wait(100);
       mkdirSync(process.env.APPZPOS_SCREENSHOT_DIR,{recursive:true});
       const screenshot=await send('Page.captureScreenshot',{format:'png'});
