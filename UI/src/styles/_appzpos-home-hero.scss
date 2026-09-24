@@ -1849,3 +1849,32 @@
     max-width: 100%;
   }
 }
+
+/* Use the terminal artwork's transparent crop area to tighten the visual rhythm. */
+.appzpos-product-hero .appzpos-product-hero__machine {
+  margin-top: -6.25rem;
+}
+
+.appzpos-product-hero .appzpos-module-orbit {
+  margin-top: -2.25rem;
+}
+
+@media (max-width: 900px) {
+  .appzpos-product-hero .appzpos-product-hero__machine {
+    margin-top: -4.75rem;
+  }
+
+  .appzpos-product-hero .appzpos-module-orbit {
+    margin-top: -1.5rem;
+  }
+}
+
+@media (max-width: 39.99rem) {
+  .appzpos-product-hero .appzpos-product-hero__machine {
+    margin-top: -1.5rem;
+  }
+
+  .appzpos-product-hero .appzpos-module-orbit {
+    margin-top: 0;
+  }
+}

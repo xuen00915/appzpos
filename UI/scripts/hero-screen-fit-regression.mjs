@@ -170,8 +170,12 @@ for (const route of fitRoutes) {
         const title = document.querySelector('.appzpos-product-hero h1');
         const intro = document.querySelector('.appzpos-product-hero__intro');
         const frame = document.querySelector('.appzpos-product-hero__frame');
+        const orbit = document.querySelector('.appzpos-module-orbit');
         const switcherBounds = switcher.getBoundingClientRect();
         const machineBounds = machine.getBoundingClientRect();
+        const orbitBounds = orbit.getBoundingClientRect();
+        const visibleDeviceTop = machineBounds.top + (machineBounds.height * (235 / 941));
+        const visibleDeviceBottom = machineBounds.top + (machineBounds.height * (844 / 941));
         return {
           headerHeight: header.getBoundingClientRect().height,
           heroHeight: hero.getBoundingClientRect().height,
@@ -184,6 +188,8 @@ for (const route of fitRoutes) {
             machineWidth: machineBounds.width,
             machineAspect: machineBounds.width / machineBounds.height,
             switcherToMachineGap: machineBounds.top - switcherBounds.bottom,
+            switcherToVisibleDeviceGap: visibleDeviceTop - switcherBounds.bottom,
+            visibleDeviceToTagsGap: orbitBounds.top - visibleDeviceBottom,
             titleFontSize: parseFloat(getComputedStyle(title).fontSize),
             titleLetterSpacing: parseFloat(getComputedStyle(title).letterSpacing),
             introWidth: intro.getBoundingClientRect().width
@@ -263,6 +269,16 @@ for (const [profile, layout] of Object.entries(fitLayouts)) {
   if (layout.geometry.switcherToMachineGap > 8) {
     failures.push(`${profile}: industry tabs leave ${layout.geometry.switcherToMachineGap.toFixed(1)}px before the POS device`);
   }
+  const maximumVisibleDeviceGap = viewportWidth >= 901 ? 40 : 28;
+  if (layout.geometry.switcherToVisibleDeviceGap > maximumVisibleDeviceGap) {
+    failures.push(`${profile}: industry tabs leave ${layout.geometry.switcherToVisibleDeviceGap.toFixed(1)}px before the visible POS hardware; expected at most ${maximumVisibleDeviceGap}px`);
+  }
+  if (layout.geometry.visibleDeviceToTagsGap > 22) {
+    failures.push(`${profile}: function tags leave ${layout.geometry.visibleDeviceToTagsGap.toFixed(1)}px after the visible POS hardware; expected at most 22px`);
+  }
+  if (layout.geometry.visibleDeviceToTagsGap < -12) {
+    failures.push(`${profile}: function tags overlap the visible POS hardware by ${Math.abs(layout.geometry.visibleDeviceToTagsGap).toFixed(1)}px`);
+  }
   if (layout.geometry.language === 'zh') {
     const maximumChineseTitleSize = viewportWidth >= 1200 ? 60 : viewportWidth >= 700 ? 42 : 29;
     if (layout.geometry.titleFontSize > maximumChineseTitleSize) {
@@ -318,8 +334,7 @@ for (const [width, layout] of Object.entries(layouts)) {
       failures.push(`${width}px: the module cards are not horizontally scrollable`);
     }
   }
-  if (!layout.modulePlacement.machineBeforeOrbit
-    || layout.modulePlacement.orbit.y + .75 < layout.modulePlacement.machine.y + layout.modulePlacement.machine.height) {
+  if (!layout.modulePlacement.machineBeforeOrbit) {
     failures.push(`${width}px: function tags do not follow the POS device`);
   }
   for (const [index, animation] of layout.moduleCardAnimations.entries()) {
