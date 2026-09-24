@@ -43,7 +43,7 @@ describe('APPZPOS marketing shell', () => {
     ]);
   });
 
-  it('keeps Resources focused on Blog and PSG Grant', () => {
+  it('keeps Resources focused on Blog and EDGE Grant', () => {
     const host = headerFixture.nativeElement as HTMLElement;
     const resourceLinks = Array.from(
       host.querySelectorAll<HTMLAnchorElement>('#resources-menu a[href]')
@@ -54,7 +54,7 @@ describe('APPZPOS marketing shell', () => {
 
     expect(resourceLinks).toEqual([
       { label: 'Blog', href: '/blog' },
-      { label: 'PSG Grant', href: '/psg-pos-system-grant-singapore' }
+      { label: 'EDGE Grant', href: '/psg-pos-system-grant-singapore' }
     ]);
   });
 
@@ -80,7 +80,7 @@ describe('APPZPOS marketing shell', () => {
       expect(current[0].closest('#solutions-menu')).not.toBeNull();
       history.replaceState(null, '', '/psg-pos-system-grant-singapore');
       headerFixture.detectChanges();
-      expect(headerFixture.nativeElement.querySelector('#resources-menu a[aria-current="page"]')?.textContent).toBe('PSG Grant');
+      expect(headerFixture.nativeElement.querySelector('#resources-menu a[aria-current="page"]')?.textContent).toBe('EDGE Grant');
     } finally {
       history.replaceState(null, '', initialUrl);
     }

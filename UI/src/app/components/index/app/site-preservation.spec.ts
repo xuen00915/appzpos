@@ -33,7 +33,7 @@ describe('APPZPOS preservation contract', () => {
   it('keeps the existing homepage hero contract', () => {
     const host = fixture.nativeElement as HTMLElement;
     expect(host.querySelector('.appzpos-product-hero h1')?.textContent?.replace(/\s+/g, ' ').trim())
-      .toBe('All-In-One POS System in Singapore with PSG Grant');
+      .toBe('All-In-One POS System in Singapore with EDGE Grant');
     expect(host.querySelector('.appzpos-product-hero__machine')).not.toBeNull();
     expect(host.querySelectorAll('.appzpos-product-hero [role="tab"]').length).toBe(4);
   });

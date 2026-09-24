@@ -215,7 +215,7 @@ describe('English homepage shared-template parity', () => {
     expect(host.querySelector('app-home-page-template')).not.toBeNull();
     expect(config.language).toBe('en');
     expect(config.hero.title).toBe('All-In-One POS System');
-    expect(config.hero.titleAccent).toBe('in Singapore with PSG Grant');
+    expect(config.hero.titleAccent).toBe('in Singapore with EDGE Grant');
     expect(config.hero.ctas.map((cta: any) => cta.label)).toEqual(['Request a Demo', 'WhatsApp Us']);
     expect(config.hero.visual.industries.length).toBe(4);
     expect(config.solutions.items.length).toBe(7);

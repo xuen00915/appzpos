@@ -27,8 +27,8 @@ const posSolutionSource = readFileSync(resolve(
   'cloud-pos-point-of-sales-system/cloud-pos-point-of-sales-system.component.ts'
 ), 'utf8');
 const posSolutionHeroTitle = 'APPZPOS Cutting-Edge POS Point of Sales and E-Menu System';
-// Approved homepage hero changes: remove the eyebrow label and CTA arrows.
-const expectedHeroHash = '0935fcc0d345b887d9dbaf089fe700f02c3ea4d76d8eaceb53009563d2d9c398';
+// Approved homepage hero changes: remove the eyebrow label and CTA arrows, and use EDGE Grant wording.
+const expectedHeroHash = '31231ae34c41398747d944392d86151824c788d51b7982af8dfec974663c8e82';
 const approvedRemovedPhrases = new Set([
   // Approved CTA cleanup: decorative arrows are not button wording.
   '→',

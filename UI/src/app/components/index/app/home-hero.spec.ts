@@ -47,7 +47,7 @@ describe('APPZPOS home hero', () => {
 
     expect(hero).withContext('the product-led hero should render').not.toBeNull();
     expect(hero?.querySelector('h1')?.textContent?.replace(/\s+/g, ' ').trim())
-      .toBe('All-In-One POS System in Singapore with PSG Grant');
+      .toBe('All-In-One POS System in Singapore with EDGE Grant');
     expect(hero?.querySelector('.appzpos-product-hero__intro')?.textContent?.replace(/\s+/g, ' ').trim())
       .toBe('Transform your F&B, Retail, & Salon Businesses with APPZPOS Cutting-Edge Point of Sales Software');
     expect(hero?.querySelector<HTMLImageElement>('img[alt="APPZPOS touchscreen POS terminal with receipt printer"]'))
