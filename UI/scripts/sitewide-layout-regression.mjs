@@ -79,6 +79,9 @@ for (const viewport of viewports) {
           const bounds = node.getBoundingClientRect();
           const styles = getComputedStyle(node);
           return {
+            kind: node.classList.contains('appzpos-nav__utility--call') ? 'call'
+              : node.classList.contains('appzpos-nav__utility--whatsapp') ? 'whatsapp'
+                : 'messenger',
             width: Math.round(bounds.width),
             height: Math.round(bounds.height),
             fontSize: Math.round(Number.parseFloat(styles.fontSize))
@@ -126,8 +129,9 @@ for (const viewport of viewports) {
       failures.push(`${profile}: header logo size differs (${result.headerLogoWidth}px)`);
     }
     if (viewport.width > 1100 && (result.headerUtilities.length !== 3
-      || result.headerUtilities.some(control => control.width !== 44
-        || control.height !== 44 || control.fontSize !== 24))) {
+      || result.headerUtilities.some(control => control.width !== 44 || control.height !== 44)
+      || result.headerUtilities.some(control => control.fontSize
+        !== (control.kind === 'call' ? 24 : 30)))) {
       failures.push(`${profile}: header utility icon sizes differ (${JSON.stringify(result.headerUtilities)})`);
     }
     if (result.floating.rails !== 1 || !result.floating.visible || result.floating.position !== 'fixed'
