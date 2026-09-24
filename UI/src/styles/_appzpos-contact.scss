@@ -13,9 +13,9 @@ app-point-of-sales-demo-quotation {
     display: grid;
     grid-template-columns: minmax(0, 1.05fr) minmax(430px, .95fr);
     align-items: center;
-    gap: clamp(42px, 7vw, 92px);
-    min-height: 560px;
-    padding: clamp(48px, 6vw, 80px) 24px;
+    gap: clamp(36px, 6vw, 72px);
+    min-height: 460px;
+    padding: clamp(36px, 4vw, 52px) 24px;
   }
   .contact-hero__copy { position: relative; z-index: 1; min-width: 0; text-align: left; }
   .contact-hero h1 {
@@ -77,7 +77,7 @@ app-point-of-sales-demo-quotation {
     background: transparent;
     box-shadow: none;
   }
-  .contact-main { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); align-items: start; gap: clamp(24px, 3vw, 38px); margin: 0; }
+  .contact-main { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); align-items: flex-start; gap: clamp(24px, 3vw, 38px); margin: 0; }
   .contact-main > .col-lg-6 { width: 100%; min-width: 0; }
   .contact-form-panel { padding: 4px 0 0; border: 0; border-radius: 0; background: transparent; }
   .contact-form-panel .fancy-title { margin-bottom: 18px; }
@@ -94,7 +94,7 @@ app-point-of-sales-demo-quotation {
   .contact-form-panel input[type=submit] { width: 100%; margin: 0; min-height: 44px; padding: 0 30px; border-radius: 999px; background: #1688d8; color: #fff; text-transform: none; letter-spacing: 0; transition: background .2s; }
   .contact-form-panel input[type=submit]:hover { background: #075f98; }
   .contact-form-panel input[type=submit]:focus-visible, .contact-channels a:focus-visible { outline: 3px solid #086aab; outline-offset: 4px; }
-  .contact-details-panel { display: grid; grid-template-rows: auto 240px; align-content: start; gap: 18px; min-width: 0; }
+  .contact-details-panel { display: grid; grid-template-rows: auto 240px auto; align-content: start; gap: 18px; min-width: 0; }
   .contact-address { display: flex; align-items: flex-start; gap: 14px; padding: 2px 2px 0; }
   .contact-address__icon { display: grid; flex: 0 0 42px; width: 42px; height: 42px; place-items: center; border-radius: 13px; background: #e7f3ff; color: #1688d8; font-size: 20px; }
   .contact-address h3 { margin: 0 0 5px; font-size: 18px; letter-spacing: -.02em; }
@@ -102,35 +102,35 @@ app-point-of-sales-demo-quotation {
   .contact-map-panel { height: 240px; min-height: 0; padding: 0 !important; border-radius: 20px; overflow: hidden; background: #e7f3ff; }
   .contact-map-panel .gmap { width: 100%; height: 100%; }
   .contact-map-panel iframe { display: block; width: 100%; height: 100%; min-height: 0; }
-  .contact-channels { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 16px; margin: clamp(34px, 4vw, 48px) 0 0; }
+  .contact-channels { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 1fr; gap: 12px; margin: 0; }
   .contact-channels > div { width: 100%; min-width: 0; padding: 0; }
   .contact-channels .feature-box {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 18px;
+    gap: 10px;
     height: 100%;
-    min-height: 190px;
+    min-height: 126px;
     margin: 0;
-    padding: 28px 20px;
+    padding: 14px 12px;
     border: 1px solid color-mix(in srgb, var(--channel-color) 18%, #dce7ef);
-    border-radius: 20px;
+    border-radius: 16px;
     background: #fff;
   }
-  .contact-channels .fbox-icon { position: static; flex: 0 0 54px; width: 54px; height: 54px; margin: 0 !important; padding: 0; background: transparent; }
-  .contact-channels .fbox-icon a, .contact-channels .fbox-icon i { width: 54px; height: 54px; color: var(--channel-color) !important; line-height: 54px; font-size: 38px; background: transparent; }
+  .contact-channels .fbox-icon { position: static; flex: 0 0 36px; width: 36px; height: 36px; margin: 0 !important; padding: 0; background: transparent; }
+  .contact-channels .fbox-icon a, .contact-channels .fbox-icon i { width: 36px; height: 36px; color: var(--channel-color) !important; line-height: 36px; font-size: 28px; background: transparent; }
   .contact-channels .fbox-content { width: 100%; min-width: 0; padding: 0 !important; background: transparent; border: 0; text-align: center; }
-  #content .contact-channels h3 { margin: 0; color: #202733 !important; font-size: 18px !important; line-height: 1.35 !important; letter-spacing: -.01em; text-transform: none; }
+  #content .contact-channels h3 { margin: 0; color: #202733 !important; font-size: 14px !important; line-height: 1.3 !important; letter-spacing: -.01em; text-transform: none; }
   .contact-channel__title { display: block; color: #202733 !important; }
-  .contact-channels .subtitle { display: block; margin-top: 10px; overflow-wrap: anywhere; }
-  .contact-channels .subtitle a { color: var(--channel-color) !important; font-size: 16px !important; }
+  .contact-channels .subtitle { display: block; margin-top: 5px; overflow-wrap: anywhere; }
+  .contact-channels .subtitle a { color: var(--channel-color) !important; font-size: 13px !important; }
   .contact-channel--phone { --channel-color: #009df0; }
   .contact-channel--whatsapp { --channel-color: #25d366; }
   .contact-channel--facebook { --channel-color: #1877f2; }
   .contact-channel--instagram { --channel-color: #e4405f; }
   @media (max-width: 1023px) {
-    .contact-hero__inner { grid-template-columns: minmax(0, 1fr); gap: 28px; min-height: 0; }
+    .contact-hero__inner { grid-template-columns: minmax(0, 1fr); gap: 22px; min-height: 0; padding: 32px 24px; }
     .contact-hero__copy { text-align: center; }
     .contact-hero h1, .contact-hero p { margin-right: auto; margin-left: auto; }
     .contact-hero__media {
@@ -138,7 +138,7 @@ app-point-of-sales-demo-quotation {
       inset: auto;
       width: 100%;
       max-width: 560px;
-      height: clamp(360px, 52vw, 450px);
+      height: clamp(280px, 38vw, 330px);
       margin-right: auto;
       margin-left: auto;
       border: 1px solid rgba(22, 136, 216, .13);
@@ -146,22 +146,23 @@ app-point-of-sales-demo-quotation {
       box-shadow: 0 24px 60px rgba(36, 92, 133, .15);
     }
     .contact-main { grid-template-columns: minmax(0, 1fr); }
-    .contact-details-panel { grid-template-rows: auto 220px; }
+    .contact-details-panel { grid-template-rows: auto 220px auto; }
     .contact-map-panel { height: 220px; }
-    .contact-channels { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   }
   @media (max-width: 575px) {
-    .contact-hero__inner { gap: 20px; padding: 36px 20px 28px; }
+    .contact-hero__inner { gap: 16px; padding: 28px 20px 24px; }
     .contact-hero__copy { text-align: left; }
     .contact-hero h1 { margin-left: 0; font-size: clamp(34px, 10vw, 42px); }
     .contact-hero p { margin-left: 0; font-size: 16px; line-height: 1.62; }
-    .contact-hero__media { height: 300px; border-radius: 20px; }
+    .contact-hero__media { height: 230px; border-radius: 20px; }
     .contact-form-panel { padding: 2px 0 0; }
     .contact-form-panel input[type=submit] { width: 100%; }
-    .contact-details-panel { grid-template-rows: auto 210px; }
+    .contact-details-panel { grid-template-rows: auto 210px auto; }
     .contact-map-panel { height: 210px; }
-    .contact-channels { grid-template-columns: minmax(0, 1fr); gap: 12px; }
-    .contact-channels .feature-box { min-height: 190px; padding: 24px 18px; }
+    .contact-channels { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+    .contact-channels .feature-box { min-height: 126px; padding: 12px 8px; }
+    #content .contact-channels h3 { font-size: 13px !important; }
+    .contact-channels .subtitle a { font-size: 12px !important; }
   }
 }
 

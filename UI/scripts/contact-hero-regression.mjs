@@ -134,7 +134,7 @@ for (const width of viewports) {
       const detailsPanel = workspace?.querySelector('.contact-details-panel');
       const address = detailsPanel?.querySelector('.contact-address');
       const map = detailsPanel?.querySelector('.contact-map-panel');
-      const channels = workspace?.querySelector('.contact-channels');
+      const channels = detailsPanel?.querySelector('.contact-channels');
       const channelCards = channels ? [...channels.querySelectorAll('.feature-box')].map((card) => {
         const icon = card.querySelector('.fbox-icon');
         const content = card.querySelector('.fbox-content');
@@ -213,7 +213,7 @@ for (const width of viewports) {
           map: bounds(map),
           mapPresent: Boolean(map?.querySelector('iframe')),
           channels: bounds(channels),
-          channelsOutsideDetails: channels?.parentElement === workspace,
+          channelsInsideDetails: channels?.parentElement === detailsPanel,
           channelCards,
           actionLinks: channels ? [
             Boolean(channels.querySelector('a[href^="tel:"]')),
@@ -300,7 +300,7 @@ for (const [width, layout] of Object.entries(layouts)) {
   if (!layout.contact.mapPresent) failures.push(`${width}px: contact map is missing from the details column`);
   if (layout.contact.actionLinks.length !== 4 || layout.contact.actionLinks.some((present) => !present)) failures.push(`${width}px: contact details do not include phone, WhatsApp, Facebook and Instagram`);
   if (layout.contact.channelCards.length !== 4) failures.push(`${width}px: expected four contact cards`);
-  if (!layout.contact.channelsOutsideDetails) failures.push(`${width}px: contact cards are not in a full-width row below the form and map`);
+  if (!layout.contact.channelsInsideDetails) failures.push(`${width}px: contact cards are not directly below the map`);
   const expectedChannelCopy = [
     ['Speak to Us', '(65) 8310 9631'],
     ['WhatsApp Us', '(65) 8310 9631'],
@@ -320,6 +320,12 @@ for (const [width, layout] of Object.entries(layouts)) {
       || Math.abs(card.height - firstCard.height) > 1)) {
       failures.push(`${width}px: contact cards do not share the same size`);
     }
+    const [first, second, third, fourth] = layout.contact.channelCards.map(({ card }) => card);
+    if (Math.abs(first.y - second.y) > 1 || Math.abs(third.y - fourth.y) > 1
+      || Math.abs(first.x - third.x) > 1 || Math.abs(second.x - fourth.x) > 1
+      || third.y <= first.y || first.height > 140) {
+      failures.push(`${width}px: contact cards are not a compact 2x2 grid`);
+    }
   }
   const expectedBrandColors = ['rgb(0, 157, 240)', 'rgb(37, 211, 102)', 'rgb(24, 119, 242)', 'rgb(228, 64, 95)'];
   for (const [index, expectedColor] of expectedBrandColors.entries()) {
@@ -334,6 +340,12 @@ for (const [width, layout] of Object.entries(layouts)) {
 }
 
 const desktop = layouts[1280];
+for (const width of [1440, 1280, 1024]) {
+  if (layouts[width].hero?.height !== 460) failures.push(`${width}px: desktop hero height is not reduced to 460px`);
+}
+if (layouts[768].hero?.height > 600 || layouts[390].hero?.height > 560) {
+  failures.push('tablet or mobile hero remains too tall');
+}
 if (desktop.copy && desktop.media && desktop.media.x <= desktop.copy.x + desktop.copy.width) {
   failures.push('1280px: support image is not positioned to the right of the hero wording');
 }
@@ -354,12 +366,9 @@ if (desktop.contact.address && desktop.contact.map) {
   const addressBottom = desktop.contact.address.y + desktop.contact.address.height;
   if (desktop.contact.map.y < addressBottom) failures.push('1280px: address and map are not ordered vertically');
 }
-if (desktop.contact.form && desktop.contact.details && desktop.contact.channels) {
-  const contentBottom = Math.max(
-    desktop.contact.form.y + desktop.contact.form.height,
-    desktop.contact.details.y + desktop.contact.details.height
-  );
-  if (desktop.contact.channels.y <= contentBottom) failures.push('1280px: contact cards are not below the form and map');
+if (desktop.contact.map && desktop.contact.channels) {
+  const mapBottom = desktop.contact.map.y + desktop.contact.map.height;
+  if (desktop.contact.channels.y <= mapBottom) failures.push('1280px: contact cards are not below the map');
 }
 if (desktop.contact.form && desktop.contact.form.height > 760) failures.push('1280px: contact form remains too tall');
 if (desktop.contact.map && desktop.contact.map.height > 260) failures.push('1280px: contact map remains too tall');
@@ -373,7 +382,7 @@ if (mobile.contact.form && mobile.contact.details && mobile.contact.details.y <=
 }
 if (mobile.contact.form && mobile.contact.form.height > 850) failures.push('390px: contact form remains too tall');
 if (mobile.contact.map && mobile.contact.map.height > 240) failures.push('390px: contact map remains too tall');
-if (mobile.contact.channelCards.some((card) => card.card?.width < 300)) failures.push('390px: contact cards are too narrow for readable mobile labels and details');
+if (mobile.contact.channelCards.some((card) => card.card?.width < 160)) failures.push('390px: contact cards are too narrow for readable mobile labels and details');
 
 for (const width of [1440, 1280, 1024]) {
   const layout = layouts[width];
