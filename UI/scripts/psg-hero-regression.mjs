@@ -376,6 +376,7 @@ for (const width of viewports) {
         rhythm: {
           heroPaddingTop: inner ? parseFloat(getComputedStyle(inner).paddingTop) : -1,
           heroPaddingBottom: inner ? parseFloat(getComputedStyle(inner).paddingBottom) : -1,
+          heroToOverviewGap: hero && overviewGrid ? overviewGrid.getBoundingClientRect().top - hero.getBoundingClientRect().bottom : -1,
           overviewPaddingTop: overview ? parseFloat(getComputedStyle(overview).paddingTop) : -1,
           overviewPaddingBottom: overview ? parseFloat(getComputedStyle(overview).paddingBottom) : -1,
           overviewGridGap: overviewGrid ? parseFloat(getComputedStyle(overviewGrid).rowGap) : -1,
@@ -628,6 +629,7 @@ for (const [width, layout] of Object.entries(layouts)) {
     ? { hero: 48, overview: 32, packages: 48, applyMargin: 48, applyPadding: 48, faq: 48 }
     : { hero: 72, overview: 40, packages: 64, applyMargin: 72, applyPadding: 68, faq: 72 };
   if (layout.rhythm.heroPaddingTop > maximumRhythm.hero || layout.rhythm.heroPaddingBottom > maximumRhythm.hero) failures.push(`${width}px: PSG hero spacing remains too large`);
+  if (layout.rhythm.heroToOverviewGap > 48) failures.push(`${width}px: blank space between the grant hero and support panels remains too large`);
   if (layout.rhythm.overviewPaddingTop > maximumRhythm.overview || layout.rhythm.overviewPaddingBottom > maximumRhythm.overview) failures.push(`${width}px: PSG overview spacing remains too large`);
   if (Number(width) <= 1023 && layout.rhythm.overviewGridGap > 64) failures.push(`${width}px: PSG overview panels remain too far apart`);
   if (layout.rhythm.packagesMarginTop > maximumRhythm.packages) failures.push(`${width}px: PSG packages spacing remains too large`);

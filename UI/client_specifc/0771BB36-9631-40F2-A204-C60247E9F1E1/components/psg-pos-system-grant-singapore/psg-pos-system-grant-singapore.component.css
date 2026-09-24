@@ -59,6 +59,10 @@
   box-shadow: 0 24px 60px rgba(58, 35, 95, .14);
 }
 
+#content > .content-wrap {
+  padding-top: 0 !important;
+}
+
 .psg-overview {
   padding: clamp(28px, 3vw, 40px) 0;
   background: #fff;
