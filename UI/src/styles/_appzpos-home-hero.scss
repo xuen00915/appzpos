@@ -725,21 +725,21 @@
 
 .appzpos-software-screen__brand {
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 9%;
+  left: 16%;
   z-index: 2;
   display: flex;
   align-items: center;
-  width: 19%;
+  width: 10%;
   height: 14%;
-  padding-inline: 2.55%;
+  padding-inline: 0;
   background: #f4f9fe;
   pointer-events: none;
 }
 
 .appzpos-software-screen__brand img {
   display: block;
-  width: 84%;
+  width: 100%;
   height: auto;
   object-fit: contain;
 }
@@ -1750,7 +1750,7 @@
 }
 
 .appzpos-product-hero .appzpos-product-hero__screen-plane {
-  transform: none;
+  transform: perspective(var(--appzpos-screen-perspective)) rotateX(34deg) scale3d(1, 1.55, 1);
 }
 
 /* Compact, responsive hero composition: tabs lead directly into a larger device. */

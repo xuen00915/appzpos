@@ -66,6 +66,8 @@ for (const width of viewports) {
       };
       const screenWindow = document.querySelector('.appzpos-product-hero__screen-window');
       const screenPlane = document.querySelector('.appzpos-product-hero__screen-plane');
+      const screenBrand = document.querySelector('.appzpos-software-screen__brand');
+      const screenBrandImage = screenBrand?.querySelector('img');
       const screenImages = [...document.querySelectorAll('.appzpos-screen-slice img')];
       const moduleCards = [...document.querySelectorAll('.appzpos-module-orbit__card')];
       const moduleList = document.querySelector('.appzpos-module-orbit__list');
@@ -84,6 +86,7 @@ for (const width of viewports) {
       machineContext.drawImage(machineImage, 0, 0);
       const alphaAt = (x, y) => machineContext.getImageData(x, y, 1, 1).data[3];
       const windowRect = rect(screenWindow);
+      const brandRect = rect(screenBrand);
       const screenIsHitAt = (xRatio, yRatio) => document
         .elementsFromPoint(
           windowRect.x + (windowRect.width * xRatio),
@@ -93,6 +96,15 @@ for (const width of viewports) {
       return {
         window: windowRect,
         plane: rect(screenPlane),
+        screenPresentation: {
+          transform: getComputedStyle(screenPlane).transform,
+          brand: brandRect,
+          brandImageLoaded: Boolean(screenBrandImage?.complete && screenBrandImage.naturalWidth),
+          brandLeftRatio: (brandRect.x - windowRect.x) / windowRect.width,
+          brandTopRatio: (brandRect.y - windowRect.y) / windowRect.height,
+          brandRightRatio: (brandRect.x + brandRect.width - windowRect.x) / windowRect.width,
+          brandBottomRatio: (brandRect.y + brandRect.height - windowRect.y) / windowRect.height
+        },
         images: screenImages.map(rect),
         moduleCards: moduleCards.map(rect),
         moduleCardAnimations: moduleCards.map((card) => ({
@@ -365,10 +377,17 @@ for (const [width, layout] of Object.entries(layouts)) {
     }
   }
 
-  for (const property of ['x', 'y', 'width', 'height']) {
-    if (!closeEnough(layout.plane[property], layout.window[property])) {
-      failures.push(`${width}px: screen plane ${property} does not match the physical screen mask`);
-    }
+  if (layout.screenPresentation.transform === 'none') {
+    failures.push(`${width}px: the POS interface is flattened instead of following the device-screen perspective`);
+  }
+  if (!layout.screenPresentation.brandImageLoaded) {
+    failures.push(`${width}px: the APPZPOS screen mark did not load`);
+  }
+  if (layout.screenPresentation.brandLeftRatio < .14
+    || layout.screenPresentation.brandTopRatio < .05
+    || layout.screenPresentation.brandRightRatio > .32
+    || layout.screenPresentation.brandBottomRatio > .28) {
+    failures.push(`${width}px: the APPZPOS screen mark enters the bezel clipping zone`);
   }
 
   for (const [corner, leaks] of Object.entries(layout.cornerGuardLeaks)) {
