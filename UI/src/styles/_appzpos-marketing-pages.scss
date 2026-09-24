@@ -224,6 +224,154 @@ main.appz-home-story {
   .appz-demo__contact p { color: rgba(255, 255, 255, .78) !important; }
 }
 
+/* Blog request-demo dialog: reuse the conversion form language without changing its data flow. */
+.appz-demo-dialog {
+  .mat-dialog-container,
+  .mat-mdc-dialog-container,
+  .mat-mdc-dialog-surface {
+    border-radius: 22px;
+    overflow: hidden;
+    padding: 0;
+  }
+
+  #webview {
+    display: block !important;
+  }
+
+  #mobile_view {
+    display: none !important;
+  }
+
+  [mat-dialog-title] {
+    background: var(--appz-ink);
+    color: #fff;
+    margin: 0;
+    padding: 24px 28px 18px;
+  }
+
+  [mat-dialog-title] h2 {
+    color: #fff;
+    font-family: var(--appz-font-display);
+    font-size: clamp(1.65rem, 3vw, 2.25rem);
+    font-weight: 750;
+    letter-spacing: -.04em;
+    line-height: 1.08;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  [mat-dialog-content] {
+    margin: 0;
+    max-height: min(72vh, 680px);
+    padding: 0;
+  }
+
+  form {
+    margin: 0;
+  }
+
+  form > .overflow-hidden {
+    display: grid;
+    gap: 14px 16px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 28px !important;
+  }
+
+  .alert,
+  .form-group:last-child {
+    grid-column: 1 / -1;
+  }
+
+  .form-group {
+    margin: 0;
+    min-width: 0;
+    padding: 0;
+  }
+
+  label {
+    color: #0b2347;
+    display: block;
+    font-size: .78rem;
+    font-weight: 760;
+    margin-bottom: 6px;
+  }
+
+  input.form-control {
+    background: #fff !important;
+    border: 1px solid #cbd9e6 !important;
+    border-radius: 12px !important;
+    color: #101d39 !important;
+    font: inherit;
+    font-size: 1rem;
+    height: 50px;
+    outline: none;
+    padding: 0 14px;
+    width: 100%;
+  }
+
+  input.form-control:focus {
+    background: #fff;
+    border-color: #0a86e8;
+    box-shadow: 0 0 0 3px rgba(10, 134, 232, .12);
+  }
+
+  .form-group:last-child {
+    display: grid;
+    gap: 12px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 4px;
+  }
+
+  [type="submit"],
+  .button2 {
+    align-items: center;
+    border-radius: 999px;
+    display: inline-flex;
+    font: inherit;
+    font-size: .94rem;
+    font-weight: 760;
+    justify-content: center;
+    margin: 0;
+    min-height: 48px;
+    width: 100%;
+  }
+
+  [type="submit"] {
+    background: #0a86e8;
+    border: 0;
+    box-shadow: 0 12px 24px rgba(10, 134, 232, .22);
+    color: #fff;
+  }
+
+  .button2 {
+    background: #edf4fa;
+    border: 1px solid #d9e6f2;
+    color: #0b2347 !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .appz-demo-dialog {
+    [mat-dialog-title] {
+      padding: 20px 18px 14px;
+    }
+
+    [mat-dialog-content] {
+      max-height: 74vh;
+    }
+
+    form > .overflow-hidden {
+      grid-template-columns: minmax(0, 1fr);
+      padding: 20px 18px !important;
+    }
+
+    .alert,
+    .form-group:last-child {
+      grid-column: auto;
+    }
+  }
+}
+
 .appz-kicker {
   margin: 0 0 18px;
   color: var(--appz-orange);
@@ -1819,4 +1967,30 @@ app-solution-page {
   letter-spacing: -.04em !important;
   line-height: var(--appz-section-title-line) !important;
   text-wrap: balance;
+}
+
+/* English homepage: direct section headings and a compact, single rhythm. */
+[data-home-page-template][lang='en'] {
+  --appz-home-section-edge: clamp(30px, 3vw, 42px);
+  --appz-section-space: var(--appz-home-section-edge);
+}
+
+[data-home-page-template][lang='en'] .appz-ecosystem {
+  padding-top: var(--appz-home-section-edge);
+  padding-bottom: var(--appz-home-section-edge);
+}
+
+[data-home-page-template][lang='en'] .appz-home-story .appz-section,
+[data-home-page-template][lang='en'] .appz-home-story .ecosystem__features {
+  padding-top: var(--appz-home-section-edge);
+  padding-bottom: var(--appz-home-section-edge);
+}
+
+[data-home-page-template][lang='en'] .appz-home-story .ecosystem__grant,
+[data-home-page-template][lang='en'] .appz-home-story .ecosystem__features {
+  margin-bottom: 0;
+}
+
+[data-home-page-template][lang='en'] .appz-demo__eyebrow {
+  display: none;
 }

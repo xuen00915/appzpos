@@ -192,10 +192,10 @@ export const CHINESE_HOME_PAGE_CONFIG: HomePageTemplateConfig = {
       title: '统一管理POS餐饮系统 高效经营，实现最大化盈利',
       presentation: 'cards',
       bullets: [
-        { label: '云端POS系统 -', text: '在一个POS系统中心集中管理，并通过互联网随时随地更新或查看', iconClass: 'bi-cloud-check' },
-        { label: '实时报告分析 -', text: '记录了每笔交易的细节信息，包括销售额、产品类别、交易时间、支付方式等，并利用生成的实时报告数据进行分析', iconClass: 'bi-graph-up-arrow' },
-        { label: '第三方整合 -', text: '与第三方平台合作（如外卖配送、支付、会计软件、商场平台等），在我们的POS系统中直接处理与第三方平台相关的业务，例如接收在线订单、处理支付、安排配送等', iconClass: 'bi-diagram-3' },
-        { label: '多店运营 -', text: '如果您正在扩张到更多的地点，您可以通过我们统一的POS系统，轻松管理多个分店的运营', iconClass: 'bi-buildings' }
+        { label: '云端POS系统', text: '在一个POS系统中心集中管理，并通过互联网随时随地更新或查看', iconClass: 'bi-cloud-check' },
+        { label: '实时报告分析', text: '记录了每笔交易的细节信息，包括销售额、产品类别、交易时间、支付方式等，并利用生成的实时报告数据进行分析', iconClass: 'bi-graph-up-arrow' },
+        { label: '第三方整合', text: '与第三方平台合作（如外卖配送、支付、会计软件、商场平台等），在我们的POS系统中直接处理与第三方平台相关的业务，例如接收在线订单、处理支付、安排配送等', iconClass: 'bi-diagram-3' },
+        { label: '多店运营', text: '如果您正在扩张到更多的地点，您可以通过我们统一的POS系统，轻松管理多个分店的运营', iconClass: 'bi-buildings' }
       ]
     }
   ],

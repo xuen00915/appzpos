@@ -102,6 +102,21 @@ body .appz-home-template[lang="zh"] .home-story-section .appz-display {
   padding-bottom: clamp(52px, 4.5vw, 68px);
 }
 
+[data-home-page-template][lang="zh"] .appz-ecosystem__intro {
+  width: min(100%, 72rem);
+  max-width: 72rem;
+}
+
+[data-home-page-template][lang="zh"] #cn-custom-pos-title {
+  width: 100%;
+  max-width: 24ch !important;
+}
+
+[data-home-page-template][lang="zh"] #cn-unified-management-title {
+  width: min(100%, 30ch);
+  max-width: 30ch !important;
+}
+
 a,
 button,
 input,

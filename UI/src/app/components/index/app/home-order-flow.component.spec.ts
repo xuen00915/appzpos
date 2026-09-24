@@ -126,8 +126,7 @@ describe('HomeOrderFlowComponent ecosystem', () => {
   it('renders the approved heading and seven independent ecosystem islands', () => {
     fixture.detectChanges();
     const host = fixture.nativeElement as HTMLElement;
-    expect(host.querySelector('.appz-ecosystem__eyebrow')?.textContent?.trim())
-      .toBe('CONNECTED APPZPOS ECOSYSTEM');
+    expect(host.querySelector('.appz-ecosystem__eyebrow')).toBeNull();
     expect(host.querySelector('h2')?.textContent?.trim()).toBe('Everything Works Together');
     expect(host.querySelector('.appz-ecosystem__intro')?.textContent?.trim()).toBe(
       'From order to kitchen, pickup, delivery and management — connect the APPZPOS modules that fit your business.'

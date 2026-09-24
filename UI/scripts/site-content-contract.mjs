@@ -36,6 +36,11 @@ const approvedRemovedPhrases = new Set([
   '50%',
   'PRODUCTIVITY SOLUTIONS GRANT',
   'UP TO',
+  // Approved Chinese card cleanup: remove the decorative trailing dash.
+  '云端POS系统 -',
+  '实时报告分析 -',
+  '第三方整合 -',
+  '多店运营 -',
   // The old desktop/mobile banners split this heading around a <br> tag.
   // The shared solution hero keeps the exact wording as one responsive H1.
   'Centralized Delivery Platform Integration',

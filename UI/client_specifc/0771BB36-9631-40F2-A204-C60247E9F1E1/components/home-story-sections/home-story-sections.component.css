@@ -63,8 +63,8 @@
   grid-template-columns: 54px minmax(0, 1fr);
   align-items: start;
   gap: 22px;
-  min-height: 220px;
-  padding: clamp(22px, 2.2vw, 30px);
+  min-height: 0;
+  padding: clamp(20px, 2vw, 26px);
   border: 1px solid #dce8f2;
   border-radius: 18px;
   background: #fff;
@@ -81,7 +81,7 @@
   line-height: 1;
 }
 .home-story-section.is-card-grid .home-story-section__bullet-copy {
-  gap: 12px;
+  gap: 8px;
 }
 .home-story-section.is-card-grid .home-story-section__bullet-copy strong {
   color: #101d39;

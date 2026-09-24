@@ -1752,3 +1752,129 @@
 .appzpos-product-hero .appzpos-product-hero__screen-plane {
   transform: none;
 }
+
+/* Compact, responsive hero composition: tabs lead directly into a larger device. */
+.appzpos-product-hero {
+  --hero-copy-pad: clamp(.5rem, 1.6dvh, 1rem);
+  --hero-title-size: clamp(2.35rem, min(4.4vw, 7.2dvh), 4rem);
+}
+
+.appzpos-product-hero__intro {
+  max-width: 52rem;
+}
+
+.appzpos-product-hero__actions {
+  margin-top: clamp(.45rem, 1.2dvh, .75rem);
+}
+
+.appzpos-industry-switcher {
+  margin-top: clamp(.2rem, .8dvh, .45rem);
+}
+
+.appzpos-industry-switcher button {
+  min-height: 36px;
+}
+
+.appzpos-product-hero .appzpos-product-hero__machine {
+  max-width: min(64rem, 100%);
+}
+
+[data-home-page-template][lang="zh"] .appzpos-product-hero h1 {
+  font-size: clamp(1.55rem, min(4vw, 5.7dvh), 3.35rem);
+  letter-spacing: .045em;
+  line-height: 1.02;
+}
+
+@media (max-height: 768px) and (min-width: 901px) {
+  .appzpos-product-hero {
+    --hero-title-size: clamp(2rem, min(3.9vw, 6.4dvh), 3.1rem);
+  }
+
+  .appzpos-product-hero__intro {
+    font-size: .84rem;
+    line-height: 1.34;
+  }
+
+  .appzpos-product-hero__button,
+  .appzpos-product-hero__button.mat-mdc-raised-button {
+    min-height: 40px;
+    padding-block: 8px;
+  }
+
+  .appzpos-industry-switcher button {
+    min-height: 32px;
+  }
+
+  .appzpos-module-orbit__card:nth-child(n),
+  .appzpos-module-orbit__card--primary:nth-child(n) {
+    min-height: 2.2rem;
+    padding-block: .48rem;
+  }
+}
+
+[data-home-page-template][lang="zh"] .appzpos-product-hero__intro {
+  width: min(100%, 68rem);
+  max-width: 68rem;
+}
+
+@media (max-width: 900px) {
+  .appzpos-product-hero .appzpos-product-hero__visual:not(.appzpos-product-hero__visual--responsive) {
+    grid-template-rows: auto auto;
+    align-content: start;
+  }
+
+  .appzpos-product-hero .appzpos-product-hero__machine {
+    width: min(100%, 48rem);
+    height: auto;
+    max-height: none;
+  }
+
+  .appzpos-product-hero .appzpos-product-hero__machine > img {
+    height: auto;
+  }
+}
+
+@media (max-width: 39.99rem) {
+  .appzpos-product-hero {
+    --hero-title-size: clamp(1.65rem, min(7.2vw, 5.35dvh), 2.08rem);
+  }
+
+  [data-home-page-template][lang="zh"] .appzpos-product-hero h1 {
+    font-size: clamp(1.42rem, min(6.6vw, 4.8dvh), 1.8rem);
+    letter-spacing: .05em;
+    line-height: 1.04;
+  }
+
+  .appzpos-product-hero__intro {
+    max-width: 100%;
+  }
+}
+
+/* Use the terminal artwork's transparent crop area to tighten the visual rhythm. */
+.appzpos-product-hero .appzpos-product-hero__machine {
+  margin-top: -6.25rem;
+}
+
+.appzpos-product-hero .appzpos-module-orbit {
+  margin-top: -2.25rem;
+}
+
+@media (max-width: 900px) {
+  .appzpos-product-hero .appzpos-product-hero__machine {
+    margin-top: -4.75rem;
+  }
+
+  .appzpos-product-hero .appzpos-module-orbit {
+    margin-top: -1.5rem;
+  }
+}
+
+@media (max-width: 39.99rem) {
+  .appzpos-product-hero .appzpos-product-hero__machine {
+    margin-top: -1.5rem;
+  }
+
+  .appzpos-product-hero .appzpos-module-orbit {
+    margin-top: 0;
+  }
+}
