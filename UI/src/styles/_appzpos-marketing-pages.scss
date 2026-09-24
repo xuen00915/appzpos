@@ -1378,6 +1378,9 @@ app-psg-pos-system-grant-singapore {
 
 
 app-solution-page {
+  --solution-card-image-height: 320px;
+  --solution-featured-image-height: 430px;
+
   .solution-island-hero,
   .appz-solution-hero[data-solution-hero] {
     min-height: clamp(290px, 25vw, 350px);
@@ -1758,8 +1761,47 @@ app-solution-page {
     mix-blend-mode: multiply;
   }
 
-  #content .pos-system-card:not(.pos-system-card--featured) .pos-system-card__body {
+  #content .pos-system-card:not(.pos-system-card--featured) .pos-system-card__visual {
+    height: var(--solution-card-image-height);
+    min-height: var(--solution-card-image-height);
+    overflow: hidden;
+  }
+
+  #content .pos-system-card--featured .pos-system-card__visual {
+    align-self: center;
+    height: var(--solution-featured-image-height);
+    min-height: var(--solution-featured-image-height);
+  }
+
+  #content .pos-system-card:not(.pos-system-card--featured) .pos-system-card__visual img,
+  #content .pos-system-card--featured .pos-system-card__visual img {
+    position: static;
+    width: 100% !important;
+    min-height: 0;
+    height: 100% !important;
+    max-height: 100% !important;
+    object-fit: contain !important;
+    object-position: center;
+  }
+
+  #content .pos-system-card:not(.pos-system-card--featured) .pos-system-card__body,
+  #content .solution-detail-grid .solution-detail-card:not(.pos-system-card--featured) .pos-system-card__body {
     background: #fff;
+    padding-inline: 24px;
+  }
+
+  #content .pos-system-card--featured .pos-system-card__body {
+    padding-inline: 32px;
+  }
+
+  #content .pos-system-card__body h2 {
+    width: 100%;
+    max-width: none;
+    white-space: normal;
+    overflow-wrap: normal;
+    word-break: normal;
+    hyphens: none;
+    text-wrap: wrap;
   }
 
   #content .pos-overview p,
@@ -1796,6 +1838,11 @@ app-solution-page {
 }
 
 @media (max-width: 991px) {
+  app-solution-page {
+    --solution-card-image-height: 280px;
+    --solution-featured-image-height: 280px;
+  }
+
   app-solution-page #content .solution-hardware-grid {
     gap: 20px;
   }
@@ -1820,25 +1867,35 @@ app-solution-page {
 }
 
 @media (max-width: 599px) {
-  app-solution-page #content {
-    .pos-feature-grid {
-      grid-template-columns: minmax(0, 1fr);
-      gap: 16px;
-    }
+  app-solution-page {
+    --solution-card-image-height: 230px;
+    --solution-featured-image-height: 230px;
 
-    .content-wrap .pos-feature-grid .feature-box:not(.fbox-plain) {
-      padding: 20px;
-    }
+    #content {
+      .pos-feature-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 16px;
+      }
 
-    .pos-feature-section__header h2 {
-      font-size: clamp(25px, 6.5vw, 32px) !important;
-      line-height: 1.18;
-      text-wrap: balance;
-    }
+      .content-wrap .pos-feature-grid .feature-box:not(.fbox-plain) {
+        padding: 20px;
+      }
 
-    .pos-feature-grid .fbox-content h3 {
-      font-size: 19px;
-      margin-bottom: 8px;
+      .pos-feature-section__header h2 {
+        font-size: clamp(25px, 6.5vw, 32px) !important;
+        line-height: 1.18;
+        text-wrap: balance;
+      }
+
+      .pos-feature-grid .fbox-content h3 {
+        font-size: 19px;
+        margin-bottom: 8px;
+      }
+
+      .pos-system-card__body,
+      .pos-system-card--featured .pos-system-card__body {
+        padding-inline: 20px;
+      }
     }
   }
 }

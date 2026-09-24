@@ -3,6 +3,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 const preview = process.env.APPZPOS_PREVIEW_URL ?? 'http://127.0.0.1:4313/';
 const endpoint = `http://127.0.0.1:${process.env.APPZPOS_CDP_PORT ?? '9225'}`;
 const pages = [
+  ['cloud-pos-point-of-sales-system', 12],
   ['f&b-restaurant-emenu-qr-code-ordering-system', 8],
   ['f&b-restaurant-online-ordering-website', 9],
   ['self-order-kiosk-restaurant', 8],
@@ -42,20 +43,60 @@ for(const [page,count] of pages){
       const lines=e=>{const r=document.createRange();r.selectNodeContents(e);return new Set([...r.getClientRects()].filter(x=>x.width>0).map(x=>Math.round(x.top))).size;};
       const cards=[...document.querySelectorAll('[data-pos-feature]')];
       const top=cards[0]?.getBoundingClientRect().top;
+      const hero=document.querySelector('.solution-island-hero,[data-solution-hero]');
+      const heroTitle=hero?.querySelector('h1');
+      const heroCopy=hero?.querySelector('.solution-island-hero__copy,.appz-solution-hero__copy');
       return {
         shell:document.querySelectorAll('app-solution-page').length,
         featureHeading:document.querySelectorAll('[data-pos-feature-heading] h2').length,
         featureDescription:!!document.querySelector('[data-pos-feature-heading] p')?.textContent.trim(),
         overviewLines:lines([...document.querySelectorAll('.pos-overview h2')].find(visible)),
-        heroLines:lines(document.querySelector('.solution-island-hero h1')),
-        heroHeight:document.querySelector('.solution-island-hero').getBoundingClientRect().height,
-        heroDecoration:getComputedStyle(document.querySelector('.solution-island-hero__copy'),'::before').content,
+        heroLines:lines(heroTitle),
+        heroHeight:hero.getBoundingClientRect().height,
+        heroDecoration:getComputedStyle(heroCopy,'::before').content,
         content:document.querySelectorAll('#content').length,
         forms:document.querySelectorAll('#requestdemo app-custom-request-demo').length,
         overflow:document.documentElement.scrollWidth>innerWidth,
         featureCount:cards.length,
         columns:cards.filter(c=>Math.abs(c.getBoundingClientRect().top-top)<2).length,
         copyClipped:[...document.querySelectorAll('#content h2,#content h3,#content p')].filter(visible).some(e=>e.scrollWidth>e.clientWidth+2),
+        showcaseHeadings:[...document.querySelectorAll('.pos-system-card__body h2')].filter(visible).map(heading=>{
+          const body=heading.closest('.pos-system-card__body');
+          const card=heading.closest('.pos-system-card');
+          const headingBounds=heading.getBoundingClientRect();
+          const cardBounds=card.getBoundingClientRect();
+          const bodyStyles=getComputedStyle(body);
+          const headingStyles=getComputedStyle(heading);
+          const bodyContentWidth=body.clientWidth-parseFloat(bodyStyles.paddingLeft)-parseFloat(bodyStyles.paddingRight);
+          return {
+            text:heading.textContent.replace(/\\s+/g,' ').trim(),
+            featured:card.classList.contains('pos-system-card--featured'),
+            widthRatio:bodyContentWidth?headingBounds.width/bodyContentWidth:0,
+            cardWidthRatio:cardBounds.width?headingBounds.width/cardBounds.width:0,
+            forcedBreaks:heading.querySelectorAll('br').length,
+            maxWidth:headingStyles.maxWidth,
+            whiteSpace:headingStyles.whiteSpace,
+            overflowWrap:headingStyles.overflowWrap,
+            wordBreak:headingStyles.wordBreak,
+            hyphens:headingStyles.hyphens,
+            textWrap:headingStyles.textWrap,
+            clipped:heading.scrollWidth>heading.clientWidth+2
+          };
+        }),
+        showcaseImages:[...document.querySelectorAll('.pos-system-card__visual')].filter(visible).map(visual=>{
+          const card=visual.closest('.pos-system-card');
+          const image=visual.querySelector('img');
+          const visualBounds=visual.getBoundingClientRect();
+          const imageBounds=image.getBoundingClientRect();
+          const imageStyles=getComputedStyle(image);
+          return {
+            featured:card.classList.contains('pos-system-card--featured'),
+            frameHeight:Math.round(visualBounds.height),
+            imageHeight:Math.round(imageBounds.height),
+            objectFit:imageStyles.objectFit,
+            clipped:image.scrollWidth>image.clientWidth+2
+          };
+        }),
         overviewCount:[...document.querySelectorAll('.pos-overview')].filter(visible).length,
         imagesLoaded:[...document.querySelectorAll('#content img')].filter(visible).every(i=>i.naturalWidth>0),
         gtm:!!document.querySelector('script[src*="googletagmanager.com/gtm.js?id=GTM-N7VKTGG"]'),
@@ -64,11 +105,25 @@ for(const [page,count] of pages){
       };
     })()`);
     const columns=width>=1200?4:width>=600?2:1;
-    if(result.shell!==1||result.content!==1||result.forms!==1||result.overflow||result.copyClipped||result.featureCount!==count||result.columns!==columns||result.overviewCount!==1||!result.imagesLoaded||!result.gtm||!result.meta||!result.whatsapp||result.heroHeight>540||result.heroDecoration!=='none'||result.featureHeading!==1||!result.featureDescription||result.heroLines>3||(width>=1024&&result.overviewLines!==1)){
+    const headingsUseSharedNaturalWrap=result.showcaseHeadings.length>0&&result.showcaseHeadings.every(heading=>
+      !heading.clipped&&heading.forcedBreaks===0&&heading.maxWidth==='none'&&heading.whiteSpace==='normal'
+      &&heading.overflowWrap==='normal'&&heading.wordBreak==='normal'&&heading.hyphens==='none'
+      &&heading.textWrap==='wrap'
+      &&(width<1024||(heading.widthRatio>=.95&&(heading.featured||heading.cardWidthRatio>=.9))));
+    const imagesUseFixedResponsiveFrames=result.showcaseImages.length>0&&result.showcaseImages.every(image=>{
+      const expectedHeight=width<=599?230:width<=991?280:image.featured?430:320;
+      return image.frameHeight===expectedHeight&&image.imageHeight===expectedHeight
+        &&image.objectFit==='contain'&&!image.clipped;
+    });
+    const maximumHeroLines=width<=320?4:3;
+    if(result.shell!==1||result.content!==1||result.forms!==1||result.overflow||result.copyClipped||result.featureCount!==count||result.columns!==columns||result.overviewCount!==1||!result.imagesLoaded||!result.gtm||!result.meta||!result.whatsapp||result.heroHeight>540||result.heroDecoration!=='none'||result.featureHeading!==1||!result.featureDescription||result.heroLines>maximumHeroLines||(width>=1024&&result.overviewLines!==1)||!headingsUseSharedNaturalWrap||!imagesUseFixedResponsiveFrames){
       failures.push({page,width,...result});
     }
     if(process.env.APPZPOS_SCREENSHOT_DIR && (width===1440||width===390)){
-      await evaluate(`document.querySelector('.pos-feature-section').scrollIntoView({block:'start'})`);
+      await evaluate(`([...document.querySelectorAll('.pos-system-showcase')].find(section=>{
+        const bounds=section.getBoundingClientRect();
+        return bounds.width>0&&bounds.height>0;
+      }))?.scrollIntoView({block:'start'})`);
       await wait(100);
       mkdirSync(process.env.APPZPOS_SCREENSHOT_DIR,{recursive:true});
       const screenshot=await send('Page.captureScreenshot',{format:'png'});

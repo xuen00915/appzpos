@@ -15,6 +15,7 @@
     "test:tracking-preservation": "node --test scripts/tracking-preservation-contract.mjs",
     "test:blog-detail": "node scripts/blog-detail-regression.mjs",
     "test:hero-screen-fit": "node scripts/hero-screen-fit-regression.mjs",
+    "test:edge-grant-copy": "node scripts/edge-grant-copy-regression.mjs",
     "test:sitewide-layout": "node scripts/sitewide-layout-regression.mjs"
   },
   "private": true,

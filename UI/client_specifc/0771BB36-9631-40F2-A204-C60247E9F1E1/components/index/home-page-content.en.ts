@@ -126,7 +126,7 @@ export const ENGLISH_HOME_PAGE_CONFIG: HomePageTemplateConfig = {
   hero: {
     headingId: 'appzpos-hero-title',
     title: 'All-In-One POS System',
-    titleAccent: 'in Singapore with PSG Grant',
+    titleAccent: 'in Singapore with EDGE Grant',
     description: 'Transform your F&B, Retail, & Salon Businesses with APPZPOS Cutting-Edge Point of Sales Software',
     industryTabLabel: 'Preview APPZPOS by business type',
     industryStatusPrefix: 'Showing APPZPOS for',

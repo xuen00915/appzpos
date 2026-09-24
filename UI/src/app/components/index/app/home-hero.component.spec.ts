@@ -11,7 +11,7 @@ describe('HomeHeroComponent', () => {
   const englishHero: HomeHeroConfig = {
     headingId: 'home-title',
     title: 'All-In-One POS System',
-    titleAccent: 'in Singapore with PSG Grant',
+    titleAccent: 'in Singapore with EDGE Grant',
     description: 'Transform your F&B, Retail, & Salon Businesses with APPZPOS Cutting-Edge Point of Sales Software',
     industryTabLabel: 'Preview APPZPOS by business type',
     industryStatusPrefix: 'Showing APPZPOS for',

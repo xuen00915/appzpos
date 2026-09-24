@@ -2,14 +2,14 @@ const cdpPort = process.env.APPZPOS_CDP_PORT ?? '9225';
 const previewUrl = process.env.APPZPOS_PREVIEW_URL ?? 'http://127.0.0.1:4300/';
 const screenshotDir = process.env.APPZPOS_SCREENSHOT_DIR ?? '';
 const psgUrl = new URL('psg-pos-system-grant-singapore', previewUrl).href;
-const expectedTitle = 'Get Up to 50% PSG Grant for Local SMEs | F&B POS Packages';
+const expectedTitle = 'EDGE Grant Support for Singapore Businesses | F&B POS Packages';
 const expectedHeading = 'Up to 50% Monetary Support To Kickstart Your F&B Business';
-const expectedDescription = 'SMEs are eligible for up to 50% Productivity Solutions Grant (PSG) support for the adoption of APPZPOS F&B Point of Sales, a Pre-Approved Solution under the IMDA SMEs Go Digital programme.';
+const expectedDescription = 'Eligible Singapore companies can receive EDGE Grant support for qualifying APPZPOS digitalisation projects. Support levels vary by activity.';
 const expectedFaqQuestions = [
   'Q: What will be the reimbursement amount ?',
   'Q: What are the packages you provide ?',
   'Q: Who can apply ?',
-  'Q: Where can I apply for Productivity Solutions Grant ?',
+  'Q: Where can I apply for EDGE Grant?',
   'Q: Why Appzgate Solutions ?',
   'Q: How to Apply ?'
 ];
@@ -22,8 +22,8 @@ const expectedApplySteps = [
   },
   {
     number: '2',
-    title: 'Apply PSG Grant under BGP',
-    description: 'Check whether you are eligible for a PSG grant and we will assist you to submit an application on Business Grant Portal (BGP). Registration for a CorpPass account is also needed for transactions.'
+    title: 'Apply for EDGE Grant through BGP',
+    description: 'Check whether you are eligible for EDGE Grant and we will assist you to submit an application on Business Grant Portal (BGP). Registration for a CorpPass account is also needed for transactions.'
   },
   {
     number: '3',
@@ -276,8 +276,8 @@ for (const width of viewports) {
               text: item.textContent?.replace(/\\s+/g, ' ').trim() ?? ''
             };
           }),
-          eligibilityLink: eligibility?.querySelector('a[href*="gobusiness.gov.sg/productivity-solutions-grant"]')?.getAttribute('href') ?? '',
-          guideLink: eligibility?.querySelector('a[href*="enterprisesg.gov.sg"]')?.getAttribute('href') ?? ''
+          eligibilityLink: eligibility?.querySelector('a[href="https://www.enterprisesg.gov.sg/financial-support/edge-grant"]')?.getAttribute('href') ?? '',
+          guideLink: eligibility?.querySelectorAll('a[href="https://www.enterprisesg.gov.sg/financial-support/edge-grant"]')[1]?.getAttribute('href') ?? ''
         },
         requestDemo: {
           container: bounds(requestDemo),
@@ -544,7 +544,7 @@ for (const [width, layout] of Object.entries(layouts)) {
   if (!layout.eligibility.board || layout.eligibility.board.backgroundColor !== 'rgb(255, 255, 255)' || layout.eligibility.board.borderTopStyle === 'none' || layout.eligibility.board.borderRadius <= 0) failures.push(`${width}px: PSG eligibility title and items are not enclosed in one bordered white clipboard`);
   if (!layout.eligibility.board || layout.eligibility.board.clip.content === 'none' || layout.eligibility.board.clip.position !== 'absolute' || layout.eligibility.board.clip.top >= 0 || layout.eligibility.board.clip.borderTopStyle === 'none') failures.push(`${width}px: eligibility board is missing its raised clipboard clip`);
   if (!layout.eligibility.board || layout.eligibility.board.loop.content === 'none' || layout.eligibility.board.loop.position !== 'absolute' || layout.eligibility.board.loop.top >= layout.eligibility.board.clip.top || layout.eligibility.board.loop.borderTopStyle === 'none' || layout.eligibility.board.loop.borderRadius <= 0) failures.push(`${width}px: eligibility board is missing its curved clipboard tab`);
-  if (layout.eligibility.title && layout.eligibility.board && (layout.eligibility.title.y < layout.eligibility.board.bounds.y || layout.eligibility.title.y + layout.eligibility.title.height >= layout.eligibility.items[0]?.bounds.y)) failures.push(`${width}px: PSG eligibility title is not positioned inside the clipboard above the checklist`);
+  if (layout.eligibility.title && layout.eligibility.board && (layout.eligibility.title.y < layout.eligibility.board.bounds.y || layout.eligibility.title.y + layout.eligibility.title.height > layout.eligibility.items[0]?.bounds.y)) failures.push(`${width}px: EDGE Grant eligibility title is not positioned inside the clipboard above the checklist`);
   if (layout.eligibility.items.length !== 5) failures.push(`${width}px: PSG eligibility list does not contain all five items`);
   if (layout.eligibility.items.some((item) => !item.hasTick)) failures.push(`${width}px: PSG eligibility items are not presented as a tick list`);
   if (layout.eligibility.items.some((item) => !item.tick || !item.textBounds || item.tick.x >= item.textBounds.x)) failures.push(`${width}px: an eligibility tick is not positioned to the left of its wording`);
@@ -566,10 +566,10 @@ for (const [width, layout] of Object.entries(layouts)) {
   if (layout.faq.buttonBackgroundColor !== 'rgb(116, 57, 149)' || layout.faq.buttonColor !== 'rgb(255, 255, 255)') failures.push(`${width}px: PSG FAQ plus/minus button does not use the approved purple and white treatment`);
   if (!layout.faq.grantPortalLink || !layout.faq.contactLink) failures.push(`${width}px: PSG FAQ resource or contact link changed or is missing`);
   if (!layout.apply.section || !layout.apply.title || !layout.apply.cardsContainer) failures.push(`${width}px: responsive PSG application steps section is missing`);
-  if (layout.apply.titleText !== 'How to Apply PSG Grant for our POS System') failures.push(`${width}px: PSG application section title changed`);
+  if (layout.apply.titleText !== 'How to Apply for EDGE Grant for Our POS System') failures.push(`${width}px: EDGE Grant application section title changed`);
   if (JSON.stringify(layout.apply.cards.map(({ number, title, description }) => ({ number, title, description }))) !== JSON.stringify(expectedApplySteps)) failures.push(`${width}px: PSG application steps changed or are not rendered as three cards`);
   if (layout.apply.cards.some((card) => card.numberBackgroundColor !== 'rgb(116, 57, 149)')) failures.push(`${width}px: PSG application step numbers do not use the approved purple treatment`);
-  if (!layout.packages.section || layout.packages.heading !== 'APPZPOS PSG Packages') failures.push(`${width}px: APPZPOS PSG Packages section or heading is missing`);
+  if (!layout.packages.section || layout.packages.heading !== 'APPZPOS EDGE Grant Packages') failures.push(`${width}px: APPZPOS EDGE Grant Packages section or heading is missing`);
   if (!layout.packages.filterDescription || layout.packages.filters.some(({ description }) => !description)) failures.push(`${width}px: package filters are missing their simple descriptions`);
   if (!layout.packages.filterDescriptionBounds || layout.packages.filterDescriptionBounds.width > layout.packages.section.width) failures.push(`${width}px: package filter description is clipped or wider than its section`);
   if (layout.packages.filters.some(({ bounds }) => !bounds || bounds.x < layout.packages.section.x || bounds.x + bounds.width > layout.packages.section.x + layout.packages.section.width || bounds.height < 44)) failures.push(`${width}px: a package filter is clipped or smaller than the minimum touch target`);

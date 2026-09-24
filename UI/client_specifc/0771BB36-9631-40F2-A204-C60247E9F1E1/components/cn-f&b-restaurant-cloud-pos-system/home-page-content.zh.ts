@@ -203,8 +203,8 @@ export const CHINESE_HOME_PAGE_CONFIG: HomePageTemplateConfig = {
     title: '享受高达50%的政府津贴',
     secondaryTitle: '简单申请，轻松获得资金返还',
     paragraphs: [
-      '我们是PSG政府津贴预先批准的POS供应商，专为本地餐饮中小企业提供收银服务。只需购买任意一套APPZPOS POS系统，我们将全程协助您轻松快速完成申请！',
-      'SMEs are eligible for up to 50% Productivity Solutions Grant (PSG) support for the adoption of APPZPOS F&B Point of Sales, a Pre-Approved Solution under the IMDA SMEs Go Digital programme.'
+      '符合条件的新加坡企业可为合格的APPZPOS数字化项目申请EDGE Grant支持。我们将协助您了解申请流程与所需资料！',
+      '符合条件的新加坡企业可为合格的 APPZPOS 数字化项目申请 EDGE Grant 支持，具体资助比例视项目活动而定。'
     ],
     image: 'assets/images/smes-go-digital-lockup-vertical.png',
     imageAlt: 'IMDA预先批准方案，符合高达50%企业津贴支持资格',

@@ -23,7 +23,7 @@ export class CustomWhiteHeaderComponent implements OnDestroy {
   ) {
    
     this._document.getElementById('appFavicon')?.setAttribute('href', this.commonFunctionService.BindURL_Image('favicon.png')); 
-    this.titleService.setTitle("APPZPOS Point of Sales | F&B, Retails & Salons | PSG Grant");
+    this.titleService.setTitle("APPZPOS Point of Sales | F&B, Retails & Salons | EDGE Grant");
     GoogleAnalyticsHelpersService.LoadGoogleTag(environment.appzPOSTagID);
     FacebookPixelSettingService.LoadFacebookPixelSetting(environment.appzPOSFBPixelID);
     FacebookPixelSettingService.LoadFaceBookImgPixelCode(environment.appzPOSFBPixelID);

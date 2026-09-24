@@ -120,7 +120,7 @@ describe('HomeEcosystemComponent', () => {
     expect(grant.querySelector('h2')?.textContent).toContain('Up to 50% Monetary Support');
     expect(grant.querySelector('h2')?.textContent).toContain('To Kickstart To Your F&B Business');
     expect(normalizedText).toContain(
-      'SMEs are eligible for up to 50% Productivity Solutions Grant (PSG) support for the adoption of APPZPOS F&B Point of Sales, a Pre-Approved Solution under the IMDA SMEs Go Digital programme.'
+      'Eligible Singapore companies can receive EDGE Grant support for qualifying APPZPOS digitalisation projects. Support levels vary by activity.'
     );
     expect(normalizedText).toContain('Learn More');
     expect(grant.querySelector('.ecosystem__grant-link')?.textContent).toBe('Learn More');

@@ -20,7 +20,7 @@ export class CustomHomeComponent implements OnInit {
     private readonly meta: Meta,
     public readonly dialog: MatDialog
   ) {
-    this.titleService.setTitle('APPZPOS Point of Sales | F&B, Retails & Salons | PSG Grant');
+    this.titleService.setTitle('APPZPOS Point of Sales | F&B, Retails & Salons | EDGE Grant');
   }
 
   BindURL_Image(fileName: string): string {
@@ -30,7 +30,7 @@ export class CustomHomeComponent implements OnInit {
   ngOnInit(): void {
     this.meta.updateTag({
       name: 'description',
-      content: 'Singapore #1 Trusted Cloud POS System Provider for F&Bs, Retails & Salons. Get Up to 50% Funding of PSG Grant. WhatsApp us on +𝟔𝟓 𝟖𝟑𝟏𝟎 𝟗𝟔𝟑𝟏'
+      content: 'Singapore #1 Trusted Cloud POS System Provider for F&Bs, Retails & Salons. Explore EDGE Grant support for qualifying projects. WhatsApp us on +𝟔𝟓 𝟖𝟑𝟏𝟎 𝟗𝟔𝟑𝟏'
     });
   }
 
