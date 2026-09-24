@@ -40,11 +40,13 @@
             [attr.aria-expanded]="openMenu === 'industries'" (click)="toggleMenu('industries')">
             Industries <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
           </button>
-          <div id="industries-menu" class="appzpos-nav__panel" [class.is-open]="openMenu === 'industries'">
+          <div id="industries-menu" class="appzpos-nav__panel appzpos-nav__panel--wide" [class.is-open]="openMenu === 'industries'">
             <p class="appzpos-nav__panel-label">INDUSTRIES</p>
-            <a href="/f&b-restaurant-cloud-pos-system" [attr.aria-current]="isCurrentPage('/f&b-restaurant-cloud-pos-system') ? 'page' : null">F&B Restaurant</a>
-            <a href="/retail-store-cloud-pos-system" [attr.aria-current]="isCurrentPage('/retail-store-cloud-pos-system') ? 'page' : null">Retail Stores & Boutiques</a>
-            <a href="/salon-cloud-pos-system" [attr.aria-current]="isCurrentPage('/salon-cloud-pos-system') ? 'page' : null">Beauty Salons, SPA & Wellness</a>
+            <div class="appzpos-nav__link-grid">
+              <a href="/f&b-restaurant-cloud-pos-system" [attr.aria-current]="isCurrentPage('/f&b-restaurant-cloud-pos-system') ? 'page' : null"><strong>F&B Restaurant</strong><span>Restaurants, cafés and bars</span></a>
+              <a href="/retail-store-cloud-pos-system" [attr.aria-current]="isCurrentPage('/retail-store-cloud-pos-system') ? 'page' : null"><strong>Retail Stores & Boutiques</strong><span>Retail and specialty stores</span></a>
+              <a href="/salon-cloud-pos-system" [attr.aria-current]="isCurrentPage('/salon-cloud-pos-system') ? 'page' : null"><strong>Beauty Salons, SPA & Wellness</strong><span>Beauty and wellness businesses</span></a>
+            </div>
           </div>
         </div>
 
@@ -53,10 +55,12 @@
             [attr.aria-expanded]="openMenu === 'resources'" (click)="toggleMenu('resources')">
             Resources <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
           </button>
-          <div id="resources-menu" class="appzpos-nav__panel" [class.is-open]="openMenu === 'resources'">
+          <div id="resources-menu" class="appzpos-nav__panel appzpos-nav__panel--wide" [class.is-open]="openMenu === 'resources'">
             <p class="appzpos-nav__panel-label">RESOURCES</p>
-            <a href="/blog" [attr.aria-current]="isCurrentPage('/blog') ? 'page' : null">Blog</a>
-            <a href="/psg-pos-system-grant-singapore" [attr.aria-current]="isCurrentPage('/psg-pos-system-grant-singapore') ? 'page' : null">EDGE Grant</a>
+            <div class="appzpos-nav__link-grid">
+              <a href="/blog" [attr.aria-current]="isCurrentPage('/blog') ? 'page' : null"><strong>Blog</strong><span>POS insights and business tips</span></a>
+              <a href="/psg-pos-system-grant-singapore" [attr.aria-current]="isCurrentPage('/psg-pos-system-grant-singapore') ? 'page' : null"><strong>EDGE Grant</strong><span>Grant support for your POS system</span></a>
+            </div>
           </div>
         </div>
 
