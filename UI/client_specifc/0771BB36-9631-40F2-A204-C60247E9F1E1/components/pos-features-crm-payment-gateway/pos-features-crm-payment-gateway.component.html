@@ -76,7 +76,7 @@
                 </div>
             </article>
         </div>
-        <div class="container" id="requestdemo">
+        <div class="container appz-conversion-panel appz-api-conversion" id="requestdemo">
             <div id="webview">
                 <div class="section card mb-0 features-api-panel">
                     <div class="features-api-copy">
@@ -98,14 +98,16 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6 form-group">
-                                <input type="firstname" id="firstname" value="" formControlName="firstname"  [ngClass]="{ 'is-invalid': submitted && objData['firstname'].errors }"  class="form-control" placeholder="First Name">
+                                <label for="firstname">First Name</label>
+                                <input type="firstname" id="firstname" value="" formControlName="firstname"  [ngClass]="{ 'is-invalid': submitted && objData['firstname'].errors }"  class="form-control">
                                 <div *ngIf="submitted && objData['firstname'].errors" class="invalid-feedback">
                                     <div *ngIf="objData['firstname'].errors['required']">First Name is required!</div>
                                     <div *ngIf="objData['firstname'].errors['pattern']">Invalid First Name!</div>
                                 </div>
                             </div>
                             <div class="col-lg-6 form-group">
-                                <input type="text" id="lastname" value="" formControlName="lastname"  [ngClass]="{ 'is-invalid': submitted && objData['lastname'].errors }"  class="form-control" placeholder="Last Name">
+                                <label for="lastname">Last Name</label>
+                                <input type="text" id="lastname" value="" formControlName="lastname"  [ngClass]="{ 'is-invalid': submitted && objData['lastname'].errors }"  class="form-control">
                                 <div *ngIf="submitted && objData['lastname'].errors" class="invalid-feedback">
                                     <div *ngIf="objData['lastname'].errors['required']">Last Name is required!</div>
                                     <div *ngIf="objData['lastname'].errors['pattern']">Invalid Last Name!</div>
@@ -114,14 +116,16 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-6 form-group">
-                                <input type="email" id="email" value="" formControlName="email" [ngClass]="{ 'is-invalid': submitted && objData['email'].errors }" class="form-control" placeholder="Email">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" value="" formControlName="email" [ngClass]="{ 'is-invalid': submitted && objData['email'].errors }" class="form-control">
                                 <div *ngIf="submitted && objData['email'].errors" class="invalid-feedback">
                                     <div *ngIf="objData['email'].errors['required']">Email is required!</div>
                                     <div *ngIf="objData['email'].errors['email']">Invalid Email!</div>
                                 </div>
                             </div>
                             <div class="col-6 form-group">
-                                <input type="text" id="phone" value="" formControlName="phone" [ngClass]="{ 'is-invalid': submitted && objData['phone'].errors }" class="form-control" placeholder="Mobile Number">
+                                <label for="phone">Mobile Number</label>
+                                <input type="text" id="phone" value="" formControlName="phone" [ngClass]="{ 'is-invalid': submitted && objData['phone'].errors }" class="form-control">
                                 <div *ngIf="submitted && objData['phone'].errors" class="invalid-feedback">
                                     <div *ngIf="objData['phone'].errors['required']">Mobile Number is required!</div>
                                     <div *ngIf="objData['phone'].errors['pattern']">Mobile Number is not valid!</div>
@@ -130,14 +134,16 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12 form-group">
-                                <input type="text" id="company" value="" formControlName="company" [ngClass]="{ 'is-invalid': submitted && objData['company'].errors }" class="form-control" placeholder="Company">
+                                <label for="company">Company</label>
+                                <input type="text" id="company" value="" formControlName="company" [ngClass]="{ 'is-invalid': submitted && objData['company'].errors }" class="form-control">
                                 <div *ngIf="submitted && objData['company'].errors" class="invalid-feedback">
                                     <div *ngIf="objData['company'].errors['required']">Mobile Number is required!</div>
                                     <div *ngIf="objData['company'].errors['pattern']">Mobile Number is not valid!</div>
                                 </div>
                             </div>
                             <div class="col-12 form-group">
-                                <input type="text" id="position" formControlName="position" [ngClass]="{ 'is-invalid': submitted && objData['position'].errors }" value="" class="form-control" placeholder="Position">
+                                <label for="position">Position</label>
+                                <input type="text" id="position" formControlName="position" [ngClass]="{ 'is-invalid': submitted && objData['position'].errors }" value="" class="form-control">
                                 <div *ngIf="submitted && objData['position'].errors" class="invalid-feedback">
                                     <div *ngIf="objData['position'].errors['required']">Position is required!</div>
                                     <div *ngIf="objData['position'].errors['pattern']">Invalid Position!</div>
@@ -171,14 +177,16 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12 form-group">
-                                <input type="firstname" id="firstname" value="" formControlName="firstname"  [ngClass]="{ 'is-invalid': submitted && objData['firstname'].errors }"  class="form-control" placeholder="First Name">
+                                <label for="firstname">First Name</label>
+                                <input type="firstname" id="firstname" value="" formControlName="firstname"  [ngClass]="{ 'is-invalid': submitted && objData['firstname'].errors }"  class="form-control">
                                 <div *ngIf="submitted && objData['firstname'].errors" class="invalid-feedback">
                                     <div *ngIf="objData['firstname'].errors['required']">First Name is required!</div>
                                     <div *ngIf="objData['firstname'].errors['pattern']">Invalid First Name!</div>
                                 </div>
                             </div>
                             <div class="col-lg-12 form-group">
-                                <input type="text" id="lastname" value="" formControlName="lastname"  [ngClass]="{ 'is-invalid': submitted && objData['lastname'].errors }"  class="form-control" placeholder="Last Name">
+                                <label for="lastname">Last Name</label>
+                                <input type="text" id="lastname" value="" formControlName="lastname"  [ngClass]="{ 'is-invalid': submitted && objData['lastname'].errors }"  class="form-control">
                                 <div *ngIf="submitted && objData['lastname'].errors" class="invalid-feedback">
                                     <div *ngIf="objData['lastname'].errors['required']">Last Name is required!</div>
                                     <div *ngIf="objData['lastname'].errors['pattern']">Invalid Last Name!</div>
@@ -187,14 +195,16 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12 form-group">
-                                <input type="email" id="email" value="" formControlName="email" [ngClass]="{ 'is-invalid': submitted && objData['email'].errors }" class="form-control" placeholder="Email">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" value="" formControlName="email" [ngClass]="{ 'is-invalid': submitted && objData['email'].errors }" class="form-control">
                                 <div *ngIf="submitted && objData['email'].errors" class="invalid-feedback">
                                     <div *ngIf="objData['email'].errors['required']">Email is required!</div>
                                     <div *ngIf="objData['email'].errors['email']">Invalid Email!</div>
                                 </div>
                             </div>
                             <div class="col-lg-12 form-group">
-                                <input type="text" id="phone" value="" formControlName="phone" [ngClass]="{ 'is-invalid': submitted && objData['phone'].errors }" class="form-control" placeholder="Mobile Number">
+                                <label for="phone">Mobile Number</label>
+                                <input type="text" id="phone" value="" formControlName="phone" [ngClass]="{ 'is-invalid': submitted && objData['phone'].errors }" class="form-control">
                                 <div *ngIf="submitted && objData['phone'].errors" class="invalid-feedback">
                                     <div *ngIf="objData['phone'].errors['required']">Mobile Number is required!</div>
                                     <div *ngIf="objData['phone'].errors['pattern']">Mobile Number is not valid!</div>
@@ -203,14 +213,16 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12 form-group">
-                                <input type="text" id="company" value="" formControlName="company" [ngClass]="{ 'is-invalid': submitted && objData['company'].errors }" class="form-control" placeholder="Company">
+                                <label for="company">Company</label>
+                                <input type="text" id="company" value="" formControlName="company" [ngClass]="{ 'is-invalid': submitted && objData['company'].errors }" class="form-control">
                                 <div *ngIf="submitted && objData['company'].errors" class="invalid-feedback">
                                     <div *ngIf="objData['company'].errors['required']">Mobile Number is required!</div>
                                     <div *ngIf="objData['company'].errors['pattern']">Mobile Number is not valid!</div>
                                 </div>
                             </div>
                             <div class="col-lg-12 form-group">
-                                <input type="text" id="position" formControlName="position" [ngClass]="{ 'is-invalid': submitted && objData['position'].errors }" value="" class="form-control" placeholder="Position">
+                                <label for="position">Position</label>
+                                <input type="text" id="position" formControlName="position" [ngClass]="{ 'is-invalid': submitted && objData['position'].errors }" value="" class="form-control">
                                 <div *ngIf="submitted && objData['position'].errors" class="invalid-feedback">
                                     <div *ngIf="objData['position'].errors['required']">Position is required!</div>
                                     <div *ngIf="objData['position'].errors['pattern']">Invalid Position!</div>

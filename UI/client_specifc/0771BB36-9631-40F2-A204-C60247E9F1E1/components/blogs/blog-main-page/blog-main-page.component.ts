@@ -54,6 +54,8 @@ export class BlogMainPageComponent {
   openDialog(): void {
     const dialogRef = this.dialog.open(ModalRequestDemoComponent, {
       width: '600px',
+      maxWidth: 'calc(100vw - 32px)',
+      panelClass: 'appz-demo-dialog',
     });
 
     dialogRef.afterClosed().subscribe(result => {
