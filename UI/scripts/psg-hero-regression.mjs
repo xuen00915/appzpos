@@ -166,6 +166,7 @@ for (const width of viewports) {
       const requestDemoForm = requestDemoFormPanel?.matches('form') ? requestDemoFormPanel : requestDemoFormPanel?.querySelector('form');
       const requestDemoControls = requestDemoForm ? [...requestDemoForm.querySelectorAll('input:not([type="submit"])')] : [];
       const requestDemoSubmit = requestDemoForm?.querySelector('input[type="submit"], button[type="submit"]');
+      const footer = document.querySelector('#footer.appzpos-footer');
       const vendor = document.querySelector('.psg-vendor');
       const vendorTitle = vendor?.querySelector('.psg-vendor__title');
       const vendorCopy = vendor?.querySelector('.psg-vendor__copy');
@@ -301,6 +302,8 @@ for (const width of viewports) {
           visibleValidationCount: requestDemoForm ? [...requestDemoForm.querySelectorAll('.invalid-feedback')]
             .filter((element) => getComputedStyle(element).display !== 'none').length : 0,
           submit: bounds(requestDemoSubmit),
+          footer: bounds(footer),
+          footerGap: requestDemo && footer ? footer.getBoundingClientRect().top - requestDemo.getBoundingClientRect().bottom : -1,
           sendEmailCalls: window.__psgSendEmailCalls ?? -1
         },
         faq: {
@@ -618,6 +621,7 @@ for (const [width, layout] of Object.entries(layouts)) {
   if (layout.requestDemo.invalidControlCount !== 4) failures.push(`${width}px: empty submission does not mark all four required controls`);
   if (layout.requestDemo.visibleValidationCount < 4) failures.push(`${width}px: empty submission does not show all four validation messages`);
   if (layout.requestDemo.sendEmailCalls !== 0) failures.push(`${width}px: invalid submission reached the email API`);
+  if (!layout.requestDemo.footer || layout.requestDemo.footerGap < 0 || layout.requestDemo.footerGap > 48) failures.push(`${width}px: blank space between the request-demo section and footer remains too large`);
   if (!layout.faq.section || !layout.faq.title) failures.push(`${width}px: standard PSG FAQ section is missing`);
   if (layout.faq.titleAlign !== 'center') failures.push(`${width}px: PSG FAQ title is not centered`);
   if (JSON.stringify(layout.faq.questions) !== JSON.stringify(expectedFaqQuestions)) failures.push(`${width}px: PSG FAQ questions changed or are not rendered as six accordion rows`);
