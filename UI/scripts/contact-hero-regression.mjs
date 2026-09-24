@@ -221,6 +221,8 @@ for (const width of viewports) {
             messageRows: Number(message?.getAttribute('rows') ?? 0),
             message: bounds(message),
             submit: bounds(submit),
+            submitBackgroundColor: submit ? getComputedStyle(submit).backgroundColor : '',
+            submitColor: submit ? getComputedStyle(submit).color : '',
             title: bounds(formPanel.querySelector('.fancy-title')),
             titleHeading: bounds(formPanel.querySelector('.fancy-title h3')),
             titleAlign: getComputedStyle(formPanel.querySelector('.fancy-title')).textAlign,
@@ -324,8 +326,8 @@ for (const [width, layout] of Object.entries(layouts)) {
   if (!layout.contact.formPresentation) failures.push(`${width}px: contact form presentation could not be measured`);
   if (layout.contact.formPresentation && layout.contact.formPresentation.backgroundColor !== 'rgba(0, 0, 0, 0)') failures.push(`${width}px: contact form has a colored background`);
   if (layout.contact.formPresentation && (layout.contact.formPresentation.borderTopWidth !== '2px'
-    || layout.contact.formPresentation.borderTopColor !== 'rgb(16, 43, 70)')) {
-    failures.push(`${width}px: contact form is missing its standard dark-blue outer line`);
+    || layout.contact.formPresentation.borderTopColor !== 'rgb(220, 231, 239)')) {
+    failures.push(`${width}px: contact form is missing its light-grey outer line`);
   }
   if (layout.contact.formPresentation && (layout.contact.formPresentation.titleAlign !== 'center'
     || !layout.contact.formPresentation.title || !layout.contact.formPresentation.titleHeading
@@ -348,6 +350,10 @@ for (const [width, layout] of Object.entries(layouts)) {
     failures.push(`${width}px: the form still renders an inner card layer`);
   }
   if (layout.contact.formPresentation && layout.contact.formPresentation.messageRows > 4) failures.push(`${width}px: message field is not compact`);
+  if (layout.contact.formPresentation && (layout.contact.formPresentation.submitBackgroundColor !== 'rgb(22, 136, 216)'
+    || layout.contact.formPresentation.submitColor !== 'rgb(255, 255, 255)')) {
+    failures.push(`${width}px: submit button is not blue with white text by default`);
+  }
   if (layout.contact.formPresentation?.message && layout.contact.formPresentation?.submit && Math.abs(layout.contact.formPresentation.message.width - layout.contact.formPresentation.submit.width) > 1) failures.push(`${width}px: submit button does not span the same width as the form`);
   if (layout.contact.formPresentation && layout.contact.formPresentation.enabledControlCount !== 5) failures.push(`${width}px: one or more contact form controls are missing or disabled`);
   if (layout.contact.formPresentation && layout.contact.formPresentation.invalidControlCount !== 5) failures.push(`${width}px: invalid submission does not mark all required controls`);
