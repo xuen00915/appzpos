@@ -22,7 +22,9 @@ app-pos-features-crm-payment-gateway {
   .features-hero__actions button, .features-hero__actions a { padding-inline: 18px !important; font-size: 13px; }
 }
 @media (max-width: 767px) {
-  .features-hero__inner { grid-template-columns: minmax(0, 1fr); padding: 28px 20px; gap: 24px; max-width: 600px; }
+  .features-hero__inner { display: flex; flex-direction: column; padding: 28px 20px; gap: 24px; max-width: 600px; }
+  .features-hero__diagram { order: 1; }
+  .features-hero__copy { order: 2; }
   .features-hero h1 { font-size: clamp(32px, 7.5vw, 42px); margin: 12px 0 16px; }
   .features-hero p { max-width: none; margin-bottom: 20px; }
   .features-hero__actions button, .features-hero__actions a { flex: 1 1 140px; padding-inline: 16px !important; }

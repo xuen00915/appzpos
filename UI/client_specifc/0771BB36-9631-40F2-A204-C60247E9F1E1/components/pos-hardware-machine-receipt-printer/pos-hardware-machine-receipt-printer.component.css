@@ -45,7 +45,9 @@
   .hardware-hero__actions button, .hardware-hero__actions a { padding-inline: 18px !important; font-size: 13px; }
 }
 @media (max-width: 767px) {
-  .hardware-hero__inner { grid-template-columns: minmax(0, 1fr); padding: 28px 20px; gap: 24px; max-width: 600px; }
+  .hardware-hero__inner { display: flex; flex-direction: column; padding: 28px 20px; gap: 24px; max-width: 600px; }
+  .hardware-hero__diagram { order: 1; }
+  .hardware-hero__copy { order: 2; }
   .hardware-hero h1 { font-size: clamp(32px, 7.5vw, 42px); margin: 12px 0 16px; }
   .hardware-hero p { max-width: none; margin-bottom: 20px; }
   .hardware-hero__actions button, .hardware-hero__actions a { flex: 1 1 140px; padding-inline: 16px !important; }
