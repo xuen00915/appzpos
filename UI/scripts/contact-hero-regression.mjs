@@ -162,7 +162,8 @@ for (const width of viewports) {
           headingColor: heading ? getComputedStyle(heading).color : '',
           titleColor: title ? getComputedStyle(title).color : '',
           linkColor: link ? getComputedStyle(link).color : '',
-          borderTopWidth: getComputedStyle(card).borderTopWidth
+          borderTopWidth: getComputedStyle(card).borderTopWidth,
+          borderTopColor: getComputedStyle(card).borderTopColor
         };
       }) : [];
       const scriptSources = [...document.scripts].map((script) => script.src).filter(Boolean);
@@ -323,8 +324,8 @@ for (const [width, layout] of Object.entries(layouts)) {
   if (!layout.contact.formPresentation) failures.push(`${width}px: contact form presentation could not be measured`);
   if (layout.contact.formPresentation && layout.contact.formPresentation.backgroundColor !== 'rgba(0, 0, 0, 0)') failures.push(`${width}px: contact form has a colored background`);
   if (layout.contact.formPresentation && (layout.contact.formPresentation.borderTopWidth !== '2px'
-    || layout.contact.formPresentation.borderTopColor !== 'rgb(245, 130, 32)')) {
-    failures.push(`${width}px: contact form is missing its APPZPOS-orange outer line`);
+    || layout.contact.formPresentation.borderTopColor !== 'rgb(16, 43, 70)')) {
+    failures.push(`${width}px: contact form is missing its standard dark-blue outer line`);
   }
   if (layout.contact.formPresentation && (layout.contact.formPresentation.titleAlign !== 'center'
     || !layout.contact.formPresentation.title || !layout.contact.formPresentation.titleHeading
@@ -368,7 +369,7 @@ for (const [width, layout] of Object.entries(layouts)) {
       || card.content.x <= card.icon.x + card.icon.width) {
       failures.push(`${width}px: contact card ${index + 1} does not place its icon to the left of the wording`);
     }
-    if (card.borderTopWidth !== '0px') failures.push(`${width}px: contact card ${index + 1} still has an outer border`);
+    if (card.borderTopWidth !== '1px') failures.push(`${width}px: contact card ${index + 1} is missing its brand-colored border`);
     if (card.title !== expectedChannelCopy[index][0] || card.detail !== expectedChannelCopy[index][1]) {
       failures.push(`${width}px: contact card ${index + 1} wording differs (${card.title} / ${card.detail})`);
     }
@@ -383,7 +384,7 @@ for (const [width, layout] of Object.entries(layouts)) {
     const [first, second, third, fourth] = layout.contact.channelCards.map(({ card }) => card);
     if (Math.abs(first.y - second.y) > 1 || Math.abs(third.y - fourth.y) > 1
       || Math.abs(first.x - third.x) > 1 || Math.abs(second.x - fourth.x) > 1
-      || third.y <= first.y || first.height > (Number(width) <= 575 ? 92 : 84)) {
+      || third.y <= first.y || first.height > (Number(width) <= 575 ? 94 : 84)) {
       failures.push(`${width}px: contact cards are not a compact 2x2 grid`);
     }
   }
@@ -391,19 +392,21 @@ for (const [width, layout] of Object.entries(layouts)) {
   for (const [index, expectedColor] of expectedBrandColors.entries()) {
     const card = layout.contact.channelCards[index];
     if (card && (card.iconColor !== expectedColor || card.linkColor !== expectedColor
+      || card.borderTopColor !== expectedColor
       || card.headingColor !== 'rgb(32, 39, 51)' || card.titleColor !== 'rgb(32, 39, 51)')) {
       failures.push(`${width}px: contact card ${index + 1} colors differ from the approved presentation`);
     }
   }
   if (!Object.values(layout.tagging).every(Boolean)) failures.push(`${width}px: Google Tag Manager or Meta Pixel tagging is missing`);
   if (layout.page.scrollWidth > layout.page.clientWidth) failures.push(`${width}px: page has horizontal overflow`);
+  const expectedAvailabilityGap = Number(width) >= 1024 ? 48 : 36;
   if (layout.hero && layout.availability.panel
-    && layout.availability.panel.y - (layout.hero.y + layout.hero.height) > (Number(width) <= 575 ? 90 : 80)) {
-    failures.push(`${width}px: spacing above Our Availability is still too large`);
+    && Math.abs(layout.availability.panel.y - (layout.hero.y + layout.hero.height) - expectedAvailabilityGap) > 2) {
+    failures.push(`${width}px: spacing above Our Availability is not balanced`);
   }
   if (layout.availability.description && layout.contact.workspace
-    && layout.contact.workspace.y - (layout.availability.description.y + layout.availability.description.height) > 40) {
-    failures.push(`${width}px: spacing below Our Availability is still too large`);
+    && Math.abs(layout.contact.workspace.y - (layout.availability.description.y + layout.availability.description.height) - expectedAvailabilityGap) > 2) {
+    failures.push(`${width}px: spacing below Our Availability is not balanced`);
   }
   if (layout.contact.workspace && layout.footer
     && layout.footer.y - (layout.contact.workspace.y + layout.contact.workspace.height) > (Number(width) <= 575 ? 80 : 100)) {

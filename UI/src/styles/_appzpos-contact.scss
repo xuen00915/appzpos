@@ -55,7 +55,7 @@ app-point-of-sales-demo-quotation {
     object-position: 76% center;
   }
   #content { background: #f8fbfe; }
-  #content:not(.appz-home-story) .content-wrap { padding: clamp(28px, 3vw, 40px) 0 !important; }
+  #content:not(.appz-home-story) .content-wrap { padding: 48px 0 28px !important; }
   #content h2, #content h3 { color: #102b46; }
   #content:not(.appz-home-story) .content-wrap > #webview > .container.contact-availability,
   #content:not(.appz-home-story) .content-wrap > #mobile_view > .container.contact-availability { margin-block: 0 !important; text-align: center; }
@@ -78,10 +78,10 @@ app-point-of-sales-demo-quotation {
     background: transparent;
     box-shadow: none;
   }
-  #content:not(.appz-home-story) .content-wrap > .container.contact-workspace { margin: clamp(28px, 3vw, 36px) auto 0 !important; }
+  #content:not(.appz-home-story) .content-wrap > .container.contact-workspace { margin: 48px auto 0 !important; }
   .contact-main { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr); align-items: stretch; gap: clamp(24px, 3vw, 38px); margin: 0; }
   .contact-main > .col-lg-6 { width: 100%; min-width: 0; }
-  .contact-form-panel { display: flex; height: 100%; padding: clamp(22px, 2.25vw, 28px); border: 2px solid #f58220; border-radius: 24px; background: transparent; box-shadow: none; flex-direction: column; }
+  .contact-form-panel { display: flex; height: 100%; padding: clamp(22px, 2.25vw, 28px); border: 2px solid #102b46; border-radius: 24px; background: transparent; box-shadow: none; flex-direction: column; }
   .contact-form-panel .fancy-title { display: flex; margin-bottom: 18px; justify-content: center; text-align: center; }
   .contact-form-panel .fancy-title::before, .contact-form-panel .fancy-title::after { display: none; }
   .contact-form-panel .fancy-title h3 { display: inline-block; float: none; }
@@ -120,7 +120,7 @@ app-point-of-sales-demo-quotation {
     min-height: 76px;
     margin: 0;
     padding: 10px 12px;
-    border: 0;
+    border: 1px solid var(--channel-color);
     border-radius: 14px;
     background: rgba(255, 255, 255, .82);
   }
@@ -153,6 +153,8 @@ app-point-of-sales-demo-quotation {
     #content .contact-form-panel textarea.form-control { flex: 1 1 auto; height: auto; }
   }
   @media (max-width: 1023px) {
+    #content:not(.appz-home-story) .content-wrap { padding: 36px 0 28px !important; }
+    #content:not(.appz-home-story) .content-wrap > .container.contact-workspace { margin-top: 36px !important; }
     .contact-hero__inner { grid-template-columns: minmax(0, 1fr); gap: 14px; min-height: 0; padding: 20px 24px; }
     .contact-hero__copy { text-align: center; }
     .contact-hero h1, .contact-hero p { margin-right: auto; margin-left: auto; }
