@@ -62,6 +62,16 @@ for (const route of routes) {
       pixel: Boolean(document.querySelector('script[src*="connect.facebook.net/en_US/fbevents.js"]')),
       whatsapp: document.querySelectorAll('a[href^="https://wa.me/6583109631"]').length,
       messenger: document.querySelectorAll('a[href^="https://m.me/APPZPOS"], a[href^="http://m.me/APPZPOS"]').length,
+      tawkScriptPresent: Boolean(document.querySelector('script[src*="embed.tawk.to"]')),
+      visibleTawkWidgets: [...document.querySelectorAll('iframe[title="Chat widget"]')]
+        .filter((frame) => {
+          const rect = frame.getBoundingClientRect();
+          const frameStyle = getComputedStyle(frame);
+          const parentStyle = frame.parentElement ? getComputedStyle(frame.parentElement) : null;
+          return rect.width > 0 && rect.height > 0
+            && frameStyle.display !== 'none' && frameStyle.visibility !== 'hidden'
+            && parentStyle?.display !== 'none' && parentStyle?.visibility !== 'hidden';
+        }).length,
       requestDemoIds: document.querySelectorAll('#requestdemo').length,
       trackedCtas: [...document.querySelectorAll('[data-track-cta]')]
         .map((node) => node.getAttribute('data-track-cta')),
@@ -84,6 +94,8 @@ for (const route of routes) {
   if (!result.pixel) failures.push(`${route || '/'}: Meta Pixel missing`);
   if (!result.whatsapp) failures.push(`${route || '/'}: WhatsApp action missing`);
   if (!result.messenger) failures.push(`${route || '/'}: Messenger action missing`);
+  if (result.tawkScriptPresent) failures.push(`${route || '/'}: Tawk embed is still loaded`);
+  if (result.visibleTawkWidgets) failures.push(`${route || '/'}: Tawk chat widget is still visible`);
   if (!['fixed', 'sticky'].includes(result.headerPosition)) {
     failures.push(`${route || '/'}: header is not sticky or fixed (${result.headerPosition})`);
   }
