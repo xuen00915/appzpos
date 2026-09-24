@@ -48,10 +48,14 @@
 .restaurant-hero__actions .restaurant-hero__whatsapp:hover { background: #117839; }
 @media (max-width: 991px), (max-width: 1366px) and (pointer: coarse) {
     .restaurant-hero__inner { width: calc(100% - 32px); }
-    .restaurant-hero__copy { max-width: 100%; }
-    .restaurant-hero__photo { position: static; order: 2; z-index: auto; width: 100%; height: clamp(220px, 40vw, 360px); }
+    .restaurant-hero__copy { max-width: min(100%, 620px); }
+    .restaurant-hero__photo {
+        position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%;
+        object-fit: cover; opacity: .18; pointer-events: none;
+    }
     .restaurant-hero__copy h1 { font-size: clamp(30px, 7vw, 42px); }
-    :host #slider.restaurant-hero { flex-direction: column; gap: 28px; min-height: 0; padding: 32px 0 0; }
+    :host #slider.restaurant-hero { flex-direction: column; gap: 0; min-height: clamp(420px, 62vw, 620px); padding: 48px 0; }
+    .restaurant-hero__inner { position: relative; z-index: 1; display: flex; align-items: center; min-height: 100%; }
 }
 
 /* Phone heroes use a subdued photo behind the copy, not a separate image row. */
