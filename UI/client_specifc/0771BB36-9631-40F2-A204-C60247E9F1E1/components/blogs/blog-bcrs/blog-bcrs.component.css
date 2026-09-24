@@ -43,7 +43,7 @@
     margin: 0;
     color: var(--appz-ink);
     font-family: var(--appz-font);
-    font-size: clamp(1.875rem, 3.2vw, 2.875rem);
+    font-size: clamp(1.6875rem, 2.8vw, 2.5rem);
     font-weight: 780;
     letter-spacing: -.055em;
     line-height: 1.04;
@@ -146,7 +146,7 @@
     }
 
     #content.blog-detail .blog-detail__hero .entry-title h2 {
-        font-size: clamp(1.625rem, 6.9vw, 2rem);
+        font-size: clamp(1.5rem, 6.15vw, 1.75rem);
         line-height: 1.08;
     }
 
