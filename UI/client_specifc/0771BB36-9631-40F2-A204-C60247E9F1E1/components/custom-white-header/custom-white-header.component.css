@@ -32,3 +32,29 @@
   z-index: 10001;
 }
 .header-wrap-clone { display: none; }
+
+/* Keep contact actions beside the menu toggle on compact headers. */
+.appzpos-header__inner { gap: 6px; }
+.appzpos-nav { order: 2; margin-left: auto; }
+.appzpos-header__utilities { order: 3; display: flex; align-items: center; gap: 2px; }
+.appzpos-header__mobile-toggle { order: 4; flex: 0 0 auto; }
+
+@media (max-width: 1100px) {
+  .appzpos-header__inner { justify-content: flex-start; }
+  .appzpos-nav { margin-left: 0; }
+  .appzpos-header__utilities { order: 2; margin-left: auto; gap: 2px; }
+  .appzpos-header__mobile-toggle { order: 3; }
+  .appzpos-header__utilities .appzpos-nav__utility {
+    width: 38px;
+    height: 38px;
+    flex: 0 0 38px;
+    padding: 0;
+    justify-content: center;
+    border-radius: 50%;
+    font-size: 21px;
+  }
+  .appzpos-header__utilities .appzpos-nav__utility--whatsapp,
+  .appzpos-header__utilities .appzpos-nav__utility--messenger { font-size: 25px; }
+  .appzpos-header__utilities .appzpos-nav__utility-label { display: none; }
+  .appzpos-header__utilities .appzpos-nav__utility:hover { background: transparent; }
+}
