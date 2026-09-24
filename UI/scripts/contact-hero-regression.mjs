@@ -10,7 +10,10 @@ const knownPreviewIssuePatterns = [
   /No API Key defined for Google Maps/i,
   /unicons-14\.woff2/i,
   /OTS parsing error/i,
-  /127\.0\.0\.1:4300\/point-of-sales-demo-quotation\?/i
+  /\[webpack-dev-server\] Warnings while compiling/i,
+  /home-order-flow\.component\.html:45:108.*NG8107/is,
+  /autoprefixer.*start value has mixed support/is,
+  /point-of-sales-demo-quotation\?/i
 ];
 
 const target = await fetch(
@@ -131,19 +134,24 @@ for (const width of viewports) {
       const detailsPanel = workspace?.querySelector('.contact-details-panel');
       const address = detailsPanel?.querySelector('.contact-address');
       const map = detailsPanel?.querySelector('.contact-map-panel');
-      const channels = detailsPanel?.querySelector('.contact-channels');
+      const channels = workspace?.querySelector('.contact-channels');
       const channelCards = channels ? [...channels.querySelectorAll('.feature-box')].map((card) => {
         const icon = card.querySelector('.fbox-icon');
         const content = card.querySelector('.fbox-content');
         const heading = card.querySelector('h3');
+        const title = card.querySelector('.contact-channel__title');
         const link = card.querySelector('.subtitle a');
         return {
           card: bounds(card),
           icon: bounds(icon),
           content: bounds(content),
           display: getComputedStyle(card).display,
+          flexDirection: getComputedStyle(card).flexDirection,
+          title: title?.textContent?.trim() ?? '',
+          detail: link?.textContent?.replace(/\\s+/g, ' ').trim() ?? '',
           iconColor: icon ? getComputedStyle(icon.querySelector('i')).color : '',
           headingColor: heading ? getComputedStyle(heading).color : '',
+          titleColor: title ? getComputedStyle(title).color : '',
           linkColor: link ? getComputedStyle(link).color : ''
         };
       }) : [];
@@ -174,6 +182,12 @@ for (const width of viewports) {
         },
         contact: {
           workspace: bounds(workspace),
+          workspacePresentation: workspace ? {
+            backgroundColor: getComputedStyle(workspace).backgroundColor,
+            borderTopWidth: getComputedStyle(workspace).borderTopWidth,
+            boxShadow: getComputedStyle(workspace).boxShadow,
+            paddingTop: getComputedStyle(workspace).paddingTop
+          } : null,
           form: bounds(formPanel),
           formPresentation: formPanel ? {
             backgroundColor: getComputedStyle(formPanel).backgroundColor,
@@ -199,12 +213,13 @@ for (const width of viewports) {
           map: bounds(map),
           mapPresent: Boolean(map?.querySelector('iframe')),
           channels: bounds(channels),
+          channelsOutsideDetails: channels?.parentElement === workspace,
           channelCards,
-          actionLinks: detailsPanel ? [
-            Boolean(detailsPanel.querySelector('a[href^="tel:"]')),
-            Boolean(detailsPanel.querySelector('a[href^="https://wa.me/"]')),
-            Boolean(detailsPanel.querySelector('a[href*="facebook.com/APPZPOS"]')),
-            Boolean(detailsPanel.querySelector('a[href*="instagram.com/appzgatesolutions"]'))
+          actionLinks: channels ? [
+            Boolean(channels.querySelector('a[href^="tel:"]')),
+            Boolean(channels.querySelector('a[href^="https://wa.me/"]')),
+            Boolean(channels.querySelector('a[href*="facebook.com/APPZPOS"]')),
+            Boolean(channels.querySelector('a[href*="instagram.com/appzgatesolutions"]'))
           ] : []
         },
         tagging: {
@@ -264,7 +279,14 @@ for (const [width, layout] of Object.entries(layouts)) {
   if (!layout.availability.panel || layout.availability.headingAlign !== 'center' || layout.availability.descriptionAlign !== 'center') {
     failures.push(`${width}px: availability heading and description are not centered together`);
   }
-  if (!layout.contact.workspace || !layout.contact.form || !layout.contact.details) failures.push(`${width}px: unified contact workspace is missing`);
+  if (!layout.contact.workspace || !layout.contact.form || !layout.contact.details) failures.push(`${width}px: contact workspace content is missing`);
+  if (!layout.contact.workspacePresentation
+    || layout.contact.workspacePresentation.backgroundColor !== 'rgba(0, 0, 0, 0)'
+    || layout.contact.workspacePresentation.borderTopWidth !== '0px'
+    || layout.contact.workspacePresentation.boxShadow !== 'none'
+    || layout.contact.workspacePresentation.paddingTop !== '0px') {
+    failures.push(`${width}px: the large workspace container layer is still visible`);
+  }
   if (!layout.contact.formPresentation) failures.push(`${width}px: contact form presentation could not be measured`);
   if (layout.contact.formPresentation && layout.contact.formPresentation.backgroundColor !== 'rgba(0, 0, 0, 0)') failures.push(`${width}px: contact form still has a second colored background layer`);
   if (layout.contact.formPresentation && layout.contact.formPresentation.borderTopWidth !== '0px') failures.push(`${width}px: contact form still has a nested panel border`);
@@ -278,15 +300,33 @@ for (const [width, layout] of Object.entries(layouts)) {
   if (!layout.contact.mapPresent) failures.push(`${width}px: contact map is missing from the details column`);
   if (layout.contact.actionLinks.length !== 4 || layout.contact.actionLinks.some((present) => !present)) failures.push(`${width}px: contact details do not include phone, WhatsApp, Facebook and Instagram`);
   if (layout.contact.channelCards.length !== 4) failures.push(`${width}px: expected four contact cards`);
+  if (!layout.contact.channelsOutsideDetails) failures.push(`${width}px: contact cards are not in a full-width row below the form and map`);
+  const expectedChannelCopy = [
+    ['Speak to Us', '(65) 8310 9631'],
+    ['WhatsApp Us', '(65) 8310 9631'],
+    ['Follow Us on Facebook', '@APPZPOS'],
+    ['Follow Us on Instagram', '@apppzgatesolutions']
+  ];
   for (const [index, card] of layout.contact.channelCards.entries()) {
-    if (card.display !== 'flex') failures.push(`${width}px: contact card ${index + 1} is not a horizontal flex layout`);
-    if (card.icon && card.content && card.content.x <= card.icon.x + card.icon.width) failures.push(`${width}px: contact card ${index + 1} does not place its wording to the right of its logo`);
+    if (card.display !== 'flex' || card.flexDirection !== 'column') failures.push(`${width}px: contact card ${index + 1} is not vertically centered`);
+    if (card.title !== expectedChannelCopy[index][0] || card.detail !== expectedChannelCopy[index][1]) {
+      failures.push(`${width}px: contact card ${index + 1} wording differs (${card.title} / ${card.detail})`);
+    }
+  }
+  if (layout.contact.channelCards.length === 4) {
+    const firstCard = layout.contact.channelCards[0].card;
+    if (layout.contact.channelCards.some(({ card }) => !card
+      || Math.abs(card.width - firstCard.width) > 1
+      || Math.abs(card.height - firstCard.height) > 1)) {
+      failures.push(`${width}px: contact cards do not share the same size`);
+    }
   }
   const expectedBrandColors = ['rgb(0, 157, 240)', 'rgb(37, 211, 102)', 'rgb(24, 119, 242)', 'rgb(228, 64, 95)'];
   for (const [index, expectedColor] of expectedBrandColors.entries()) {
     const card = layout.contact.channelCards[index];
-    if (card && [card.iconColor, card.headingColor, card.linkColor].some((color) => color !== expectedColor)) {
-      failures.push(`${width}px: contact card ${index + 1} does not consistently use its original brand color`);
+    if (card && (card.iconColor !== expectedColor || card.linkColor !== expectedColor
+      || card.headingColor !== 'rgb(32, 39, 51)' || card.titleColor !== 'rgb(32, 39, 51)')) {
+      failures.push(`${width}px: contact card ${index + 1} colors differ from the approved presentation`);
     }
   }
   if (!Object.values(layout.tagging).every(Boolean)) failures.push(`${width}px: Google Tag Manager or Meta Pixel tagging is missing`);
@@ -310,10 +350,16 @@ if (desktop.availability.description && desktop.availability.description.width <
 if (desktop.contact.form && desktop.contact.details && desktop.contact.details.x <= desktop.contact.form.x + desktop.contact.form.width) {
   failures.push('1280px: contact form is not positioned to the left of the details column');
 }
-if (desktop.contact.address && desktop.contact.map && desktop.contact.channels) {
+if (desktop.contact.address && desktop.contact.map) {
   const addressBottom = desktop.contact.address.y + desktop.contact.address.height;
-  const mapBottom = desktop.contact.map.y + desktop.contact.map.height;
-  if (desktop.contact.map.y < addressBottom || desktop.contact.channels.y < mapBottom) failures.push('1280px: address, map and contact actions are not ordered vertically');
+  if (desktop.contact.map.y < addressBottom) failures.push('1280px: address and map are not ordered vertically');
+}
+if (desktop.contact.form && desktop.contact.details && desktop.contact.channels) {
+  const contentBottom = Math.max(
+    desktop.contact.form.y + desktop.contact.form.height,
+    desktop.contact.details.y + desktop.contact.details.height
+  );
+  if (desktop.contact.channels.y <= contentBottom) failures.push('1280px: contact cards are not below the form and map');
 }
 if (desktop.contact.form && desktop.contact.form.height > 760) failures.push('1280px: contact form remains too tall');
 if (desktop.contact.map && desktop.contact.map.height > 260) failures.push('1280px: contact map remains too tall');
