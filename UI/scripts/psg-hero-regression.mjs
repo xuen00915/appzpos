@@ -534,6 +534,10 @@ for (const [width, layout] of Object.entries(layouts)) {
   if (layout.frameworkOverlay) failures.push(`${width}px: a framework error overlay is visible`);
   if (layout.relevantBrowserIssues.length) failures.push(`${width}px: browser console contains relevant errors or warnings: ${layout.relevantBrowserIssues.join(' | ')}`);
   if (!layout.hero || !layout.copy || !layout.art || !layout.image) failures.push(`${width}px: responsive PSG hero structure is missing`);
+  const maximumHeroImageWidth = Number(width) <= 575 ? 230 : Number(width) <= 1023 ? 280 : 320;
+  const maximumHeroHeight = Number(width) <= 575 ? 600 : Number(width) <= 1023 ? 640 : 440;
+  if (layout.image?.bounds.width > maximumHeroImageWidth + 1) failures.push(`${width}px: grant hero artwork remains too large`);
+  if (layout.hero?.height > maximumHeroHeight) failures.push(`${width}px: grant hero remains too tall`);
   if (layout.heading !== expectedHeading) failures.push(`${width}px: approved PSG heading changed`);
   if (layout.headingForcedBreakCount !== 0) failures.push(`${width}px: PSG hero heading contains a forced line break`);
   if (layout.description !== expectedDescription) failures.push(`${width}px: approved PSG description changed`);
