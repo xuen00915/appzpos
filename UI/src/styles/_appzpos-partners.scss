@@ -41,6 +41,8 @@ app-pos-solutions-partner-integrations {
 }
 #content .partners-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px; margin-top: 0 !important; }
 #content .partners-grid, #content #requestdemo { animation: none !important; opacity: 1 !important; transform: none !important; }
+#content .content-wrap { padding-bottom: clamp(24px, 3vw, 40px) !important; }
+#content #requestdemo.appz-conversion-panel { margin-bottom: 0 !important; }
 #content .partners-card { min-width: 0; padding: 28px; border: 1px solid #dce8f2; border-radius: 22px; background: #fff; box-shadow: 0 12px 34px rgba(37, 83, 124, .06); }
 #content .partners-card--wide { grid-column: 1 / -1; }
 #content .partners-card h2 { margin: 0 0 24px; text-align: center; font-size: clamp(24px, 2.5vw, 32px) !important; line-height: 1.2 !important; }
