@@ -165,12 +165,29 @@ for (const route of fitRoutes) {
           document.querySelector('.appzpos-product-hero__machine'),
           document.querySelector('.appzpos-module-orbit__list')
         ].filter(Boolean);
+        const switcher = document.querySelector('.appzpos-industry-switcher');
+        const machine = document.querySelector('.appzpos-product-hero__machine');
+        const title = document.querySelector('.appzpos-product-hero h1');
+        const intro = document.querySelector('.appzpos-product-hero__intro');
+        const frame = document.querySelector('.appzpos-product-hero__frame');
+        const switcherBounds = switcher.getBoundingClientRect();
+        const machineBounds = machine.getBoundingClientRect();
         return {
           headerHeight: header.getBoundingClientRect().height,
           heroHeight: hero.getBoundingClientRect().height,
           viewportHeight: window.innerHeight,
           heroBounds: hero.getBoundingClientRect().toJSON(),
           semanticBounds: semanticNodes.map(node => node.getBoundingClientRect().toJSON()),
+          geometry: {
+            language: document.querySelector('[data-home-page-template]')?.getAttribute('lang'),
+            frameWidth: frame.getBoundingClientRect().width,
+            machineWidth: machineBounds.width,
+            machineAspect: machineBounds.width / machineBounds.height,
+            switcherToMachineGap: machineBounds.top - switcherBounds.bottom,
+            titleFontSize: parseFloat(getComputedStyle(title).fontSize),
+            titleLetterSpacing: parseFloat(getComputedStyle(title).letterSpacing),
+            introWidth: intro.getBoundingClientRect().width
+          },
           scrollWidth: document.documentElement.scrollWidth,
           clientWidth: document.documentElement.clientWidth
         };
@@ -232,6 +249,32 @@ for (const [profile, layout] of Object.entries(fitLayouts)) {
   const heightDelta = Math.abs(layout.headerHeight + layout.heroHeight - layout.viewportHeight);
   if (heightDelta > 1) failures.push(`${profile}: header plus hero differs from viewport by ${heightDelta}px`);
   if (layout.scrollWidth > layout.clientWidth + 1) failures.push(`${profile}: page has horizontal overflow`);
+  const viewportWidth = Number(profile.split(':')[1].split('x')[0]);
+  const viewportHeight = Number(profile.split('x')[1]);
+  const minimumMachineRatio = viewportWidth >= 1200
+    ? (viewportHeight <= 800 ? .57 : .62)
+    : viewportWidth >= 700 ? .735 : .9;
+  if (layout.geometry.machineWidth / layout.geometry.frameWidth < minimumMachineRatio) {
+    failures.push(`${profile}: POS device uses only ${(layout.geometry.machineWidth / layout.geometry.frameWidth).toFixed(2)} of the hero width; expected at least ${minimumMachineRatio}`);
+  }
+  if (Math.abs(layout.geometry.machineAspect - (1672 / 941)) > .04) {
+    failures.push(`${profile}: POS device aspect ratio is ${layout.geometry.machineAspect.toFixed(2)} instead of its natural 1.78 ratio`);
+  }
+  if (layout.geometry.switcherToMachineGap > 8) {
+    failures.push(`${profile}: industry tabs leave ${layout.geometry.switcherToMachineGap.toFixed(1)}px before the POS device`);
+  }
+  if (layout.geometry.language === 'zh') {
+    const maximumChineseTitleSize = viewportWidth >= 1200 ? 60 : viewportWidth >= 700 ? 42 : 29;
+    if (layout.geometry.titleFontSize > maximumChineseTitleSize) {
+      failures.push(`${profile}: Chinese hero title is ${layout.geometry.titleFontSize}px; expected at most ${maximumChineseTitleSize}px`);
+    }
+    if (layout.geometry.titleLetterSpacing < 1) {
+      failures.push(`${profile}: Chinese hero title tracking is ${layout.geometry.titleLetterSpacing}px; expected at least 1px`);
+    }
+    if (viewportWidth >= 1024 && layout.geometry.introWidth / layout.geometry.frameWidth < .7) {
+      failures.push(`${profile}: Chinese hero description uses only ${(layout.geometry.introWidth / layout.geometry.frameWidth).toFixed(2)} of the content width`);
+    }
+  }
   for (const [index, bounds] of layout.semanticBounds.entries()) {
     if (bounds.top < layout.heroBounds.top - 1 || bounds.bottom > layout.heroBounds.bottom + 1) {
       failures.push(`${profile}: semantic hero node ${index + 1} is clipped by the hero`);

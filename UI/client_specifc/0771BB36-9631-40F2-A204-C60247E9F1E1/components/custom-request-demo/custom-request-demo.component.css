@@ -5,7 +5,7 @@
 .appz-demo {
     display: grid;
     gap: clamp(24px, 3vw, 36px);
-    grid-template-columns: minmax(0, .86fr) minmax(420px, 1.14fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     margin: 0 auto;
     max-width: 1120px;
 }

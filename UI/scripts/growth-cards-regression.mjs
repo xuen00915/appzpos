@@ -50,6 +50,13 @@ for (const width of viewports) {
     expression: `JSON.stringify((() => {
       const list = document.querySelector('.ecosystem__growth-list');
       const cards = [...document.querySelectorAll('.ecosystem__growth-card')];
+      const growth = document.querySelector('[data-home-section="grow-your-business"]');
+      const growthIntro = growth?.querySelector('.ecosystem__growth-intro');
+      const features = document.querySelector('[data-home-section="key-features"]');
+      const featureCard = features?.querySelector('.ecosystem__feature-card');
+      const featureIcon = featureCard?.querySelector('.ecosystem__feature-icon');
+      const featureTitle = featureCard?.querySelector('h3');
+      const featurePoint = featureCard?.querySelector('li');
       return {
         columns: list ? getComputedStyle(list).gridTemplateColumns.trim().split(/\\s+/).filter(Boolean).length : 0,
         cards: cards.map((card) => ({
@@ -60,6 +67,20 @@ for (const width of viewports) {
           width: card.getBoundingClientRect().width,
           height: card.getBoundingClientRect().height
         })),
+        rhythm: {
+          growthTopPadding: growth && growthIntro
+            ? growthIntro.getBoundingClientRect().top - growth.getBoundingClientRect().top
+            : null,
+          growthGap: growth ? parseFloat(getComputedStyle(growth).gap) : null,
+          featureGap: features ? parseFloat(getComputedStyle(features).gap) : null,
+          featurePaddingTop: featureCard ? parseFloat(getComputedStyle(featureCard).paddingTop) : null,
+          featurePointFontSize: featurePoint ? parseFloat(getComputedStyle(featurePoint).fontSize) : null,
+          featureTitleSharesIconRow: Boolean(featureIcon && featureTitle
+            && Math.abs(featureIcon.getBoundingClientRect().top - featureTitle.getBoundingClientRect().top) <= 1),
+          featureTitleAvailableWidth: featureTitle && featureCard
+            ? featureTitle.getBoundingClientRect().width / featureCard.getBoundingClientRect().width
+            : null
+        },
         pageClientWidth: document.documentElement.clientWidth,
         pageScrollWidth: document.documentElement.scrollWidth
       };
@@ -84,6 +105,13 @@ for (const width of viewports) {
   if (layout.cards.some((card) => !card.heading || !card.description)) failures.push(`${width}px: a card is missing its heading or description`);
   if (layout.cards.some((card) => card.width < 250 && width > 1023)) failures.push(`${width}px: a desktop card is too narrow`);
   if (layout.pageScrollWidth > layout.pageClientWidth) failures.push(`${width}px: growth cards cause horizontal overflow`);
+  const maximumGrowthTopPadding = width === 1440 ? 56 : width === 820 ? 48 : 40;
+  if (layout.rhythm.growthTopPadding > maximumGrowthTopPadding) failures.push(`${width}px: growth section starts with ${layout.rhythm.growthTopPadding}px of empty space`);
+  if (layout.rhythm.featureGap > 40) failures.push(`${width}px: key-features intro gap is ${layout.rhythm.featureGap}px, expected at most 40px`);
+  if (layout.rhythm.featurePaddingTop > 32) failures.push(`${width}px: feature card top padding is ${layout.rhythm.featurePaddingTop}px, expected at most 32px`);
+  if (layout.rhythm.featurePointFontSize < 16) failures.push(`${width}px: feature content is only ${layout.rhythm.featurePointFontSize}px`);
+  if (!layout.rhythm.featureTitleSharesIconRow) failures.push(`${width}px: feature title is not aligned with its icon row`);
+  if (width >= 820 && layout.rhythm.featureTitleAvailableWidth < .52) failures.push(`${width}px: feature title is constrained instead of wrapping naturally`);
 }
 
 if (failures.length) {

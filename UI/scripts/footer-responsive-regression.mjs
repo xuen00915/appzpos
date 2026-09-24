@@ -60,6 +60,9 @@ for (const width of viewports) {
       const submit = document.querySelector('.appz-demo__submit');
       const footer = document.querySelector('.appzpos-footer');
       const columns = inner ? getComputedStyle(inner).gridTemplateColumns.trim().split(/\\s+/).filter(Boolean) : [];
+      const demoColumns = demo
+        ? getComputedStyle(demo).gridTemplateColumns.trim().split(/\\s+/).filter(Boolean).map(parseFloat)
+        : [];
       const conversionBounds = conversionPanel?.getBoundingClientRect();
       const copyBounds = copy?.getBoundingClientRect();
       const formBounds = form?.getBoundingClientRect();
@@ -74,6 +77,7 @@ for (const width of viewports) {
         socialColors: socialIcons.slice(1).map((icon) => getComputedStyle(icon).color),
         conversion: {
           present: Boolean(conversionPanel && demo && form && fields && footer),
+          columns: demoColumns,
           panelPaddingTop: conversionPanel ? parseFloat(getComputedStyle(conversionPanel).paddingTop) : 0,
           demoGap: demo ? parseFloat(getComputedStyle(demo).gap) : 0,
           formPaddingTop: form ? parseFloat(getComputedStyle(form).paddingTop) : 0,
@@ -115,6 +119,10 @@ for (const width of viewports) {
   const expectedSocialColors = ['rgb(24, 119, 242)', 'rgb(10, 102, 194)', 'rgb(255, 0, 0)'];
   if (layout.socialColors.some((color, index) => color !== expectedSocialColors[index])) failures.push(`${width}px: social icons do not use their original brand colors`);
   if (!layout.conversion.present) failures.push(`${width}px: demo form or footer is missing`);
+  if (width >= 901 && (layout.conversion.columns.length !== 2
+    || Math.abs(layout.conversion.columns[0] - layout.conversion.columns[1]) > 2)) {
+    failures.push(`${width}px: demo copy/form columns are not balanced ${JSON.stringify(layout.conversion.columns)}`);
+  }
   if (layout.conversion.panelPaddingTop > 36) failures.push(`${width}px: demo panel top padding is ${layout.conversion.panelPaddingTop}px, expected at most 36px`);
   if (layout.conversion.demoGap > 36) failures.push(`${width}px: demo copy/form gap is ${layout.conversion.demoGap}px, expected at most 36px`);
   if (layout.conversion.formPaddingTop > 28) failures.push(`${width}px: form padding is ${layout.conversion.formPaddingTop}px, expected at most 28px`);

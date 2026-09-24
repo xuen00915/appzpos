@@ -310,7 +310,18 @@ for (const { width, height, maxSectionSpace, minTitleTracking } of viewportProfi
         headingAlign: cardsSection?.querySelector('h2') ? getComputedStyle(cardsSection.querySelector('h2')).textAlign : null,
         count: cards.length,
         columns: cardList ? getComputedStyle(cardList).gridTemplateColumns.split(' ').length : 0,
-        icons: cards.map((card) => card.querySelector('i')?.className)
+        icons: cards.map((card) => card.querySelector('i')?.className),
+        heights: cards.map((card) => card.getBoundingClientRect().height),
+        labels: cards.map((card) => card.querySelector('strong')?.textContent.trim())
+      },
+      contentWidths: {
+        heroDescription: document.querySelector('.appzpos-product-hero__intro')?.getBoundingClientRect().width,
+        introTitle: document.querySelector('#appz-ecosystem-title')?.getBoundingClientRect().width,
+        introDescription: document.querySelector('.appz-ecosystem__intro')?.getBoundingClientRect().width,
+        customTitle: document.querySelector('#cn-custom-pos-title')?.getBoundingClientRect().width,
+        customColumn: customCopy?.width,
+        unifiedTitle: document.querySelector('#cn-unified-management-title')?.getBoundingClientRect().width,
+        sectionWidth: cardsSection?.getBoundingClientRect().width
       },
       grant: {
         imageCount: grantImages.length,
@@ -337,6 +348,21 @@ for (const { width, height, maxSectionSpace, minTitleTracking } of viewportProfi
       'bi bi-cloud-check', 'bi bi-graph-up-arrow', 'bi bi-diagram-3', 'bi bi-buildings'
     ])) {
     failures.push(`${width}px: Chinese management cards are incorrect ${JSON.stringify(storySections.cards)}`);
+  }
+  if (storySections.cards.labels.some((label) => /-\s*$/.test(label ?? ''))) {
+    failures.push(`${width}px: Chinese management card titles retain trailing dashes ${JSON.stringify(storySections.cards.labels)}`);
+  }
+  const maximumCardHeight = width <= 767 ? 260 : 210;
+  if (storySections.cards.heights.some((height) => height > maximumCardHeight)) {
+    failures.push(`${width}px: Chinese management cards are taller than ${maximumCardHeight}px ${JSON.stringify(storySections.cards.heights)}`);
+  }
+  if (width >= 1024) {
+    if (storySections.contentWidths.heroDescription / storySections.contentWidths.sectionWidth < .68
+      || storySections.contentWidths.introDescription / storySections.contentWidths.sectionWidth < .68
+      || storySections.contentWidths.customTitle / storySections.contentWidths.customColumn < .7
+      || storySections.contentWidths.unifiedTitle / storySections.contentWidths.sectionWidth < .55) {
+      failures.push(`${width}px: requested Chinese content blocks remain too narrow ${JSON.stringify(storySections.contentWidths)}`);
+    }
   }
   if (storySections.grant.imageCount !== 1
     || storySections.grant.src !== 'assets/images/smes-go-digital-lockup-vertical.png'
