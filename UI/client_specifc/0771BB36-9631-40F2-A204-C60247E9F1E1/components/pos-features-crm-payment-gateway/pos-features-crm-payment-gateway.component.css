@@ -308,6 +308,44 @@ b, strong {
   }
 }
 
+@media (max-width: 767px) {
+  /* Override legacy desktop grid rules at the mobile breakpoint. */
+  #content #requestdemo.appz-api-conversion .features-api-panel {
+    display: flex !important;
+    flex-direction: column;
+    grid-template-columns: none !important;
+    width: 100%;
+    gap: 20px;
+    padding: 20px 14px !important;
+  }
+
+  #content #requestdemo.appz-api-conversion .features-api-copy,
+  #content #requestdemo.appz-api-conversion form {
+    width: 100%;
+    max-width: none;
+    min-width: 0;
+    margin: 0 !important;
+    box-sizing: border-box;
+  }
+
+  #content #requestdemo.appz-api-conversion form {
+    padding: 18px 14px;
+  }
+
+  #content #requestdemo.appz-api-conversion form .row {
+    display: block;
+    margin-inline: 0;
+    --bs-gutter-x: 0;
+    --bs-gutter-y: 12px;
+  }
+
+  #content #requestdemo.appz-api-conversion form .row > [class*="col-"] {
+    width: 100% !important;
+    max-width: none;
+    padding-inline: 0;
+  }
+}
+
 /* Keep the conversion form close to the footer instead of leaving a large blank rail. */
 #content .content-wrap { padding-bottom: clamp(24px, 3vw, 40px) !important; }
 #content #requestdemo.appz-conversion-panel { margin-bottom: 0 !important; }
