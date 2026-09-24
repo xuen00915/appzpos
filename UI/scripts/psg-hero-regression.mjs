@@ -197,6 +197,7 @@ for (const width of viewports) {
         title: document.title,
         frameworkOverlay: Boolean(document.querySelector('vite-error-overlay, #webpack-dev-server-client-overlay, [data-nextjs-dialog-overlay]')),
         heading: hero?.querySelector('h1')?.textContent?.replace(/\\s+/g, ' ').trim() ?? '',
+        headingFontSize: hero?.querySelector('h1') ? parseFloat(getComputedStyle(hero.querySelector('h1')).fontSize) : -1,
         headingForcedBreakCount: hero?.querySelectorAll('h1 br').length ?? 0,
         description: hero?.querySelector('p')?.textContent?.replace(/\\s+/g, ' ').trim() ?? '',
         hero: bounds(hero),
@@ -535,9 +536,11 @@ for (const width of viewports) {
         return { x: rect.x, y: rect.y, width: rect.width, height: rect.height };
       };
       const hero = document.querySelector('.features-hero');
+      const heading = hero?.querySelector('h1');
       return {
         inner: bounds(hero?.querySelector('.features-hero__inner')),
-        copy: bounds(hero?.querySelector('.features-hero__copy'))
+        copy: bounds(hero?.querySelector('.features-hero__copy')),
+        headingFontSize: heading ? parseFloat(getComputedStyle(heading).fontSize) : -1
       };
     })())`,
     returnByValue: true
@@ -566,6 +569,9 @@ for (const [width, layout] of Object.entries(layouts)) {
     }
     if (Math.abs(layout.copy.x - featuresLayout.copy.x) > 2) {
       failures.push(`${width}px: grant hero copy does not use the Features page content gutter`);
+    }
+    if (Math.abs(layout.headingFontSize - featuresLayout.headingFontSize) > .1) {
+      failures.push(`${width}px: grant hero title does not match the Features page title size`);
     }
   }
   const maximumHeroImageWidth = Number(width) <= 575 ? 230 : Number(width) <= 1023 ? 280 : 320;
@@ -619,8 +625,8 @@ for (const [width, layout] of Object.entries(layouts)) {
   if (layout.faq.buttonBackgroundColor !== 'rgb(116, 57, 149)' || layout.faq.buttonColor !== 'rgb(255, 255, 255)') failures.push(`${width}px: PSG FAQ plus/minus button does not use the approved purple and white treatment`);
   if (!layout.faq.grantPortalLink || !layout.faq.contactLink) failures.push(`${width}px: PSG FAQ resource or contact link changed or is missing`);
   const maximumRhythm = Number(width) <= 575
-    ? { hero: 48, overview: 48, packages: 48, applyMargin: 48, applyPadding: 48, faq: 48 }
-    : { hero: 72, overview: 64, packages: 64, applyMargin: 72, applyPadding: 68, faq: 72 };
+    ? { hero: 48, overview: 32, packages: 48, applyMargin: 48, applyPadding: 48, faq: 48 }
+    : { hero: 72, overview: 40, packages: 64, applyMargin: 72, applyPadding: 68, faq: 72 };
   if (layout.rhythm.heroPaddingTop > maximumRhythm.hero || layout.rhythm.heroPaddingBottom > maximumRhythm.hero) failures.push(`${width}px: PSG hero spacing remains too large`);
   if (layout.rhythm.overviewPaddingTop > maximumRhythm.overview || layout.rhythm.overviewPaddingBottom > maximumRhythm.overview) failures.push(`${width}px: PSG overview spacing remains too large`);
   if (Number(width) <= 1023 && layout.rhythm.overviewGridGap > 64) failures.push(`${width}px: PSG overview panels remain too far apart`);
@@ -644,6 +650,9 @@ for (const [width, layout] of Object.entries(layouts)) {
 }
 
 const desktop = layouts[1440];
+if (desktop.copy?.width < 680) {
+  failures.push('1440px: grant hero text column remains too narrow');
+}
 if (desktop.copy && desktop.art && desktop.art.x <= desktop.copy.x + desktop.copy.width) {
   failures.push('1440px: grant artwork is not positioned to the right of the wording');
 }
@@ -662,8 +671,14 @@ if (desktop.vendor.section && desktop.eligibility.section && (Math.abs(desktop.v
 if (desktop.vendor.section && desktop.vendor.lastItem && desktop.vendor.section.y + desktop.vendor.section.height - (desktop.vendor.lastItem.y + desktop.vendor.lastItem.height) > 160) {
   failures.push('1440px: PSG vendor content leaves excessive empty space at the bottom of the purple panel');
 }
-if (desktop.vendor.items.some((item, index, items) => index > 0 && item.y - (items[index - 1].y + items[index - 1].height) > 32)) {
+if (desktop.vendor.items.some((item, index, items) => index > 0 && item.y - (items[index - 1].y + items[index - 1].height) > 16)) {
   failures.push('1440px: PSG vendor points have excessive vertical gaps');
+}
+if (desktop.overview.grid && desktop.rhythm.overviewGridGap > 56) {
+  failures.push('1440px: PSG overview panels remain too far apart');
+}
+if (desktop.eligibility.section?.height > 500) {
+  failures.push('1440px: PSG eligibility content remains too vertically spacious');
 }
 if (desktop.packages.cards.some((card) => !card.image || !card.featurePanel || !card.includedPanel || !(card.image.x < card.featurePanel.x && card.featurePanel.x < card.includedPanel.x))) {
   failures.push('1440px: package cards are not arranged image, features, then included content horizontally');
