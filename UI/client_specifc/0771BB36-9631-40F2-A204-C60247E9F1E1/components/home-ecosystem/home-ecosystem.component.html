@@ -43,7 +43,7 @@
            [attr.width]="grantConfig.imageWidth" [attr.height]="grantConfig.imageHeight" loading="lazy">
     </div>
     <div class="ecosystem__grant-copy">
-      <h2 id="grant-title" class="appz-section-title">{{ grantConfig.title }}<br *ngIf="grantConfig.secondaryTitle">{{ grantConfig.secondaryTitle }}</h2>
+      <h2 id="grant-title" class="appz-section-title">{{ grantConfig.title }}<span *ngIf="grantConfig.secondaryTitle"> {{ grantConfig.secondaryTitle }}</span></h2>
       <p *ngFor="let paragraph of grantConfig.paragraphs" class="appz-section-description">{{ paragraph }}</p>
       <a class="ecosystem__grant-link" [href]="grantConfig.cta.href">{{ grantConfig.cta.label }}</a>
       <img *ngIf="grantConfig.secondaryImage" class="ecosystem__grant-lockup"
