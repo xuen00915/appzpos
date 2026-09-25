@@ -79,6 +79,7 @@ app-pos-features-crm-payment-gateway {
 #content .features-card {
   min-width: 0;
   overflow: hidden;
+  margin: 0 !important;
   padding: 0 !important;
   border: 1px solid #dce9f3;
   border-radius: 22px;
@@ -90,6 +91,7 @@ app-pos-features-crm-payment-gateway {
   width: 100%;
   margin: 0 !important;
   padding: 0 !important;
+  border-radius: 21px 21px 0 0 !important;
   background: transparent;
   overflow: hidden;
 }
@@ -103,7 +105,7 @@ app-pos-features-crm-payment-gateway {
   margin: 0 !important;
   padding: 0 !important;
   object-fit: cover;
-  border-radius: 21px 21px 0 0;
+  border-radius: 21px 21px 0 0 !important;
 }
 #content .features-card__body { padding: 28px; background: #fff; }
 #content .features-card h2 { margin: 0 0 18px; text-align: center; font-size: clamp(24px, 2.4vw, 32px) !important; line-height: 1.18 !important; }
@@ -127,6 +129,16 @@ app-pos-features-crm-payment-gateway {
   .features-api-icon { flex-basis: 32px; }
   .features-api-icon svg { width: 32px; height: 32px; }
   #content .features-api-heading h2 { font-size: 23px !important; }
+}
+
+// Keep the artwork edge treatment consistent even when shared card/image rules load later.
+#content .features-grid > .features-card > .features-card__image,
+#content .features-grid > .features-card > .features-card__image--edge {
+  border-radius: 21px 21px 0 0 !important;
+}
+#content .features-grid > .features-card > .features-card__image > img,
+#content .features-grid > .features-card > .features-card__image--edge > img {
+  border-radius: 21px 21px 0 0 !important;
 }
 
 }
