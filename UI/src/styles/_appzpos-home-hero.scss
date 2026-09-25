@@ -1342,19 +1342,6 @@
   }
 }
 
-/* Large desktop heroes may grow with their content instead of being forced
-   into one viewport on 1440x900-and-larger screens. */
-@media (min-width: 1440px) and (min-height: 900px) {
-  .appzpos-product-hero {
-    block-size: auto;
-  }
-
-  .appzpos-product-hero__frame {
-    block-size: auto;
-    min-block-size: 0;
-  }
-}
-
 /* The sticky header and shared hero form one exact viewport on every device. */
 .appzpos-product-hero {
   --hero-copy-pad: clamp(.8rem, 2.4dvh, 1.8rem);
@@ -2017,5 +2004,37 @@
 
   .appzpos-module-orbit__list {
     padding-inline: .25rem;
+  }
+}
+
+/* Large desktop heroes may grow with their content instead of being forced
+   into one viewport on 1440x900-and-larger screens. */
+@media (min-width: 1440px) and (min-height: 900px) {
+  .appzpos-product-hero {
+    block-size: auto;
+    min-height: 0;
+  }
+
+  .appzpos-product-hero__frame {
+    block-size: auto;
+    min-height: 0;
+    min-block-size: 0;
+    padding-bottom: 2rem;
+  }
+
+  .appzpos-product-hero .appzpos-product-hero__visual:not(.appzpos-product-hero__visual--responsive) {
+    flex: 0 0 auto;
+    grid-template-rows: auto auto;
+  }
+
+  .appzpos-product-hero .appzpos-product-hero__machine {
+    width: min(100%, 64rem);
+    height: auto;
+    max-height: none;
+    margin-top: -4.5rem;
+  }
+
+  .appzpos-product-hero .appzpos-product-hero__machine > img {
+    height: auto;
   }
 }
