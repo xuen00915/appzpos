@@ -1342,6 +1342,19 @@
   }
 }
 
+/* Large desktop heroes may grow with their content instead of being forced
+   into one viewport on 1440x900-and-larger screens. */
+@media (min-width: 1440px) and (min-height: 900px) {
+  .appzpos-product-hero {
+    block-size: auto;
+  }
+
+  .appzpos-product-hero__frame {
+    block-size: auto;
+    min-block-size: 0;
+  }
+}
+
 /* The sticky header and shared hero form one exact viewport on every device. */
 .appzpos-product-hero {
   --hero-copy-pad: clamp(.8rem, 2.4dvh, 1.8rem);
