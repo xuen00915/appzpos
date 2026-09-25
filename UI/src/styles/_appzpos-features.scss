@@ -41,6 +41,11 @@ app-pos-features-crm-payment-gateway {
   .features-hero__eyebrow { display: block; text-align: center; }
   .features-hero h1 { text-align: center; }
 }
+@media (min-width: 768px) and (max-width: 1023px) {
+  .features-hero__eyebrow,
+  .features-hero h1,
+  .features-hero p { text-align: left; }
+}
 #content #requestdemo { animation: none !important; opacity: 1 !important; transform: none !important; }
 #content #requestdemo h2, #content #requestdemo p { text-align: left !important; }
 #content .features-api-panel { display: grid; grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr); align-items: center; gap: 40px; margin: 0 !important; max-height: none !important; padding: clamp(24px, 4vw, 56px) !important; border: 0 !important; border-radius: 24px !important; background: #0b2347 !important; }
