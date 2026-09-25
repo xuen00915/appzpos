@@ -46,7 +46,7 @@
     border-color: #159447;
 }
 .restaurant-hero__actions .restaurant-hero__whatsapp:hover { background: #117839; }
-@media (max-width: 767px) {
+@media (max-width: 639px) {
     .restaurant-hero__copy { width:100%; max-width:none; text-align:center; }
     .restaurant-hero__photo {
         position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%;
@@ -60,7 +60,7 @@
 }
 
 /* Phone heroes use a subdued photo behind the copy, not a separate image row. */
-@media (max-width: 767px) {
+@media (max-width: 639px) {
     :host #slider.restaurant-hero { padding: 40px 0; }
     .restaurant-hero__photo {
         position: absolute; inset: 0; z-index: -1; width: 100%; height: 100%;
