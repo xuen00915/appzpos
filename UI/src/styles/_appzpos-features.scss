@@ -134,8 +134,8 @@ app-pos-features-crm-payment-gateway {
 // Keep the artwork edge treatment consistent even when shared card/image rules load later.
 #content .features-grid > .features-card > .features-card__image,
 #content .features-grid > .features-card > .features-card__image--edge {
-  width: calc(100% + 2px) !important;
-  margin: -1px -1px 0 !important;
+  width: calc(100% + 24px) !important;
+  margin: -12px -12px 0 !important;
   border-radius: 21px 21px 0 0 !important;
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
