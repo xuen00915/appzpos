@@ -81,3 +81,7 @@
   .hardware-hero__eyebrow { display: block; text-align: center; }
   .hardware-hero h1 { text-align: center; }
 }
+@media (min-width: 768px) and (max-width: 1023px) {
+  .hardware-hero__eyebrow,
+  .hardware-hero h1 { text-align: left; }
+}
