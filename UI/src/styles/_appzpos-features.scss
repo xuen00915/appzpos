@@ -69,6 +69,9 @@ app-pos-features-crm-payment-gateway {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 28px;
   margin-top: 0 !important;
+  padding: clamp(18px, 2.4vw, 32px);
+  border-radius: 24px;
+  background: #eef7ff;
   animation: none !important;
   opacity: 1 !important;
   transform: none !important;
@@ -76,20 +79,20 @@ app-pos-features-crm-payment-gateway {
 #content .features-card {
   min-width: 0;
   overflow: hidden;
-  border: 1px solid #dce8f2;
+  border: 1px solid #dce9f3;
   border-radius: 22px;
-  background: #fff;
-  box-shadow: 0 12px 34px rgba(37, 83, 124, .06);
+  background: transparent;
+  box-shadow: none;
 }
-#content .features-card__image { padding: 0; background: #eef7ff; }
+#content .features-card__image { padding: 0; background: transparent; }
 #content .features-card__image img { display: block; width: 100%; height: auto; max-height: none; object-fit: contain; }
 #content .features-card__image--edge { width: 100%; aspect-ratio: 3 / 2; margin: 0 !important; padding: 0 !important; overflow: hidden; }
 #content .features-card__image--edge img { display: block; width: 100% !important; height: 100% !important; max-width: none !important; object-fit: cover; }
-#content .features-card__body { padding: 28px; }
+#content .features-card__body { padding: 28px; background: transparent; }
 #content .features-card h2 { margin: 0 0 18px; text-align: center; font-size: clamp(24px, 2.4vw, 32px) !important; line-height: 1.18 !important; }
 #content .features-card p { margin: 0; font-size: 15px !important; line-height: 1.75; }
 @media (max-width: 767px) {
-  #content .features-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  #content .features-grid { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 16px; }
   #content .features-card__image { padding: 0; }
   #content .features-card__body { padding: 24px 20px; }
 }
