@@ -1,13 +1,4 @@
 <app-industry-page>
-<ng-template #procedureIsland let-island="island" let-key="key">
-  <figure class="procedure-island" *ngIf="islandPreviews[island] as preview">
-    <svg viewBox="0 0 1920 1080" role="img" [attr.aria-label]="'Restaurant diagram with ' + preview.title + ' floor highlighted'" preserveAspectRatio="xMidYMid meet">
-      <defs><clipPath [id]="key + '-floor'"><polygon [attr.points]="preview.floorPoints"/></clipPath></defs>
-      <image [attr.href]="BindURL_Image('APPZPOS-Restaurant-POS-System- Singapore-floorplan.png')" width="1920" height="1080"/>
-      <image class="procedure-island__highlight" [attr.href]="BindURL_Image('APPZPOS-Restaurant-POS-System- Singapore-floorplan.png')" width="1920" height="1080" [attr.clip-path]="'url(#' + key + '-floor)'" filter="url(#restaurant-floor-yellow)"/>
-    </svg>
-  </figure>
-</ng-template>
 <section id="slider" class="restaurant-hero" aria-labelledby="restaurant-hero-title">
   <img class="restaurant-hero__photo" [src]="BindURL_Image('APPZPOS-Restaurant-POS-System- Singapore-banner.png')"
     alt="Customer making a contactless payment at a restaurant" fetchpriority="high">
@@ -25,63 +16,55 @@
 </section>
 
 <section  id="content">
-    <div class="content-wrap" appIndustryDiagramHandoff>
+    <div class="content-wrap">
         <section class="restaurant-scroll__intro" aria-labelledby="restaurant-islands-title">
           <h2 id="restaurant-islands-title">Transform Your Restaurants: Maximize Profits with APPZPOS Restaurant Point of Sale Systems</h2>
-          <div class="restaurant-overview__visual">
-            <img class="restaurant-overview__diagram"
-              [src]="BindURL_Image('APPZPOS-Restaurant-POS-System- Singapore-floorplan.png')"
-              alt="APPZPOS restaurant POS system: complete connected island diagram"
-              width="1920" height="1080" loading="lazy">
-          </div>
         </section>
+        <div class="service-mode-grid">
         <div class="restaurant-scroll">
           <div class="restaurant-scroll__copy">
             <section #restaurantMode class="restaurant-scroll__mode" aria-label="Restaurant Mode">
               <div class="restaurant-mode__track">
                 <div class="restaurant-mode__timeline">
-                  <h2>Restaurant Mode</h2>
+                  <div class="service-mode__header">
+                    <h2>Restaurant Mode</h2>
+                  </div>
                   <ol class="restaurant-procedures">
                     <li #procedureItem class="restaurant-procedure" data-procedure="0" [class.is-active]="activeProcedure === 0">
-                      <ng-container *ngTemplateOutlet="procedureIsland; context: { island: 'dining', key: 'restaurant-step-0' }"></ng-container>
                       <a #revealHeading data-mode="restaurant" data-step="0" href="#ptab1" id="canvas-tab-1" aria-expanded="true" aria-controls="ptab1" (click)="goToProcedure($event, 0)">
-                        <span class="restaurant-procedure__number">1</span><span>Place Order</span>
+                        <span class="restaurant-procedure__number">01</span><i class="bi bi-cart3 restaurant-procedure__icon" aria-hidden="true"></i><span>Place Order</span>
                       </a>
                       <div id="ptab1" role="region" aria-labelledby="canvas-tab-1">
                         <p>Customer browse the menu and place order through Website or Table QR Or Staff creates order through POS</p>
                       </div>
                     </li>
                     <li #procedureItem class="restaurant-procedure" data-procedure="1" [class.is-active]="activeProcedure === 1">
-                      <ng-container *ngTemplateOutlet="procedureIsland; context: { island: 'counter', key: 'restaurant-step-1' }"></ng-container>
                       <a #revealHeading data-mode="restaurant" data-step="1" href="#ptab2" id="canvas-tab-2" aria-expanded="true" aria-controls="ptab2" (click)="goToProcedure($event, 1)">
-                        <span class="restaurant-procedure__number">2</span><span>Make Payment</span>
+                        <span class="restaurant-procedure__number">02</span><i class="bi bi-credit-card restaurant-procedure__icon" aria-hidden="true"></i><span>Make Payment</span>
                       </a>
                       <div id="ptab2" role="region" aria-labelledby="canvas-tab-2">
                         <p>Customer make payment through either online or offline payment options including Visa, Mastercard, Apple/Google Pay, E-wallet, Paynow etc</p>
                       </div>
                     </li>
                     <li #procedureItem class="restaurant-procedure" data-procedure="2" [class.is-active]="activeProcedure === 2">
-                      <ng-container *ngTemplateOutlet="procedureIsland; context: { island: 'kitchen', key: 'restaurant-step-2' }"></ng-container>
                       <a #revealHeading data-mode="restaurant" data-step="2" href="#ptab3" id="canvas-tab-3" aria-expanded="true" aria-controls="ptab3" (click)="goToProcedure($event, 2)">
-                        <span class="restaurant-procedure__number">3</span><span>Order Goes to Kitchen</span>
+                        <span class="restaurant-procedure__number">03</span><i class="bi bi-fire restaurant-procedure__icon" aria-hidden="true"></i><span>Order Goes to Kitchen</span>
                       </a>
                       <div id="ptab3" role="region" aria-labelledby="canvas-tab-3">
                         <p>Kitchen receives orders from different platforms either with payment or without payment based on each vendors choice</p>
                       </div>
                     </li>
                     <li #procedureItem class="restaurant-procedure" data-procedure="3" [class.is-active]="activeProcedure === 3">
-                      <ng-container *ngTemplateOutlet="procedureIsland; context: { island: 'management', key: 'restaurant-step-3' }"></ng-container>
                       <a #revealHeading data-mode="restaurant" data-step="3" href="#ptab4" id="canvas-tab-4" aria-expanded="true" aria-controls="ptab4" (click)="goToProcedure($event, 3)">
-                        <span class="restaurant-procedure__number">4</span><span>Complete Order</span>
+                        <span class="restaurant-procedure__number">04</span><i class="bi bi-check2-circle restaurant-procedure__icon" aria-hidden="true"></i><span>Complete Order</span>
                       </a>
                       <div id="ptab4" role="region" aria-labelledby="canvas-tab-4">
                         <p>All order details can be reviewed in Order tab and the report is generated in Report tab</p>
                       </div>
                     </li>
                     <li #procedureItem class="restaurant-procedure" data-procedure="4" [class.is-active]="activeProcedure === 4">
-                      <ng-container *ngTemplateOutlet="procedureIsland; context: { island: 'management', key: 'restaurant-step-4' }"></ng-container>
                       <a #revealHeading data-mode="restaurant" data-step="4" href="#ptab5" id="canvas-tab-5" aria-expanded="true" aria-controls="ptab5" (click)="goToProcedure($event, 4)">
-                        <span class="restaurant-procedure__number">5</span><span>Analysic & Reports</span>
+                        <span class="restaurant-procedure__number">05</span><i class="bi bi-bar-chart-line restaurant-procedure__icon" aria-hidden="true"></i><span>Analysic & Reports</span>
                       </a>
                       <div id="ptab5" role="region" aria-labelledby="canvas-tab-5">
                         <p>Backend admin panel receives all up-to-date orders immediately. <br/> This data will be used to generate different types of reports like item sales, customer sales, promotions, membership report etc</p>
@@ -89,37 +72,21 @@
                     </li>
                   </ol>
                 </div>
-                <div class="restaurant-mode__markers" aria-hidden="true">
-                  <div *ngFor="let index of procedureIndexes" #procedureMarker class="restaurant-mode__marker" [attr.data-procedure]="index"></div>
-                </div>
               </div>
             </section>
           </div>
-          <div class="restaurant-scroll__diagram">
-            <app-industry-islands idPrefix="restaurant" [islands]="industryIslands" [showDetails]="false"
-              [interactive]="restaurantModeActive && !isCompact" [highlightedIds]="isCompact ? [] : procedureIslands[activeProcedure]"
-              [focusId]="restaurantModeActive && !isCompact ? procedureFocusIds[activeProcedure] : ''"
-              [imageSrc]="BindURL_Image('APPZPOS-Restaurant-POS-System- Singapore-floorplan.png')"
-              imageAlt="APPZPOS-Restaurant-POS-System- Singapore-floorplan">
-            </app-industry-islands>
-          </div>
         </div>
         <div id="webview" class="quick-service-desktop">
-            <div class="quick-service-diagram">
-                <app-industry-islands idPrefix="quick-service" [islands]="industryIslands" [showDetails]="false"
-                    [interactive]="!isCompact" [highlightedIds]="isCompact ? [] : quickProcedureIslands[activeQuickProcedure]"
-                    [focusId]="isCompact ? '' : quickFocusIds[activeQuickProcedure]"
-                    [imageSrc]="BindURL_Image('APPZPOS-Restaurant-POS-System- Singapore-floorplan.png')"
-                    imageAlt="APPZPOS restaurant islands for Quick Service Mode"></app-industry-islands>
-            </div>
             <div class="quick-service-copy">
               <div class="quick-service-timeline" id="canvas-TabContent">
-                <h2 id="quick-service-islands-title">Quick Service Mode</h2>
+                <div class="service-mode__header">
+                  <h2 id="quick-service-islands-title">Quick Service Mode</h2>
+                </div>
                 <div id="processTabs">
                   <ol class="restaurant-procedures" id="canvas-tab">
                     <li class="restaurant-procedure" data-mode="quick" data-procedure="0" [class.is-active]="activeQuickProcedure === 0">
                       <a href="#ptab6" id="canvas-tab-6" aria-expanded="true" aria-controls="ptab6" (click)="goToQuickProcedure($event, 0)">
-                        <span class="restaurant-procedure__number">1</span><span>Place Order</span>
+                        <span class="restaurant-procedure__number">01</span><i class="bi bi-cart3 restaurant-procedure__icon" aria-hidden="true"></i><span>Place Order</span>
                       </a>
                       <div id="ptab6" [class.active]="activeQuickProcedure === 0" role="region" aria-labelledby="canvas-tab-6">
                         <p>Customer browse the menu and place order through Website or Self Kiosk Or Staff creates order through POS</p>
@@ -127,7 +94,7 @@
                     </li>
                     <li class="restaurant-procedure" data-mode="quick" data-procedure="1" [class.is-active]="activeQuickProcedure === 1">
                       <a href="#ptab7" id="canvas-tab-7" aria-expanded="true" aria-controls="ptab7" (click)="goToQuickProcedure($event, 1)">
-                        <span class="restaurant-procedure__number">2</span><span>Make Payment</span>
+                        <span class="restaurant-procedure__number">02</span><i class="bi bi-credit-card restaurant-procedure__icon" aria-hidden="true"></i><span>Make Payment</span>
                       </a>
                       <div id="ptab7" [class.active]="activeQuickProcedure === 1" role="region" aria-labelledby="canvas-tab-7">
                         <p>Customer make payment through different payment options including Visa, Mastercard, Apple/Google Pay, E-wallet, etc</p>
@@ -135,7 +102,7 @@
                     </li>
                     <li class="restaurant-procedure" data-mode="quick" data-procedure="2" [class.is-active]="activeQuickProcedure === 2">
                       <a href="#ptab8" id="canvas-tab-8" aria-expanded="true" aria-controls="ptab8" (click)="goToQuickProcedure($event, 2)">
-                        <span class="restaurant-procedure__number">3</span><span>Order Goes to Kitchen</span>
+                        <span class="restaurant-procedure__number">03</span><i class="bi bi-fire restaurant-procedure__icon" aria-hidden="true"></i><span>Order Goes to Kitchen</span>
                       </a>
                       <div id="ptab8" [class.active]="activeQuickProcedure === 2" role="region" aria-labelledby="canvas-tab-8">
                         <p>Kitchen receives orders from different platforms either with payment or without payment based on each vendors choice</p>
@@ -143,7 +110,7 @@
                     </li>
                     <li class="restaurant-procedure" data-mode="quick" data-procedure="3" [class.is-active]="activeQuickProcedure === 3">
                       <a href="#ptab9" id="canvas-tab-9" aria-expanded="true" aria-controls="ptab9" (click)="goToQuickProcedure($event, 3)">
-                        <span class="restaurant-procedure__number">4</span><span>Queue Number Display</span>
+                        <span class="restaurant-procedure__number">04</span><i class="bi bi-display restaurant-procedure__icon" aria-hidden="true"></i><span>Queue Number Display</span>
                       </a>
                       <div id="ptab9" [class.active]="activeQuickProcedure === 3" role="region" aria-labelledby="canvas-tab-9">
                         <p>Bump off orders at the touch of a button on your Kitchen Display Screen and the Queue number will update in real time.</p>
@@ -151,7 +118,7 @@
                     </li>
                     <li class="restaurant-procedure" data-mode="quick" data-procedure="4" [class.is-active]="activeQuickProcedure === 4">
                       <a href="#ptab10" id="canvas-tab-10" aria-expanded="true" aria-controls="ptab10" (click)="goToQuickProcedure($event, 4)">
-                        <span class="restaurant-procedure__number">5</span><span>Complete Order</span>
+                        <span class="restaurant-procedure__number">05</span><i class="bi bi-check2-circle restaurant-procedure__icon" aria-hidden="true"></i><span>Complete Order</span>
                       </a>
                       <div id="ptab10" [class.active]="activeQuickProcedure === 4" role="region" aria-labelledby="canvas-tab-10">
                         <p>All order details can be reviewed in ORDER tab and the report is generated in REPORT tab.</p>
@@ -160,49 +127,44 @@
                   </ol>
                 </div>
               </div>
-              <div class="quick-service-markers" aria-hidden="true">
-                <div *ngFor="let index of procedureIndexes" #quickProcedureMarker class="restaurant-mode__marker" data-mode="quick" [attr.data-procedure]="index"></div>
-              </div>
             </div>
+        </div>
         </div>
         <div id="mobile_view" class="quick-service-compact">
             <div class="section" style="margin-top:40px; padding: 40px 0 !important">
                 <div class="container">
-                    <h2>Quick Service Mode</h2>
+                    <div class="service-mode__header">
+                        <h2>Quick Service Mode</h2>
+                    </div>
                     <div class="quick-service-stack">
                         <div class="oc-item">
                             <article class="quick-service-step" [class.is-active]="activeQuickProcedure === 0">
-                                <ng-container *ngTemplateOutlet="procedureIsland; context: { island: 'counter', key: 'quick-step-0' }"></ng-container>
-                                <button #revealHeading data-mode="quick" data-step="0" type="button" class="quick-step-heading" aria-expanded="true" aria-controls="quick-description-0" (click)="revealStep(true, 0)"><span class="restaurant-procedure__number">1</span><span>Place Order</span></button>
+                                <button #revealHeading data-mode="quick" data-step="0" type="button" class="quick-step-heading" aria-expanded="true" aria-controls="quick-description-0" (click)="revealStep(true, 0)"><span class="restaurant-procedure__number">01</span><i class="bi bi-cart3 restaurant-procedure__icon" aria-hidden="true"></i><span>Place Order</span></button>
                                 <p id="quick-description-0" class="p-text-center" style="text-align:center">Customer browse the menu and place order through Website or Self Kiosk Or Staff creates order through POS</p>
                             </article>
                         </div>
                         <div class="oc-item">
                             <article class="quick-service-step" [class.is-active]="activeQuickProcedure === 1">
-                                <ng-container *ngTemplateOutlet="procedureIsland; context: { island: 'counter', key: 'quick-step-1' }"></ng-container>
-                                <button #revealHeading data-mode="quick" data-step="1" type="button" class="quick-step-heading" aria-expanded="true" aria-controls="quick-description-1" (click)="revealStep(true, 1)"><span class="restaurant-procedure__number">2</span><span>Make Payment</span></button>
+                                <button #revealHeading data-mode="quick" data-step="1" type="button" class="quick-step-heading" aria-expanded="true" aria-controls="quick-description-1" (click)="revealStep(true, 1)"><span class="restaurant-procedure__number">02</span><i class="bi bi-credit-card restaurant-procedure__icon" aria-hidden="true"></i><span>Make Payment</span></button>
                                 <p id="quick-description-1" class="p-text-center" style="text-align:center">Customer make payment through different payment options including Visa, Mastercard, Apple/Google Pay, E-wallet, etc
                                 </p>
                             </article>
                         </div>
                         <div class="oc-item">
                             <article class="quick-service-step" [class.is-active]="activeQuickProcedure === 2">
-                                <ng-container *ngTemplateOutlet="procedureIsland; context: { island: 'kitchen', key: 'quick-step-2' }"></ng-container>
-                                <button #revealHeading data-mode="quick" data-step="2" type="button" class="quick-step-heading" aria-expanded="true" aria-controls="quick-description-2" (click)="revealStep(true, 2)"><span class="restaurant-procedure__number">3</span><span>Order Goes to Kitchen</span></button>
+                                <button #revealHeading data-mode="quick" data-step="2" type="button" class="quick-step-heading" aria-expanded="true" aria-controls="quick-description-2" (click)="revealStep(true, 2)"><span class="restaurant-procedure__number">03</span><i class="bi bi-fire restaurant-procedure__icon" aria-hidden="true"></i><span>Order Goes to Kitchen</span></button>
                                 <p id="quick-description-2" class="p-text-center" style="text-align:center">Kitchen receives orders from different platforms either with payment or without payment based on each vendors choice</p>
                             </article>
                         </div>
                         <div class="oc-item">
                             <article class="quick-service-step" [class.is-active]="activeQuickProcedure === 3">
-                                <ng-container *ngTemplateOutlet="procedureIsland; context: { island: 'counter', key: 'quick-step-3' }"></ng-container>
-                                <button #revealHeading data-mode="quick" data-step="3" type="button" class="quick-step-heading" aria-expanded="true" aria-controls="quick-description-3" (click)="revealStep(true, 3)"><span class="restaurant-procedure__number">4</span><span>Queue Number Display</span></button>
+                                <button #revealHeading data-mode="quick" data-step="3" type="button" class="quick-step-heading" aria-expanded="true" aria-controls="quick-description-3" (click)="revealStep(true, 3)"><span class="restaurant-procedure__number">04</span><i class="bi bi-display restaurant-procedure__icon" aria-hidden="true"></i><span>Queue Number Display</span></button>
                                 <p id="quick-description-3" class="p-text-center" style="text-align:center">Bump off orders at the touch of a button on your Kitchen Display Screen and the Queue number will update in real time.</p>
                             </article>
                         </div>
                         <div class="oc-item">
                             <article class="quick-service-step" [class.is-active]="activeQuickProcedure === 4">
-                                <ng-container *ngTemplateOutlet="procedureIsland; context: { island: 'management', key: 'quick-step-4' }"></ng-container>
-                                <button #revealHeading data-mode="quick" data-step="4" type="button" class="quick-step-heading" aria-expanded="true" aria-controls="quick-description-4" (click)="revealStep(true, 4)"><span class="restaurant-procedure__number">5</span><span>Complete Order</span></button>
+                                <button #revealHeading data-mode="quick" data-step="4" type="button" class="quick-step-heading" aria-expanded="true" aria-controls="quick-description-4" (click)="revealStep(true, 4)"><span class="restaurant-procedure__number">05</span><i class="bi bi-check2-circle restaurant-procedure__icon" aria-hidden="true"></i><span>Complete Order</span></button>
                                 <p id="quick-description-4" class="p-text-center" style="text-align:center">All order details can be reviewed in ORDER tab and the report is generated in REPORT tab.</p>
                             </article>
                         </div>

@@ -8,6 +8,7 @@ import { CustomHeaderComponent } from '../components/custom-header/custom-header
 import { CustomFooterComponent } from '../components/custom-footer/custom-footer.component';
 import { CustomHomeComponent } from '../components/index/index.component';
 import { CustomHomeCNComponent } from '../components/cn-f&b-restaurant-cloud-pos-system/cn-f&b-restaurant-cloud-pos-system.component';
+import { CustomSolutionsComponent } from '../components/custom-solutions/custom-solutions.component';
 import { CustomPartnerIntegrationComponent } from '../components/pos-solutions-partner-integrations/pos-solutions-partner-integrations.component';
 import { CustomWhiteHeaderComponent } from '../components/custom-white-header/custom-white-header.component';
 import { CustomTransparentHeaderComponent } from '../components/custom-transparent-header/custom-transparent-header.component';
@@ -52,6 +53,7 @@ import { MatDialogRef } from '@angular/material/dialog';
     CustomFooterComponent,
     CustomHomeComponent,
     CustomHomeCNComponent,
+    CustomSolutionsComponent,
     CustomPartnerIntegrationComponent,
     CustomWhiteHeaderComponent,
     CustomTransparentHeaderComponent,

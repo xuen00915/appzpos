@@ -1,0 +1,216 @@
+/* F&B trial: present both operating modes as static content without floor-plan graphics or scroll animation. */
+:host .service-mode-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: clamp(32px, 4vw, 56px);
+  width: min(1320px, calc(100% - 64px));
+  margin: 0 auto 48px;
+}
+
+:host .service-mode-grid > .restaurant-scroll,
+:host .service-mode-grid > #webview.quick-service-desktop {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  margin: 0;
+}
+
+:host .restaurant-scroll__copy,
+:host .restaurant-scroll__mode,
+:host .restaurant-mode__track,
+:host .quick-service-copy {
+  display: block;
+  width: 100%;
+  min-height: 0;
+  height: 100%;
+}
+
+:host .restaurant-scroll__mode { padding: 0; }
+
+:host .service-mode__header {
+  margin-bottom: 24px;
+}
+
+:host .service-mode__header h2 {
+  margin-bottom: 0;
+}
+
+:host .restaurant-mode__timeline,
+:host .quick-service-timeline {
+  position: static;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  box-sizing: border-box;
+}
+
+:host .restaurant-procedures,
+:host .quick-service-stack {
+  position: relative;
+  margin: 0;
+  padding: 0 0 0 58px;
+  list-style: none;
+}
+
+:host .restaurant-procedures::before,
+:host .quick-service-stack::before {
+  position: absolute;
+  top: 20px;
+  bottom: 20px;
+  left: 19px;
+  border-left: 1px dashed #c9d7e5;
+  content: "";
+}
+
+:host .restaurant-scroll__mode::before,
+:host .restaurant-mode__markers,
+:host .quick-service-markers,
+:host .restaurant-scroll__diagram,
+:host .quick-service-diagram,
+:host .procedure-island {
+  display: none !important;
+}
+
+:host .restaurant-procedure,
+:host .restaurant-procedure.is-active,
+:host .restaurant-scroll__mode .restaurant-procedure.is-active,
+:host .quick-service-stack article.quick-service-step,
+:host .quick-service-stack article.quick-service-step.is-active {
+  position: relative;
+  min-height: 140px;
+  margin: 0 0 18px;
+  padding: 20px 22px;
+  border: 1px solid #dce3ea;
+  border-radius: 14px;
+  background: #fff;
+  box-shadow: none;
+}
+
+:host .restaurant-procedure:last-child,
+:host .quick-service-stack > .oc-item:last-child article {
+  margin-bottom: 0;
+}
+
+:host .quick-service-stack > .oc-item {
+  margin: 0;
+  border: 0;
+}
+
+:host .restaurant-procedure > a,
+:host .quick-step-heading,
+:host .restaurant-procedure.is-active > a,
+:host .quick-service-step.is-active .quick-step-heading {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #15223e;
+  cursor: default;
+  text-align: left;
+}
+
+:host .restaurant-procedure__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  color: #1768bb;
+  font-size: 20px;
+  line-height: 1;
+  background: #eef6ff;
+  border-radius: 10px;
+}
+
+:host .restaurant-procedure__number,
+:host .is-active .restaurant-procedure__number {
+  position: absolute;
+  top: 19px;
+  left: -58px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  color: #1768bb;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1;
+  background: #fff;
+  border: 1px solid #c9d7e5;
+  border-radius: 50%;
+  box-shadow: none;
+  box-sizing: border-box;
+  z-index: 1;
+}
+
+:host .restaurant-procedure > div p,
+:host .quick-service-stack article.quick-service-step > p {
+  margin: 6px 0 0 56px;
+  color: #59677c;
+  line-height: 1.55;
+  text-align: left !important;
+}
+
+:host .restaurant-scroll *,
+:host #webview.quick-service-desktop *,
+:host #mobile_view.quick-service-compact * {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+
+@media (max-width: 991px), (max-width: 1366px) and (pointer: coarse) {
+  :host .service-mode-grid,
+  :host #mobile_view.quick-service-compact {
+    width: calc(100% - 32px);
+    margin-inline: auto;
+  }
+
+  :host .service-mode-grid { display: block; }
+
+  :host .service-mode-grid > #webview.quick-service-desktop {
+    display: none;
+  }
+
+  :host .restaurant-mode__timeline,
+  :host .quick-service-compact .container {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+  }
+
+  :host .restaurant-procedures,
+  :host .quick-service-stack {
+    padding-left: 50px;
+  }
+
+  :host .restaurant-procedures::before,
+  :host .quick-service-stack::before {
+    left: 18px;
+  }
+
+  :host .restaurant-procedure,
+  :host .restaurant-procedure.is-active,
+  :host .restaurant-scroll__mode .restaurant-procedure.is-active,
+  :host .quick-service-stack article.quick-service-step,
+  :host .quick-service-stack article.quick-service-step.is-active {
+    min-height: 0;
+    padding: 18px;
+  }
+
+  :host .restaurant-procedure__number,
+  :host .is-active .restaurant-procedure__number {
+    left: -50px;
+  }
+}

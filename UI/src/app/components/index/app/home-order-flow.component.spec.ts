@@ -179,6 +179,23 @@ describe('HomeOrderFlowComponent ecosystem', () => {
     expect(root.querySelector('[data-island-id="dining"]')?.getAttribute('aria-pressed')).toBe('false');
   });
 
+  it('marks every selected module illustration for consistent enlargement', () => {
+    fixture.detectChanges();
+    const root = fixture.nativeElement as HTMLElement;
+    const initialVisual = root.querySelector<HTMLElement>('.appz-ecosystem__selected-visual');
+    expect(initialVisual?.classList)
+      .toContain('appz-ecosystem__selected-visual--enlarged');
+    expect(initialVisual?.dataset['visualId']).toBe('dining');
+
+    root.querySelector<HTMLButtonElement>('[data-island-id="delivery"]')!.click();
+    fixture.detectChanges();
+
+    const visual = root.querySelector<HTMLElement>('.appz-ecosystem__selected-visual');
+    expect(visual?.classList).toContain('appz-ecosystem__selected-visual--enlarged');
+    expect(visual?.dataset['visualId']).toBe('delivery');
+    expect(visual?.querySelector('img')?.getAttribute('alt')).toBe('Order Hub');
+  });
+
 
   it('places only the seven matching module names beside their related islands', () => {
     fixture.detectChanges();

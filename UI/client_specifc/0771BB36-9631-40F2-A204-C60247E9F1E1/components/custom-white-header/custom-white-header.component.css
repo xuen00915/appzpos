@@ -20,6 +20,16 @@
   box-shadow: 0 0 0 3px #cce8fc;
 }
 
+/* Keep hover active while the pointer crosses the visual gap into a desktop menu. */
+.appzpos-nav__panel::before {
+  content: '';
+  position: absolute;
+  top: -15px;
+  right: 0;
+  left: 0;
+  height: 15px;
+}
+
 /* Reserve the header height while navigation stays fixed on every viewport. */
 :host { height: 76px; }
 #header.appzpos-header {
@@ -40,6 +50,7 @@
 .appzpos-header__mobile-toggle { order: 4; flex: 0 0 auto; }
 
 @media (max-width: 1100px) {
+  .appzpos-nav__panel::before { display: none; }
   .appzpos-header__inner { justify-content: flex-start; }
   .appzpos-nav { margin-left: 0; }
   .appzpos-header__utilities { order: 2; margin-left: auto; gap: 2px; }

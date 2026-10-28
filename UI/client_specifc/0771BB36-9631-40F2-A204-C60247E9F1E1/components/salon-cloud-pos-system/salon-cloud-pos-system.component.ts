@@ -1,5 +1,4 @@
-import { BEAUTY_ISLANDS } from '../industry-page/beauty-islands';
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonFunctionService } from '../../../../src/app/services/shared_function/common-function.service';
 import {Meta, Title} from "@angular/platform-browser";
 import {MatDialog} from '@angular/material/dialog';
@@ -8,7 +7,7 @@ import { ModalRequestDemoComponent } from '../modal-request-demo/modal-request-d
 @Component({
   selector: 'app-salon-cloud-pos-system',
   templateUrl: './salon-cloud-pos-system.component.html',
-  styleUrls: ['../industry-page/industry-layout.css', '../industry-page/industry-overview.css', '../industry-page/industry-procedures.css', '../industry-page/industry-solutions.css', '../industry-page/industry-content-width.css', '../industry-page/industry-workflow.css']
+  styleUrls: ['../industry-page/industry-layout.css', '../industry-page/industry-overview.css', '../industry-page/industry-procedures.css', '../industry-page/industry-solutions.css', '../industry-page/industry-content-width.css', '../industry-page/industry-workflow.css', '../industry-page/industry-static-timeline.css']
 })
 export class CustomIndustryBeautySalonsComponent  {
   openSolution: number | null = null;
@@ -24,10 +23,6 @@ export class CustomIndustryBeautySalonsComponent  {
     if (event.type === 'mouseleave' && host.contains(document.activeElement)) return;
     this.openSolution = null;
   }
-
-  readonly industryIslands = BEAUTY_ISLANDS;
-  readonly procedureFocusIds = ["online","services","reception","management","services","reception","management"];
-
 
   constructor(private titleService: Title,private commonFunctionService: CommonFunctionService,private meta: Meta,public dialog: MatDialog) {
 

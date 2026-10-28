@@ -7,7 +7,7 @@
 
       <nav id="appzpos-primary-nav" class="appzpos-nav" aria-label="Primary navigation"
         [class.is-mobile-open]="mobileMenuOpen">
-        <div class="appzpos-nav__group">
+        <div class="appzpos-nav__group" (mouseenter)="openMenuOnHover('solutions')" (mouseleave)="closeMenuOnHover()">
           <button type="button" class="appzpos-nav__trigger appzpos-nav__primary-item" aria-controls="solutions-menu"
             [attr.aria-expanded]="openMenu === 'solutions'" (click)="toggleMenu('solutions')">
             Solutions <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
@@ -29,7 +29,7 @@
           </div>
         </div>
 
-        <div class="appzpos-nav__group">
+        <div class="appzpos-nav__group" (mouseenter)="openMenuOnHover('industries')" (mouseleave)="closeMenuOnHover()">
           <button type="button" class="appzpos-nav__trigger appzpos-nav__primary-item" aria-controls="industries-menu"
             [attr.aria-expanded]="openMenu === 'industries'" (click)="toggleMenu('industries')">
             Industries <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
@@ -44,20 +44,8 @@
           </div>
         </div>
 
-        <div class="appzpos-nav__group">
-          <button type="button" class="appzpos-nav__trigger appzpos-nav__primary-item" aria-controls="resources-menu"
-            [attr.aria-expanded]="openMenu === 'resources'" (click)="toggleMenu('resources')">
-            Resources <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-          </button>
-          <div id="resources-menu" class="appzpos-nav__panel appzpos-nav__panel--wide" [class.is-open]="openMenu === 'resources'">
-            <p class="appzpos-nav__panel-label">RESOURCES</p>
-            <div class="appzpos-nav__link-grid">
-              <a href="/blog" [attr.aria-current]="isCurrentPage('/blog') ? 'page' : null"><strong>Blog</strong><span>POS insights and business tips</span></a>
-              <a href="/psg-pos-system-grant-singapore" [attr.aria-current]="isCurrentPage('/psg-pos-system-grant-singapore') ? 'page' : null"><strong>EDGE Grant</strong><span>Grant support for your POS system</span></a>
-            </div>
-          </div>
-        </div>
-
+        <a class="appzpos-nav__link appzpos-nav__primary-item" href="/psg-pos-system-grant-singapore" [attr.aria-current]="isCurrentPage('/psg-pos-system-grant-singapore') ? 'page' : null">EDGE Grant</a>
+        <a class="appzpos-nav__link appzpos-nav__primary-item" href="/blog" [attr.aria-current]="isCurrentPage('/blog') ? 'page' : null">Blog</a>
         <a class="appzpos-nav__link appzpos-nav__primary-item" href="/cn-f&b-restaurant-cloud-pos-system" [attr.aria-current]="isCurrentPage('/cn-f&b-restaurant-cloud-pos-system') ? 'page' : null" aria-label="POS餐饮系统中文网站">POS餐饮系统</a>
         <a class="appzpos-nav__cta appzpos-nav__primary-item" href="/point-of-sales-demo-quotation" [attr.aria-current]="isCurrentPage('/point-of-sales-demo-quotation') ? 'page' : null">Request a Demo</a>
       </nav>

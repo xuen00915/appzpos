@@ -1,5 +1,4 @@
-import { RETAIL_ISLANDS } from '../industry-page/retail-islands';
-import { Component, Inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { CommonFunctionService } from '../../../../src/app/services/shared_function/common-function.service';
 import {Meta, Title} from "@angular/platform-browser";
 import {MatDialog} from '@angular/material/dialog';
@@ -8,7 +7,7 @@ import { ModalRequestDemoComponent } from '../modal-request-demo/modal-request-d
 @Component({
   selector: 'app-retail-store-cloud-pos-system',
   templateUrl: './retail-store-cloud-pos-system.component.html',
-  styleUrls: ['../industry-page/industry-layout.css', '../industry-page/industry-overview.css', '../industry-page/industry-procedures.css', '../industry-page/industry-solutions.css', '../industry-page/industry-content-width.css', '../industry-page/industry-workflow.css']
+  styleUrls: ['../industry-page/industry-layout.css', '../industry-page/industry-overview.css', '../industry-page/industry-procedures.css', '../industry-page/industry-solutions.css', '../industry-page/industry-content-width.css', '../industry-page/industry-workflow.css', '../industry-page/industry-static-timeline.css']
 })
 export class CustomIndustryRestoreStoreComponent  {
   openSolution: number | null = null;
@@ -24,10 +23,6 @@ export class CustomIndustryRestoreStoreComponent  {
     if (event.type === 'mouseleave' && host.contains(document.activeElement)) return;
     this.openSolution = null;
   }
-
-  readonly industryIslands = RETAIL_ISLANDS;
-  readonly procedureFocusIds = ["shopping","checkout","management"];
-
 
   constructor(private titleService: Title,private commonFunctionService: CommonFunctionService,private meta: Meta,public dialog: MatDialog) {
        this.titleService.setTitle("Cloud POS System for Retail Stores | APPZPOS POS System");

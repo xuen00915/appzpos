@@ -1,13 +1,11 @@
-import { IndustryWorkflowDirective } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/industry-page/industry-workflow.directive';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NO_ERRORS_SCHEMA } from '@angular/core';
-import { By } from '@angular/platform-browser';
-import { fakeAsync, tick, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { MatDialog } from '@angular/material/dialog';
 import { CommonFunctionService } from '../../../services/shared_function/common-function.service';
 import { ApiService } from '../../../services/shared_function/api.service';
-import { IndustryPageComponent, IndustryIslandsComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/industry-page/industry-page.component';
+import { IndustryPageComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/industry-page/industry-page.component';
 import { CustomIndustryRestoreStoreComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/retail-store-cloud-pos-system/retail-store-cloud-pos-system.component';
 import { CustomIndustryBeautySalonsComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/salon-cloud-pos-system/salon-cloud-pos-system.component';
 import { CustomRequestDemoComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/custom-request-demo/custom-request-demo.component';
@@ -17,9 +15,9 @@ describe('Shared Retail and Beauty industry template', () => {
     { component: CustomIndustryRestoreStoreComponent, title: 'Retail Store', steps: 3, cards: 3, image: 'APPZPOS-Point-of-Sale-Systems-for-Retail-floorpan.png' },
     { component: CustomIndustryBeautySalonsComponent, title: 'Spa & Salon', steps: 7, cards: 5, image: 'APPZPOS-POS-System-for-Beauty-Salon-floorplan.png' }
   ]) {
-    it('focuses the correct ' + page.title + ' island on scroll and keeps every description visible', fakeAsync(() => {
+    it('renders the ' + page.title + ' workflow as a static numbered icon timeline', () => {
       const fixture = TestBed.configureTestingModule({
-        imports: [CommonModule, ReactiveFormsModule, IndustryPageComponent, IndustryIslandsComponent, IndustryWorkflowDirective],
+        imports: [CommonModule, ReactiveFormsModule, IndustryPageComponent],
         declarations: [CustomIndustryRestoreStoreComponent, CustomIndustryBeautySalonsComponent, CustomRequestDemoComponent],
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
@@ -28,25 +26,18 @@ describe('Shared Retail and Beauty industry template', () => {
         ]
       }).createComponent(page.component as typeof CustomIndustryRestoreStoreComponent);
       fixture.detectChanges();
-      const flowElement = fixture.debugElement.query(By.directive(IndustryWorkflowDirective));
-      const flow = flowElement.injector.get(IndustryWorkflowDirective);
-      spyOn(flowElement.nativeElement, 'getBoundingClientRect').and.returnValue({top: 100, bottom: 1800});
-      const items: HTMLElement[] = Array.from(flowElement.nativeElement.querySelectorAll('.restaurant-procedure'));
-      const positions = items.map((item, index) => spyOn(item, 'getBoundingClientRect').and.returnValue({top: index * 1000} as DOMRect));
-      tick(20); fixture.detectChanges();
-      expect(flow.activeStep).toBe(0);
-      positions[1].and.returnValue({top: 100} as DOMRect);
-      flow.schedule(); tick(20); fixture.detectChanges();
-      expect(flow.activeStep).toBe(1);
-      const islands = fixture.debugElement.query(By.directive(IndustryIslandsComponent)).componentInstance as IndustryIslandsComponent;
-      expect(islands.focusId).toBe(flow.compact ? '' : fixture.componentInstance.procedureFocusIds[1]);
-      expect(items.every(item => !item.querySelector('[hidden]'))).toBeTrue();
+      const root = fixture.nativeElement as HTMLElement;
+      expect(root.querySelectorAll('.industry-static-timeline__step').length).toBe(page.steps);
+      expect(root.querySelectorAll('.industry-static-timeline__heading i').length).toBe(page.steps);
+      expect(root.querySelectorAll('.industry-static-timeline__step p').length).toBe(page.steps);
+      expect(root.querySelector('.industry-static-timeline__number')?.textContent?.trim()).toBe('01');
+      expect(root.querySelector('app-industry-islands')).toBeNull();
       fixture.destroy();
-    }));
+    });
 
     it('preserves ' + page.title + ' content and gives its own islands a responsive workflow', () => {
       const fixture = TestBed.configureTestingModule({
-        imports: [CommonModule, ReactiveFormsModule, IndustryPageComponent, IndustryIslandsComponent, IndustryWorkflowDirective],
+        imports: [CommonModule, ReactiveFormsModule, IndustryPageComponent],
         declarations: [CustomIndustryRestoreStoreComponent, CustomIndustryBeautySalonsComponent, CustomRequestDemoComponent],
         schemas: [NO_ERRORS_SCHEMA],
         providers: [
@@ -61,8 +52,7 @@ describe('Shared Retail and Beauty industry template', () => {
       expect(root.querySelector('h1')?.textContent).toContain(page.title);
       expect(root.querySelector('app-industry-page')).not.toBeNull();
       expect(root.querySelector('.restaurant-overview__diagram')?.getAttribute('src')).toContain(page.image);
-      expect(root.querySelectorAll('.restaurant-procedure').length).toBe(page.steps);
-      expect(root.querySelectorAll('.restaurant-procedure [hidden]').length).toBe(0);
+      expect(root.querySelectorAll('.industry-static-timeline__step').length).toBe(page.steps);
       expect(root.querySelectorAll('.solution-sign').length).toBe(page.cards);
       const solution = root.querySelector<HTMLElement>('.solution-sign')!;
       const solutionButton = solution.querySelector<HTMLButtonElement>('button')!;
@@ -79,11 +69,8 @@ describe('Shared Retail and Beauty industry template', () => {
       fixture.detectChanges();
       expect(solution.classList.contains('is-open')).toBeFalse();
       expect(root.querySelectorAll('.solution-sign__detail a').length).toBe(0);
-      expect(root.querySelectorAll('app-industry-islands .industry-island').length).toBeGreaterThanOrEqual(4);
+      expect(root.querySelector('app-industry-islands')).toBeNull();
       expect(root.querySelector('#requestdemo app-custom-request-demo form')).not.toBeNull();
-      for (let index = 1; index <= page.steps; index++) {
-        expect(root.querySelector('#ptab' + index)).not.toBeNull();
-      }
       const frame = document.createElement('iframe');
       document.body.appendChild(frame);
       try {
@@ -115,13 +102,13 @@ describe('Shared Retail and Beauty industry template', () => {
             expect(image.getBoundingClientRect().width).toBeCloseTo(cards[0].width, 0);
             expect(frame.contentWindow!.getComputedStyle(image).objectFit).toBe('cover');
           }
-          for (const selector of ['.restaurant-scroll__intro', '.restaurant-scroll', '.pos-solutions', '#requestdemo']) {
+          for (const selector of ['.restaurant-scroll__intro', '.pos-solutions', '#requestdemo']) {
             const bounds = doc.querySelector(selector)!.getBoundingClientRect();
             expect(bounds.width).withContext(selector + ' at ' + width).toBeCloseTo(hero.width, 0);
           }
-          if (width < 992) {
-            expect(frame.contentWindow!.getComputedStyle(doc.querySelector('.restaurant-scroll__diagram')!).display).toBe('none');
-          }
+          const timeline = doc.querySelector('.industry-static-timeline')!.getBoundingClientRect();
+          expect(timeline.width).toBeLessThanOrEqual(Math.min(820, hero.width));
+          expect((timeline.left + timeline.right) / 2).toBeCloseTo((hero.left + hero.right) / 2, 0);
         }
       } finally { frame.remove(); fixture.destroy(); }
     });

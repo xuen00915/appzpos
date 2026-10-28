@@ -34,20 +34,26 @@ describe('APPZPOS marketing shell', () => {
     footerFixture.destroy();
   });
 
-  it('groups the desktop navigation into five focused actions', () => {
+  it('keeps EDGE Grant and Blog in the header row as direct destinations', () => {
     const host = headerFixture.nativeElement as HTMLElement;
     const labels = Array.from(host.querySelectorAll<HTMLElement>('.appzpos-nav__primary-item'))
       .map((item) => item.textContent?.replace(/\s+/g, ' ').trim());
     expect(labels).toEqual([
-      'Solutions', 'Industries', 'Resources', 'POS餐饮系统', 'Request a Demo'
+      'Solutions', 'Industries', 'EDGE Grant', 'Blog', 'POS餐饮系统', 'Request a Demo'
     ]);
+
+    const grant = host.querySelector<HTMLAnchorElement>('.appzpos-nav > a[href="/psg-pos-system-grant-singapore"]');
+    const blog = host.querySelector<HTMLAnchorElement>('.appzpos-nav > a[href="/blog"]');
+    expect(grant?.textContent?.trim()).toBe('EDGE Grant');
+    expect(blog?.textContent?.trim()).toBe('Blog');
+    expect(host.querySelector('#resources-menu')).toBeNull();
   });
 
   it('uses the same wide, descriptive mega-menu structure for every dropdown', () => {
     const host = headerFixture.nativeElement as HTMLElement;
     const panels = Array.from(host.querySelectorAll<HTMLElement>('.appzpos-nav__panel'));
 
-    expect(panels.length).toBe(3);
+    expect(panels.length).toBe(2);
     panels.forEach((panel) => {
       expect(panel.classList).toContain('appzpos-nav__panel--wide');
       expect(panel.querySelector('.appzpos-nav__link-grid')).not.toBeNull();
@@ -59,7 +65,7 @@ describe('APPZPOS marketing shell', () => {
     });
   });
 
-  it('preserves all industry and resource destinations in their mega menus', () => {
+  it('preserves all industry destinations in their mega menu', () => {
     const host = headerFixture.nativeElement as HTMLElement;
     const hrefs = (selector: string) => Array.from(
       host.querySelectorAll<HTMLAnchorElement>(`${selector} a`),
@@ -70,25 +76,6 @@ describe('APPZPOS marketing shell', () => {
       '/f&b-restaurant-cloud-pos-system',
       '/retail-store-cloud-pos-system',
       '/salon-cloud-pos-system'
-    ]);
-    expect(hrefs('#resources-menu')).toEqual([
-      '/blog',
-      '/psg-pos-system-grant-singapore'
-    ]);
-  });
-
-  it('keeps Resources focused on Blog and EDGE Grant', () => {
-    const host = headerFixture.nativeElement as HTMLElement;
-    const resourceLinks = Array.from(
-      host.querySelectorAll<HTMLAnchorElement>('#resources-menu a[href]')
-    ).map((anchor) => ({
-      label: anchor.querySelector('strong')?.textContent?.trim(),
-      href: anchor.getAttribute('href')
-    }));
-
-    expect(resourceLinks).toEqual([
-      { label: 'Blog', href: '/blog' },
-      { label: 'EDGE Grant', href: '/psg-pos-system-grant-singapore' }
     ]);
   });
 
@@ -114,7 +101,10 @@ describe('APPZPOS marketing shell', () => {
       expect(current[0].closest('#solutions-menu')).not.toBeNull();
       history.replaceState(null, '', '/psg-pos-system-grant-singapore');
       headerFixture.detectChanges();
-      expect(headerFixture.nativeElement.querySelector('#resources-menu a[aria-current="page"] strong')?.textContent).toBe('EDGE Grant');
+      expect(headerFixture.nativeElement.querySelector('.appzpos-nav > a[aria-current="page"]')?.textContent?.trim()).toBe('EDGE Grant');
+      history.replaceState(null, '', '/blog/article-slug');
+      headerFixture.detectChanges();
+      expect(headerFixture.nativeElement.querySelector('.appzpos-nav > a[aria-current="page"]')?.textContent?.trim()).toBe('Blog');
     } finally {
       history.replaceState(null, '', initialUrl);
     }
@@ -153,7 +143,7 @@ describe('APPZPOS marketing shell', () => {
     expect(header.getBoundingClientRect().height).toBe(76);
 
     const headerActions = Array.from(
-      host.querySelectorAll<HTMLAnchorElement>('.appzpos-nav > a[href]')
+      host.querySelectorAll<HTMLAnchorElement>('#header a[href]')
     ).map((anchor) => anchor.getAttribute('aria-label') || anchor.textContent?.trim());
     expect(headerActions.indexOf('Request a Demo')).toBeLessThan(headerActions.indexOf('Call APPZPOS'));
     expect(headerActions.indexOf('Call APPZPOS')).toBeLessThan(headerActions.indexOf('WhatsApp APPZPOS'));
@@ -185,6 +175,23 @@ describe('APPZPOS marketing shell', () => {
     component.handleEscape();
     headerFixture.detectChanges();
     expect(host.querySelector('[aria-controls="solutions-menu"]')?.getAttribute('aria-expanded')).toBe('false');
+  });
+
+  it('opens a dropdown on hover and closes it when the pointer leaves', () => {
+    const host = headerFixture.nativeElement as HTMLElement;
+    const solutionsGroup = host.querySelector<HTMLElement>('[aria-controls="solutions-menu"]')!.parentElement!;
+    const trigger = solutionsGroup.querySelector<HTMLElement>('[aria-controls="solutions-menu"]')!;
+    const panel = solutionsGroup.querySelector<HTMLElement>('#solutions-menu')!;
+
+    solutionsGroup.dispatchEvent(new MouseEvent('mouseenter'));
+    headerFixture.detectChanges();
+    expect(trigger.getAttribute('aria-expanded')).toBe('true');
+    expect(panel.classList).toContain('is-open');
+
+    solutionsGroup.dispatchEvent(new MouseEvent('mouseleave'));
+    headerFixture.detectChanges();
+    expect(trigger.getAttribute('aria-expanded')).toBe('false');
+    expect(panel.classList).not.toContain('is-open');
   });
 
   it('locks page scrolling while the mobile navigation is open', () => {

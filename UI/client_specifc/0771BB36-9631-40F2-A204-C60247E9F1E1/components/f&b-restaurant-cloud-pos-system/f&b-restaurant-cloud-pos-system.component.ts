@@ -8,7 +8,7 @@ import { RESTAURANT_ISLANDS } from '../industry-page/restaurant-islands';
 @Component({
   selector: 'app-f&b-restaurant-cloud-pos-system',
   templateUrl: './f&b-restaurant-cloud-pos-system.component.html',
-  styleUrls: ['../industry-page/industry-layout.css', './quick-service-desktop.css', '../industry-page/industry-overview.css', '../industry-page/industry-procedures.css', '../industry-page/industry-solutions.css', '../industry-page/industry-content-width.css']
+  styleUrls: ['../industry-page/industry-layout.css', './quick-service-desktop.css', '../industry-page/industry-overview.css', '../industry-page/industry-procedures.css', '../industry-page/industry-solutions.css', '../industry-page/industry-content-width.css', './static-modes.css']
 })
 export class CustomIndustryRestaurantComponent implements AfterViewInit, OnDestroy {
   openSolution: number | null = null;

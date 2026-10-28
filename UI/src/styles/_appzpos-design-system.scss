@@ -49,6 +49,46 @@ body {
   overflow-x: clip;
 }
 
+/* Shared landing-page hierarchy refinements for English and Chinese homepages. */
+app-custom-header #header .menu-link > div {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: .01em;
+}
+
+/* The current marketing shell uses the appzpos primary navigation. Keep the
+   dropdown panel typography separate while making the visible header labels
+   easier to read. */
+#appzpos-primary-nav > .appzpos-nav__group > .appzpos-nav__primary-item,
+#appzpos-primary-nav > .appzpos-nav__primary-item {
+  font-size: 1.05rem;
+}
+
+.appzpos-product-hero__copy {
+  padding-top: clamp(3.25rem, 8dvh, 5.5rem);
+}
+
+.appzpos-product-hero__intro {
+  font-size: clamp(1.08rem, 1.45vw, 1.28rem);
+  line-height: 1.56;
+}
+
+.appzpos-product-hero__button,
+.appzpos-product-hero__button.mat-mdc-raised-button,
+.appzpos-industry-switcher button {
+  font-size: 1rem;
+}
+
+/* Give the island-section description a wider reading measure in both locales. */
+.appz-ecosystem__heading {
+  max-width: 1600px;
+}
+
+.appz-ecosystem__intro.appz-section-description {
+  width: min(100%, 92rem);
+  max-width: 92rem !important;
+}
+
 #content .appz-display {
   max-width: 16ch !important;
 }
@@ -172,6 +212,29 @@ a {
 }
 
 @media (max-width: 767px) {
+  app-custom-header #header .menu-link > div {
+    font-size: 1.05rem;
+  }
+
+  #appzpos-primary-nav > .appzpos-nav__group > .appzpos-nav__primary-item,
+  #appzpos-primary-nav > .appzpos-nav__primary-item {
+    font-size: 1rem;
+  }
+
+  .appzpos-product-hero__copy {
+    padding-top: clamp(2.25rem, 8vw, 3.5rem);
+  }
+
+  .appzpos-product-hero__intro {
+    font-size: clamp(1rem, 2.8vw, 1.12rem);
+  }
+
+  .appzpos-product-hero__button,
+  .appzpos-product-hero__button.mat-mdc-raised-button,
+  .appzpos-industry-switcher button {
+    font-size: .9rem;
+  }
+
   [data-home-page-template][lang="zh"] {
     --appz-section-space: 38px;
   }

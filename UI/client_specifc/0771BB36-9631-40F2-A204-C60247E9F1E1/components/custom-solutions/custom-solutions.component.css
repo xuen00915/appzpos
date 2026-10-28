@@ -3,6 +3,40 @@
     border-radius: 50%;
     box-shadow: rgba(0, 0, 0, 0.20) 0px 1px 8px;
   }
+
+:host #slider.custom-solutions-hero { min-height: clamp(440px, 40vw, 640px); }
+:host .custom-solutions-hero .restaurant-hero__copy { max-width: 48%; }
+:host .custom-solutions-hero .restaurant-hero__photo { object-position: center; }
+
+.custom-solutions-content .content-wrap { padding: clamp(56px, 8vw, 112px) 32px; }
+.custom-solutions-intro { max-width: 780px; margin: 0 auto 48px; text-align: center; }
+.custom-solutions-intro h2, .custom-solutions-detail h2 {
+  margin: 0 0 16px; color: #15223e; font-size: clamp(28px, 3vw, 44px); line-height: 1.15;
+}
+.custom-solutions-intro p, .custom-solutions-detail p { color: #526782; font-size: 18px; line-height: 1.7; }
+.custom-solutions-grid {
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px;
+  max-width: 1280px; margin: 0 auto 96px;
+}
+.custom-solution-card {
+  min-height: 190px; padding: 28px; border: 1px solid #dce6f0; border-radius: 20px;
+  background: #fff; box-shadow: 0 16px 40px rgba(24, 61, 99, .06);
+}
+.custom-solution-card__number { color: #287fd2; font-size: 13px; font-weight: 800; letter-spacing: .12em; }
+.custom-solution-card h3 { margin: 24px 0 10px; color: #15223e; font-size: 22px; }
+.custom-solution-card p { margin: 0; color: #526782; line-height: 1.6; }
+.custom-solutions-detail {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: clamp(32px, 7vw, 96px);
+  max-width: 1280px; margin: 0 auto;
+}
+.custom-solutions-detail__media img { display: block; width: 100%; height: auto; }
+.custom-solutions-detail__copy .button { margin-top: 14px; }
+@media (max-width: 800px) {
+  :host .custom-solutions-hero .restaurant-hero__copy { max-width: none; }
+  .custom-solutions-grid, .custom-solutions-detail { grid-template-columns: 1fr; }
+  .custom-solutions-grid { margin-bottom: 64px; }
+  .custom-solutions-content .content-wrap { padding-inline: 20px; }
+}
   .solution-label{
     margin-top:20px;
     display:flex; 

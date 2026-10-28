@@ -47,6 +47,13 @@ $ecosystem-muted: #667a95;
   object-fit: contain;
   filter: drop-shadow(0 12px 18px rgba(255, 107, 34, .18));
 }
+.appz-ecosystem__selected-visual--enlarged img {
+  transform: scale(1.55);
+  transform-origin: center;
+}
+.appz-ecosystem__selected-visual[data-visual-id="dining"] img {
+  transform: scale(1.3);
+}
 .appz-ecosystem__window .appz-ecosystem__details { border: 0; border-radius: 0; box-shadow: none; background: transparent; }
 .appz-ecosystem__window .appz-ecosystem__details::before { display: none; }
 .appz-ecosystem__window .appz-ecosystem__details-header { padding: 0 0 20px; }
@@ -62,6 +69,8 @@ $ecosystem-muted: #667a95;
   .appz-ecosystem__options { flex-direction: row; overflow-x: auto; border-right: 0; border-bottom: 1px solid #dce6ef; padding: 12px; }
   .appz-ecosystem__option { flex: 0 0 auto; max-width: 220px; }
   .appz-ecosystem__selected-visual { width: min(100%, 300px); }
+  .appz-ecosystem__selected-visual--enlarged img { transform: scale(1.15); }
+  .appz-ecosystem__selected-visual[data-visual-id="dining"] img { transform: scale(1.1); }
 }
 
 /* Three desktop columns, with two columns on smaller screens. */

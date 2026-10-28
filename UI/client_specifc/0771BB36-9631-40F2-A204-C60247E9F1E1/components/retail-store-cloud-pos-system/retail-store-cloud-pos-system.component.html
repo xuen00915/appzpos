@@ -16,35 +16,26 @@
     <h2 id="retail-islands-title">Grow Your Retail: Simplify and Boost Efficiency<br />with APPZPOS Retail Store POS System</h2>
     <div class="restaurant-overview__visual"><img class="restaurant-overview__diagram" [src]="BindURL_Image('APPZPOS-Point-of-Sale-Systems-for-Retail-floorpan.png')" alt="Complete APPZPOS retail island diagram" width="1920" height="1080" loading="lazy"></div>
   </section>
-  <div class="restaurant-scroll industry-workflow" appIndustryWorkflow #flow="industryWorkflow">
-    <div class="restaurant-scroll__copy">
-      <section class="restaurant-scroll__mode" aria-label="How it Works">
-        <div class="restaurant-mode__track"><div class="restaurant-mode__timeline" id="canvas-TabContent">
-          <h2>How it Works</h2>
-          <div id="processTabs"><ol class="restaurant-procedures" id="canvas-tab">
-            <li class="restaurant-procedure" data-procedure="0" [class.is-active]="flow.activeStep === 0">
-              <a href="#ptab1" id="canvas-tab-1" aria-expanded="true" aria-controls="ptab1" (click)="flow.goTo($event, 0)"><span class="restaurant-procedure__number">1</span><span>Place Order</span></a>
-              <div id="ptab1" role="region" aria-labelledby="canvas-tab-1"><p>Customer browse the menu and place order through Website or Self Kiosk Or Staff creates order through POS</p></div>
-            </li>
-            <li class="restaurant-procedure" data-procedure="1" [class.is-active]="flow.activeStep === 1">
-              <a href="#ptab2" id="canvas-tab-2" aria-expanded="true" aria-controls="ptab2" (click)="flow.goTo($event, 1)"><span class="restaurant-procedure__number">2</span><span>Make Payment</span></a>
-              <div id="ptab2" role="region" aria-labelledby="canvas-tab-2"><p>Customer make payment through either online or offline payment options including Visa, Mastercard, Apple/Google Pay, E-wallet, Paynow etc</p></div>
-            </li>
-            <li class="restaurant-procedure" data-procedure="2" [class.is-active]="flow.activeStep === 2">
-              <a href="#ptab3" id="canvas-tab-3" aria-expanded="true" aria-controls="ptab3" (click)="flow.goTo($event, 2)"><span class="restaurant-procedure__number">3</span><span>Complete Order</span></a>
-              <div id="ptab3" role="region" aria-labelledby="canvas-tab-3"><p>All order details can be reviewed in Order tab and the report is generated in Report tab</p></div>
-            </li>
-          </ol></div>
-        </div></div>
-      </section>
-    </div>
-    <div class="restaurant-scroll__diagram">
-      <app-industry-islands idPrefix="retail" [islands]="industryIslands" [showDetails]="false" [focusOnSelect]="true"
-        [interactive]="flow.active && !flow.compact" [focusId]="flow.active && !flow.compact ? procedureFocusIds[flow.activeStep] : ''"
-        [imageSrc]="BindURL_Image('APPZPOS-Point-of-Sale-Systems-for-Retail-floorpan.png')" imageAlt="APPZPOS retail connected islands">
-      </app-industry-islands>
-    </div>
-  </div>
+  <section class="industry-static-timeline" aria-labelledby="retail-workflow-title">
+    <h2 id="retail-workflow-title">How it Works</h2>
+    <ol class="industry-static-timeline__steps">
+      <li class="industry-static-timeline__step">
+        <span class="industry-static-timeline__number">01</span>
+        <div class="industry-static-timeline__heading"><i class="bi bi-cart3" aria-hidden="true"></i><h3>Place Order</h3></div>
+        <p>Customer browse the menu and place order through Website or Self Kiosk Or Staff creates order through POS</p>
+      </li>
+      <li class="industry-static-timeline__step">
+        <span class="industry-static-timeline__number">02</span>
+        <div class="industry-static-timeline__heading"><i class="bi bi-credit-card" aria-hidden="true"></i><h3>Make Payment</h3></div>
+        <p>Customer make payment through either online or offline payment options including Visa, Mastercard, Apple/Google Pay, E-wallet, Paynow etc</p>
+      </li>
+      <li class="industry-static-timeline__step">
+        <span class="industry-static-timeline__number">03</span>
+        <div class="industry-static-timeline__heading"><i class="bi bi-check2-circle" aria-hidden="true"></i><h3>Complete Order</h3></div>
+        <p>All order details can be reviewed in Order tab and the report is generated in Report tab</p>
+      </li>
+    </ol>
+  </section>
   <section class="pos-solutions" aria-labelledby="retail-solutions-title">
     <h2 id="retail-solutions-title">POS Solutions</h2>
     <div class="solution-wall solution-wall--image-cards solution-wall--three">

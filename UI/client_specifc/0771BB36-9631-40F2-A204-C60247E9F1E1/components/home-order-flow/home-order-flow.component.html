@@ -28,7 +28,9 @@
         </nav>
 
         <div class="appz-ecosystem__copy">
-          <div class="appz-ecosystem__selected-visual" *ngIf="activeDetailsIsland as selected">
+          <div class="appz-ecosystem__selected-visual appz-ecosystem__selected-visual--enlarged"
+               [attr.data-visual-id]="selected.id"
+               *ngIf="activeDetailsIsland as selected">
             <img [src]="selected.image" [alt]="selected.imageAlt" width="1536" height="1024" decoding="async">
           </div>
 

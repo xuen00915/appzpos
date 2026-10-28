@@ -12,7 +12,7 @@ import { environment } from 'src/environment';
   styleUrls: ['./custom-white-header.component.css']
 })
 export class CustomWhiteHeaderComponent implements OnDestroy {
-  openMenu: 'solutions' | 'industries' | 'resources' | null = null;
+  openMenu: 'solutions' | 'industries' | null = null;
   mobileMenuOpen = false;
 
   constructor(
@@ -29,8 +29,16 @@ export class CustomWhiteHeaderComponent implements OnDestroy {
     FacebookPixelSettingService.LoadFaceBookImgPixelCode(environment.appzPOSFBPixelID);
    };
 
-  toggleMenu(menu: 'solutions' | 'industries' | 'resources'): void {
+  toggleMenu(menu: 'solutions' | 'industries'): void {
     this.openMenu = this.openMenu === menu ? null : menu;
+  }
+
+  openMenuOnHover(menu: 'solutions' | 'industries'): void {
+    if (!this.mobileMenuOpen) this.openMenu = menu;
+  }
+
+  closeMenuOnHover(): void {
+    if (!this.mobileMenuOpen) this.openMenu = null;
   }
 
   isCurrentPage(path: string): boolean {
