@@ -10,8 +10,8 @@ app-blog-main-page {
 .blog-hero__actions button, .blog-hero__actions a { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; margin: 0; padding: 0 24px !important; border: 1px solid; border-radius: 999px !important; font: inherit; font-size: 14px; font-weight: 700; letter-spacing: -.01em; line-height: 1.3; height: auto; white-space: normal; text-align: center; text-transform: none; text-decoration: none; cursor: pointer; }
 .blog-hero__actions .blog-hero__primary { background: var(--appz-blue, #1688d8) !important; border-color: var(--appz-blue, #1688d8) !important; color: #fff !important; box-shadow: 0 12px 24px rgba(22, 136, 216, .18); }
 .blog-hero__actions .blog-hero__primary:hover { background: var(--appz-blue-deep, #075f98) !important; border-color: var(--appz-blue-deep, #075f98) !important; }
-.blog-hero__actions a.button.button-border.button-light { background: transparent !important; border-color: #25d366 !important; color: #176b35 !important; box-shadow: none; }
-.blog-hero__actions a.button.button-border.button-light:hover { background: #e0f4e7 !important; border-color: #25d366 !important; color: #12562a !important; }
+.blog-hero__actions .blog-hero__whatsapp { background: #159447 !important; border-color: #159447 !important; color: #fff !important; box-shadow: none; }
+.blog-hero__actions .blog-hero__whatsapp:hover { background: #117839 !important; border-color: #117839 !important; color: #fff !important; }
 .blog-hero__actions :focus-visible { outline: 3px solid #086aab; outline-offset: 4px; }
 .blog-hero__diagram { min-width: 0; width: min(100%, 480px); margin: auto; }
 .blog-hero__diagram img { display: block; width: 100%; height: auto; }
