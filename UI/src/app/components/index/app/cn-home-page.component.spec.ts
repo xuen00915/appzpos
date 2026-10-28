@@ -86,8 +86,8 @@ describe('CustomHomeCNComponent', () => {
     const config = (component as any).pageConfig;
     expect(config.language).toBe('zh');
     expect(config.solutions.items.map((item: any) => item.title)).toEqual([
-      '收银机 / 电子点餐', '网站 点餐', '扫码 点餐', '自助 点餐机',
-      '排队叫号 系统', 'KDS厨房 系统', '外卖订单 中心'
+      '收银机 / 电子点餐', '网站点餐', '扫码点餐', '自助点餐机',
+      '排队叫号系统', 'KDS厨房系统', '外卖订单中心'
     ]);
     expect(config.solutions.items.map((item: any) => item.route)).toEqual([
       '/cloud-pos-point-of-sales-system', '/f&b-restaurant-online-ordering-website',

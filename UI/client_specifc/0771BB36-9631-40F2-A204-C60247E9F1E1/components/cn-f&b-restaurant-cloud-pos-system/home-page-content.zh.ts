@@ -30,7 +30,7 @@ export const CHINESE_HOME_SOLUTIONS_CONFIG: HomeSolutionsConfig = {
       ]
     },
     {
-      id: 'website', title: '网站 点餐', moduleTitle: '网站点餐系统', summary: '允许顾客进入网站查看菜单、付款，并随时随地轻松点餐',
+      id: 'website', title: '网站点餐', moduleTitle: '网站点餐系统', summary: '允许顾客进入网站查看菜单、付款，并随时随地轻松点餐',
       route: '/f&b-restaurant-online-ordering-website', image: 'assets/images/ecosystem/ecosystem-website-ordering.webp',
       imageAlt: '网站点餐系统', ariaLabel: '网站点餐系统', depth: .68,
       legacyImages: ['APPZPOS-Pos-System-Singapore-Home-Website-Order2.png', 'APPZPOS-Pos-System-Singapore-website-order-mobile.png'],
@@ -45,7 +45,7 @@ export const CHINESE_HOME_SOLUTIONS_CONFIG: HomeSolutionsConfig = {
       ]
     },
     {
-      id: 'qr', title: '扫码 点餐', moduleTitle: '扫码点餐系统', summary: '顾客通过扫描二维码查看菜单，并可以通过手机下单，无需与服务员接触',
+      id: 'qr', title: '扫码点餐', moduleTitle: '扫码点餐系统', summary: '顾客通过扫描二维码查看菜单，并可以通过手机下单，无需与服务员接触',
       route: '/f&b-restaurant-emenu-qr-code-ordering-system', image: 'assets/images/ecosystem/ecosystem-table-qr.webp',
       imageAlt: '扫码点餐系统', ariaLabel: '扫码点餐系统', depth: .35,
       legacyImages: ['APPZPOS-Pos-System-Singapore-Home-Table-QR-Order2.png', 'APPZPOS-Pos-System-Singapore-qr-order-mobile.png'],
@@ -60,7 +60,7 @@ export const CHINESE_HOME_SOLUTIONS_CONFIG: HomeSolutionsConfig = {
       ]
     },
     {
-      id: 'kiosk', title: '自助 点餐机', moduleTitle: '自助点餐机', summary: '顾客可自主选择菜品和规格，完成点餐和支付，从而减少等待时间',
+      id: 'kiosk', title: '自助点餐机', moduleTitle: '自助点餐机', summary: '顾客可自主选择菜品和规格，完成点餐和支付，从而减少等待时间',
       route: '/self-order-kiosk-restaurant', image: 'assets/images/ecosystem/ecosystem-kiosk.webp',
       imageAlt: '自助点餐机', ariaLabel: '自助点餐机', depth: .88,
       legacyImages: ['APPZPOS-Pos-System-Singapore-Home-Self-Order-Kiosk2.png', 'APPZPOS-Pos-System-Singapore-self-kiosk-mobile.png'],
@@ -76,7 +76,7 @@ export const CHINESE_HOME_SOLUTIONS_CONFIG: HomeSolutionsConfig = {
       ]
     },
     {
-      id: 'queue', title: '排队叫号 系统', moduleTitle: '排队叫号系统', summary: '为所有订单分配特定的排队号，准确地告知顾客等待时间和顺位，减少排队烦恼',
+      id: 'queue', title: '排队叫号系统', moduleTitle: '排队叫号系统', summary: '为所有订单分配特定的排队号，准确地告知顾客等待时间和顺位，减少排队烦恼',
       route: '/f&b-restaurant-queue-number-display-system', image: 'assets/images/ecosystem/ecosystem-queue.webp',
       imageAlt: '排队叫号系统', ariaLabel: '排队叫号系统', depth: .78,
       legacyImages: ['APPZPOS-Pos-System-Singapore-Home-Queue-Number-Display2.png', 'APPZPOS-Pos-System-Singapore-queue-number-display-mobile.png'],
@@ -88,7 +88,7 @@ export const CHINESE_HOME_SOLUTIONS_CONFIG: HomeSolutionsConfig = {
       ]
     },
     {
-      id: 'kds', title: 'KDS厨房 系统', moduleTitle: 'KDS厨房系统', summary: '实时追踪订单的状态和进度，包括新订单、修改和取消订单等',
+      id: 'kds', title: 'KDS厨房系统', moduleTitle: 'KDS厨房系统', summary: '实时追踪订单的状态和进度，包括新订单、修改和取消订单等',
       route: '/f&b-restaurant-kitchen-display-system', image: 'assets/images/ecosystem/ecosystem-kitchen.webp',
       imageAlt: 'KDS厨房系统', ariaLabel: 'KDS厨房系统', depth: .72,
       legacyImages: ['APPZPOS-Pos-System-Singapore-Home-Kitchen-Display-System2.png', 'APPZPOS-Pos-System-Singapore-kitchen-display-system-mobile.png'],
@@ -102,7 +102,7 @@ export const CHINESE_HOME_SOLUTIONS_CONFIG: HomeSolutionsConfig = {
       ]
     },
     {
-      id: 'hub', title: '外卖订单 中心', moduleTitle: '外卖订单中心', summary: '集中管理所有来自不同平台的外卖订单，包括店内订单，提高了订单处理的效率和准确性',
+      id: 'hub', title: '外卖订单中心', moduleTitle: '外卖订单中心', summary: '集中管理所有来自不同平台的外卖订单，包括店内订单，提高了订单处理的效率和准确性',
       route: '/f&b-restaurant-delivery-integration', image: 'assets/images/ecosystem/ecosystem-delivery.webp',
       imageAlt: '外卖订单中心', ariaLabel: '外卖订单中心', depth: 1,
       legacyImages: ['APPZPOS-Pos-System-Singapore-Home-Order-Hub2.png', 'APPZPOS-Pos-System-Singapore-order-hub-mobile.png'],
