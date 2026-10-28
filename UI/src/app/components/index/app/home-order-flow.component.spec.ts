@@ -148,6 +148,17 @@ describe('HomeOrderFlowComponent ecosystem', () => {
     expect(windowPanel.querySelectorAll('.appz-ecosystem__selected-visual img').length).toBe(1);
   });
 
+  it('highlights POS / E-Waiter as the default solution on first load', () => {
+    fixture.detectChanges();
+    const root = fixture.nativeElement as HTMLElement;
+    const posOption = root.querySelector<HTMLButtonElement>('[data-island-id="admin"]');
+
+    expect(fixture.componentInstance.activeDetailsIslandId).toBe('admin');
+    expect(posOption?.getAttribute('aria-pressed')).toBe('true');
+    expect(posOption?.classList).toContain('is-active');
+    expect(root.querySelector('[data-island-details] h2')?.textContent?.trim()).toBe('POS / E-Waiter');
+  });
+
 
   it('uses the existing APPZPOS route for each of the seven islands', () => {
     fixture.detectChanges();
@@ -185,7 +196,7 @@ describe('HomeOrderFlowComponent ecosystem', () => {
     const initialVisual = root.querySelector<HTMLElement>('.appz-ecosystem__selected-visual');
     expect(initialVisual?.classList)
       .toContain('appz-ecosystem__selected-visual--enlarged');
-    expect(initialVisual?.dataset['visualId']).toBe('dining');
+    expect(initialVisual?.dataset['visualId']).toBe('admin');
 
     root.querySelector<HTMLButtonElement>('[data-island-id="delivery"]')!.click();
     fixture.detectChanges();
@@ -237,14 +248,14 @@ describe('HomeOrderFlowComponent ecosystem', () => {
     expect(component.activeIslandId).toBeNull();
   });
 
-  it('keeps the dining content visible in a persistent rail beside the island diagram', () => {
+  it('keeps the default POS content visible in a persistent rail beside the island diagram', () => {
     fixture.detectChanges();
     const host = fixture.nativeElement as HTMLElement;
     const layout = host.querySelector<HTMLElement>('[data-ecosystem-layout]');
     const stage = host.querySelector<HTMLElement>('.appz-ecosystem__options');
     const details = host.querySelector<HTMLElement>('[data-island-details]');
 
-    expect(fixture.componentInstance.activeDetailsIslandId).toBe('dining');
+    expect(fixture.componentInstance.activeDetailsIslandId).toBe('admin');
     expect(layout).not.toBeNull();
     expect(stage?.parentElement).toBe(layout);
     const copy = host.querySelector<HTMLElement>('.appz-ecosystem__copy');
@@ -254,11 +265,11 @@ describe('HomeOrderFlowComponent ecosystem', () => {
     const heading = host.querySelector<HTMLElement>('.appz-ecosystem__heading')!;
     expect(heading.nextElementSibling).toBe(layout);
     expect(stage?.nextElementSibling).toBe(copy);
-    expect(details?.classList).toContain('appz-ecosystem__details--dining');
+    expect(details?.classList).toContain('appz-ecosystem__details--admin');
     expect(details?.querySelector('[data-details-close]')).toBeNull();
-    expect(details?.querySelector('h2')?.textContent?.trim()).toBe('Table QR Ordering');
+    expect(details?.querySelector('h2')?.textContent?.trim()).toBe('POS / E-Waiter');
     expect(details?.textContent).not.toContain('Explore the connected modules');
-    expect(details?.querySelectorAll('[data-details-feature]').length).toBe(6);
+    expect(details?.querySelectorAll('[data-details-feature]').length).toBe(9);
   });
 
   it('updates the persistent content rail with complete matching copy when an island is clicked', () => {

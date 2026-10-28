@@ -11,7 +11,7 @@ import {
 export const ENGLISH_HOME_SOLUTIONS_CONFIG: HomeSolutionsConfig = {
   title: 'Everything Works Together',
   description: 'From order to kitchen, pickup, delivery and management — connect the APPZPOS modules that fit your business.',
-  initialItemId: 'dining',
+  initialItemId: 'admin',
   learnMoreLabel: 'Learn More',
   productOrder: ['admin', 'website', 'dining', 'kiosk', 'queue', 'kitchen', 'delivery'],
   items: [
