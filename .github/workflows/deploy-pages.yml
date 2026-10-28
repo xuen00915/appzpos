@@ -37,8 +37,9 @@ jobs:
         working-directory: UI
         run: npm run build -- --base-href /appzpos/
 
-      - name: Add single-page app fallback
-        run: cp UI/dist/e-commerce/index.html UI/dist/e-commerce/404.html
+      - name: Prepare project-path navigation and SPA fallback
+        working-directory: UI
+        run: node scripts/prepare-github-pages.mjs
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
