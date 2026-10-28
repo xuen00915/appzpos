@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { AfterViewInit, Component, Inject } from '@angular/core';
 import { CommonFunctionService } from '../../../../src/app/services/shared_function/common-function.service';
 import {Meta, Title} from "@angular/platform-browser";
 import {MatDialog} from '@angular/material/dialog';
@@ -9,7 +9,7 @@ import { ModalRequestDemoComponent } from '../modal-request-demo/modal-request-d
   templateUrl: './pos-hardware-machine-receipt-printer.component.html',
   styleUrls: ['./pos-hardware-machine-receipt-printer.component.css']
 })
-export class CustomHardwareComponent {
+export class CustomHardwareComponent implements AfterViewInit {
 
 
   constructor(private titleService: Title,private commonFunctionService: CommonFunctionService,private meta: Meta,public dialog: MatDialog) {
@@ -26,15 +26,13 @@ export class CustomHardwareComponent {
         content: 'Quick Installation Upon Payment - POS Terminal, Receipt Printer, Kiosk Machine, Cash Drawer, Label Printer, Barcode Scanner. WhatsApp: +𝟔𝟓 𝟖𝟑𝟏𝟎 𝟗𝟔𝟑𝟏'
     });
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const scrollToElement = urlParams.get('scrollTo');
+  }
 
-    if (scrollToElement) {
-        const targetElement = document.getElementById(scrollToElement);
-        if (targetElement) {
-            targetElement.scrollIntoView();
-        }
-    }
+  ngAfterViewInit(): void {
+    const targetId = new URLSearchParams(window.location.search).get('scrollTo');
+    if (!targetId) return;
+
+    document.getElementById(targetId)?.scrollIntoView({ block: 'start' });
   }
   openDialog(): void {
     const dialogRef = this.dialog.open(ModalRequestDemoComponent, {

@@ -2053,8 +2053,8 @@ app-solution-page {
   margin-bottom: clamp(32px, 5vw, 72px);
 }
 
-[data-home-page-template][lang='en'] .appz-home-story .ecosystem__grant h2,
-[data-home-page-template][lang='en'] .appz-home-story .ecosystem__grant h2 span {
+[data-home-page-template] .appz-home-story .ecosystem__grant h2,
+[data-home-page-template] .appz-home-story .ecosystem__grant h2 span {
   color: #fff !important;
 }
 

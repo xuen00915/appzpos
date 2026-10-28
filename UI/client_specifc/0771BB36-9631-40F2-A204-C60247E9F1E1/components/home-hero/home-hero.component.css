@@ -56,6 +56,13 @@
   box-shadow: none;
 }
 
+.appzpos-module-orbit__card:nth-child(n),
+.appzpos-module-orbit__card--primary:nth-child(n) {
+  width: max-content;
+  min-width: 0;
+  max-width: none;
+}
+
 .appzpos-module-orbit__card::before,
 .appzpos-module-orbit__card::after {
   display: none;

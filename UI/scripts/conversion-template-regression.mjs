@@ -88,7 +88,9 @@ for (const viewport of viewports) {
           bounds: { x: bounds.x, y: bounds.y, width: bounds.width, height: bounds.height },
           borderTopWidth: styles.borderTopWidth,
           borderTopStyle: styles.borderTopStyle,
-          borderTopColor: styles.borderTopColor
+          borderTopColor: styles.borderTopColor,
+          backgroundColor: styles.backgroundColor,
+          color: styles.color
         };
       })())`);
       const defaultState = JSON.parse(await readHeroWhatsApp());
@@ -98,7 +100,7 @@ for (const viewport of viewports) {
           x: defaultState.bounds.x + (defaultState.bounds.width / 2),
           y: defaultState.bounds.y + (defaultState.bounds.height / 2)
         });
-        await wait(150);
+        await wait(300);
       }
       const hoverState = JSON.parse(await readHeroWhatsApp());
       await send('Input.dispatchMouseEvent', { type: 'mouseMoved', x: 0, y: 0 });
@@ -237,18 +239,42 @@ for (const viewport of viewports) {
     }
     if (result.overflow) failures.push(`${profile}: horizontal overflow`);
     if (name !== 'psg') {
-      const expectedBorder = {
-        borderTopWidth: '1px',
-        borderTopStyle: 'solid',
-        borderTopColor: 'rgb(37, 211, 102)'
-      };
+      const usesSolidWhatsApp = name === 'hardware' || name === 'blog';
+      const expectedStates = usesSolidWhatsApp
+        ? {
+            defaultState: {
+              borderTopColor: 'rgb(21, 148, 71)',
+              backgroundColor: 'rgb(21, 148, 71)',
+              color: 'rgb(255, 255, 255)'
+            },
+            hoverState: {
+              borderTopColor: name === 'hardware' ? 'rgb(17, 120, 57)' : 'rgba(0, 0, 0, 0)',
+              backgroundColor: 'rgb(17, 120, 57)',
+              color: 'rgb(255, 255, 255)'
+            }
+          }
+        : {
+            defaultState: {
+              borderTopColor: 'rgb(37, 211, 102)',
+              backgroundColor: 'rgba(0, 0, 0, 0)',
+              color: 'rgb(23, 107, 53)'
+            },
+            hoverState: {
+              borderTopColor: 'rgb(37, 211, 102)',
+              backgroundColor: 'rgb(224, 244, 231)',
+              color: 'rgb(18, 86, 42)'
+            }
+          };
       for (const [stateName, state] of Object.entries(heroWhatsApp ?? {})) {
+        const expectedState = expectedStates[stateName];
         if (!state || state.href !== "https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!"
           || state.target !== '_blank'
-          || state.borderTopWidth !== expectedBorder.borderTopWidth
-          || state.borderTopStyle !== expectedBorder.borderTopStyle
-          || state.borderTopColor !== expectedBorder.borderTopColor) {
-          failures.push(`${profile}: hero WhatsApp ${stateName} state does not retain its green border (${JSON.stringify(state)})`);
+          || state.borderTopWidth !== '1px'
+          || state.borderTopStyle !== 'solid'
+          || state.borderTopColor !== expectedState.borderTopColor
+          || state.backgroundColor !== expectedState.backgroundColor
+          || state.color !== expectedState.color) {
+          failures.push(`${profile}: hero WhatsApp ${stateName} styling changed (${JSON.stringify(state)})`);
         }
       }
     }
@@ -263,6 +289,28 @@ for (const viewport of viewports) {
       }
     }
   }
+}
+
+await send('Page.navigate', {
+  url: new URL('pos-hardware-machine-receipt-printer?scrollTo=POSMachine', previewUrl).href
+});
+await wait(1200);
+const hardwareAnchor = JSON.parse(await evaluate(`JSON.stringify((() => {
+  const target = document.getElementById('POSMachine');
+  const header = document.getElementById('header');
+  const targetBounds = target?.getBoundingClientRect();
+  const headerBounds = header?.getBoundingClientRect();
+  return {
+    scrollY,
+    targetTop: targetBounds?.top ?? null,
+    headerBottom: headerBounds?.bottom ?? 0
+  };
+})())`));
+if (hardwareAnchor.scrollY < 1
+  || hardwareAnchor.targetTop === null
+  || hardwareAnchor.targetTop < hardwareAnchor.headerBottom
+  || hardwareAnchor.targetTop > hardwareAnchor.headerBottom + 60) {
+  failures.push(`hardware deep link does not reveal POSMachine below the fixed header (${JSON.stringify(hardwareAnchor)})`);
 }
 
 await send('Page.navigate', { url: new URL('blog-bcrs', previewUrl).href });

@@ -94,6 +94,20 @@ for (const { width, height, maxSectionSpace, minTitleTracking } of viewportProfi
     machine: Boolean(document.querySelector('.appzpos-product-hero__machine')),
     responsiveImage: Boolean(document.querySelector('.appzpos-product-hero__visual--responsive')),
     tabLabels: [...document.querySelectorAll('[data-industry-tab]')].map((tab) => tab.textContent.replace(/\\s+/g, ' ').replace(/^•\\s*/, '').trim()),
+    moduleSizing: [...document.querySelectorAll('.appzpos-module-orbit__card')].map((card) => {
+      const label = card.querySelector('.appzpos-module-orbit__label');
+      const cardBounds = card.getBoundingClientRect();
+      const labelBounds = label?.getBoundingClientRect();
+      const styles = getComputedStyle(card);
+      return {
+        label: label?.textContent.trim(),
+        excessWidth: labelBounds ? cardBounds.width - labelBounds.width
+          - Number.parseFloat(styles.paddingLeft) - Number.parseFloat(styles.paddingRight)
+          - Number.parseFloat(styles.borderLeftWidth) - Number.parseFloat(styles.borderRightWidth) : null
+      };
+    }),
+    grantTitleColors: [...document.querySelectorAll('#grant-title, #grant-title span')]
+      .map((element) => getComputedStyle(element).color),
     pageOverflow: document.documentElement.scrollWidth > document.documentElement.clientWidth,
     headerHeroDelta: (() => {
       const header = document.querySelector('#header')?.getBoundingClientRect();
@@ -111,6 +125,14 @@ for (const { width, height, maxSectionSpace, minTitleTracking } of viewportProfi
   if (!hero.machine || hero.responsiveImage) failures.push(`${width}px: English product showcase is not used`);
   if (JSON.stringify(hero.tabLabels) !== JSON.stringify(['快餐服务', '餐厅', '零售', '美容美发'])) {
     failures.push(`${width}px: Chinese industry tabs changed ${JSON.stringify(hero.tabLabels)}`);
+  }
+  if (!hero.moduleSizing.length || hero.moduleSizing.some((module) =>
+    module.excessWidth === null || Math.abs(module.excessWidth) > 1)) {
+    failures.push(`${width}px: module tags do not follow their content width ${JSON.stringify(hero.moduleSizing)}`);
+  }
+  if (!hero.grantTitleColors.length
+    || hero.grantTitleColors.some((color) => color !== 'rgb(255, 255, 255)')) {
+    failures.push(`${width}px: grant title is not uniformly white ${JSON.stringify(hero.grantTitleColors)}`);
   }
   if (hero.pageOverflow) failures.push(`${width}px: page has horizontal overflow`);
   if (hero.headerHeroDelta === null || hero.headerHeroDelta > 1) {
