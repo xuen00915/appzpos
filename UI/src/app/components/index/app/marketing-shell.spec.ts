@@ -110,6 +110,41 @@ describe('APPZPOS marketing shell', () => {
     }
   });
 
+  it('marks the current destination when the app is deployed below a project base path', () => {
+    const base = document.querySelector<HTMLBaseElement>('base')!;
+    const initialBaseHref = base.getAttribute('href');
+    const initialUrl = location.href;
+    try {
+      base.setAttribute('href', '/appzpos/');
+      history.replaceState(null, '', '/appzpos/f&b-restaurant-kitchen-display-system');
+      headerFixture.detectChanges();
+
+      const current = headerFixture.nativeElement.querySelectorAll('a[aria-current="page"]');
+      expect(current.length).toBe(1);
+      expect(current[0].getAttribute('href')).toBe('/f&b-restaurant-kitchen-display-system');
+    } finally {
+      base.setAttribute('href', initialBaseHref || '/');
+      history.replaceState(null, '', initialUrl);
+    }
+  });
+
+  it('marks the parent dropdown trigger for the current solution or industry', () => {
+    const initialUrl = location.href;
+    try {
+      history.replaceState(null, '', '/cloud-pos-point-of-sales-system');
+      headerFixture.detectChanges();
+      expect(headerFixture.nativeElement.querySelector('[aria-controls="solutions-menu"]')?.classList)
+        .toContain('is-current-section');
+
+      history.replaceState(null, '', '/retail-store-cloud-pos-system');
+      headerFixture.detectChanges();
+      expect(headerFixture.nativeElement.querySelector('[aria-controls="industries-menu"]')?.classList)
+        .toContain('is-current-section');
+    } finally {
+      history.replaceState(null, '', initialUrl);
+    }
+  });
+
   it('keeps every commercial destination reachable', () => {
     const host = headerFixture.nativeElement as HTMLElement;
     const hrefs = Array.from(host.querySelectorAll<HTMLAnchorElement>('a[href]'))
@@ -192,6 +227,58 @@ describe('APPZPOS marketing shell', () => {
     headerFixture.detectChanges();
     expect(trigger.getAttribute('aria-expanded')).toBe('false');
     expect(panel.classList).not.toContain('is-open');
+  });
+
+  it('keeps a desktop dropdown open when a hover is followed by a mouse click', () => {
+    const host = headerFixture.nativeElement as HTMLElement;
+    const group = host.querySelector<HTMLElement>('[aria-controls="solutions-menu"]')!.parentElement!;
+    const trigger = group.querySelector<HTMLButtonElement>('[aria-controls="solutions-menu"]')!;
+
+    group.dispatchEvent(new MouseEvent('mouseenter'));
+    trigger.dispatchEvent(new MouseEvent('click', { bubbles: true, detail: 1 }));
+    headerFixture.detectChanges();
+
+    expect(trigger.getAttribute('aria-expanded')).toBe('true');
+    expect(host.querySelector('#solutions-menu')?.classList).toContain('is-open');
+  });
+
+  it('opens dropdowns with Arrow Down for keyboard navigation', () => {
+    const host = headerFixture.nativeElement as HTMLElement;
+    document.body.appendChild(host);
+    const group = host.querySelector<HTMLElement>('[aria-controls="solutions-menu"]')!.parentElement!;
+    const trigger = group.querySelector<HTMLButtonElement>('[aria-controls="solutions-menu"]')!;
+
+    trigger.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
+    headerFixture.detectChanges();
+
+    expect(trigger.getAttribute('aria-expanded')).toBe('true');
+    expect(host.querySelector('#solutions-menu')?.classList).toContain('is-open');
+    host.remove();
+  });
+
+  it('opens the current dropdown in the mobile menu and closes after choosing a link', () => {
+    const initialUrl = location.href;
+    try {
+      history.replaceState(null, '', '/cloud-pos-point-of-sales-system');
+      const component = headerFixture.componentInstance;
+      component.toggleMobileMenu();
+      headerFixture.detectChanges();
+
+      expect(component.mobileMenuOpen).toBeTrue();
+      expect(component.openMenu).toBe('solutions');
+      expect(headerFixture.nativeElement.querySelector('.appzpos-header__mobile-toggle')?.getAttribute('aria-label'))
+        .toBe('Close Mobile Menu');
+
+      const solutionLink = (headerFixture.nativeElement as HTMLElement)
+        .querySelector<HTMLAnchorElement>('#solutions-menu a')!;
+      solutionLink.addEventListener('click', event => event.preventDefault(), { once: true });
+      solutionLink.click();
+      headerFixture.detectChanges();
+      expect(component.mobileMenuOpen).toBeFalse();
+      expect(component.openMenu).toBeNull();
+    } finally {
+      history.replaceState(null, '', initialUrl);
+    }
   });
 
   it('locks page scrolling while the mobile navigation is open', () => {

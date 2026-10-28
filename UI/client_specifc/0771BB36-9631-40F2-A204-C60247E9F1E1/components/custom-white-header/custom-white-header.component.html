@@ -6,10 +6,13 @@
       </a>
 
       <nav id="appzpos-primary-nav" class="appzpos-nav" aria-label="Primary navigation"
-        [class.is-mobile-open]="mobileMenuOpen">
-        <div class="appzpos-nav__group" (mouseenter)="openMenuOnHover('solutions')" (mouseleave)="closeMenuOnHover()">
+        [class.is-mobile-open]="mobileMenuOpen" (click)="handleNavigationClick($event)">
+        <div class="appzpos-nav__group" (mouseenter)="openMenuOnHover('solutions')" (mouseleave)="closeMenuOnHover()"
+          (focusout)="closeMenuOnFocus($event)">
           <button type="button" class="appzpos-nav__trigger appzpos-nav__primary-item" aria-controls="solutions-menu"
-            [attr.aria-expanded]="openMenu === 'solutions'" (click)="toggleMenu('solutions')">
+            [class.is-current-section]="isCurrentSection('solutions')"
+            [attr.aria-expanded]="openMenu === 'solutions'" (click)="toggleMenu('solutions', $event)"
+            (keydown.arrowdown)="openMenuFromKeyboard($event, 'solutions')">
             Solutions <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
           </button>
           <div id="solutions-menu" class="appzpos-nav__panel appzpos-nav__panel--wide"
@@ -29,9 +32,12 @@
           </div>
         </div>
 
-        <div class="appzpos-nav__group" (mouseenter)="openMenuOnHover('industries')" (mouseleave)="closeMenuOnHover()">
+        <div class="appzpos-nav__group" (mouseenter)="openMenuOnHover('industries')" (mouseleave)="closeMenuOnHover()"
+          (focusout)="closeMenuOnFocus($event)">
           <button type="button" class="appzpos-nav__trigger appzpos-nav__primary-item" aria-controls="industries-menu"
-            [attr.aria-expanded]="openMenu === 'industries'" (click)="toggleMenu('industries')">
+            [class.is-current-section]="isCurrentSection('industries')"
+            [attr.aria-expanded]="openMenu === 'industries'" (click)="toggleMenu('industries', $event)"
+            (keydown.arrowdown)="openMenuFromKeyboard($event, 'industries')">
             Industries <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
           </button>
           <div id="industries-menu" class="appzpos-nav__panel appzpos-nav__panel--wide" [class.is-open]="openMenu === 'industries'">
@@ -73,7 +79,7 @@
 
       <button class="appzpos-header__mobile-toggle" type="button"
         [attr.aria-expanded]="mobileMenuOpen" aria-controls="appzpos-primary-nav"
-        aria-label="Open Mobile Menu" (click)="toggleMobileMenu()">
+        [attr.aria-label]="mobileMenuOpen ? 'Close Mobile Menu' : 'Open Mobile Menu'" (click)="toggleMobileMenu()">
         <span></span><span></span>
       </button>
     </div>

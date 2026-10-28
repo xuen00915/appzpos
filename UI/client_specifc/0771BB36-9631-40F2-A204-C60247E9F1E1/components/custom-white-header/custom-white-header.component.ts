@@ -15,6 +15,25 @@ export class CustomWhiteHeaderComponent implements OnDestroy {
   openMenu: 'solutions' | 'industries' | null = null;
   mobileMenuOpen = false;
 
+  private readonly sectionRoutes = {
+    solutions: [
+      '/cloud-pos-point-of-sales-system',
+      '/f&b-restaurant-online-ordering-website',
+      '/f&b-restaurant-emenu-qr-code-ordering-system',
+      '/self-order-kiosk-restaurant',
+      '/f&b-restaurant-kitchen-display-system',
+      '/f&b-restaurant-queue-number-display-system',
+      '/f&b-restaurant-delivery-integration',
+      '/pos-hardware-machine-receipt-printer',
+      '/pos-features-crm-payment-gateway'
+    ],
+    industries: [
+      '/f&b-restaurant-cloud-pos-system',
+      '/retail-store-cloud-pos-system',
+      '/salon-cloud-pos-system'
+    ]
+  } as const;
+
   constructor(
     @Inject(DOCUMENT) private _document: HTMLDocument,
     private titleService: Title,
@@ -29,7 +48,8 @@ export class CustomWhiteHeaderComponent implements OnDestroy {
     FacebookPixelSettingService.LoadFaceBookImgPixelCode(environment.appzPOSFBPixelID);
    };
 
-  toggleMenu(menu: 'solutions' | 'industries'): void {
+  toggleMenu(menu: 'solutions' | 'industries', event?: MouseEvent): void {
+    if (!this.mobileMenuOpen && this.openMenu === menu && event && event.detail > 0) return;
     this.openMenu = this.openMenu === menu ? null : menu;
   }
 
@@ -41,15 +61,35 @@ export class CustomWhiteHeaderComponent implements OnDestroy {
     if (!this.mobileMenuOpen) this.openMenu = null;
   }
 
+  openMenuFromKeyboard(event: Event, menu: 'solutions' | 'industries'): void {
+    event.preventDefault();
+    this.openMenu = menu;
+  }
+
+  closeMenuOnFocus(event: FocusEvent): void {
+    const group = event.currentTarget as HTMLElement;
+    if (!this.mobileMenuOpen && !group.contains(event.relatedTarget as Node | null)) {
+      this.openMenu = null;
+    }
+  }
+
   isCurrentPage(path: string): boolean {
-    const current = this._document.location?.pathname.replace(/\/$/, '') || '/';
+    const current = this.currentPath();
     return current === path || (path === '/blog' && current.startsWith('/blog/'));
+  }
+
+  isCurrentSection(menu: 'solutions' | 'industries'): boolean {
+    return this.sectionRoutes[menu].some((path) => this.isCurrentPage(path));
   }
 
   toggleMobileMenu(): void {
     this.mobileMenuOpen = !this.mobileMenuOpen;
+    this.openMenu = this.mobileMenuOpen ? this.currentSection() : null;
     this.syncScrollLock();
-    if (!this.mobileMenuOpen) this.openMenu = null;
+  }
+
+  handleNavigationClick(event: MouseEvent): void {
+    if ((event.target as Element | null)?.closest('a')) this.closeMenus();
   }
 
   closeMenus(): void {
@@ -65,6 +105,31 @@ export class CustomWhiteHeaderComponent implements OnDestroy {
   private syncScrollLock(): void {
     if (this.mobileMenuOpen) this._document.body.style.overflow = 'hidden';
     else this._document.body.style.removeProperty('overflow');
+  }
+
+  private currentSection(): 'solutions' | 'industries' | null {
+    if (this.isCurrentSection('solutions')) return 'solutions';
+    if (this.isCurrentSection('industries')) return 'industries';
+    return null;
+  }
+
+  private currentPath(): string {
+    const pathname = this._document.location?.pathname || '/';
+    const baseHref = this._document.querySelector('base')?.getAttribute('href') || '/';
+    let basePath = '/';
+
+    try {
+      basePath = new URL(baseHref, this._document.location?.origin || 'http://localhost').pathname;
+    } catch {
+      basePath = '/';
+    }
+
+    basePath = basePath.replace(/\/$/, '') || '/';
+    const pathWithoutBase = basePath !== '/' && (pathname === basePath || pathname.startsWith(`${basePath}/`))
+      ? pathname.slice(basePath.length) || '/'
+      : pathname;
+
+    return pathWithoutBase.replace(/\/$/, '') || '/';
   }
 
   @HostListener('document:keydown.escape')
