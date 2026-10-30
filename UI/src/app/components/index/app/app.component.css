@@ -1,6 +1,6 @@
 .appz-site-floating-contacts {
-  --appz-floating-gap: 18px;
-  --appz-floating-size: 60px;
+  --appz-floating-gap: 12px;
+  --appz-floating-size: 52px;
   position: fixed;
   top: auto;
   right: max(22px, env(safe-area-inset-right));
@@ -25,13 +25,8 @@
   border: 1px solid rgba(14, 42, 73, .1);
   border-radius: 50%;
   background: rgba(255, 255, 255, .96);
-  box-shadow:
-    0 0 0 4px rgba(var(--appz-floating-accent-rgb), .12),
-    0 0 0 9px rgba(var(--appz-floating-accent-rgb), .06),
-    0 10px 28px rgba(14, 42, 73, .16);
+  box-shadow: 0 6px 20px rgba(14, 42, 73, .16);
   text-decoration: none;
-  -webkit-backdrop-filter: blur(12px);
-  backdrop-filter: blur(12px);
   transition: border-color .2s ease, box-shadow .2s ease, transform .2s ease;
 }
 
@@ -77,10 +72,7 @@
 @media (hover: hover) {
   .appz-site-floating-contacts a:hover {
     border-color: rgba(22, 136, 216, .22);
-    box-shadow:
-      0 0 0 4px rgba(var(--appz-floating-accent-rgb), .16),
-      0 0 0 9px rgba(var(--appz-floating-accent-rgb), .08),
-      0 14px 34px rgba(14, 42, 73, .2);
+    box-shadow: 0 6px 20px rgba(14, 42, 73, .16);
     transform: translateY(-2px);
   }
 
@@ -99,7 +91,7 @@
 @media (max-width: 768px) {
   .appz-site-floating-contacts {
     --appz-floating-gap: 16px;
-    --appz-floating-size: 56px;
+    --appz-floating-size: 48px;
     top: auto;
     right: max(12px, env(safe-area-inset-right));
     bottom: calc(88px + env(safe-area-inset-bottom));

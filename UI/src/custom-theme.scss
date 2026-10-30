@@ -40,7 +40,7 @@ $eCommerce-theme: mat.define-light-theme((
 
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: var(--appz-font); }
 
 @import "styles/appzpos-features";
 
@@ -86,3 +86,5 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   line-height: 22px;
 }
 .appzpos-bottom-demo i { font-size: 22px; }
+
+@import "styles/appzpos-refinements";

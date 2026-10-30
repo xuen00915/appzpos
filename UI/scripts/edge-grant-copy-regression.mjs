@@ -68,9 +68,11 @@ for (const route of routes) {
   const evaluation = await send('Runtime.evaluate', {
     expression: `JSON.stringify((() => {
       const obsolete = /(?:Productivity Solutions Grant|\\bPSG\\b)/i;
+      // Historical PSG references belong only in the explicit transition explanation.
+      const transitionSelector = '.psg-transition, #psg-faq-title, #psg-faq-edge, #psg-faq-psg, #psg-faq-existing';
       const text = [...document.body.querySelectorAll('*')]
         .filter((element) => !['SCRIPT', 'STYLE', 'TEMPLATE'].includes(element.tagName))
-        .filter((element) => !element.children.length)
+        .filter((element) => !element.children.length && !element.closest(transitionSelector))
         .map((element) => element.textContent.replace(/\\s+/g, ' ').trim())
         .filter(Boolean);
       const metadata = [
@@ -78,12 +80,22 @@ for (const route of routes) {
         document.querySelector('meta[name="description"]')?.content ?? ''
       ];
       const accessible = [...document.querySelectorAll('[aria-label], [alt], [title]')]
+        .filter((element) => !element.closest(transitionSelector))
         .flatMap((element) => ['aria-label', 'alt', 'title']
           .map((attribute) => element.getAttribute(attribute) ?? ''))
         .filter(Boolean);
       const contactMessages = [...document.querySelectorAll('a[href*="wa.me"]')]
         .map((anchor) => decodeURIComponent(anchor.getAttribute('href') ?? ''));
       return {
+        transitionClear: (() => {
+          if (!document.querySelector('app-psg-pos-system-grant-singapore')) return true;
+          const edge = document.querySelector('#psg-faq-edge')?.textContent ?? '';
+          const psg = document.querySelector('#psg-faq-psg')?.textContent ?? '';
+          const existing = document.querySelector('#psg-faq-existing')?.textContent ?? '';
+          return edge.includes('30 September 2026') && psg.includes('29 September 2026') &&
+            psg.includes('new applications') && existing.includes('continue to be assessed under PSG') &&
+            existing.includes('claim disbursement');
+        })(),
         obsoleteCopy: [...new Set([...text, ...metadata, ...accessible, ...contactMessages]
           .filter((value) => obsolete.test(value)))],
         edgeCopy: [...text, ...metadata, ...accessible, ...contactMessages]
@@ -97,6 +109,7 @@ for (const route of routes) {
     returnByValue: true
   });
   const result = JSON.parse(evaluation.result.value);
+  if (!result.transitionClear) failures.push(`${route}: EDGE / PSG transition explanation is missing or incomplete`);
   if (result.obsoleteCopy.length) {
     failures.push(`${route || '/'}: obsolete grant copy (${result.obsoleteCopy.join(' | ')})`);
   }

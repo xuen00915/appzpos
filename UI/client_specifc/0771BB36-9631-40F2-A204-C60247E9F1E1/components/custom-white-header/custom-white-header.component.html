@@ -2,11 +2,12 @@
   <div id="header-wrap">
     <div class="appzpos-header__inner">
       <a class="appzpos-header__logo" href="/" [attr.aria-current]="isCurrentPage('/') ? 'page' : null" aria-label="APPZPOS home">
-        <img src="{{BindURL_Image('APPZPOS-300X150px.png')}}" alt="software companies in singapore appzgate logo">
+        <img src="{{BindURL_Image('APPZPOS-300X150px.png')}}" alt="APPZPOS" width="152" height="76">
       </a>
 
       <nav id="appzpos-primary-nav" class="appzpos-nav" aria-label="Primary navigation"
         [class.is-mobile-open]="mobileMenuOpen" (click)="handleNavigationClick($event)">
+        <a class="appzpos-nav__link appzpos-nav__primary-item" href="/" [attr.aria-current]="isCurrentPage('/') ? 'page' : null">Home</a>
         <div class="appzpos-nav__group" (mouseenter)="openMenuOnHover('solutions')" (mouseleave)="closeMenuOnHover()"
           (focusout)="closeMenuOnFocus($event)">
           <button type="button" class="appzpos-nav__trigger appzpos-nav__primary-item" aria-controls="solutions-menu"
@@ -17,17 +18,16 @@
           </button>
           <div id="solutions-menu" class="appzpos-nav__panel appzpos-nav__panel--wide"
             [class.is-open]="openMenu === 'solutions'">
-            <p class="appzpos-nav__panel-label">SOLUTIONS</p>
             <div class="appzpos-nav__link-grid">
-              <a href="/cloud-pos-point-of-sales-system" [attr.aria-current]="isCurrentPage('/cloud-pos-point-of-sales-system') ? 'page' : null"><strong>POS / E-Waiter</strong><span>Cloud point of sale</span></a>
-              <a href="/f&b-restaurant-online-ordering-website" [attr.aria-current]="isCurrentPage('/f&b-restaurant-online-ordering-website') ? 'page' : null"><strong>Website Ordering</strong><span>Direct online orders</span></a>
-              <a href="/f&b-restaurant-emenu-qr-code-ordering-system" [attr.aria-current]="isCurrentPage('/f&b-restaurant-emenu-qr-code-ordering-system') ? 'page' : null"><strong>Table QR Ordering</strong><span>Mobile table ordering</span></a>
-              <a href="/self-order-kiosk-restaurant" [attr.aria-current]="isCurrentPage('/self-order-kiosk-restaurant') ? 'page' : null"><strong>Self Ordering Kiosk</strong><span>Contactless ordering</span></a>
-              <a href="/f&b-restaurant-kitchen-display-system" [attr.aria-current]="isCurrentPage('/f&b-restaurant-kitchen-display-system') ? 'page' : null"><strong>Kitchen Display System (KDS)</strong><span>Kitchen order flow</span></a>
-              <a href="/f&b-restaurant-queue-number-display-system" [attr.aria-current]="isCurrentPage('/f&b-restaurant-queue-number-display-system') ? 'page' : null"><strong>Queue Number Display</strong><span>Real-time pickup status</span></a>
-              <a href="/f&b-restaurant-delivery-integration" [attr.aria-current]="isCurrentPage('/f&b-restaurant-delivery-integration') ? 'page' : null"><strong>Order Hub</strong><span>Delivery integration</span></a>
-              <a href="/pos-hardware-machine-receipt-printer" [attr.aria-current]="isCurrentPage('/pos-hardware-machine-receipt-printer') ? 'page' : null"><strong>Hardware</strong><span>POS machines and printers</span></a>
-              <a href="/pos-features-crm-payment-gateway" [attr.aria-current]="isCurrentPage('/pos-features-crm-payment-gateway') ? 'page' : null"><strong>Features</strong><span>CRM, payments and more</span></a>
+              <a href="/cloud-pos-point-of-sales-system" [attr.aria-current]="isCurrentPage('/cloud-pos-point-of-sales-system') ? 'page' : null"><i class="fa-solid fa-desktop" aria-hidden="true"></i><span class="appzpos-nav__item-copy"><strong>POS / E-Waiter</strong><span>Cloud point of sale</span></span></a>
+              <a href="/f&b-restaurant-online-ordering-website" [attr.aria-current]="isCurrentPage('/f&b-restaurant-online-ordering-website') ? 'page' : null"><i class="fa-solid fa-globe" aria-hidden="true"></i><span class="appzpos-nav__item-copy"><strong>Website Ordering</strong><span>Direct online orders</span></span></a>
+              <a href="/f&b-restaurant-emenu-qr-code-ordering-system" [attr.aria-current]="isCurrentPage('/f&b-restaurant-emenu-qr-code-ordering-system') ? 'page' : null"><i class="fa-solid fa-qrcode" aria-hidden="true"></i><span class="appzpos-nav__item-copy"><strong>Table QR Ordering</strong><span>Mobile table ordering</span></span></a>
+              <a href="/self-order-kiosk-restaurant" [attr.aria-current]="isCurrentPage('/self-order-kiosk-restaurant') ? 'page' : null"><i class="fa-solid fa-tablet-screen-button" aria-hidden="true"></i><span class="appzpos-nav__item-copy"><strong>Self Ordering Kiosk</strong><span>Contactless ordering</span></span></a>
+              <a href="/f&b-restaurant-kitchen-display-system" [attr.aria-current]="isCurrentPage('/f&b-restaurant-kitchen-display-system') ? 'page' : null"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span class="appzpos-nav__item-copy"><strong>Kitchen Display System (KDS)</strong><span>Kitchen order flow</span></span></a>
+              <a href="/f&b-restaurant-queue-number-display-system" [attr.aria-current]="isCurrentPage('/f&b-restaurant-queue-number-display-system') ? 'page' : null"><i class="fa-solid fa-list-ol" aria-hidden="true"></i><span class="appzpos-nav__item-copy"><strong>Queue Number Display</strong><span>Real-time pickup status</span></span></a>
+              <a href="/f&b-restaurant-delivery-integration" [attr.aria-current]="isCurrentPage('/f&b-restaurant-delivery-integration') ? 'page' : null"><i class="fa-solid fa-truck" aria-hidden="true"></i><span class="appzpos-nav__item-copy"><strong>Order Hub</strong><span>Delivery integration</span></span></a>
+              <a href="/pos-hardware-machine-receipt-printer" [attr.aria-current]="isCurrentPage('/pos-hardware-machine-receipt-printer') ? 'page' : null"><i class="fa-solid fa-print" aria-hidden="true"></i><span class="appzpos-nav__item-copy"><strong>Hardware</strong><span>POS machines and printers</span></span></a>
+              <a href="/pos-features-crm-payment-gateway" [attr.aria-current]="isCurrentPage('/pos-features-crm-payment-gateway') ? 'page' : null"><i class="fa-solid fa-sliders" aria-hidden="true"></i><span class="appzpos-nav__item-copy"><strong>Features</strong><span>CRM, payments and more</span></span></a>
             </div>
           </div>
         </div>
@@ -40,23 +40,26 @@
             (keydown.arrowdown)="openMenuFromKeyboard($event, 'industries')">
             Industries <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
           </button>
-          <div id="industries-menu" class="appzpos-nav__panel appzpos-nav__panel--wide" [class.is-open]="openMenu === 'industries'">
-            <p class="appzpos-nav__panel-label">INDUSTRIES</p>
+          <div id="industries-menu" class="appzpos-nav__panel appzpos-nav__panel--industry" [class.is-open]="openMenu === 'industries'">
             <div class="appzpos-nav__link-grid">
-              <a href="/f&b-restaurant-cloud-pos-system" [attr.aria-current]="isCurrentPage('/f&b-restaurant-cloud-pos-system') ? 'page' : null"><strong>F&B Restaurant</strong><span>Restaurants, cafés and bars</span></a>
-              <a href="/retail-store-cloud-pos-system" [attr.aria-current]="isCurrentPage('/retail-store-cloud-pos-system') ? 'page' : null"><strong>Retail Stores & Boutiques</strong><span>Retail and specialty stores</span></a>
-              <a href="/salon-cloud-pos-system" [attr.aria-current]="isCurrentPage('/salon-cloud-pos-system') ? 'page' : null"><strong>Beauty Salons, SPA & Wellness</strong><span>Beauty and wellness businesses</span></a>
+              <a href="/f&b-restaurant-cloud-pos-system" [attr.aria-current]="isCurrentPage('/f&b-restaurant-cloud-pos-system') ? 'page' : null"><i class="fa-solid fa-utensils" aria-hidden="true"></i><span class="appzpos-nav__item-copy"><strong>F&B Restaurant</strong><span>Restaurants, cafés and bars</span></span></a>
+              <a href="/retail-store-cloud-pos-system" [attr.aria-current]="isCurrentPage('/retail-store-cloud-pos-system') ? 'page' : null"><i class="fa-solid fa-bag-shopping" aria-hidden="true"></i><span class="appzpos-nav__item-copy"><strong>Retail Stores & Boutiques</strong><span>Retail and specialty stores</span></span></a>
+              <a href="/salon-cloud-pos-system" [attr.aria-current]="isCurrentPage('/salon-cloud-pos-system') ? 'page' : null"><i class="fa-solid fa-scissors" aria-hidden="true"></i><span class="appzpos-nav__item-copy"><strong>Beauty Salons, SPA & Wellness</strong><span>Beauty and wellness businesses</span></span></a>
             </div>
           </div>
         </div>
 
         <a class="appzpos-nav__link appzpos-nav__primary-item" href="/psg-pos-system-grant-singapore" [attr.aria-current]="isCurrentPage('/psg-pos-system-grant-singapore') ? 'page' : null">EDGE Grant</a>
         <a class="appzpos-nav__link appzpos-nav__primary-item" href="/blog" [attr.aria-current]="isCurrentPage('/blog') ? 'page' : null">Blog</a>
-        <a class="appzpos-nav__link appzpos-nav__primary-item" href="/cn-f&b-restaurant-cloud-pos-system" [attr.aria-current]="isCurrentPage('/cn-f&b-restaurant-cloud-pos-system') ? 'page' : null" aria-label="POS餐饮系统中文网站">POS餐饮系统</a>
-        <a class="appzpos-nav__cta appzpos-nav__primary-item" href="/point-of-sales-demo-quotation" [attr.aria-current]="isCurrentPage('/point-of-sales-demo-quotation') ? 'page' : null">Request a Demo</a>
-      </nav>
-
-      <div class="appzpos-header__utilities" aria-label="Contact APPZPOS">
+        <a class="appzpos-nav__link appzpos-nav__primary-item appzpos-nav__language" href="/cn-f&b-restaurant-cloud-pos-system" [attr.aria-current]="isCurrentPage('/cn-f&b-restaurant-cloud-pos-system') ? 'page' : null" aria-label="POS餐饮系统中文网站"><span lang="zh">中文</span></a>
+        <div class="appzpos-nav__group appzpos-nav__contact" (mouseenter)="openMenuOnHover('contact')" (mouseleave)="closeMenuOnHover()" (focusout)="closeMenuOnFocus($event)">
+          <button type="button" class="appzpos-nav__trigger" aria-controls="contact-menu"
+            [attr.aria-expanded]="openMenu === 'contact'" (click)="toggleMenu('contact', $event)"
+            (keydown.arrowdown)="openMenuFromKeyboard($event, 'contact')">
+            Contact <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </button>
+          <div id="contact-menu" class="appzpos-nav__panel appzpos-nav__panel--contact" [class.is-open]="openMenu === 'contact'">
+<div class="appzpos-header__utilities" aria-label="Contact APPZPOS">
         <a class="appzpos-nav__utility appzpos-nav__utility--call" href="tel:+6583109631" aria-label="Call APPZPOS">
           <i class="fa-solid fa-phone" aria-hidden="true"></i>
           <span class="appzpos-nav__utility-label">Call Us +65 8310 9631</span>
@@ -76,6 +79,11 @@
           <span class="appzpos-nav__utility-label">Messenger</span>
         </a>
       </div>
+          </div>
+        </div>
+      </nav>
+        <a class="appzpos-nav__cta appzpos-nav__primary-item" href="/point-of-sales-demo-quotation" [attr.aria-current]="isCurrentPage('/point-of-sales-demo-quotation') ? 'page' : null">Request a Demo <i class="fa-solid fa-arrow-right" aria-hidden="true"></i></a>
+
 
       <button class="appzpos-header__mobile-toggle" type="button"
         [attr.aria-expanded]="mobileMenuOpen" aria-controls="appzpos-primary-nav"

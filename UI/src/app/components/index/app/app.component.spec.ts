@@ -18,7 +18,7 @@ describe('AppComponent', () => {
     fixture.detectChanges();
   });
 
-  afterEach(() => document.body.classList.remove('gototop-active'));
+  afterEach(() => document.body.classList.remove('gototop-active', 'appz-past-intro', 'appz-form-visible'));
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -58,4 +58,25 @@ describe('AppComponent', () => {
     component.updateScrollTopVisibility();
     expect(document.body.classList.contains('gototop-active')).toBeFalse();
   });
+  it('keeps the persistent CTA out of the hero and gives visible forms priority', () => {
+    const scrollY = spyOnProperty(window, 'scrollY', 'get').and.returnValue(0);
+    component.updateScrollTopVisibility();
+    expect(document.body.classList.contains('appz-past-intro')).toBeFalse();
+    scrollY.and.returnValue(2000);
+    component.updateScrollTopVisibility();
+    expect(document.body.classList.contains('appz-past-intro')).toBeTrue();
+    const form = document.createElement('section');
+    form.className = 'appz-demo';
+    document.body.appendChild(form);
+    const bounds = spyOn(form, 'getBoundingClientRect').and.returnValue(new DOMRect(20, 120, 400, 500));
+    try {
+      component.updateScrollTopVisibility();
+      expect(document.body.classList.contains('appz-form-visible')).toBeTrue();
+      bounds.and.returnValue(new DOMRect(20, -700, 400, 500));
+      component.updateScrollTopVisibility();
+      expect(document.body.classList.contains('appz-form-visible')).toBeFalse();
+    } finally { form.remove(); }
+  });
+
+
 });

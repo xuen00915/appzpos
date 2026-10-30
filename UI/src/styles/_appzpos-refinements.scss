@@ -1,0 +1,194 @@
+/* Shared finish for the public marketing surfaces. Layout and route ownership
+   stay with their existing components; these adapters reconcile legacy themes. */
+html {
+  scroll-padding-top: calc(var(--appz-header-height) + 24px);
+  scrollbar-color: #91a6ba #f0f5f9;
+}
+
+::selection { background: #cbe8fa; color: #10243b; }
+input, textarea { caret-color: var(--appz-blue-deep); }
+a { text-underline-offset: .2em; }
+input::placeholder, textarea::placeholder { color: #536681; opacity: 1; }
+
+body :is(.appzpos-product-hero, .restaurant-hero, .appz-solution-hero,
+  .solution-island-hero, .contact-hero, .features-hero, .hardware-hero,
+  .partners-hero, .blog-hero, .psg-hero) h1 {
+  font-family: var(--appz-font) !important;
+  font-weight: 700 !important;
+  letter-spacing: -.03em !important;
+  line-height: 1.12 !important;
+  text-wrap: balance;
+}
+
+body [data-home-page-template][lang='zh'] .appzpos-product-hero h1 {
+  letter-spacing: .025em !important;
+  line-height: 1.2 !important;
+}
+
+/* Keep a single reading measure even when the surrounding media uses the shell. */
+#content .pos-feature-section__header p,
+#content .contact-availability p {
+  max-width: 72ch;
+  margin-inline: auto;
+}
+
+
+body :is(.solution-island-hero, .appz-solution-hero) {
+  background: #f1f7fb;
+  border-bottom-color: var(--appz-line);
+}
+
+/* Preserve the existing product animation as the focal point. */
+body .solution-island-hero__visual img,
+body .appz-solution-hero__visual > img {
+  animation: none;
+}
+
+body :is(.features-hero, .hardware-hero, .partners-hero, .blog-hero) {
+  background: #eef5fa;
+}
+
+/* Clear, consistent action geometry across Angular Material and legacy links. */
+body .appzpos-product-hero__button,
+body .appzpos-product-hero__button.mat-mdc-raised-button,
+body .appz-button--whatsapp,
+body :is(.features-hero__actions, .hardware-hero__actions, .partners-hero__actions,
+  .blog-hero__actions, .restaurant-hero__actions) :is(a, button),
+body #content .more-link {
+  border-radius: var(--appz-radius-control) !important;
+  box-shadow: none !important;
+  font-weight: 700;
+}
+
+body .appzpos-product-hero__button.appzpos-product-hero__button--primary,
+body #content .more-link {
+  background: var(--appz-blue) !important;
+  border-color: var(--appz-blue) !important;
+  color: #fff !important;
+}
+
+body .appzpos-product-hero__button.appzpos-product-hero__button--primary:hover,
+body #content .more-link:hover {
+  background: var(--appz-blue-deep) !important;
+}
+
+body app-solution-page #content .pos-whatsapp-button {
+  background: #147d45 !important;
+  border-color: #147d45 !important;
+}
+
+body app-solution-page #content .pos-whatsapp-button:hover {
+  background: #106335 !important;
+  border-color: #106335 !important;
+}
+
+/* Product capabilities are supporting information, with one quiet surface. */
+app-solution-page #content .content-wrap .pos-feature-grid .feature-box:not(.fbox-plain) {
+  border-radius: var(--appz-radius-surface);
+  box-shadow: none;
+  background: #f3f7fa;
+}
+
+body app-solution-page #content .pos-system-card:not(.pos-system-card--featured),
+body app-pos-features-crm-payment-gateway #content .features-card,
+body app-blog-main-page #content #posts > .entry {
+  border-radius: var(--appz-radius-surface) !important;
+  box-shadow: none;
+}
+
+body app-pos-features-crm-payment-gateway #content .features-card__image,
+body app-pos-features-crm-payment-gateway #content .features-card__image img {
+  border-radius: 0 !important;
+}
+
+/* The enquiry surface uses a white form against the existing blue/navy context. */
+body app-point-of-sales-demo-quotation .contact-form-panel {
+  border: 1px solid var(--appz-line);
+  border-radius: var(--appz-radius-surface);
+  background: #fff;
+}
+
+body app-point-of-sales-demo-quotation .contact-form-panel label {
+  font-size: .875rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+body app-point-of-sales-demo-quotation #content .contact-form-panel input[type='submit'] {
+  background: var(--appz-blue) !important;
+  border-color: var(--appz-blue) !important;
+  border-radius: var(--appz-radius-control);
+  min-height: 48px;
+}
+
+body app-point-of-sales-demo-quotation .contact-channels {
+  .contact-channel--phone { --channel-color: #076ba2; }
+  .contact-channel--whatsapp { --channel-color: #147d45; }
+  .contact-channel--facebook { --channel-color: #1665cf; }
+  .contact-channel--instagram { --channel-color: #bd2847; }
+}
+
+/* A compact persistent CTA stays out of the reading column and yields to forms. */
+#webview.appzpos-bottom-demo {
+  left: max(20px, env(safe-area-inset-left));
+  transform: none;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 180ms ease, visibility 180ms ease;
+}
+body.appz-past-intro:not(.appz-form-visible) #webview.appzpos-bottom-demo {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+body:has(form:focus-within) #webview.appzpos-bottom-demo {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+@media (max-width: 767px) {
+  #webview.appzpos-bottom-demo { left: max(16px, env(safe-area-inset-left)); }
+  .appzpos-bottom-demo a { padding: 12px 16px; }
+  .appzpos-bottom-demo p { font-size: 14px; }
+  body .appzpos-product-hero__intro { line-height: 1.6; }
+  body #content .appz-section-title { overflow-wrap: break-word; }
+  body .appzpos-footer__column > a { min-height: 44px; display: flex; align-items: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #webview.appzpos-bottom-demo { transition: none; }
+}
+
+/* The overview is a section below the page title, not a competing second hero. */
+body app-solution-page #content .pos-overview h2 {
+  font-size: var(--appz-section-title-size) !important;
+  font-weight: var(--appz-heading-weight) !important;
+  letter-spacing: var(--appz-heading-tracking);
+  line-height: var(--appz-section-title-line);
+  white-space: normal;
+}
+body :is(.features-hero__eyebrow, .hardware-hero__eyebrow,
+  .partners-hero__eyebrow, .blog-hero__eyebrow) {
+  display: block;
+  margin: 0 0 16px;
+  font-size: .875rem;
+  letter-spacing: .02em;
+  line-height: 1.5;
+  color: var(--appz-ink-soft);
+}
+@media (max-width: 767px) {
+  body .appz-solution-hero h1 {
+    font-size: clamp(1.75rem, 7vw, 2.125rem) !important;
+    max-width: 24ch;
+    margin-inline: auto;
+  }
+}
+
+/* Grant comparison has inline quote actions; keep narrow screens unobstructed. */
+@media (max-width: 700px) {
+  body:has(app-psg-pos-system-grant-singapore) :is(.appz-site-floating-contacts, .appzpos-bottom-demo, #gotoTop) {
+    display: none !important;
+  }
+}

@@ -1,25 +1,6 @@
-@media (prefers-reduced-motion: no-preference) {
-  [appMarketingReveal] {
-    clip-path: inset(0 0 12% 0);
-    opacity: 0;
-    transform: translate3d(0, 28px, 0);
-    transition: clip-path 720ms var(--appz-ease), opacity 620ms var(--appz-ease), transform 720ms var(--appz-ease);
-    will-change: clip-path, opacity, transform;
-
-    &.is-revealed {
-      clip-path: inset(0 0 0 0);
-      opacity: 1;
-      transform: translate3d(0, 0, 0);
-      will-change: auto;
-    }
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  [appMarketingReveal] {
-    clip-path: none;
-    opacity: 1;
-    transform: none;
-    transition: none;
-  }
+/* The product demonstration owns motion; reading sections stay visible. */
+[appMarketingReveal] {
+  opacity: 1;
+  clip-path: none;
+  transform: none;
 }

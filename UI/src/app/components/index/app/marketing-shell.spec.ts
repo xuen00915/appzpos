@@ -39,7 +39,7 @@ describe('APPZPOS marketing shell', () => {
     const labels = Array.from(host.querySelectorAll<HTMLElement>('.appzpos-nav__primary-item'))
       .map((item) => item.textContent?.replace(/\s+/g, ' ').trim());
     expect(labels).toEqual([
-      'Solutions', 'Industries', 'EDGE Grant', 'Blog', 'POS餐饮系统', 'Request a Demo'
+      'Home', 'Solutions', 'Industries', 'EDGE Grant', 'Blog', '中文', 'Request a Demo'
     ]);
 
     const grant = host.querySelector<HTMLAnchorElement>('.appzpos-nav > a[href="/psg-pos-system-grant-singapore"]');
@@ -49,13 +49,12 @@ describe('APPZPOS marketing shell', () => {
     expect(host.querySelector('#resources-menu')).toBeNull();
   });
 
-  it('uses the same wide, descriptive mega-menu structure for every dropdown', () => {
+  it('keeps both product and industry dropdowns descriptive', () => {
     const host = headerFixture.nativeElement as HTMLElement;
-    const panels = Array.from(host.querySelectorAll<HTMLElement>('.appzpos-nav__panel'));
+    const panels = Array.from(host.querySelectorAll<HTMLElement>('.appzpos-nav__panel:not(#contact-menu)'));
 
     expect(panels.length).toBe(2);
     panels.forEach((panel) => {
-      expect(panel.classList).toContain('appzpos-nav__panel--wide');
       expect(panel.querySelector('.appzpos-nav__link-grid')).not.toBeNull();
 
       Array.from(panel.querySelectorAll<HTMLAnchorElement>('a')).forEach((link) => {
@@ -155,7 +154,7 @@ describe('APPZPOS marketing shell', () => {
     expect(hrefs).toContain('/point-of-sales-demo-quotation');
   });
 
-  it('offers ordered call, WhatsApp and Messenger actions after the demo button', () => {
+  it('groups ordered call, WhatsApp and Messenger actions in the contact menu', () => {
     const host = headerFixture.nativeElement as HTMLElement;
     document.body.appendChild(host);
     const header = host.querySelector<HTMLElement>('#header')!;
@@ -180,7 +179,8 @@ describe('APPZPOS marketing shell', () => {
     const headerActions = Array.from(
       host.querySelectorAll<HTMLAnchorElement>('#header a[href]')
     ).map((anchor) => anchor.getAttribute('aria-label') || anchor.textContent?.trim());
-    expect(headerActions.indexOf('Request a Demo')).toBeLessThan(headerActions.indexOf('Call APPZPOS'));
+    expect(host.querySelectorAll('#contact-menu a').length).toBe(3);
+    expect(host.querySelector('.appzpos-header__inner > .appzpos-nav__cta')?.textContent?.trim()).toBe('Request a Demo');
     expect(headerActions.indexOf('Call APPZPOS')).toBeLessThan(headerActions.indexOf('WhatsApp APPZPOS'));
     expect(headerActions.indexOf('WhatsApp APPZPOS')).toBeLessThan(headerActions.indexOf('Message APPZPOS on Messenger'));
     host.remove();
@@ -321,27 +321,27 @@ describe('APPZPOS marketing shell', () => {
     expect(actionColumn?.firstElementChild).toBe(directLinks[0]);
   });
 
-  it('uses recognizable social brand colors and a larger certification badge', () => {
+  it('uses white footer social icons and a larger certification badge', () => {
     const host = footerFixture.nativeElement as HTMLElement;
     const socialIcons = Array.from(host.querySelectorAll<HTMLElement>('.appzpos-footer__socials i'));
     const badge = host.querySelector<HTMLElement>('.appzpos-footer__iso')!;
 
-    expect(getComputedStyle(socialIcons[0]).backgroundImage).toContain('linear-gradient');
-    expect(getComputedStyle(socialIcons[1]).color).toBe('rgb(24, 119, 242)');
-    expect(getComputedStyle(socialIcons[2]).color).toBe('rgb(10, 102, 194)');
-    expect(getComputedStyle(socialIcons[3]).color).toBe('rgb(255, 0, 0)');
+    socialIcons.forEach(icon => {
+      expect(getComputedStyle(icon).backgroundImage).toBe('none');
+      expect(getComputedStyle(icon).color).toBe('rgb(255, 255, 255)');
+    });
     expect(badge.getBoundingClientRect().width).toBe(190);
   });
 
-  it('keeps the footer vertically compact on desktop', () => {
+  it('gives the footer reading space and clearance for fixed controls', () => {
     const host = footerFixture.nativeElement as HTMLElement;
     const innerStyle = getComputedStyle(host.querySelector<HTMLElement>('.appzpos-footer__inner')!);
     const bottomStyle = getComputedStyle(host.querySelector<HTMLElement>('.appzpos-footer__bottom')!);
     const innerVerticalPadding = parseFloat(innerStyle.paddingTop) + parseFloat(innerStyle.paddingBottom);
     const bottomVerticalPadding = parseFloat(bottomStyle.paddingTop) + parseFloat(bottomStyle.paddingBottom);
 
-    expect(innerVerticalPadding).toBeLessThanOrEqual(100);
-    expect(bottomVerticalPadding).toBeLessThanOrEqual(32);
+    expect(innerVerticalPadding).toBeLessThanOrEqual(120);
+    expect(bottomVerticalPadding).toBeGreaterThanOrEqual(100);
   });
 
   it('does not render a divider above the footer', () => {
@@ -375,6 +375,31 @@ describe('APPZPOS marketing shell', () => {
     expect(legal.lastElementChild).toHaveClass('appzpos-footer__credit');
     expect(getComputedStyle(bottom).flexDirection).toBe('row');
     expect(getComputedStyle(bottom).backgroundColor).toBe(getComputedStyle(footer).backgroundColor);
+  });
+
+  it('keeps closed dropdown links out of keyboard navigation', () => {
+    const host = headerFixture.nativeElement as HTMLElement;
+    document.body.appendChild(host);
+    const panel = host.querySelector('#solutions-menu') as HTMLElement;
+    expect(getComputedStyle(panel).visibility).toBe('hidden');
+    headerFixture.componentInstance.openMenu = 'solutions';
+    headerFixture.detectChanges();
+    expect(getComputedStyle(panel).visibility).toBe('visible');
+    host.remove();
+  });
+
+  it('opens the contact actions and returns keyboard focus on Escape', () => {
+    const host = headerFixture.nativeElement as HTMLElement;
+    document.body.appendChild(host);
+    const component = headerFixture.componentInstance;
+    component.toggleMenu('contact');
+    headerFixture.detectChanges();
+    expect(host.querySelector('#contact-menu')?.classList).toContain('is-open');
+    component.handleEscape();
+    headerFixture.detectChanges();
+    expect(document.activeElement).toBe(host.querySelector('[aria-controls="contact-menu"]'));
+    expect(component.openMenu).toBeNull();
+    host.remove();
   });
 
 });

@@ -53,6 +53,7 @@ export interface HomeHeroConfig {
   readonly visual: HomeHeroVisual;
   readonly ctas: readonly HomeCtaConfig[];
   readonly industryTabLabel?: string;
+  readonly industryHint?: string;
   readonly industryStatusPrefix?: string;
 }
 

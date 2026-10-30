@@ -127,6 +127,7 @@ export const CHINESE_HOME_PAGE_CONFIG: HomePageTemplateConfig = {
     titleAccent: '云端智能POS餐饮系统 高达50%政府津贴折扣',
     description: '专为餐饮业者设计的全方位餐饮系统，包括收银系统、销售报告分析、会员管理、库存管理、促销优惠，运营流程等',
     industryTabLabel: '按行业预览APPZPOS',
+    industryHint: '选择行业，探索适合您的系统',
     industryStatusPrefix: '正在显示APPZPOS行业：',
     visual: {
       kind: 'product-showcase',

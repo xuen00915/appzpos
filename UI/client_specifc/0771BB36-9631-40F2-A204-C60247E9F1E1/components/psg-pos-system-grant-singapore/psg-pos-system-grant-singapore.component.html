@@ -14,6 +14,9 @@
 </section>
 <section id="content">
     <div class="content-wrap" >
+        <aside class="psg-transition" aria-label="PSG to EDGE Grant update">
+            <div class="container"><p><strong>Looking for PSG?</strong> New applications now go through EDGE. Existing PSG projects continue under PSG. <a href="#psg-faq">See what changed</a></p></div>
+        </aside>
         <section class="psg-overview" aria-label="EDGE Grant support and eligibility information">
             <div class="container psg-overview__grid">
                 <section class="psg-vendor" aria-labelledby="psg-vendor-title">
@@ -41,326 +44,41 @@
                 </section>
             </div>
         </section>
-        <div id="webview" class="psg-packages-view">
-            <div class="container" style="margin-top:65px">
-                <div class="heading-block border-1 mb-4 text-center heading-padding">
-                    <h2>APPZPOS EDGE Grant Packages</h2>
-                </div>
-                <p id="psg-package-filter-help-desktop" class="psg-package-filter-description">Select one or more features to find the right package.</p>
-                <div class="psg-package-filters" aria-label="Filter APPZPOS EDGE Grant packages">
-                    <button type="button" title="Show all available EDGE Grant packages." aria-describedby="psg-package-filter-help-desktop" data-package-filter="all" [class.is-active]="isPackageFilterActive('all')" [attr.aria-pressed]="isPackageFilterActive('all')" (click)="togglePackageFilter('all')">All Packages</button>
-                    <button type="button" title="Show packages that include a Digital Ordering System." aria-describedby="psg-package-filter-help-desktop" data-package-filter="digital-ordering" [class.is-active]="isPackageFilterActive('digital-ordering')" [attr.aria-pressed]="isPackageFilterActive('digital-ordering')" (click)="togglePackageFilter('digital-ordering')">Digital Ordering System</button>
-                    <button type="button" title="Show packages that include QR ordering." aria-describedby="psg-package-filter-help-desktop" data-package-filter="qr-order" [class.is-active]="isPackageFilterActive('qr-order')" [attr.aria-pressed]="isPackageFilterActive('qr-order')" (click)="togglePackageFilter('qr-order')">QR Order</button>
-                    <button type="button" title="Show packages that include a self-ordering kiosk." aria-describedby="psg-package-filter-help-desktop" data-package-filter="kiosk" [class.is-active]="isPackageFilterActive('kiosk')" [attr.aria-pressed]="isPackageFilterActive('kiosk')" (click)="togglePackageFilter('kiosk')">Kiosk</button>
-                    <button type="button" title="Show packages that include Order Hub." aria-describedby="psg-package-filter-help-desktop" data-package-filter="order-hub" [class.is-active]="isPackageFilterActive('order-hub')" [attr.aria-pressed]="isPackageFilterActive('order-hub')" (click)="togglePackageFilter('order-hub')">Order Hub</button>
-                </div>
-                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 align-items-stretch">
-                    <div class="col-lg-4" [class.psg-package-hidden]="!shouldShowPackage(['digital-ordering', 'qr-order'])" style="padding:0 24px">
-                        <div class="card rounded-6 shadow-sm overflow-hidden h-100" style="border-color: #F8F9FA">
-                            <div class="card-body p-4" style="background-color: #F8F9FA;">
-                                <h2 style="font-size: 20px !important" class="fs-6 fw-semibold text-uppercase mb-4 mt-4">PACKAGE 1</h2>
-                                <img src="{{BindURL_Image('APPZPOS-Pos-System-PSG-Grant-Package-1.png')}}" style="max-width:70%"  alt="APPZPOS EDGE Grant Package 1">
-                                <h4 class="display-5 fw-semibold my-3" style="font-size:1.8rem; line-height:1.3;">1 Digital Ordering + 1 QR Order </h4>
-                                <h5 class="fs-6 fw-bold mt-4 mb-3 pt-1">Software:</h5>
-                                <ul class="iconlist iconlist-sm fw-medium text-muted mb-0">
-                                    <li><i class="bi-play-fill"></i><span>Central Admin Portal (Unlimited Users)</span></li>
-                                    <li><i class="bi-play-fill"></i><span>1 x Digital Ordering System</span></li>
-                                    <li><i class="bi-play-fill"></i><span>1 x QR Ordering</span></li>
-                                </ul> 
-                                <h5 class="fs-6 fw-bold mt-4 mb-3 pt-1">What’s Included:</h5>
-                                <ul class="iconlist iconlist-sm fw-medium text-muted mb-0">
-                                    <li><i class="bi-play-fill"></i><span>Inclusive of 1 Year Subscription</span></li>
-                                    <li><i class="bi-play-fill"></i><span>Order Management, Menu Customization, Table & Floorplan, Inventory, Payments, Analytics & Reports, CRM, Delivery, Support Multiple Outlets</span></li>
-                                    <li><i class="bi-play-fill"></i><span>Table QR Ordering allows customers to place onsite orders and make online payments using a QR code</span></li>
-                                </ul>
-                                <div style="margin-top: 50px">
-                                    <a target="_blank" href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20EDGE%20Grant%20Package%201" class="button button-large button-circle" style="position: absolute;bottom:10px;left:30%"
-                                    >Get A Quote</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4" [class.psg-package-hidden]="!shouldShowPackage(['digital-ordering', 'qr-order', 'order-hub'])" style="padding:0 24px">
-                        <div class="card rounded-6 shadow-sm overflow-hidden h-100" style="border-color: #F8F9FA">
-                            <div class="card-body p-4" style="background-color: #F8F9FA;">
-                                <h2 style="font-size: 20px !important" class="fs-6 fw-semibold text-uppercase mb-4 mt-4">PACKAGE 2</h2>
-                                <img src="{{BindURL_Image('APPZPOS-Pos-System-PSG-Grant-Package-2.png')}}"  style="max-width:70%" alt="APPZPOS EDGE Grant Package 2">
-                                <h4 class="display-5 fw-semibold my-3" style="font-size:1.8rem; line-height:1.3;">1 Digital Ordering + 1 QR Order  + 1 Order Hub</h4>
-                                <h5 class="fs-6 fw-bold mt-4 mb-3 pt-1">Software:</h5>
-                                <ul class="iconlist iconlist-sm fw-medium text-muted mb-0">
-                                    <li><i class="bi-play-fill"></i><span>Central Admin Portal (Unlimited Users)</span></li>
-                                    <li><i class="bi-play-fill"></i><span>1 x Digital Ordering System</span></li>
-                                    <li><i class="bi-play-fill"></i><span>1 x QR Ordering</span></li>
-                                    <li><i class="bi-play-fill"></i><span>1 x Order Hub</span></li>
-                                </ul> 
-                                <h5 class="fs-6 fw-bold mt-4 mb-3 pt-1">What’s Included:</h5>
-                                <ul class="iconlist iconlist-sm fw-medium text-muted mb-0">
-                                    <li><i class="bi-play-fill"></i><span>Inclusive of 1 Year Subscription</span></li>
-                                    <li><i class="bi-play-fill"></i><span>Order Management, Menu Customization, Table & Floorplan, Inventory, Payments, Analytics & Reports, CRM, Delivery, Support Multiple Outlets</span></li>
-                                    <li><i class="bi-play-fill"></i><span>Table QR Ordering allows customers to place onsite orders and make online payments using a QR code</span></li>
-                                    <li><i class="bi-play-fill"></i><span>Order Hub centralizes all food delivery orders from platforms like GrabFood, Foodpanda, and Deliveroo into a single POS platform</span></li>
-                                </ul>
-                                <div style="margin-top: 50px">
-                                    <a target="_blank" href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20EDGE%20Grant%20Package%202" class="button button-large button-circle" style="position: absolute;bottom:10px;left:30%"
-                                    >Get A Quote</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4" [class.psg-package-hidden]="!shouldShowPackage(['digital-ordering', 'qr-order', 'kiosk'])" style="padding:0 24px">
-                        <div class="card rounded-6 shadow-sm overflow-hidden h-100" style="border-color: #F8F9FA">
-                            <div class="card-body p-4" style="background-color: #F8F9FA;">
-                                <h2 style="font-size: 20px !important" class="fs-6 fw-semibold text-uppercase mb-4 mt-4">PACKAGE 3</h2>
-                                <img src="{{BindURL_Image('APPZPOS-Pos-System-PSG-Grant-Package-3.png')}}" style="max-width:70%" alt="APPZPOS EDGE Grant Package 3">
-                                <h4 class="display-5 fw-semibold my-3" style="font-size:1.8rem; line-height:1.3;">1 Digital Ordering + 1 QR Order  + 1 Kiosk</h4>
-                                <h5 class="fs-6 fw-bold mt-4 mb-3 pt-1">Software:</h5>
-                                <ul class="iconlist iconlist-sm fw-medium text-muted mb-0">
-                                    <li><i class="bi-play-fill"></i><span>Central Admin Portal (Unlimited Users)</span></li>
-                                    <li><i class="bi-play-fill"></i><span>1 x Digital Ordering System</span></li>
-                                    <li><i class="bi-play-fill"></i><span>1 x QR Ordering</span></li>
-                                    <li><i class="bi-play-fill"></i><span>1 x Self Ordering Kiosk</span></li>
-                                </ul> 
-                                <h5 class="fs-6 fw-bold mt-4 mb-3 pt-1">What’s Included:</h5>
-                                <ul class="iconlist iconlist-sm fw-medium text-muted mb-0">
-                                    <li><i class="bi-play-fill"></i><span>Inclusive of 1 Year Subscription</span></li>
-                                    <li><i class="bi-play-fill"></i><span>Order Management, Menu Customization, Table & Floorplan, Inventory, Payments, Analytics & Reports, CRM, Delivery, Support Multiple Outlets</span></li>
-                                    <li><i class="bi-play-fill"></i><span>Table QR Ordering allows customers to place onsite orders and make online payments using a QR code</span></li>
-                                    <li><i class="bi-play-fill"></i><span>A self-service kiosk allows customers to place onsite orders with online or terminal payment</span></li>
-                                </ul>
-                                <div style="margin-top: 50px">
-                                    <a target="_blank" href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20EDGE%20Grant%20Package%203" class="button button-large button-circle" style="position: absolute;bottom:10px;left:30%"
-                                    >Get A Quote</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 align-items-stretch" style="margin-top:24px">
-                    <div class="col-lg-2">
-                    </div>
-                    <div class="col-lg-4" [class.psg-package-hidden]="!shouldShowPackage(['digital-ordering', 'qr-order', 'kiosk'])" style="padding:0 24px">
-                        <div class="card rounded-6 shadow-sm overflow-hidden h-100" style="border-color: #F8F9FA">
-                            <div class="card-body p-4" style="background-color: #F8F9FA;">
-                                <h2 style="font-size: 20px !important" class="fs-6 fw-semibold text-uppercase mb-4 mt-4">PACKAGE 4</h2>
-                                <img src="{{BindURL_Image('APPZPOS-Pos-System-PSG-Grant-Package-4.png')}}" style="max-width:70%"  alt="APPZPOS EDGE Grant Package 4">
-                                <h4 class="display-5 fw-semibold my-3" style="font-size:1.8rem; line-height:1.3;">1 Digital Ordering + 1 QR Order  + 2 Kiosk</h4>
-                                <h5 class="fs-6 fw-bold mt-4 mb-3 pt-1">Software:</h5>
-                                <ul class="iconlist iconlist-sm fw-medium text-muted mb-0">
-                                    <li><i class="bi-play-fill"></i><span>Central Admin Portal (Unlimited Users)</span></li>
-                                    <li><i class="bi-play-fill"></i><span>1 x Digital Ordering System</span></li>
-                                    <li><i class="bi-play-fill"></i><span>1 x QR Ordering</span></li>
-                                    <li><i class="bi-play-fill"></i><span>2 x Self Ordering Kiosk</span></li>
-                                </ul> 
-                                <h5 class="fs-6 fw-bold mt-4 mb-3 pt-1">What’s Included:</h5>
-                                <ul class="iconlist iconlist-sm fw-medium text-muted mb-0">
-                                    <li><i class="bi-play-fill"></i><span>Inclusive of 1 Year Subscription</span></li>
-                                    <li><i class="bi-play-fill"></i><span>Order Management, Menu Customization, Table & Floorplan, Inventory, Payments, Analytics & Reports, CRM, Delivery, Support Multiple Outlets</span></li>
-                                    <li><i class="bi-play-fill"></i><span>Table QR Ordering allows customers to place onsite orders and make online payments using a QR code</span></li>
-                                    <li><i class="bi-play-fill"></i><span>Two self-service kiosks that allows customers to place onsite orders with online or terminal payment</span></li>
-                                </ul>
-                                <div style="margin-top: 50px">
-                                    <a target="_blank" href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20EDGE%20Grant%20Package%204" class="button button-large button-circle" style="position: absolute;bottom:10px;left:30%"
-                                    >Get A Quote</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-4" [class.psg-package-hidden]="!shouldShowPackage(['digital-ordering', 'qr-order', 'kiosk', 'order-hub'])" style="padding:0 24px">
-                        <div class="card rounded-6 shadow-sm overflow-hidden h-100" style="border-color: #F8F9FA">
-                            <div class="card-body p-4" style="background-color: #F8F9FA;">
-                                <h2 style="font-size: 20px !important" class="fs-6 fw-semibold text-uppercase mb-4 mt-4">PACKAGE 5</h2>
-                                <img src="{{BindURL_Image('APPZPOS-Pos-System-PSG-Grant-Package-5.png')}}"  style="max-width:70%" alt="APPZPOS EDGE Grant Package 5">
-                                <h4 class="display-5 fw-semibold my-3" style="font-size:1.8rem; line-height:1.3;">1 Digital Ordering + 1 QR Order  + 1 Order Hub + 1 Kiosk</h4>
-                                <h5 class="fs-6 fw-bold mt-4 mb-3 pt-1">Software:</h5>
-                                <ul class="iconlist iconlist-sm fw-medium text-muted mb-0">
-                                    <li><i class="bi-play-fill"></i><span>Central Admin Portal (Unlimited Users)</span></li>
-                                    <li><i class="bi-play-fill"></i><span>1 x Digital Ordering System</span></li>
-                                    <li><i class="bi-play-fill"></i><span>1 x QR Ordering</span></li>
-                                    <li><i class="bi-play-fill"></i><span>1 x Order Hub</span></li>
-                                    <li><i class="bi-play-fill"></i><span>1 x Self Ordering Kiosk</span></li>
-                                </ul> 
-                                <h5 class="fs-6 fw-bold mt-4 mb-3 pt-1">What’s Included:</h5>
-                                <ul class="iconlist iconlist-sm fw-medium text-muted mb-0">
-                                    <li><i class="bi-play-fill"></i><span>Inclusive of 1 Year Subscription</span></li>
-                                    <li><i class="bi-play-fill"></i><span>Order Management, Menu Customization, Table & Floorplan, Inventory, Payments, Analytics & Reports, CRM, Delivery, Support Multiple Outlets</span></li>
-                                    <li><i class="bi-play-fill"></i><span>Table QR Ordering allows customers to place onsite orders and make online payments using a QR code</span></li>
-                                    <li><i class="bi-play-fill"></i><span>A self-service kiosk allows customers to place onsite orders with online or terminal payment</span></li>
-                                    <li><i class="bi-play-fill"></i><span>Order Hub centralizes all food delivery orders from platforms like GrabFood, Foodpanda, and Deliveroo into a single POS platform</span></li>
-                                </ul>
-                                <div style="margin-top: 50px">
-                                    <a target="_blank" href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20EDGE%20Grant%20Package%205" class="button button-large button-circle" style="position: absolute;bottom:10px;left:30%"
-                                    >Get A Quote</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-lg-2">
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="section pb-0 psg-packages-view" id="mobile_view" style="margin:20px 0 !important; padding:0px !important;background-color: white;">
+        <section class="psg-compare" aria-labelledby="psg-packages-title">
             <div class="container">
-                <div class="heading-block border-1 mb-4 text-center heading-padding">
-                    <h2>APPZPOS EDGE Grant Packages</h2>
+                <h2 id="psg-packages-title">APPZPOS EDGE Grant Packages</h2>
+                <p class="psg-compare__intro">Every package includes 1 Digital Ordering System (POS) + 1 QR Ordering system.</p>
+                <div class="psg-package-filters" aria-label="Filter packages by additional features">
+                    <button type="button" data-package-filter="all" [class.is-active]="isPackageFilterActive('all')" [attr.aria-pressed]="isPackageFilterActive('all')" (click)="togglePackageFilter('all')">All packages</button>
+                    <button type="button" data-package-filter="kiosk" [class.is-active]="isPackageFilterActive('kiosk')" [attr.aria-pressed]="isPackageFilterActive('kiosk')" (click)="togglePackageFilter('kiosk')">With kiosk</button>
+                    <button type="button" data-package-filter="order-hub" [class.is-active]="isPackageFilterActive('order-hub')" [attr.aria-pressed]="isPackageFilterActive('order-hub')" (click)="togglePackageFilter('order-hub')">With Order Hub</button>
                 </div>
-                <p id="psg-package-filter-help-mobile" class="psg-package-filter-description">Select one or more features to find the right package.</p>
-                <div class="psg-package-filters" aria-label="Filter APPZPOS EDGE Grant packages">
-                    <button type="button" title="Show all available EDGE Grant packages." aria-describedby="psg-package-filter-help-mobile" data-package-filter="all" [class.is-active]="isPackageFilterActive('all')" [attr.aria-pressed]="isPackageFilterActive('all')" (click)="togglePackageFilter('all')">All Packages</button>
-                    <button type="button" title="Show packages that include a Digital Ordering System." aria-describedby="psg-package-filter-help-mobile" data-package-filter="digital-ordering" [class.is-active]="isPackageFilterActive('digital-ordering')" [attr.aria-pressed]="isPackageFilterActive('digital-ordering')" (click)="togglePackageFilter('digital-ordering')">Digital Ordering System</button>
-                    <button type="button" title="Show packages that include QR ordering." aria-describedby="psg-package-filter-help-mobile" data-package-filter="qr-order" [class.is-active]="isPackageFilterActive('qr-order')" [attr.aria-pressed]="isPackageFilterActive('qr-order')" (click)="togglePackageFilter('qr-order')">QR Order</button>
-                    <button type="button" title="Show packages that include a self-ordering kiosk." aria-describedby="psg-package-filter-help-mobile" data-package-filter="kiosk" [class.is-active]="isPackageFilterActive('kiosk')" [attr.aria-pressed]="isPackageFilterActive('kiosk')" (click)="togglePackageFilter('kiosk')">Kiosk</button>
-                    <button type="button" title="Show packages that include Order Hub." aria-describedby="psg-package-filter-help-mobile" data-package-filter="order-hub" [class.is-active]="isPackageFilterActive('order-hub')" [attr.aria-pressed]="isPackageFilterActive('order-hub')" (click)="togglePackageFilter('order-hub')">Order Hub</button>
+                <div class="psg-compare__grid">
+                    <ng-container *ngFor="let package of packages">
+                        <article *ngIf="shouldShowPackage(package.features)" class="psg-compare__package" [attr.aria-labelledby]="'psg-package-' + package.id">
+                            <h3 [id]="'psg-package-' + package.id">Package {{ package.id }}</h3>
+                            <img [src]="BindURL_Image('APPZPOS-Pos-System-PSG-Grant-Package-' + package.id + '.png')" [alt]="'APPZPOS Package ' + package.id + ': ' + package.title" width="260" height="130" loading="lazy">
+                            <p class="psg-compare__name">{{ package.title }}</p>
+                            <dl>
+                                <div><dt>Self-ordering kiosk</dt><dd>{{ package.kiosks || 'None' }}</dd></div>
+                                <div><dt>Order Hub</dt><dd>{{ package.hubs || 'None' }}</dd></div>
+                            </dl>
+                            <a class="psg-compare__quote" [href]="packageQuote(package.id)" target="_blank" rel="noopener noreferrer" [attr.aria-label]="'Get a quote for Package ' + package.id">Get a quote <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 8h10m-4-4 4 4-4 4" /></svg></a>
+                        </article>
+                    </ng-container>
                 </div>
-                <div class="psg-package-mobile-list">
-                    <div class="oc-item" [class.psg-package-hidden]="!shouldShowPackage(['digital-ordering', 'qr-order'])">
-                        <article class="entry event p-3">
-                            <div class="card rounded-6 shadow-sm overflow-hidden h-100" style="border-color: #F8F9FA">
-                                <div class="card-body p-4" style="background-color: #F8F9FA;">
-                                    <h2 style="font-size: 20px !important" class="fs-6 fw-semibold text-uppercase mb-4 mt-4">PACKAGE 1</h2>
-                                    <img src="{{BindURL_Image('APPZPOS-Pos-System-PSG-Grant-Package-1.png')}}" style="max-width:70%"  alt="APPZPOS EDGE Grant Package 1">
-                                    <h4 class="display-5 fw-semibold my-3" style="font-size:28px; line-height:1.3;">1 Digital Ordering + 1 QR Order </h4>
-                                    <h5 class="fs-6 fw-bold mt-4 mb-3 pt-1">Software:</h5>
-                                    <ul class="iconlist iconlist-sm fw-medium text-muted mb-0">
-                                        <li><i class="bi-play-fill"></i><span>Central Admin Portal (Unlimited Users)</span></li>
-                                        <li><i class="bi-play-fill"></i><span>1 x Digital Ordering System</span></li>
-                                        <li><i class="bi-play-fill"></i><span>1 x QR Ordering</span></li>
-                                    </ul> 
-                                    <h5 class="fs-6 fw-bold mt-4 mb-3 pt-1">What’s Included:</h5>
-                                    <ul class="iconlist iconlist-sm fw-medium text-muted mb-0">
-                                        <li><i class="bi-play-fill"></i><span>Inclusive of 1 Year Subscription</span></li>
-                                        <li><i class="bi-play-fill"></i><span>Order Management, Menu Customization, Table & Floorplan, Inventory, Payments, Analytics & Reports, CRM, Delivery, Support Multiple Outlets</span></li>
-                                        <li><i class="bi-play-fill"></i><span>Table QR Ordering allows customers to place onsite orders and make online payments using a QR code</span></li>
-                                    </ul>
-                                    <div style="margin-top: 50px">
-                                        <a target="_blank" href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20EDGE%20Grant%20Package%201" class="button button-large button-circle" style="position: absolute;bottom:10px;"
-                                        >Get A Quote</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="oc-item" [class.psg-package-hidden]="!shouldShowPackage(['digital-ordering', 'qr-order', 'order-hub'])">
-                        <article class="entry event p-3">
-                            <div class="card rounded-6 shadow-sm overflow-hidden h-100" style="border-color: #F8F9FA">
-                                <div class="card-body p-4" style="background-color: #F8F9FA;">
-                                    <h2 style="font-size: 20px !important" class="fs-6 fw-semibold text-uppercase mb-4 mt-4">PACKAGE 2</h2>
-                                    <img src="{{BindURL_Image('APPZPOS-Pos-System-PSG-Grant-Package-2.png')}}"  style="max-width:70%" alt="APPZPOS EDGE Grant Package 2">
-                                    <h4 class="display-5 fw-semibold my-3" style="font-size:28px; line-height:1.3;">1 Digital Ordering + 1 QR Order  + 1 Order Hub</h4>
-                                    <h5 class="fs-6 fw-bold mt-4 mb-3 pt-1">Software:</h5>
-                                    <ul class="iconlist iconlist-sm fw-medium text-muted mb-0">
-                                        <li><i class="bi-play-fill"></i><span>Central Admin Portal (Unlimited Users)</span></li>
-                                        <li><i class="bi-play-fill"></i><span>1 x Digital Ordering System</span></li>
-                                        <li><i class="bi-play-fill"></i><span>1 x QR Ordering</span></li>
-                                        <li><i class="bi-play-fill"></i><span>1 x Order Hub</span></li>
-                                    </ul> 
-                                    <h5 class="fs-6 fw-bold mt-4 mb-3 pt-1">What’s Included:</h5>
-                                    <ul class="iconlist iconlist-sm fw-medium text-muted mb-0">
-                                        <li><i class="bi-play-fill"></i><span>Inclusive of 1 Year Subscription</span></li>
-                                        <li><i class="bi-play-fill"></i><span>Order Management, Menu Customization, Table & Floorplan, Inventory, Payments, Analytics & Reports, CRM, Delivery, Support Multiple Outlets</span></li>
-                                        <li><i class="bi-play-fill"></i><span>Table QR Ordering allows customers to place onsite orders and make online payments using a QR code</span></li>
-                                        <li><i class="bi-play-fill"></i><span>Order Hub centralizes all food delivery orders from platforms like GrabFood, Foodpanda, and Deliveroo into a single POS platform</span></li>
-                                    </ul>
-                                    <div style="margin-top: 50px">
-                                        <a target="_blank" href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20EDGE%20Grant%20Package%202" class="button button-large button-circle" style="position: absolute;bottom:10px;"
-                                        >Get A Quote</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="oc-item" [class.psg-package-hidden]="!shouldShowPackage(['digital-ordering', 'qr-order', 'kiosk'])">
-                        <article class="entry event p-3">
-                            <div class="card rounded-6 shadow-sm overflow-hidden h-100" style="border-color: #F8F9FA">
-                                <div class="card-body p-4" style="background-color: #F8F9FA;">
-                                    <h2 style="font-size: 20px !important" class="fs-6 fw-semibold text-uppercase mb-4 mt-4">PACKAGE 3</h2>
-                                    <img src="{{BindURL_Image('APPZPOS-Pos-System-PSG-Grant-Package-3.png')}}" style="max-width:70%" alt="APPZPOS EDGE Grant Package 3">
-                                    <h4 class="display-5 fw-semibold my-3" style="font-size:28px; line-height:1.3;">1 Digital Ordering + 1 QR Order  + 1 Kiosk</h4>
-                                    <h5 class="fs-6 fw-bold mt-4 mb-3 pt-1">Software:</h5>
-                                    <ul class="iconlist iconlist-sm fw-medium text-muted mb-0">
-                                        <li><i class="bi-play-fill"></i><span>Central Admin Portal (Unlimited Users)</span></li>
-                                        <li><i class="bi-play-fill"></i><span>1 x Digital Ordering System</span></li>
-                                        <li><i class="bi-play-fill"></i><span>1 x QR Ordering</span></li>
-                                        <li><i class="bi-play-fill"></i><span>1 x Self Ordering Kiosk</span></li>
-                                    </ul> 
-                                    <h5 class="fs-6 fw-bold mt-4 mb-3 pt-1">What’s Included:</h5>
-                                    <ul class="iconlist iconlist-sm fw-medium text-muted mb-0">
-                                        <li><i class="bi-play-fill"></i><span>Inclusive of 1 Year Subscription</span></li>
-                                        <li><i class="bi-play-fill"></i><span>Order Management, Menu Customization, Table & Floorplan, Inventory, Payments, Analytics & Reports, CRM, Delivery, Support Multiple Outlets</span></li>
-                                        <li><i class="bi-play-fill"></i><span>Table QR Ordering allows customers to place onsite orders and make online payments using a QR code</span></li>
-                                        <li><i class="bi-play-fill"></i><span>A self-service kiosk allows customers to place onsite orders with online or terminal payment</span></li>
-                                    </ul>
-                                    <div style="margin-top: 50px">
-                                        <a target="_blank" href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20EDGE%20Grant%20Package%203" class="button button-large button-circle" style="position: absolute;bottom:10px;"
-                                        >Get A Quote</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="oc-item" [class.psg-package-hidden]="!shouldShowPackage(['digital-ordering', 'qr-order', 'kiosk'])">
-                        <article class="entry event p-3">
-                            <div class="card rounded-6 shadow-sm overflow-hidden h-100" style="border-color: #F8F9FA">
-                                <div class="card-body p-4" style="background-color: #F8F9FA;">
-                                    <h2 style="font-size: 20px !important" class="fs-6 fw-semibold text-uppercase mb-4 mt-4">PACKAGE 4</h2>
-                                    <img src="{{BindURL_Image('APPZPOS-Pos-System-PSG-Grant-Package-4.png')}}" style="max-width:70%"  alt="APPZPOS EDGE Grant Package 4">
-                                    <h4 class="display-5 fw-semibold my-3" style="font-size:28px; line-height:1.3;">1 Digital Ordering + 1 QR Order  + 2 Kiosk</h4>
-                                    <h5 class="fs-6 fw-bold mt-4 mb-3 pt-1">Software:</h5>
-                                    <ul class="iconlist iconlist-sm fw-medium text-muted mb-0">
-                                        <li><i class="bi-play-fill"></i><span>Central Admin Portal (Unlimited Users)</span></li>
-                                        <li><i class="bi-play-fill"></i><span>1 x Digital Ordering System</span></li>
-                                        <li><i class="bi-play-fill"></i><span>1 x QR Ordering</span></li>
-                                        <li><i class="bi-play-fill"></i><span>2 x Self Ordering Kiosk</span></li>
-                                    </ul> 
-                                    <h5 class="fs-6 fw-bold mt-4 mb-3 pt-1">What’s Included:</h5>
-                                    <ul class="iconlist iconlist-sm fw-medium text-muted mb-0">
-                                        <li><i class="bi-play-fill"></i><span>Inclusive of 1 Year Subscription</span></li>
-                                        <li><i class="bi-play-fill"></i><span>Order Management, Menu Customization, Table & Floorplan, Inventory, Payments, Analytics & Reports, CRM, Delivery, Support Multiple Outlets</span></li>
-                                        <li><i class="bi-play-fill"></i><span>Table QR Ordering allows customers to place onsite orders and make online payments using a QR code</span></li>
-                                        <li><i class="bi-play-fill"></i><span>Two self-service kiosks that allows customers to place onsite orders with online or terminal payment</span></li>
-                                    </ul>
-                                    <div style="margin-top: 50px">
-                                        <a target="_blank" href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20EDGE%20Grant%20Package%204" class="button button-large button-circle" style="position: absolute;bottom:10px;"
-                                        >Get A Quote</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                    <div class="oc-item" [class.psg-package-hidden]="!shouldShowPackage(['digital-ordering', 'qr-order', 'kiosk', 'order-hub'])">
-                        <article class="entry event p-3">
-                            <div class="card rounded-6 shadow-sm overflow-hidden h-100" style="border-color: #F8F9FA">
-                                <div class="card-body p-4" style="background-color: #F8F9FA;">
-                                    <h2 style="font-size: 20px !important" class="fs-6 fw-semibold text-uppercase mb-4 mt-4">PACKAGE 5</h2>
-                                    <img src="{{BindURL_Image('APPZPOS-Pos-System-PSG-Grant-Package-5.png')}}"  style="max-width:70%" alt="APPZPOS EDGE Grant Package 5">
-                                    <h4 class="display-5 fw-semibold my-3" style="font-size:28px; line-height:1.3;">1 Digital Ordering + 1 QR Order  + 1 Order Hub + 1 Kiosk</h4>
-                                    <h5 class="fs-6 fw-bold mt-4 mb-3 pt-1">Software:</h5>
-                                    <ul class="iconlist iconlist-sm fw-medium text-muted mb-0">
-                                        <li><i class="bi-play-fill"></i><span>Central Admin Portal (Unlimited Users)</span></li>
-                                        <li><i class="bi-play-fill"></i><span>1 x Digital Ordering System</span></li>
-                                        <li><i class="bi-play-fill"></i><span>1 x QR Ordering</span></li>
-                                        <li><i class="bi-play-fill"></i><span>1 x Order Hub</span></li>
-                                        <li><i class="bi-play-fill"></i><span>1 x Self Ordering Kiosk</span></li>
-                                    </ul> 
-                                    <h5 class="fs-6 fw-bold mt-4 mb-3 pt-1">What’s Included:</h5>
-                                    <ul class="iconlist iconlist-sm fw-medium text-muted mb-0">
-                                        <li><i class="bi-play-fill"></i><span>Inclusive of 1 Year Subscription</span></li>
-                                        <li><i class="bi-play-fill"></i><span>Order Management, Menu Customization, Table & Floorplan, Inventory, Payments, Analytics & Reports, CRM, Delivery, Support Multiple Outlets</span></li>
-                                        <li><i class="bi-play-fill"></i><span>Table QR Ordering allows customers to place onsite orders and make online payments using a QR code</span></li>
-                                        <li><i class="bi-play-fill"></i><span>A self-service kiosk allows customers to place onsite orders with online or terminal payment</span></li>
-                                        <li><i class="bi-play-fill"></i><span>Order Hub centralizes all food delivery orders from platforms like GrabFood, Foodpanda, and Deliveroo into a single POS platform</span></li>
-                                    </ul>
-                                    <div style="margin-top: 50px">
-                                        <a target="_blank" href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20EDGE%20Grant%20Package%205" class="button button-large button-circle" style="position: absolute;bottom:10px;"
-                                        >Get A Quote</a>
-                                    </div>
-                                </div>
-                            </div>
-                        </article>
-                    </div>
-                </div>
+                <p class="psg-compare__shared">Included in all 5 packages: <strong>1-year subscription</strong> and <strong>Central Admin Portal with unlimited users.</strong></p>
+                <details class="psg-compare__details">
+                    <summary>View software features &amp; inclusions</summary>
+                    <dl>
+                        <div><dt>Digital Ordering System (POS)</dt><dd>Order management, menu customization, table &amp; floorplan management, inventory, payments, analytics &amp; reports, CRM, delivery and support for multiple outlets.</dd></div>
+                        <div><dt>Table QR Ordering · All packages</dt><dd>Customers can place onsite orders and make online payments using a QR code.</dd></div>
+                        <div><dt>Self-ordering kiosk · Packages 3, 4 &amp; 5</dt><dd>Customers can place onsite orders with online or terminal payment. Package 4 includes two kiosks; Packages 3 and 5 each include one.</dd></div>
+                        <div><dt>Order Hub · Packages 2 &amp; 5</dt><dd>Centralizes orders from supported food delivery platforms in a single POS platform.</dd></div>
+                    </dl>
+                </details>
             </div>
-        </div>  
+        </section>
         <section class="psg-apply" aria-labelledby="psg-apply-title">
             <div class="container psg-apply__layout">
                 <div class="psg-apply__heading">
@@ -375,23 +93,43 @@
                     <article class="psg-apply__card">
                         <span class="psg-apply__number">2</span>
                         <h3 class="psg-apply__step-title">Apply for EDGE Grant through BGP</h3>
-                        <p class="psg-apply__description">Check whether you are eligible for EDGE Grant and we will assist you to submit an application on Business Grant Portal (BGP).<br />Registration for a CorpPass account is also needed for transactions.</p>
+                        <p class="psg-apply__description">Check the relevant EDGE activity and prepare your quotation. Your company’s authorised staff must submit the application through BGP using Corppass, before starting work or making any payment or deposit.</p>
                     </article>
                     <article class="psg-apply__card">
                         <span class="psg-apply__number">3</span>
                         <h3 class="psg-apply__step-title">Claim for Reimbursement</h3>
-                        <p class="psg-apply__description">After receiving approval, we will arrange installation for your preferable date.<br />Afterward, submit a claim to Enterprise Singapore for reimbursement of your approved costs.</p>
+                        <p class="psg-apply__description">After approval, arrange installation with us. Complete the project and make full payment, then submit your claim with the required documents within your approved deadline.</p>
                     </article>
                 </div>
             </div>
         </section>
-        <section class="container psg-faq" aria-labelledby="psg-faq-title">
-            <h2 id="psg-faq-title" class="psg-faq__title">Frequently Asked Questions</h2>
+        <section class="container psg-faq" id="psg-faq" aria-labelledby="psg-faq-title">
+            <h2 id="psg-faq-title" class="psg-faq__title">EDGE &amp; PSG: your questions answered</h2>
             <div class="psg-faq__list">
-                <details class="psg-faq__item">
-                    <summary>What will be the reimbursement amount ?</summary>
+                <details class="psg-faq__item" open id="psg-faq-edge">
+                    <summary>What is the EDGE Grant?</summary>
                     <div class="psg-faq__answer">
-                        <ul><li>Eligible businesses can sign up for Solutions packages &amp; save up to 50% of the qualifying amount.</li></ul>
+                        <p>EDGE is Enterprise Singapore’s grant for business upgrading, digitalisation and overseas growth. Launched on 30 September 2026, it brings together the Enterprise Development Grant (EDG), Productivity Solutions Grant (PSG) and Market Readiness Assistance (MRA).</p>
+                        <p>For a POS project, check the relevant Automation &amp; Digitalisation activity. Eligibility and support depend on that activity. <a href="https://www.enterprisesg.gov.sg/financial-support/edge-grant" target="_blank" rel="noopener noreferrer">Explore the official EDGE Grant guide</a>.</p>
+                    </div>
+                </details>
+                <details class="psg-faq__item" open id="psg-faq-psg">
+                    <summary>What happened to PSG? Can I still apply?</summary>
+                    <div class="psg-faq__answer">
+                        <p>PSG means Productivity Solutions Grant. It closed to new applications on <strong>29 September 2026</strong>. From <strong>30 September 2026</strong>, apply under EDGE for a new qualifying project.</p>
+                        <p>That is why this page now refers to EDGE, even if you found us by searching for “PSG POS”. <a href="https://www.enterprisesg.gov.sg/financial-support/productivity-solutions-grant" target="_blank" rel="noopener noreferrer">Read Enterprise Singapore’s PSG update</a>.</p>
+                    </div>
+                </details>
+                <details class="psg-faq__item" id="psg-faq-existing">
+                    <summary>I already applied for PSG. What happens now?</summary>
+                    <div class="psg-faq__answer">
+                        <p>Applications submitted before 30 September 2026 continue to be assessed under PSG’s requirements. Ongoing PSG projects remain supported through completion and claim disbursement. Follow your existing grant conditions and claim deadlines. <a href="https://www.enterprisesg.gov.sg/resources/all-faqs/edge-grant/" target="_blank" rel="noopener noreferrer">Read the official transition FAQs</a>.</p>
+                    </div>
+                </details>
+                <details class="psg-faq__item">
+                    <summary>How much grant support can I receive?</summary>
+                    <div class="psg-faq__answer">
+                        <ul><li>Eligible SMEs may receive up to 50% support for qualifying digitalisation costs. The approved activity, eligible costs and applicable caps determine the final amount. Funding is reimbursed after project completion and full payment; it is not an upfront discount.</li></ul>
                     </div>
                 </details>
                 <details class="psg-faq__item">

@@ -27,7 +27,7 @@
     color: #fff;
     font-size: clamp(2rem, 3.5vw, 3.35rem);
     font-weight: 760;
-    letter-spacing: -.055em;
+    letter-spacing: -.03em;
     line-height: 1;
     margin: 0 0 14px;
 }
@@ -55,7 +55,7 @@
 
 .appz-demo__contact a,
 .appz-demo__contact p {
-    align-items: start;
+    align-items: flex-start;
     color: rgba(255, 255, 255, .82);
     display: grid;
     font-size: .88rem;
@@ -89,9 +89,9 @@
 .appz-demo__form {
     align-self: stretch;
     background: #fff;
-    border: 1px solid rgba(10, 134, 232, .14);
-    border-radius: 22px;
-    box-shadow: 0 30px 70px rgba(0, 12, 34, .22);
+    border: 0;
+    border-radius: var(--appz-radius-surface);
+    box-shadow: none;
     display: flex;
     flex-direction: column;
     margin: 0;
@@ -99,7 +99,7 @@
 }
 
 .appz-demo__fields {
-    align-content: space-around;
+    align-content: center;
     display: grid;
     flex: 1;
     gap: 14px 16px;
@@ -113,15 +113,15 @@
 .appz-demo__field label {
     color: #0b2347;
     display: block;
-    font-size: .78rem;
+    font-size: .875rem;
     font-weight: 760;
     margin-bottom: 6px;
 }
 
 .appz-demo__field input {
     appearance: none;
-    background: #f7fbff;
-    border: 1px solid #d9e6f2;
+    background: #f6f8fb;
+    border: 1px solid #b8cbdc;
     border-radius: 11px;
     color: #0b2347;
     font: inherit;
@@ -164,10 +164,10 @@
     box-sizing: border-box;
     align-items: center;
     appearance: none;
-    background: #0a86e8;
+    background: var(--appz-blue);
     border: 0;
-    border-radius: 999px;
-    box-shadow: 0 12px 24px rgba(10, 134, 232, .22);
+    border-radius: var(--appz-radius-control);
+    box-shadow: none;
     color: #fff;
     cursor: pointer;
     display: inline-flex;
@@ -230,7 +230,7 @@
     }
 
     .appz-demo__form {
-        border-radius: 18px;
+        border-radius: var(--appz-radius-surface);
         padding: 20px 18px;
     }
 

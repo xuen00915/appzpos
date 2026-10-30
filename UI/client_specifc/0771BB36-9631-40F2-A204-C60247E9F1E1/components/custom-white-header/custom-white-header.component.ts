@@ -12,7 +12,7 @@ import { environment } from 'src/environment';
   styleUrls: ['./custom-white-header.component.css']
 })
 export class CustomWhiteHeaderComponent implements OnDestroy {
-  openMenu: 'solutions' | 'industries' | null = null;
+  openMenu: 'solutions' | 'industries' | 'contact' | null = null;
   mobileMenuOpen = false;
 
   private readonly sectionRoutes = {
@@ -40,20 +40,23 @@ export class CustomWhiteHeaderComponent implements OnDestroy {
     private commonFunctionService: CommonFunctionService,
     private elementRef: ElementRef<HTMLElement>
   ) {
-   
-    this._document.getElementById('appFavicon')?.setAttribute('href', this.commonFunctionService.BindURL_Image('favicon.png')); 
+
+    const favicon = this._document.getElementById('appFavicon');
+    favicon?.setAttribute('href', 'assets/images/appzpos-favicon-circle.svg');
+    favicon?.setAttribute('type', 'image/svg+xml');
+    favicon?.setAttribute('sizes', 'any');
     this.titleService.setTitle("APPZPOS Point of Sales | F&B, Retails & Salons | EDGE Grant");
     GoogleAnalyticsHelpersService.LoadGoogleTag(environment.appzPOSTagID);
     FacebookPixelSettingService.LoadFacebookPixelSetting(environment.appzPOSFBPixelID);
     FacebookPixelSettingService.LoadFaceBookImgPixelCode(environment.appzPOSFBPixelID);
    };
 
-  toggleMenu(menu: 'solutions' | 'industries', event?: MouseEvent): void {
+  toggleMenu(menu: 'solutions' | 'industries' | 'contact', event?: MouseEvent): void {
     if (!this.mobileMenuOpen && this.openMenu === menu && event && event.detail > 0) return;
     this.openMenu = this.openMenu === menu ? null : menu;
   }
 
-  openMenuOnHover(menu: 'solutions' | 'industries'): void {
+  openMenuOnHover(menu: 'solutions' | 'industries' | 'contact'): void {
     if (!this.mobileMenuOpen) this.openMenu = menu;
   }
 
@@ -61,7 +64,7 @@ export class CustomWhiteHeaderComponent implements OnDestroy {
     if (!this.mobileMenuOpen) this.openMenu = null;
   }
 
-  openMenuFromKeyboard(event: Event, menu: 'solutions' | 'industries'): void {
+  openMenuFromKeyboard(event: Event, menu: 'solutions' | 'industries' | 'contact'): void {
     event.preventDefault();
     this.openMenu = menu;
   }
@@ -134,7 +137,29 @@ export class CustomWhiteHeaderComponent implements OnDestroy {
 
   @HostListener('document:keydown.escape')
   handleEscape(): void {
+    const trigger = this.mobileMenuOpen ? '.appzpos-header__mobile-toggle'
+      : this.openMenu ? `[aria-controls="${this.openMenu}-menu"]` : null;
     this.closeMenus();
+    if (trigger) this.elementRef.nativeElement.querySelector<HTMLElement>(trigger)?.focus();
+  }
+
+  @HostListener('window:resize')
+  handleResize(): void {
+    if (window.innerWidth > 1100 && this.mobileMenuOpen) this.closeMenus();
+  }
+
+  @HostListener('document:keydown.tab', ['$event'])
+  keepMobileFocus(event: KeyboardEvent): void {
+    if (!this.mobileMenuOpen) return;
+    const controls = Array.from(this.elementRef.nativeElement.querySelectorAll<HTMLElement>('a[href], button'))
+      .filter(node => node.getClientRects().length > 0 && getComputedStyle(node).visibility !== 'hidden');
+    const first = controls[0];
+    const last = controls[controls.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault(); last?.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault(); first?.focus();
+    }
   }
 
   @HostListener('document:click', ['$event'])

@@ -10,10 +10,22 @@ declare var $: any;
 })
 export class CustomPSGComponent {
   selectedPackageFilters: string[] = [];
+  readonly packages = [
+    { id: 1, title: 'POS + QR', kiosks: 0, hubs: 0, features: ['digital-ordering', 'qr-order'] },
+    { id: 2, title: 'With Order Hub', kiosks: 0, hubs: 1, features: ['digital-ordering', 'qr-order', 'order-hub'] },
+    { id: 3, title: 'With 1 kiosk', kiosks: 1, hubs: 0, features: ['digital-ordering', 'qr-order', 'kiosk'] },
+    { id: 4, title: 'With 2 kiosks', kiosks: 2, hubs: 0, features: ['digital-ordering', 'qr-order', 'kiosk'] },
+    { id: 5, title: 'Kiosk + Order Hub', kiosks: 1, hubs: 1, features: ['digital-ordering', 'qr-order', 'kiosk', 'order-hub'] }
+  ];
+
+  packageQuote(id: number): string {
+    return "https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20EDGE%20Grant%20Package%20" + id;
+  }
+
 
   constructor(private titleService: Title,private commonFunctionService: CommonFunctionService,private meta: Meta) {
     this.titleService.setTitle("EDGE Grant Support for Singapore Businesses | F&B POS Packages");
-   }; 
+   };
 
   BindURL_Image(FileName: string): string {
     return this.commonFunctionService.BindURL_Image(FileName);
@@ -41,10 +53,10 @@ export class CustomPSGComponent {
   }
 
   ngOnInit() {
-    this.meta.updateTag({ 
+    this.meta.updateTag({
         name: 'description',
         content: 'Affordable APPZPOS packages for qualifying EDGE Grant digitalisation projects in Singapore. Explore eligibility and application information. WhatsApp us on +𝟔𝟓 𝟖𝟑𝟏𝟎 𝟗𝟔𝟑𝟏'
     });
  }
- 
+
 }

@@ -10,17 +10,7 @@
     linear-gradient(135deg, #f8fcff 0%, #eef8ff 54%, #fff 100%);
 }
 
-.appz-solution-hero::before {
-  position: absolute;
-  inset: 0;
-  background-image:
-    linear-gradient(rgba(10, 134, 232, .035) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(10, 134, 232, .035) 1px, transparent 1px);
-  background-size: 46px 46px;
-  content: '';
-  mask-image: linear-gradient(90deg, #000, transparent 58%);
-  pointer-events: none;
-}
+.appz-solution-hero::before { content: none; }
 
 .appz-solution-hero__inner {
   position: relative;

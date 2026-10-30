@@ -21,14 +21,7 @@
   pointer-events: none;
 }
 
-.appzpos-product-hero::before {
-  inset: 0;
-  z-index: -2;
-  opacity: .58;
-  background:
-    linear-gradient(106deg, transparent 0 13%, rgba(183, 211, 235, .16) 13.1% 23%, transparent 23.1% 76%, rgba(211, 226, 240, .18) 76.1% 87%, transparent 87.1%),
-    linear-gradient(74deg, transparent 0 11%, rgba(255, 255, 255, .86) 11.1% 23%, transparent 23.1% 75%, rgba(255, 255, 255, .92) 75.1% 88%, transparent 88.1%);
-}
+.appzpos-product-hero::before { content: none; }
 
 .appzpos-product-hero::after {
   right: -12%;
@@ -83,11 +76,11 @@
   max-width: none;
   margin: 0 auto;
   color: var(--hero-ink);
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: var(--appz-font);
   font-size: clamp(3.15rem, 5vw, 4.8rem);
   font-weight: 750;
-  line-height: .95;
-  letter-spacing: -.06em;
+  line-height: 1.08;
+  letter-spacing: -.035em;
   text-wrap: balance;
 }
 

@@ -83,3 +83,60 @@
     transition: none;
   }
 }
+
+.appzpos-product-hero__copy .appzpos-industry-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 24px 0 2px;
+  color: #52667e;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0;
+}
+
+.appzpos-industry-hint svg {
+  width: 14px;
+  height: 14px;
+  flex: 0 0 auto;
+}
+
+.appzpos-industry-hint + .appzpos-industry-switcher {
+  margin-top: 0;
+}
+
+@media (max-width: 600px), (max-height: 768px) {
+  .appzpos-product-hero__copy .appzpos-industry-hint {
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 600px) {
+  .appzpos-industry-switcher {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    width: min(100%, 24rem);
+    overflow: visible;
+    gap: .1rem .4rem;
+  }
+
+  .appzpos-industry-switcher button {
+    justify-content: center;
+    min-height: 44px;
+    padding: .45rem .2rem;
+    font-size: .75rem;
+    letter-spacing: .06em;
+    color: #52667e;
+    border-bottom: 2px solid transparent;
+  }
+
+  .appzpos-industry-switcher button.is-active {
+    border-bottom-color: currentColor;
+  }
+
+  .appzpos-industry-switcher button + button::before {
+    content: none;
+  }
+}

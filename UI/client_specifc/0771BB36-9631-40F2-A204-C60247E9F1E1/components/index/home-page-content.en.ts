@@ -129,6 +129,7 @@ export const ENGLISH_HOME_PAGE_CONFIG: HomePageTemplateConfig = {
     titleAccent: 'in Singapore with EDGE Grant',
     description: 'Transform your F&B, Retail, & Salon Businesses with APPZPOS Cutting-Edge Point of Sales Software',
     industryTabLabel: 'Preview APPZPOS by business type',
+    industryHint: 'Explore your business type',
     industryStatusPrefix: 'Showing APPZPOS for',
     visual: {
       kind: 'product-showcase',
