@@ -1,0 +1,219 @@
+/* Solution catalogue finish. Kept after the legacy theme so feature icon sizing
+   cannot inherit Canvas padding or the generic 38px marketing image rule. */
+body app-solution-page {
+  --solution-section-gap: clamp(40px, 5vw, 72px);
+  --solution-feature-icon: 72px;
+
+  #content {
+    background: #fff;
+
+    :is(.pos-overview > .container, .pos-feature-section, .pos-system-showcase > .container, .pos-hardware) {
+      width: min(calc(100% - var(--appz-page-gutter) * 2), var(--appz-shell-width));
+      max-width: var(--appz-shell-width);
+      margin-inline: auto;
+      padding-inline: 0;
+    }
+
+    .pos-feature-section__header { margin-bottom: 32px; }
+    .pos-feature-section__header p { max-width: 65ch; color: var(--appz-ink-soft); font-size: 17px !important; line-height: 1.65; }
+
+    .pos-feature-grid {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px 32px;
+    }
+
+    .pos-feature-grid > [data-pos-feature] { flex: 0 0 calc((100% - 96px) / 4); width: auto; }
+
+    /* Balance the smaller catalogues instead of leaving one feature on its own. */
+    .pos-feature-grid:has(> :nth-child(5):last-child),
+    .pos-feature-grid:has(> :nth-child(6):last-child),
+    .pos-feature-grid:has(> :nth-child(9):last-child) {
+      > [data-pos-feature] { flex-basis: calc((100% - 64px) / 3); }
+    }
+
+    .content-wrap .pos-feature-grid .feature-box:not(.fbox-plain) {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0;
+      margin: 0;
+      padding: 24px 0 32px;
+      overflow: visible;
+      border: 0 !important;
+      border-bottom: 1px solid var(--appz-line) !important;
+      border-radius: 0 !important;
+      background: transparent !important;
+      box-shadow: none !important;
+      text-align: left;
+      transform: none;
+      transition: none;
+
+      .fbox-icon {
+        display: block;
+        width: var(--solution-feature-icon);
+        height: var(--solution-feature-icon);
+        flex: 0 0 var(--solution-feature-icon);
+        margin: 0 0 20px;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        overflow: visible;
+      }
+
+      .fbox-icon img {
+        display: block;
+        width: var(--solution-feature-icon) !important;
+        height: var(--solution-feature-icon) !important;
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        border-radius: 0;
+        object-fit: contain;
+        filter: none;
+        transform: none;
+      }
+
+      .fbox-icon::before,
+      .fbox-icon::after { content: none; }
+    }
+
+    .pos-feature-grid .fbox-content { width: 100%; min-width: 0; text-align: left; }
+    .pos-feature-grid .fbox-content h3 {
+      margin: 0 0 12px;
+      color: var(--appz-ink);
+      font-size: 20px !important;
+      font-weight: 700;
+      line-height: 1.3;
+      letter-spacing: -.02em;
+      text-align: left;
+      text-wrap: pretty;
+    }
+    .pos-feature-grid .fbox-content p {
+      max-width: 38ch;
+      margin: 0;
+      color: var(--appz-ink-soft);
+      font-size: 16px !important;
+      line-height: 1.65;
+      text-align: left;
+    }
+
+    .pos-system-showcase { background: var(--appz-surface-soft); }
+    .pos-system-card:not(.pos-system-card--featured) {
+      border: 1px solid var(--appz-line) !important;
+      border-radius: var(--appz-radius-surface);
+      box-shadow: none !important;
+      background: #fff;
+    }
+    .pos-system-card__body h2 { font-size: clamp(26px, 2.5vw, 36px) !important; line-height: 1.2; }
+    .pos-system-card__body > p:not(.pos-system-card__eyebrow),
+    .pos-system-card__body .iconlist li { font-size: 17px !important; line-height: 1.65; }
+    .pos-hardware-card h4 { margin-top: 20px; font-size: 18px !important; line-height: 1.4; }
+    .pos-hardware__grid > a { border-radius: 12px; }
+    .pos-hardware__grid > a:focus-visible { outline: 3px solid var(--appz-blue-deep); outline-offset: 6px; }
+  }
+
+  @media (max-width: 1100px) {
+    #content .pos-feature-grid > [data-pos-feature],
+    #content .pos-feature-grid:has(> :last-child) > [data-pos-feature] { flex-basis: calc((100% - 32px) / 2); }
+  }
+
+  @media (max-width: 600px) {
+    --solution-feature-icon: 56px;
+    #content {
+      .pos-feature-section__header { margin-bottom: 20px; }
+      .pos-feature-section__header p { font-size: 16px !important; }
+      .pos-feature-grid { gap: 0; }
+      .pos-feature-grid > [data-pos-feature],
+      .pos-feature-grid:has(> :last-child) > [data-pos-feature] { flex-basis: 100%; }
+      .content-wrap .pos-feature-grid .feature-box:not(.fbox-plain) {
+        display: grid;
+        grid-template-columns: var(--solution-feature-icon) minmax(0, 1fr);
+        gap: 20px;
+        padding: 24px 0;
+        .fbox-icon { margin: 0; }
+      }
+      .pos-feature-grid .fbox-content h3 { font-size: 18px !important; margin-bottom: 8px; }
+      .pos-feature-grid .fbox-content p { font-size: 15px !important; }
+      .pos-system-card__body > p:not(.pos-system-card__eyebrow),
+      .pos-system-card__body .iconlist li { font-size: 16px !important; }
+    }
+  }
+}
+
+/* The two catalogue routes in Solutions use their own templates. */
+body app-pos-hardware-machine-receipt-printer #content {
+  .content-wrap { padding-top: 48px; }
+  .content-wrap > .container[data-scrollto] {
+    width: min(calc(100% - var(--appz-page-gutter) * 2), var(--appz-shell-width));
+    padding-inline: 0;
+    margin-block: 56px !important;
+    &:first-child { margin-top: 0 !important; }
+    > .heading-block { margin-bottom: 32px !important; }
+    > .row {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 24px;
+      margin: 0 !important;
+      > .col { width: auto; min-width: 0; margin: 0; padding: 0 !important; }
+    }
+    .overflow-hidden.h-100 {
+      background: var(--appz-surface-soft) !important;
+      border-radius: var(--appz-radius-surface);
+    }
+    .card-body { padding: 24px 16px !important; }
+    .card-body .row { margin: 0; }
+    .card-body .col { margin: 0; padding: 0; }
+    .card-body img {
+      display: block;
+      width: 100%;
+      max-width: 100% !important;
+      height: 220px;
+      margin: 0 auto;
+      object-fit: contain;
+      filter: none;
+      mix-blend-mode: multiply;
+    }
+    h4 { margin: 20px 0 0 !important; font-size: 18px !important; line-height: 1.4; }
+  }
+  @media (max-width: 1000px) {
+    .content-wrap > .container[data-scrollto] > .row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 600px) {
+    .content-wrap { padding-top: 32px; }
+    .content-wrap > .container[data-scrollto] {
+      margin-block: 40px !important;
+      > .row { gap: 12px; }
+      .card-body { padding: 16px 12px !important; }
+      .card-body img { height: 144px; }
+      h4 { font-size: 14px !important; margin-top: 12px !important; }
+    }
+  }
+}
+
+body app-pos-features-crm-payment-gateway #content {
+  .features-grid {
+    width: min(calc(100% - var(--appz-page-gutter) * 2), var(--appz-shell-width));
+    padding: 0;
+    gap: 32px;
+    background: transparent;
+  }
+  .features-card__body { padding: 32px; }
+  .features-card h2 { text-align: left; font-size: clamp(24px, 2.2vw, 30px) !important; line-height: 1.25 !important; letter-spacing: -.025em; }
+  .features-card p { font-size: 16px !important; line-height: 1.7; }
+  @media (max-width: 767px) {
+    .features-grid { gap: 24px; }
+    .features-card__body { padding: 24px; }
+    .features-card h2 { font-size: 23px !important; }
+  }
+}
+
+/* Inline demo / WhatsApp actions remain available; floating shortcuts should
+   not cover feature descriptions or product names on narrow solution pages. */
+@media (max-width: 600px) {
+  body:has(app-solution-page, app-pos-hardware-machine-receipt-printer, app-pos-features-crm-payment-gateway)
+    :is(.appz-site-floating-contacts, .appzpos-bottom-demo, #gotoTop) { display: none !important; }
+}
