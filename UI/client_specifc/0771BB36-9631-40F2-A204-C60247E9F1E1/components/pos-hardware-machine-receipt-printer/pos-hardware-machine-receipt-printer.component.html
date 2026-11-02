@@ -1,19 +1,14 @@
-<section class="hardware-hero" aria-labelledby="hardware-title">
-    <div class="hardware-hero__inner">
-        <div class="hardware-hero__copy">
-            <h1 id="hardware-title">Point of Sale Hardware</h1>
-            <span class="hardware-hero__eyebrow">BUILT FOR YOUR COUNTER</span>
-            <p>Discover our sleek, durable, and stylish POS hardware. A sustainably built system designed for every business.</p>
-            <div class="hardware-hero__actions page-title-buttons">
-                <button type="button" class="hardware-hero__primary button button-border button-light rounded px-5 mb-0" mat-raised-button (click)="openDialog()">Request a Demo</button>
-                <a href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!" target="_blank" rel="noopener noreferrer" class="hardware-hero__whatsapp button button-border button-light rounded px-5 mb-0">WhatsApp Us</a>
-            </div>
-        </div>
-        <figure class="hardware-hero__diagram">
-            <img src="assets/images/hardware-isometric-kiosk.png" width="1536" height="1024" alt="Soft 3D isometric hardware illustration featuring a self-order kiosk, POS terminal, cash drawer, receipt printers, payment reader, barcode scanner, and tablet POS.">
-        </figure>
-    </div>
-</section>
+<app-solution-banner
+    headingId="hardware-title"
+    title="Point of Sale Hardware"
+    description="Find the right setup for your business, from POS terminals and self-order kiosks to printers and accessories."
+    imageSrc="assets/images/hardware-isometric-kiosk.png"
+    imageAlt="Soft 3D isometric hardware illustration featuring a self-order kiosk, POS terminal, cash drawer, receipt printers, payment reader, barcode scanner, and tablet POS."
+    [imageWidth]="1536" [imageHeight]="1024"
+    [highlights]="['POS terminals', 'Kiosks', 'Accessories']"
+    demoMode="dialog" (demoRequested)="openDialog()"
+    exploreTarget="#POSMachine" exploreLabel="Explore hardware"
+></app-solution-banner>
 
 <section id="content">
     <div class="content-wrap">

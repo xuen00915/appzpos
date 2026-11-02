@@ -1,14 +1,13 @@
 <app-solution-page>
-<section solutionHero class="solution-island-hero solution-island-hero--large-diagram" aria-labelledby="website-solution-title">
-    <div class="solution-island-hero__inner">
-        <div class="solution-island-hero__visual">
-            <img src="assets/images/ecosystem/ecosystem-website-ordering.webp" alt="APPZPOS Website Ordering island" width="1446" height="1088">
-        </div>
-        <div class="solution-island-hero__copy">
-            <h1 id="website-solution-title">APPZPOS Online Website Ordering System</h1>
-        </div>
-    </div>
-</section>
+<app-solution-banner solutionHero
+    headingId="website-solution-title"
+    title="Online Ordering Website"
+    description="Your menu, your website. Connect online orders with loyalty, secure payments and delivery integrations."
+    imageSrc="assets/images/ecosystem/ecosystem-website-ordering.webp"
+    imageAlt="APPZPOS Website Ordering island"
+    [imageWidth]="1446" [imageHeight]="1088"
+    [highlights]="['Your menu', 'Online orders', 'Delivery']"
+></app-solution-banner>
 <div id="webview" class="solution-overview-variant"><section class="pos-overview"><div class="container mx-auto"><h2 style="padding-bottom:20px">Professional Custom Online Ordering Website</h2><div class="pos-overview__layout"><div class="pos-overview__copy">
 
                                 <p style="font-size:16px">Building your own website ordering system effortlessly boosts extra revenue while managing your physical store. With APPZPOS, easily build your online ordering page with a quick menu setup, loyalty system, secure payments and delivery integrations.</p>

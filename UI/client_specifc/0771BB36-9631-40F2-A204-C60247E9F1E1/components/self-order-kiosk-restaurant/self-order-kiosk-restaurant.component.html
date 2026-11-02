@@ -1,14 +1,13 @@
 <app-solution-page>
-<section solutionHero class="solution-island-hero solution-island-hero--large-diagram" aria-labelledby="kiosk-solution-title">
-    <div class="solution-island-hero__inner">
-        <div class="solution-island-hero__visual">
-            <img src="assets/images/ecosystem/ecosystem-kiosk.webp" alt="APPZPOS Self Ordering Kiosk island" width="1446" height="1088">
-        </div>
-        <div class="solution-island-hero__copy">
-            <h1 id="kiosk-solution-title">APPZPOS Self Ordering System<br /> for Quick Service Restaurants</h1>
-        </div>
-    </div>
-</section>
+<app-solution-banner solutionHero
+    headingId="kiosk-solution-title"
+    title="Self-Ordering Kiosks"
+    description="Give customers the freedom to browse, order and pay at an interactive kiosk built for quick-service restaurants."
+    imageSrc="assets/images/ecosystem/ecosystem-kiosk.webp"
+    imageAlt="APPZPOS Self Ordering Kiosk island"
+    [imageWidth]="1446" [imageHeight]="1088"
+    [highlights]="['Browse', 'Order', 'Pay']"
+></app-solution-banner>
 <div id="webview" class="solution-overview-variant"><section class="pos-overview"><div class="container mx-auto"><h2 style="padding-bottom:20px">Interactive Self Ordering Kiosk</h2><div class="pos-overview__layout"><div class="pos-overview__copy">
                                 <p class="d-none d-sm-block" style="margin-bottom:0 !important">Up to 50% EDGE Grant Support</p>
 

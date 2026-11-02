@@ -1,3 +1,4 @@
+import { SolutionBannerComponent } from '../solution-banner/solution-banner.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SolutionPageComponent, SolutionFeatureHeadingComponent, SolutionHardwareFiltersComponent } from '../solution-page/solution-page.component';
 
@@ -9,7 +10,7 @@ describe('CustomSelfOrderKioskComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [SolutionPageComponent, SolutionFeatureHeadingComponent, SolutionHardwareFiltersComponent],
+      imports: [SolutionBannerComponent, SolutionPageComponent, SolutionFeatureHeadingComponent, SolutionHardwareFiltersComponent],
       declarations: [CustomSelfOrderKioskComponent]
     });
     fixture = TestBed.createComponent(CustomSelfOrderKioskComponent);
@@ -25,6 +26,6 @@ describe('CustomSelfOrderKioskComponent', () => {
     const hero = (fixture.nativeElement as HTMLElement).querySelector('.solution-island-hero');
     expect(hero?.querySelector('img')?.getAttribute('src')).toBe('assets/images/ecosystem/ecosystem-kiosk.webp');
     expect(hero?.querySelector('h1')?.textContent?.replace(/\s+/g, ' ').trim())
-      .toBe('APPZPOS Self Ordering System for Quick Service Restaurants');
+      .toBe('Self-Ordering Kiosks');
   });
 });

@@ -1,3 +1,4 @@
+import { SolutionBannerComponent } from '../solution-banner/solution-banner.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CustomFeaturesComponent } from './pos-features-crm-payment-gateway.component'; 
@@ -8,6 +9,7 @@ describe('CustomFeaturesComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [SolutionBannerComponent],
       declarations: [CustomFeaturesComponent]
     });
     fixture = TestBed.createComponent(CustomFeaturesComponent);

@@ -1,3 +1,4 @@
+import { SolutionBannerComponent } from '../solution-banner/solution-banner.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CustomPOSEWaiterComponent } from './cloud-pos-point-of-sales-system.component';
@@ -10,7 +11,7 @@ describe('CustomPOSEWaiterComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [SolutionPageComponent, SolutionFeatureHeadingComponent, SolutionHardwareFiltersComponent],
+      imports: [SolutionBannerComponent, SolutionPageComponent, SolutionFeatureHeadingComponent, SolutionHardwareFiltersComponent],
       declarations: [CustomPOSEWaiterComponent, SolutionHeroComponent]
     });
     fixture = TestBed.createComponent(CustomPOSEWaiterComponent);
@@ -26,7 +27,7 @@ describe('CustomPOSEWaiterComponent', () => {
     const hero = (fixture.nativeElement as HTMLElement).querySelector('[data-solution-hero]');
     expect(hero?.querySelector('img')?.getAttribute('src')).toBe('assets/images/ecosystem/ecosystem-pos-ewaiter-transparent.webp');
     expect(hero?.querySelector('h1')?.textContent?.replace(/\s+/g, ' ').trim())
-      .toBe('APPZPOS Cutting-Edge POS Point of Sales and E-Menu System');
+      .toBe('Cloud POS & E-Menu');
   });
 
   it('renders the POS hero diagram without interactive or yellow hotspot overlays', () => {

@@ -1,3 +1,4 @@
+import { SolutionBannerComponent } from '../solution-banner/solution-banner.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CustomHardwareComponent } from './pos-hardware-machine-receipt-printer.component'; 
@@ -8,6 +9,7 @@ describe('CustomHardwareComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [SolutionBannerComponent],
       declarations: [CustomHardwareComponent]
     });
     fixture = TestBed.createComponent(CustomHardwareComponent);

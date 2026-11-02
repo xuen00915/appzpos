@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnDestroy, Renderer2 } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, ElementRef, Input, NgZone, OnDestroy, Renderer2 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 /**
@@ -29,11 +29,58 @@ export class SolutionPageComponent {}
   template: `<div class="pos-feature-section__header" data-pos-feature-heading>
     <h2>{{ title }}</h2>
     <p>{{ description }}</p>
+    <a class="solution-feature-demo" href="#requestdemo" (click)="showDemo($event)">Book a demo</a>
   </div>`
 })
-export class SolutionFeatureHeadingComponent {
+export class SolutionFeatureHeadingComponent implements AfterViewInit, OnDestroy {
   @Input({ required: true }) title = '';
   @Input({ required: true }) description = '';
+
+  private stopReadingFocus?: () => void;
+
+  constructor(private readonly element: ElementRef<HTMLElement>, private readonly zone: NgZone) {}
+
+  ngAfterViewInit(): void {
+    const host = this.element.nativeElement;
+    const view = host.ownerDocument.defaultView;
+    const features = host.closest('.pos-feature-section')?.querySelectorAll<HTMLElement>('[data-pos-feature]');
+    if (!view || !features?.length || !('IntersectionObserver' in view)) return;
+
+    // Focus follows the reading band, without a scroll handler or Angular renders.
+    // The content remains fully visible if this enhancement is unavailable.
+    this.zone.runOutsideAngular(() => {
+      let observer: IntersectionObserver | undefined;
+      const observe = () => {
+        observer?.disconnect();
+        const top = Math.max(100, Math.round(view.innerHeight * .38));
+        const bottom = Math.round(view.innerHeight * .52);
+        observer = new IntersectionObserver(entries => {
+          entries.forEach(entry => entry.target.classList.toggle('is-reading', entry.isIntersecting));
+        }, { rootMargin: `-${top}px 0px -${bottom}px 0px` });
+        features.forEach(feature => observer!.observe(feature));
+      };
+      observe();
+      view.addEventListener('resize', observe, { passive: true });
+      this.stopReadingFocus = () => {
+        observer?.disconnect();
+        view.removeEventListener('resize', observe);
+        features.forEach(feature => feature.classList.remove('is-reading'));
+      };
+    });
+  }
+
+  ngOnDestroy(): void { this.stopReadingFocus?.(); }
+
+  showDemo(event: MouseEvent): void {
+    const target = this.element.nativeElement.closest('app-solution-page')?.querySelector<HTMLElement>('#requestdemo');
+    if (!target) return;
+    event.preventDefault();
+    event.stopPropagation();
+    const reducedMotion = target.ownerDocument.defaultView?.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    target.scrollIntoView({ behavior: reducedMotion ? 'instant' : 'smooth', block: 'start' });
+    target.setAttribute('tabindex', '-1');
+    target.focus({ preventScroll: true });
+  }
 }
 
 /** Filter projected hardware without rebuilding product links or tracking hooks. */

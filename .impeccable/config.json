@@ -1,0 +1,17 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "UI/client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/solution-banner/solution-banner.component.ts"
+        ],
+        "createdAt": "2026-11-02T01:21:54.791Z",
+        "reason": "Assistant verified Angular [src] uses required imageSrc input; all nine real local banner assets loaded in desktop and mobile browser checks."
+      }
+    ]
+  }
+}

@@ -1,14 +1,13 @@
 <app-solution-page>
-<section solutionHero class="solution-island-hero solution-island-hero--large-diagram" aria-labelledby="queue-solution-title">
-    <div class="solution-island-hero__inner">
-        <div class="solution-island-hero__visual">
-            <img src="assets/images/ecosystem/ecosystem-queue.webp" alt="APPZPOS Queue Number Display island" width="1451" height="1084">
-        </div>
-        <div class="solution-island-hero__copy">
-            <h1 id="queue-solution-title">Restaurant Queue Management System<br /> with APPZPOS Queue Number Display</h1>
-        </div>
-    </div>
-</section>
+<app-solution-banner solutionHero
+    headingId="queue-solution-title"
+    title="Queue Number Display"
+    description="Keep guests informed with real-time order status from your kitchen, clearly displayed on the big screen."
+    imageSrc="assets/images/ecosystem/ecosystem-queue.webp"
+    imageAlt="APPZPOS Queue Number Display island"
+    [imageWidth]="1451" [imageHeight]="1084"
+    [highlights]="['Order status', 'Queue display', 'Pickup']"
+></app-solution-banner>
 <div id="webview" class="solution-overview-variant"><section class="pos-overview"><div class="container mx-auto"><h2 style="padding-bottom:20px">Queue Number Display</h2><div class="pos-overview__layout"><div class="pos-overview__copy">
 
                                 <p style="font-size:16px">Say goodbye to long queues! The APPZPOS Queue Number Display, paired with a big TV screen, provides real-time order status updates from the KDS system, delighting guests and speeding up the entire queuing process.</p>

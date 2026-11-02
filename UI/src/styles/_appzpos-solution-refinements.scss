@@ -217,3 +217,235 @@ body app-pos-features-crm-payment-gateway #content {
   body:has(app-solution-page, app-pos-hardware-machine-receipt-printer, app-pos-features-crm-payment-gateway)
     :is(.appz-site-floating-contacts, .appzpos-bottom-demo, #gotoTop) { display: none !important; }
 }
+
+/* Give the product story a clear visual peak between its overview and examples. */
+body app-solution-page {
+  :is(.solution-island-hero__inner, [data-solution-hero] .appz-solution-hero__inner) {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
+    min-height: 480px;
+    gap: 48px;
+    padding-block: 48px;
+  }
+  :is(.solution-island-hero__copy, .appz-solution-hero__copy) { order: -1; }
+  :is(.solution-island-hero, .appz-solution-hero) h1 {
+    max-width: 19ch;
+    font-size: clamp(38px, 3.8vw, 56px) !important;
+    text-align: left !important;
+  }
+  .solution-island-hero__visual img { width: 100%; max-height: 400px; scale: 1; }
+
+  #content .container.pos-feature-section {
+    scroll-margin-top: 104px;
+    display: grid;
+    grid-template-columns: minmax(240px, .72fr) minmax(0, 1.65fr);
+    align-items: start;
+    gap: 48px;
+    padding: 48px;
+    border-radius: var(--appz-radius-surface);
+    background: #10243b;
+    color: #fff;
+  }
+  #content app-solution-feature-heading { position: sticky; top: 108px; }
+  // Clip decorative overflow without creating a scroll container that traps sticky headings.
+  #content .solution-page__sections { display: flow-root; overflow: clip; }
+  #content .pos-feature-section__header { margin: 0; text-align: left; }
+  #content .pos-feature-section__header h2 {
+    font-size: clamp(30px, 3vw, 42px) !important;
+    line-height: 1.15 !important;
+    letter-spacing: -.03em;
+    color: #fff;
+    text-align: left !important;
+    text-wrap: balance;
+  }
+  #content .pos-feature-section__header p {
+    margin: 24px 0 0;
+    color: #bdcddd;
+    text-align: left !important;
+    font-size: 16px !important;
+  }
+  #content .solution-feature-demo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 48px;
+    margin-top: 28px;
+    padding: 12px 24px;
+    border-radius: var(--appz-radius-control);
+    background: #fff;
+    color: #10243b;
+    font-size: 15px;
+    font-weight: 700;
+  }
+  #content .solution-feature-demo:hover { background: var(--appz-blue-pale); }
+  #content .solution-feature-demo:focus-visible { outline: 3px solid #fff; outline-offset: 5px; }
+  #content #requestdemo { scroll-margin-top: 104px; }
+  #content .pos-feature-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 32px; }
+  #content .pos-feature-grid > [data-pos-feature] { display: block; }
+  #content .content-wrap .pos-feature-grid .feature-box:not(.fbox-plain) {
+    padding: 28px 0;
+    border-bottom-color: #33475c !important;
+    .fbox-icon { margin-bottom: 20px; }
+  }
+  #content .pos-feature-grid > [data-pos-feature]:nth-child(-n+2) .feature-box { padding-top: 0; }
+  #content .pos-feature-grid .fbox-content h3 { color: #fff; font-size: 19px !important; }
+  #content .pos-feature-grid .fbox-content p { color: #bdcddd; font-size: 15px !important; }
+
+  #content .content-wrap .pos-feature-grid .feature-box:not(.fbox-plain) {
+    transition: border-color 280ms cubic-bezier(.16, 1, .3, 1);
+    .fbox-icon { transform-origin: left center; transition: transform 380ms cubic-bezier(.16, 1, .3, 1); }
+    h3 { transition: color 280ms ease-out; }
+  }
+  #content .content-wrap .pos-feature-grid > .is-reading .feature-box:not(.fbox-plain) {
+    border-bottom-color: #6ecbf1 !important;
+    .fbox-icon { transform: scale(1.08); }
+    h3 { color: #8edcff; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #content .content-wrap .pos-feature-grid .feature-box:not(.fbox-plain) {
+      transition-duration: 0s;
+      .fbox-icon { transform: none !important; transition: none; }
+      h3 { transition-duration: 0s; }
+    }
+  }
+  @media (max-height: 650px) {
+    #content app-solution-feature-heading { position: static; }
+  }
+
+  #content .pos-system-showcase { background: #fff; }
+  #content :is(.pos-system-showcase__grid, .solution-detail-grid) { display: grid; grid-template-columns: 1fr; gap: 72px; }
+  #content .pos-system-card:not(.pos-system-card--featured),
+  #content .pos-system-card.pos-system-card--featured {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    grid-template-rows: auto;
+    grid-row: auto;
+    gap: 48px;
+    align-items: center;
+    overflow: visible;
+    border: 0 !important;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none !important;
+  }
+  #content .pos-system-card .pos-system-card__visual,
+  #content .pos-system-card:not(.pos-system-card--featured) .pos-system-card__visual {
+    grid-column: auto;
+    grid-row: auto;
+    height: 400px;
+    min-height: 0;
+    align-self: center;
+    border-radius: var(--appz-radius-surface);
+    background: var(--appz-surface-soft);
+  }
+  #content .pos-system-card:nth-child(even) .pos-system-card__visual { order: 2; }
+  #content .pos-system-card .pos-system-card__body,
+  #content .pos-system-card:not(.pos-system-card--featured) .pos-system-card__body,
+  #content .solution-detail-grid .solution-detail-card:not(.pos-system-card--featured) .pos-system-card__body {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    grid-column: auto;
+    grid-row: auto;
+    gap: 0;
+    padding: 0;
+    background: transparent;
+  }
+  #content .pos-system-card__body h2 { font-size: clamp(28px, 3vw, 42px) !important; }
+  #content .pos-system-card__eyebrow { display: none; }
+
+  @media (max-width: 1000px) {
+    #content .container.pos-feature-section { grid-template-columns: 1fr; gap: 36px; padding: 36px; }
+    #content app-solution-feature-heading { position: static; }
+    #content .pos-feature-section__header { max-width: 65ch; }
+    #content .pos-feature-section__header h2 { max-width: 24ch; }
+    #content .solution-feature-demo { margin-top: 20px; }
+    #content .pos-system-card:not(.pos-system-card--featured),
+    #content .pos-system-card.pos-system-card--featured { gap: 32px; }
+  }
+  @media (max-width: 767px) {
+    :is(.solution-island-hero__inner, [data-solution-hero] .appz-solution-hero__inner) {
+      grid-template-columns: 1fr;
+      min-height: 0;
+      gap: 24px;
+      padding-block: 32px;
+    }
+    :is(.solution-island-hero, .appz-solution-hero) h1 { max-width: 21ch; font-size: clamp(29px, 7.6vw, 40px) !important; margin-inline: auto; text-align: center !important; }
+    .solution-island-hero__visual img { max-height: 280px; }
+    #content .pos-system-card:not(.pos-system-card--featured),
+    #content .pos-system-card.pos-system-card--featured { grid-template-columns: 1fr; gap: 28px; }
+    #content .pos-system-card:nth-child(even) .pos-system-card__visual { order: 0; }
+    #content .pos-system-card .pos-system-card__visual,
+    #content .pos-system-card:not(.pos-system-card--featured) .pos-system-card__visual { height: 280px; }
+  }
+  @media (max-width: 600px) {
+    #content .container.pos-feature-section { padding: 28px 24px; gap: 32px; }
+    #content .pos-feature-section__header h2 { font-size: 30px !important; }
+    #content .pos-feature-grid { grid-template-columns: 1fr; }
+    #content .content-wrap .pos-feature-grid .feature-box:not(.fbox-plain) { grid-template-columns: 56px minmax(0, 1fr); gap: 16px; padding: 24px 0; .fbox-icon { margin: 0; } }
+    #content .pos-feature-grid > [data-pos-feature]:first-child .feature-box { padding-top: 0; }
+    #content .pos-feature-grid .fbox-content h3 { font-size: 18px !important; }
+  }
+}
+
+body :is(app-pos-features-crm-payment-gateway, app-pos-hardware-machine-receipt-printer) {
+  :is(.features-hero__inner, .hardware-hero__inner) { min-height: 480px; padding-block: 48px; }
+  :is(.features-hero, .hardware-hero) h1 { font-size: clamp(40px, 4vw, 60px) !important; }
+  :is(.features-hero__diagram, .hardware-hero__diagram) { width: 100%; max-width: 560px; }
+  @media (max-width: 767px) {
+    :is(.features-hero__inner, .hardware-hero__inner) { min-height: 0; padding-block: 32px; }
+    :is(.features-hero, .hardware-hero) h1 { font-size: 36px !important; }
+  }
+}
+
+body app-pos-features-crm-payment-gateway #content {
+  .features-grid { grid-template-columns: 1fr; gap: 64px; scroll-margin-top: 104px; }
+  .features-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+    align-items: center;
+    gap: 48px;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    overflow: visible;
+  }
+  .features-grid > .features-card > .features-card__image {
+    width: 100% !important;
+    margin: 0 !important;
+    border-radius: var(--appz-radius-surface) !important;
+    clip-path: none;
+  }
+  .features-grid > .features-card > .features-card__image > img { height: 380px !important; object-fit: contain; border-radius: var(--appz-radius-surface) !important; clip-path: none; }
+  .features-grid > .features-card > .features-card__image--edge > img { object-fit: cover; }
+  .features-card:nth-child(even) .features-card__image { order: 2; }
+  .features-card__body { padding: 0; background: transparent; }
+  .features-card h2 { font-size: clamp(28px, 3vw, 40px) !important; }
+  @media (max-width: 767px) {
+    .features-card { grid-template-columns: 1fr; gap: 24px; }
+    .features-card:nth-child(even) .features-card__image { order: 0; }
+    .features-grid > .features-card > .features-card__image > img { height: 260px !important; }
+    .features-card h2 { font-size: 28px !important; }
+  }
+}
+
+body app-pos-hardware-machine-receipt-printer #content {
+  > .content-wrap { display: flow-root; overflow: clip; }
+  .content-wrap > .container[data-scrollto] {
+    scroll-margin-top: 104px;
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    align-items: start;
+    gap: 40px;
+    padding-top: 40px;
+    border-top: 1px solid var(--appz-line);
+    > .heading-block { position: sticky; top: 108px; margin: 0 !important; text-align: left !important; }
+    > .heading-block h2 { text-align: left !important; }
+    > .row { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @media (max-width: 1000px) {
+    .content-wrap > .container[data-scrollto] { grid-template-columns: 1fr; gap: 28px; > .heading-block { position: static; } > .row { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  }
+  @media (max-height: 650px) {
+    .content-wrap > .container[data-scrollto] > .heading-block { position: static; }
+  }
+}

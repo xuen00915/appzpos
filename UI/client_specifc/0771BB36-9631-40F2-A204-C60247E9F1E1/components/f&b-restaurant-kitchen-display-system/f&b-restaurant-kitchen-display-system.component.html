@@ -1,14 +1,13 @@
 <app-solution-page>
-<section solutionHero class="solution-island-hero solution-island-hero--large-diagram" aria-labelledby="kds-solution-title">
-    <div class="solution-island-hero__inner">
-        <div class="solution-island-hero__visual">
-            <img src="assets/images/ecosystem/ecosystem-kitchen.webp" alt="APPZPOS Kitchen Display System island" width="1446" height="1087">
-        </div>
-        <div class="solution-island-hero__copy">
-            <h1 id="kds-solution-title">APPZPOS Kitchen Order Display System<br /> for Restaurants</h1>
-        </div>
-    </div>
-</section>
+<app-solution-banner solutionHero
+    headingId="kds-solution-title"
+    title="Kitchen Display System"
+    description="Bring orders from different stations, platforms and outlets into one coordinated kitchen workflow."
+    imageSrc="assets/images/ecosystem/ecosystem-kitchen.webp"
+    imageAlt="APPZPOS Kitchen Display System island"
+    [imageWidth]="1446" [imageHeight]="1087"
+    [highlights]="['Incoming orders', 'Preparation', 'Collection']"
+></app-solution-banner>
 <div id="webview" class="solution-overview-variant"><section class="pos-overview"><div class="container mx-auto"><h2 style="padding-bottom:20px">Central Kitchen Display System (KDS)</h2><div class="pos-overview__layout"><div class="pos-overview__copy">
 
                                 <p style="font-size:16px">Enhance Kitchen Efficiency with APPZPOS KDS System for Seamless Order Coordination. Easily manage orders from various stations, platforms, and outlets, all within one POS terminal. Ideal for optimizing efficiency in F&B businesses.</p>

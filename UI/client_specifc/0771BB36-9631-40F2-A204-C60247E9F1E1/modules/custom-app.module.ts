@@ -1,3 +1,4 @@
+import { SolutionBannerComponent } from '../components/solution-banner/solution-banner.component';
 import { IndustryWorkflowDirective } from '../components/industry-page/industry-workflow.directive';
 import { NgModule } from '@angular/core';
 import { IndustryPageComponent, IndustryIslandsComponent } from '../components/industry-page/industry-page.component';
@@ -88,7 +89,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   ],
   imports: [
     IndustryPageComponent, IndustryIslandsComponent, IndustryDiagramHandoffDirective, IndustryWorkflowDirective,
-    SolutionPageComponent,
+    SolutionPageComponent, SolutionBannerComponent,
     SolutionFeatureHeadingComponent, SolutionHardwareFiltersComponent,
     CommonModule,
     CustomAppRoutingModule,

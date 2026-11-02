@@ -1,3 +1,4 @@
+import { SolutionBannerComponent } from '../solution-banner/solution-banner.component';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SolutionPageComponent, SolutionFeatureHeadingComponent, SolutionHardwareFiltersComponent } from '../solution-page/solution-page.component';
 
@@ -9,7 +10,7 @@ describe('CustomQueueSystemComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [SolutionPageComponent, SolutionFeatureHeadingComponent, SolutionHardwareFiltersComponent],
+      imports: [SolutionBannerComponent, SolutionPageComponent, SolutionFeatureHeadingComponent, SolutionHardwareFiltersComponent],
       declarations: [CustomQueueSystemComponent]
     });
     fixture = TestBed.createComponent(CustomQueueSystemComponent);
@@ -25,6 +26,6 @@ describe('CustomQueueSystemComponent', () => {
     const hero = (fixture.nativeElement as HTMLElement).querySelector('.solution-island-hero');
     expect(hero?.querySelector('img')?.getAttribute('src')).toBe('assets/images/ecosystem/ecosystem-queue.webp');
     expect(hero?.querySelector('h1')?.textContent?.replace(/\s+/g, ' ').trim())
-      .toBe('Restaurant Queue Management System with APPZPOS Queue Number Display');
+      .toBe('Queue Number Display');
   });
 });

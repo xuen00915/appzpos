@@ -27,6 +27,31 @@ const posSolutionSource = readFileSync(resolve(
   'cloud-pos-point-of-sales-system/cloud-pos-point-of-sales-system.component.ts'
 ), 'utf8');
 const posSolutionHeroTitle = 'APPZPOS Cutting-Edge POS Point of Sales and E-Menu System';
+// The November banner redesign replaces long headings/eyebrows with these
+// product titles. They are supplied through Angular inputs, not text nodes.
+const bannerSource = [
+  'cloud-pos-point-of-sales-system', 'f&b-restaurant-online-ordering-website',
+  'f&b-restaurant-emenu-qr-code-ordering-system', 'self-order-kiosk-restaurant',
+  'f&b-restaurant-kitchen-display-system', 'f&b-restaurant-queue-number-display-system',
+  'f&b-restaurant-delivery-integration', 'pos-hardware-machine-receipt-printer',
+  'pos-features-crm-payment-gateway'
+].map(name => readFileSync(resolve(componentRoot, name, `${name}.component.html`), 'utf8')).join('\n');
+const bannerReplacements = new Map([
+  ['APPZPOS Kitchen Order Display System', 'Kitchen Display System'],
+  ['APPZPOS Online Website Ordering System', 'Online Ordering Website'],
+  ['APPZPOS POS Features', 'Connected POS Features'],
+  ['APPZPOS Self Ordering System', 'Self-Ordering Kiosks'],
+  ['APPZPOS Table QR Code Ordering System', 'Table QR Ordering'],
+  ['BUILT FOR YOUR BUSINESS', 'Connected POS Features'],
+  ['BUILT FOR YOUR COUNTER', 'Point of Sale Hardware'],
+  ['Centralized Delivery Platform Integration Through APPZPOS Order Hub', 'Delivery Order Hub'],
+  ['Discover our sleek, durable, and stylish POS hardware. A sustainably built system designed for every business.', 'Point of Sale Hardware'],
+  ['Point of Sale Hardware', 'Point of Sale Hardware'],
+  ['Restaurant Queue Management System', 'Queue Number Display'],
+  ['Secure payment integration, CRM, smart inventory, delivery integration, sales analytics, and more features.', 'Connected POS Features'],
+  ['for Quick Service Restaurants', 'Self-Ordering Kiosks'],
+  ['with APPZPOS Queue Number Display', 'Queue Number Display']
+]);
 // Approved homepage hero changes: remove the eyebrow label and CTA arrows, and use EDGE Grant wording.
 const expectedHeroHash = '31231ae34c41398747d944392d86151824c788d51b7982af8dfec974663c8e82';
 const approvedRemovedPhrases = new Set([
@@ -63,6 +88,8 @@ const chineseHeroTitle = [...extractHero(homeConfigSource, 'CHINESE_HOME_PAGE_CO
 
 const failures = expectedPhrases
   .filter((phrase) => {
+    const replacement = bannerReplacements.get(phrase);
+    const preservedInRedesignedBanner = replacement && bannerSource.includes(`title="${replacement}"`);
     const preservedInSharedPosHero = posSolutionHeroTitle.includes(phrase)
       && posSolutionSource.includes(`title: '${posSolutionHeroTitle}'`);
     const preservedInCombinedCopy = [...currentPhrases]
@@ -78,6 +105,7 @@ const failures = expectedPhrases
     const preservedIndustryStatus = phrase === 'Showing APPZPOS for {{ activeIndustry.label }}'
       && homeConfigSource.includes("industryStatusPrefix: 'Showing APPZPOS for'");
     return !approvedRemovedPhrases.has(phrase)
+      && !preservedInRedesignedBanner
       && !currentPhrases.has(phrase)
       && !preservedInCombinedCopy
       && !preservedCustomerHeading

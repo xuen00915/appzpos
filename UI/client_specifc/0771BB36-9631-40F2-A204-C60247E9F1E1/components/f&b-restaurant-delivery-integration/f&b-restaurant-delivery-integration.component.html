@@ -1,14 +1,13 @@
 <app-solution-page>
-<section solutionHero class="solution-island-hero solution-island-hero--large-diagram" aria-labelledby="hub-solution-title">
-    <div class="solution-island-hero__inner">
-        <div class="solution-island-hero__visual">
-            <img src="assets/images/ecosystem/ecosystem-delivery.webp" alt="APPZPOS Delivery and Order Hub island" width="1446" height="1087">
-        </div>
-        <div class="solution-island-hero__copy">
-            <h1 id="hub-solution-title">Centralized Delivery Platform Integration Through APPZPOS Order Hub</h1>
-        </div>
-    </div>
-</section>
+<app-solution-banner solutionHero
+    headingId="hub-solution-title"
+    title="Delivery Order Hub"
+    description="Bring delivery orders into your POS and send them straight to the kitchen, from one central platform."
+    imageSrc="assets/images/ecosystem/ecosystem-delivery.webp"
+    imageAlt="APPZPOS Delivery and Order Hub island"
+    [imageWidth]="1446" [imageHeight]="1087"
+    [highlights]="['Delivery orders', 'One POS', 'Your kitchen']"
+></app-solution-banner>
 <div id="webview" class="solution-overview-variant"><section class="pos-overview"><div class="container mx-auto"><h2 style="padding-bottom:20px">Order Hub: Food Delivery Partner Integration</h2><div class="pos-overview__layout"><div class="pos-overview__copy">
                                 <p class="d-none d-sm-block" style="margin-bottom:0 !important">Up to 50% EDGE Grant Support</p>
 

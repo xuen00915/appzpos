@@ -1,14 +1,13 @@
 <app-solution-page>
-<section solutionHero class="solution-island-hero" aria-labelledby="qr-solution-title">
-    <div class="solution-island-hero__inner">
-        <div class="solution-island-hero__visual">
-            <img src="assets/images/ecosystem/ecosystem-table-qr.webp" alt="APPZPOS Table QR Ordering island with a customer scanning a tabletop QR code" width="1446" height="1088">
-        </div>
-        <div class="solution-island-hero__copy">
-            <h1 id="qr-solution-title">APPZPOS Table QR Code Ordering System<br /> for Restaurants</h1>
-        </div>
-    </div>
-</section>
+<app-solution-banner solutionHero
+    headingId="qr-solution-title"
+    title="Table QR Ordering"
+    description="Let guests browse your menu, place their order and pay directly from their own phone."
+    imageSrc="assets/images/ecosystem/ecosystem-table-qr.webp"
+    imageAlt="APPZPOS Table QR Ordering island with a customer scanning a tabletop QR code"
+    [imageWidth]="1446" [imageHeight]="1088"
+    [highlights]="['Scan the menu', 'Place an order', 'Pay']"
+></app-solution-banner>
 <div id="webview" class="solution-overview-variant"><section class="pos-overview"><div class="container mx-auto"><h2 style="padding-bottom:20px">Self Ordering with Table QR Code Ordering System</h2><div class="pos-overview__layout"><div class="pos-overview__copy">
                                 <p class="d-none d-sm-block" style="margin-bottom:0 !important">Up to 50% EDGE Grant Support</p>
 
