@@ -20,7 +20,7 @@
 .industry-islands__detail p { grid-column: 1; margin: 0; color: #526782; font-size: 18px; line-height: 1.65; }
 .industry-islands__detail ul { grid-column: 2; grid-row: 1 / span 2; list-style: none; padding: 0; margin: 0; }
 .industry-islands__detail li + li { border-top: 1px solid #dbe7f2; }
-.industry-islands__detail a { display: flex; justify-content: space-between; align-items: center; gap: 14px; min-height: 48px; padding: 10px 0; color: #0867b0; font-size: 17px; font-weight: 650; line-height: 1.4; }
+.industry-islands__detail a { display: flex; justify-content: space-between; align-items: center; gap: 14px; min-height: 48px; padding: 10px 0; color: #0867b0; font-size: 17px; font-weight: 600; line-height: 1.4; }
 .industry-islands__detail a:hover { text-decoration: underline; }
 .industry-islands__detail a:focus-visible { outline: 2px solid #147ac2; outline-offset: 4px; }
 .industry-islands__mobile-controls { display: none; }

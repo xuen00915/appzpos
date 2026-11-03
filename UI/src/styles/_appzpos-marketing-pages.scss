@@ -125,7 +125,7 @@
   margin: 0;
   color: #101d39;
   font-size: clamp(2.15rem, 4vw, 3.85rem);
-  font-weight: 760;
+  font-weight: var(--appz-weight-bold);
   letter-spacing: -.03em;
   line-height: 1.04;
   text-wrap: balance;
@@ -243,7 +243,7 @@ main.appz-home-story {
     color: #fff;
     font-family: var(--appz-font-display);
     font-size: clamp(1.65rem, 3vw, 2.25rem);
-    font-weight: 750;
+    font-weight: var(--appz-weight-bold);
     letter-spacing: -.04em;
     line-height: 1.08;
     margin: 0 !important;
@@ -282,7 +282,7 @@ main.appz-home-story {
     color: #0b2347;
     display: block;
     font-size: .78rem;
-    font-weight: 760;
+    font-weight: var(--appz-weight-bold);
     margin-bottom: 6px;
   }
 
@@ -319,7 +319,7 @@ main.appz-home-story {
     display: inline-flex;
     font: inherit;
     font-size: .94rem;
-    font-weight: 760;
+    font-weight: var(--appz-weight-bold);
     justify-content: center;
     margin: 0;
     min-height: 48px;
@@ -366,7 +366,7 @@ main.appz-home-story {
   margin: 0 0 18px;
   color: var(--appz-orange);
   font-size: .76rem;
-  font-weight: 800;
+  font-weight: var(--appz-weight-bold);
   letter-spacing: .16em;
   text-transform: uppercase;
 }
@@ -376,7 +376,7 @@ main.appz-home-story {
   margin: 0;
   color: var(--appz-ink);
   font-size: clamp(2.1rem, 3.8vw, 4.2rem);
-  font-weight: 750;
+  font-weight: var(--appz-weight-bold);
   letter-spacing: -.03em;
   line-height: .94;
   text-wrap: balance;
@@ -427,7 +427,7 @@ main.appz-home-story {
   border-radius: 999px;
   color: #fff;
   background: var(--appz-orange);
-  font-weight: 800;
+  font-weight: var(--appz-weight-bold);
   white-space: nowrap;
   text-decoration: none;
 
@@ -528,7 +528,7 @@ main.appz-home-story {
     color: #fff !important;
     font-family: var(--appz-font);
     font-size: clamp(2.15rem, 3.8vw, 3.8rem) !important;
-    font-weight: 760 !important;
+    font-weight: var(--appz-weight-bold) !important;
     letter-spacing: -.03em;
     line-height: .98 !important;
     text-align: center !important;
@@ -1476,7 +1476,7 @@ app-solution-page {
     margin: 0;
     color: #101d39;
     font-size: clamp(2rem, 3.4vw, 3rem);
-    font-weight: 760;
+    font-weight: var(--appz-weight-bold);
     letter-spacing: -.04em;
     line-height: 1.08;
     text-align: center !important;

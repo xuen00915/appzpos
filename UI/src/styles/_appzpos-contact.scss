@@ -23,7 +23,7 @@ app-point-of-sales-demo-quotation {
     margin: 0 0 24px;
     color: #102b46;
     font-size: clamp(38px, 4.2vw, 60px);
-    font-weight: 750;
+    font-weight: var(--appz-weight-bold);
     line-height: 1.05;
     letter-spacing: -.045em;
   }

@@ -22,7 +22,7 @@
   font-size: clamp(44px, 4.7vw, 68px) !important;
   line-height: 1.04 !important;
   letter-spacing: -.035em;
-  font-weight: 750;
+  font-weight: 700;
   text-align: left !important;
   text-wrap: balance;
 }
@@ -47,7 +47,7 @@
 .product-banner__stage img { display: block; width: 100% !important; max-width: none; height: 390px !important; object-fit: contain; mix-blend-mode: multiply; }
 .product-banner__stage figcaption { border-top: 1px solid #b9d9ee; padding-block: 20px; }
 .product-banner__stage ul { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 0; padding: 0; margin: 0; list-style: none; color: #10243b; }
-.product-banner__stage li { padding-inline: 16px; font-size: 14px; line-height: 1.4; font-weight: 650; }
+.product-banner__stage li { padding-inline: 16px; font-size: 14px; line-height: 1.4; font-weight: 600; }
 .product-banner__stage li + li { border-left: 1px solid #b9d9ee; }
 
 @media (max-width: 1000px) {

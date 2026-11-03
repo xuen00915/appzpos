@@ -21,7 +21,7 @@ $ecosystem-muted: #667a95;
 .appz-ecosystem__option {
   min-height: 52px; padding: 14px 16px; border: 1px solid transparent; border-radius: 12px;
   background: transparent; color: #536681; font: inherit; text-align: left; cursor: pointer;
-  strong { font-weight: 650; }
+  strong { font-weight: var(--appz-weight-semibold); }
   &:hover { background: #fff5ed; color: #8a390f; }
   &[aria-pressed="true"] { background: #fff0e2; color: #8a390f; border-color: #f6c69f; }
   &:focus-visible { outline: 2px solid #c66b2b; outline-offset: 2px; }
@@ -132,7 +132,7 @@ app-home-order-flow {
   &__eyebrow {
     color: $ecosystem-blue;
     font-size: .7rem;
-    font-weight: 800;
+    font-weight: var(--appz-weight-bold);
     letter-spacing: .18em;
     margin: 0 0 14px;
   }
@@ -140,7 +140,7 @@ app-home-order-flow {
   &__heading h2 {
     color: $ecosystem-navy;
     font-size: clamp(1.85rem, 2.8vw, 2.75rem);
-    font-weight: 760;
+    font-weight: var(--appz-weight-bold);
     letter-spacing: .025em;
     line-height: 1.08;
     margin: 0;
@@ -522,7 +522,7 @@ app-home-order-flow {
     strong {
       color: $ecosystem-navy;
       font-size: .73rem;
-      font-weight: 800;
+      font-weight: var(--appz-weight-bold);
       line-height: 1.2;
     }
 
@@ -570,7 +570,7 @@ app-home-order-flow {
     p {
       color: $ecosystem-blue;
       font-size: .7rem;
-      font-weight: 800;
+      font-weight: var(--appz-weight-bold);
       letter-spacing: .12em;
       margin: 0 0 7px;
       text-transform: uppercase;
@@ -579,7 +579,7 @@ app-home-order-flow {
     h2 {
       color: $ecosystem-navy;
       font-size: clamp(1.2rem, 1.65vw, 1.7rem);
-      font-weight: 760;
+      font-weight: var(--appz-weight-bold);
       letter-spacing: -.04em;
       line-height: 1.06;
       margin: 0;
@@ -632,7 +632,7 @@ app-home-order-flow {
     h3 {
       color: $ecosystem-navy;
       font-size: clamp(1.45rem, 2.2vw, 1.8rem);
-      font-weight: 760;
+      font-weight: var(--appz-weight-bold);
       letter-spacing: -.04em;
       line-height: 1.08;
       margin: 0 0 25px;
@@ -670,7 +670,7 @@ app-home-order-flow {
 
       strong {
         color: $ecosystem-navy;
-        font-weight: 760;
+        font-weight: var(--appz-weight-bold);
       }
     }
   }
@@ -687,7 +687,7 @@ app-home-order-flow {
     color: #fff;
     display: inline-flex;
     font-size: .9rem;
-    font-weight: 760;
+    font-weight: var(--appz-weight-bold);
     justify-content: center;
     line-height: 1;
     margin-top: 30px;

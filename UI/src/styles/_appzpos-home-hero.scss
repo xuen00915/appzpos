@@ -78,7 +78,7 @@
   color: var(--hero-ink);
   font-family: var(--appz-font);
   font-size: clamp(3.15rem, 5vw, 4.8rem);
-  font-weight: 750;
+  font-weight: var(--appz-weight-bold);
   line-height: 1.08;
   letter-spacing: -.035em;
   text-wrap: balance;
@@ -225,7 +225,7 @@
   background: #fff;
   box-shadow: none;
   font-size: clamp(.66rem, .72vw, .74rem);
-  font-weight: 650;
+  font-weight: var(--appz-weight-semibold);
   letter-spacing: -.01em;
   line-height: 1.24;
   text-align: left;
@@ -248,7 +248,7 @@
   color: #18344a;
   box-shadow: none;
   font-size: clamp(.76rem, .82vw, .84rem);
-  font-weight: 750;
+  font-weight: var(--appz-weight-bold);
 }
 
 .appzpos-module-orbit__card:nth-child(1) {
@@ -336,7 +336,7 @@
   color: #122847;
   font-size: .84rem;
   font-style: italic;
-  font-weight: 800;
+  font-weight: var(--appz-weight-bold);
   letter-spacing: -.04em;
 }
 
@@ -433,7 +433,7 @@
   margin: 0 0 .15rem;
   color: var(--hero-orange);
   font-size: .5rem;
-  font-weight: 800;
+  font-weight: var(--appz-weight-bold);
   letter-spacing: .12em;
 }
 
@@ -442,7 +442,7 @@
   margin: 0;
   color: #15304e;
   font-size: .86rem;
-  font-weight: 750;
+  font-weight: var(--appz-weight-bold);
   line-height: 1.2;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -516,7 +516,7 @@
   margin-bottom: .7rem;
   color: #15304e;
   font-size: .66rem;
-  font-weight: 750;
+  font-weight: var(--appz-weight-bold);
 }
 
 .appzpos-ui-piece__heading i {
@@ -591,7 +591,7 @@
   color: #385875;
   background: #f4f9fd;
   font-size: clamp(.43rem, .58vw, .56rem);
-  font-weight: 650;
+  font-weight: var(--appz-weight-semibold);
   line-height: 1.15;
   text-align: center;
 }

@@ -65,7 +65,7 @@
     margin: 0;
     color: var(--appz-ink-soft);
     font-size: clamp(.92rem, 1.2vw, 1.02rem) !important;
-    font-weight: 650;
+    font-weight: 600;
     line-height: 1.4;
 }
 

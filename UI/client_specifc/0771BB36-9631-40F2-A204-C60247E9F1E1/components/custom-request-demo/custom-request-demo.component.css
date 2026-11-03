@@ -18,7 +18,7 @@
 .appz-demo__eyebrow {
     color: #ff8a4b;
     font-size: .72rem;
-    font-weight: 800;
+    font-weight: 700;
     letter-spacing: .16em;
     margin: 0 0 10px;
 }
@@ -26,7 +26,7 @@
 .appz-demo h2 {
     color: #fff;
     font-size: clamp(2rem, 3.5vw, 3.35rem);
-    font-weight: 760;
+    font-weight: 700;
     letter-spacing: -.03em;
     line-height: 1;
     margin: 0 0 14px;
@@ -114,7 +114,7 @@
     color: #0b2347;
     display: block;
     font-size: .875rem;
-    font-weight: 760;
+    font-weight: 700;
     margin-bottom: 6px;
 }
 
@@ -173,7 +173,7 @@
     display: inline-flex;
     font: inherit;
     font-size: .94rem;
-    font-weight: 760;
+    font-weight: 700;
     gap: 10px;
     justify-content: center;
     margin-top: 18px;

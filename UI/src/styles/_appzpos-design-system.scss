@@ -1,5 +1,17 @@
 :root {
   --appz-font: "Manrope", "Avenir Next", Arial, sans-serif;
+  --appz-font-display: var(--appz-font);
+  --appz-weight-regular: 400;
+  --appz-weight-medium: 500;
+  --appz-weight-semibold: 600;
+  --appz-weight-bold: 700;
+  // Canvas and Bootstrap must resolve to the same face as our components.
+  --cnvs-body-font: var(--appz-font);
+  --cnvs-primary-font: var(--appz-font);
+  --cnvs-secondary-font: var(--appz-font);
+  --cnvs-headings-font-weight: var(--appz-weight-bold);
+  --bs-body-font-family: var(--appz-font);
+  --bs-font-sans-serif: var(--appz-font);
   --appz-shell-width: 1240px;
   --appz-page-gutter: clamp(16px, 3vw, 32px);
   --appz-header-height: 76px;
@@ -9,7 +21,7 @@
   --appz-reading-width: 65ch;
   --appz-section-title-size: clamp(1.9rem, 2.7vw, 3rem);
   --appz-section-title-line: 1.16;
-  --appz-heading-weight: 700;
+  --appz-heading-weight: var(--appz-weight-bold);
   --appz-heading-tracking: -.03em;
   --appz-section-description-size: clamp(1rem, 1.2vw, 1.1rem);
   --appz-section-description-line: 1.65;
@@ -49,6 +61,16 @@ body {
   font-family: var(--appz-font) !important;
   text-rendering: optimizeLegibility;
   overflow-x: clip;
+}
+
+/* Use the brand face for native controls too; keep icon fonts untouched. */
+button, input, select, textarea, optgroup {
+  font-family: var(--appz-font);
+}
+
+body :is(h1, h2, h3, h4, h5, h6) {
+  font-family: var(--appz-font) !important;
+  font-weight: var(--appz-weight-bold) !important;
 }
 
 /* Shared landing-page hierarchy refinements for English and Chinese homepages. */

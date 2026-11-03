@@ -37,7 +37,7 @@ b, strong {
   margin: 0 auto 30px;
   color: #101d39;
   font-size: clamp(2.2rem, 4vw, 3.7rem);
-  font-weight: 760;
+  font-weight: var(--appz-weight-bold);
   letter-spacing: -.045em;
   line-height: 1.04;
   text-align: center;
@@ -237,7 +237,7 @@ b, strong {
   margin: 0 0 10px;
   color: #0a86e8;
   font-size: 12px;
-  font-weight: 750;
+  font-weight: var(--appz-weight-bold);
   letter-spacing: .13em;
   line-height: 1.3;
   text-transform: uppercase;
@@ -248,7 +248,7 @@ b, strong {
   margin: 0 0 18px;
   color: #101d39;
   font-size: clamp(1.8rem, 2.4vw, 2.55rem);
-  font-weight: 760;
+  font-weight: var(--appz-weight-bold);
   letter-spacing: -.04em;
   line-height: 1.08;
 }
@@ -342,7 +342,7 @@ b, strong {
   border-radius: 10px;
   background: transparent;
   color: #465b78;
-  font-weight: 650;
+  font-weight: var(--appz-weight-semibold);
 }
 
 .pos-hardware__categories button.is-active {
@@ -357,7 +357,7 @@ b, strong {
   align-items: center;
   margin: 0;
   color: #334a67;
-  font-weight: 650;
+  font-weight: var(--appz-weight-semibold);
 }
 
 .pos-hardware__size select {
