@@ -73,7 +73,7 @@ for (const viewport of viewports) {
     };
     const shell = document.querySelector('.blog-detail__shell');
     const hero = document.querySelector('.blog-detail__hero');
-    const title = document.querySelector('.blog-detail .entry-title h2');
+    const title = document.querySelector('.blog-detail .entry-title h1');
     const meta = document.querySelector('.blog-detail .entry-meta');
     const imageFrame = document.querySelector('.blog-detail__image');
     const image = imageFrame?.querySelector('img');

@@ -149,6 +149,11 @@ body:has(form:focus-within) #webview.appzpos-bottom-demo {
 }
 
 @media (max-width: 767px) {
+  // The shared form-visibility state also clears the right-hand shortcuts.
+  body:is(.appz-form-visible, :has(form:focus-within)) :is(.appz-site-floating-contacts, #gotoTop) {
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
   #webview.appzpos-bottom-demo { left: max(16px, env(safe-area-inset-left)); }
   .appzpos-bottom-demo a { padding: 12px 16px; }
   .appzpos-bottom-demo p { font-size: 14px; }

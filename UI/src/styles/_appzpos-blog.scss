@@ -49,7 +49,7 @@ app-blog-main-page {
 #content .entry-image { margin: 0; background: #e7f3ff; }
 #content .entry-image a, #content .entry-image img { display: block; width: 100%; height: auto; border-radius: 0; }
 #content .entry-title { padding: 28px 28px 0; }
-#content .entry-title h2 { margin: 0; font-size: clamp(24px, 2.6vw, 36px) !important; line-height: 1.2 !important; text-transform: none; }
+#content .entry-title :is(h1, h2) { margin: 0; font-size: clamp(24px, 2.6vw, 36px) !important; line-height: 1.2 !important; text-transform: none; }
 #content .entry-title a { color: #102b46; }
 #content .entry-title a:hover { color: #0875c2; }
 #content .entry-meta { margin: 16px 0 0; padding: 0 28px; color: #536681; }

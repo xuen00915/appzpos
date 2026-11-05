@@ -38,15 +38,15 @@
         linear-gradient(135deg, #f7fbff 0%, #eaf6ff 100%);
 }
 
-#content.blog-detail .blog-detail__hero .entry-title h2 {
+#content.blog-detail .blog-detail__hero .entry-title h1 {
     max-width: none;
     margin: 0;
     color: var(--appz-ink);
     font-family: var(--appz-font);
-    font-size: clamp(1.6875rem, 2.8vw, 2.5rem);
+    font-size: clamp(24px, 2.6vw, 36px) !important;
     font-weight: 700;
     letter-spacing: -.03em;
-    line-height: 1.16;
+    line-height: 1.2 !important;
     text-wrap: wrap;
 }
 
@@ -145,9 +145,9 @@
         padding: 24px 20px;
     }
 
-    #content.blog-detail .blog-detail__hero .entry-title h2 {
-        font-size: clamp(1.5rem, 6.15vw, 1.75rem);
-        line-height: 1.2;
+    #content.blog-detail .blog-detail__hero .entry-title h1 {
+        font-size: 24px !important;
+        line-height: 1.2 !important;
     }
 
     #content.blog-detail .blog-detail__image {
