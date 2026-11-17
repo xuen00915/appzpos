@@ -73,10 +73,9 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
     expect(root.querySelector('.lp-final .lp-rating')).not.toBeNull();
     for (const badge of badges) {
       expect(badge.getAttribute('role')).toBe('img');
-      expect(badge.getAttribute('aria-label')).toBe('Rated 4.8 out of 5 from 25 Google reviews');
+      expect(badge.getAttribute('aria-label')).toBe('Rated 4.8 out of 5 on Google');
       expect(badge.textContent).toContain('4.8');
-      expect(badge.textContent).toContain('25 Google reviews');
-      expect(badge.textContent).toContain('Software company in Singapore');
+      expect(badge.textContent).not.toMatch(/reviews/i);
       expect(badge.querySelectorAll('.lp-rating__stars svg').length).toBe(5);
     }
   });
@@ -103,9 +102,9 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
     expect(banner?.getAttribute('src')).toContain('smes-go-digital-imda-banner-horizontal');
     expect(banner?.alt).toContain('up to 50% business grant support');
     const rating = hero.querySelector('.lp-rating');
-    expect(rating?.getAttribute('aria-label')).toBe('Rated 4.8 out of 5 from 25 Google reviews');
+    expect(rating?.getAttribute('aria-label')).toBe('Rated 4.8 out of 5 on Google');
     expect(rating?.querySelectorAll('.lp-rating__stars svg').length).toBe(5);
-    expect(rating?.textContent).toContain('25 Google reviews');
+    expect(rating?.textContent).not.toMatch(/reviews/i);
   });
 
   it('shows three plain highlights under the hero and the grant qualifier in the hero', () => {
