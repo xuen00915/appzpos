@@ -1,7 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { CommonFunctionService } from '../../../../src/app/services/shared_function/common-function.service';
-import { LpIconName } from '../lp-icon/lp-icon.component';
 
 interface LandingModule {
   readonly title: string;
@@ -13,11 +12,9 @@ interface LandingModule {
 interface LandingFaq {
   readonly question: string;
   readonly answer: string;
-  readonly icon: LpIconName;
 }
 
 interface LandingStat {
-  readonly icon: LpIconName;
   readonly value: string;
   readonly label: string;
 }
@@ -26,11 +23,9 @@ interface LandingPackage {
   readonly id: number;
   readonly title: string;
   readonly includes: string;
-  readonly icon: LpIconName;
 }
 
 interface LandingStep {
-  readonly icon: LpIconName;
   readonly title: string;
   readonly text: string;
 }
@@ -60,9 +55,9 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
   readonly rating = { score: 4.8, count: 25, caption: 'Software company in Singapore' } as const;
 
   readonly stats: readonly LandingStat[] = [
-    { icon: 'package', value: '3 platforms', label: 'GrabFood, Foodpanda, Deliveroo' },
-    { icon: 'layers', value: '6 modules', label: 'POS, QR, kiosk, KDS, web, hub' },
-    { icon: 'pin', value: 'Singapore', label: 'Local support team' }
+    { value: '3 platforms', label: 'GrabFood, Foodpanda, Deliveroo' },
+    { value: '6 modules', label: 'POS, QR, kiosk, KDS, web, hub' },
+    { value: 'Singapore', label: 'Local support team' }
   ];
 
   readonly modules: readonly LandingModule[] = [
@@ -75,26 +70,26 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
   ];
 
   readonly steps: readonly LandingStep[] = [
-    { icon: 'clipboard', title: 'Tell us about your outlet', text: 'Share your name, email and mobile number. It takes under a minute.' },
-    { icon: 'play', title: 'See APPZPOS in a free demo', text: 'We get in touch to walk you through the modules that suit your F&B business.' },
-    { icon: 'headset', title: 'Set up with local support', text: 'Choose your modules and hardware, and check your EDGE Grant eligibility with our team.' }
+    { title: 'Tell us about your outlet', text: 'Share your name, email and mobile number. It takes under a minute.' },
+    { title: 'See APPZPOS in a free demo', text: 'We get in touch to walk you through the modules that suit your F&B business.' },
+    { title: 'Set up with local support', text: 'Choose your modules and hardware, and check your EDGE Grant eligibility with our team.' }
   ];
 
   /** Same five EDGE Grant packages as the /psg-pos-system-grant-singapore page. */
   readonly packages: readonly LandingPackage[] = [
-    { id: 1, title: 'POS + QR', icon: 'clipboard', includes: '1 Digital Ordering (POS) + 1 QR Ordering' },
-    { id: 2, title: 'With Order Hub', icon: 'package', includes: '1 Digital Ordering (POS) + 1 QR Ordering + 1 Order Hub' },
-    { id: 3, title: 'With 1 kiosk', icon: 'monitor', includes: '1 Digital Ordering (POS) + 1 QR Ordering + 1 Self-ordering Kiosk' },
-    { id: 4, title: 'With 2 kiosks', icon: 'monitor', includes: '1 Digital Ordering (POS) + 1 QR Ordering + 2 Self-ordering Kiosks' },
-    { id: 5, title: 'Kiosk + Order Hub', icon: 'layers', includes: '1 Digital Ordering (POS) + 1 QR Ordering + 1 Order Hub + 1 Self-ordering Kiosk' }
+    { id: 1, title: 'POS + QR', includes: '1 Digital Ordering (POS) + 1 QR Ordering' },
+    { id: 2, title: 'With Order Hub', includes: '1 Digital Ordering (POS) + 1 QR Ordering + 1 Order Hub' },
+    { id: 3, title: 'With 1 kiosk', includes: '1 Digital Ordering (POS) + 1 QR Ordering + 1 Self-ordering Kiosk' },
+    { id: 4, title: 'With 2 kiosks', includes: '1 Digital Ordering (POS) + 1 QR Ordering + 2 Self-ordering Kiosks' },
+    { id: 5, title: 'Kiosk + Order Hub', includes: '1 Digital Ordering (POS) + 1 QR Ordering + 1 Order Hub + 1 Self-ordering Kiosk' }
   ];
 
   readonly faqs: readonly LandingFaq[] = [
-    { icon: 'store', question: 'Which businesses is APPZPOS built for?', answer: 'APPZPOS is an all-in-one POS for F&B businesses such as restaurants, cafés and quick-service outlets, with versions for retail stores and beauty salons as well.' },
-    { icon: 'package', question: 'Does it work with GrabFood, Foodpanda and Deliveroo?', answer: 'Yes. Order Hub brings these platforms into one centralised system, with real-time order status sent directly to your POS and kitchen display.' },
-    { icon: 'cloud', question: 'Can I check my sales when I am not in the shop?', answer: 'Yes. APPZPOS is cloud-based, so you can access your data, menus and real-time reports from anywhere.' },
-    { icon: 'percent', question: 'Is the EDGE Grant available to me?', answer: 'Eligible Singapore companies can receive EDGE Grant support for qualifying APPZPOS digitalisation projects, up to 50%. Support levels vary by activity, so we will confirm eligibility with you.' },
-    { icon: 'monitor', question: 'What hardware do I need?', answer: 'APPZPOS combines software with POS terminals, receipt printers and cash drawers. Self-ordering kiosks come in 15.6", 21", 24" and 32" sizes. We will recommend a set-up that fits your outlet.' }
+    { question: 'Which businesses is APPZPOS built for?', answer: 'APPZPOS is an all-in-one POS for F&B businesses such as restaurants, cafés and quick-service outlets, with versions for retail stores and beauty salons as well.' },
+    { question: 'Does it work with GrabFood, Foodpanda and Deliveroo?', answer: 'Yes. Order Hub brings these platforms into one centralised system, with real-time order status sent directly to your POS and kitchen display.' },
+    { question: 'Can I check my sales when I am not in the shop?', answer: 'Yes. APPZPOS is cloud-based, so you can access your data, menus and real-time reports from anywhere.' },
+    { question: 'Is the EDGE Grant available to me?', answer: 'Eligible Singapore companies can receive EDGE Grant support for qualifying APPZPOS digitalisation projects, up to 50%. Support levels vary by activity, so we will confirm eligibility with you.' },
+    { question: 'What hardware do I need?', answer: 'APPZPOS combines software with POS terminals, receipt printers and cash drawers. Self-ordering kiosks come in 15.6", 21", 24" and 32" sizes. We will recommend a set-up that fits your outlet.' }
   ];
 
   constructor(
@@ -104,10 +99,10 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    this.title.setTitle('Cloud POS System for Singapore Restaurants & Cafés | APPZPOS');
+    this.title.setTitle('Restaurant POS System Singapore | Cloud F&B POS | APPZPOS');
     this.meta.updateTag({
       name: 'description',
-      content: 'All-in-one cloud POS for Singapore F&B: ordering, kitchen display, delivery integration and reports. Up to 50% EDGE Grant support for eligible companies. Book a free demo.'
+      content: 'Restaurant POS system in Singapore: cloud POS for F&B with kitchen display, delivery integration and reports. Up to 50% EDGE Grant support for eligible companies. Book a free demo.'
     });
     // Paid-traffic page: keep it out of organic results so it does not compete with the main site.
     this.meta.updateTag({ name: 'robots', content: 'noindex, nofollow' });
