@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { CommonFunctionService } from '../../../../src/app/services/shared_function/common-function.service';
+import { LpIconName } from '../lp-icon/lp-icon.component';
 
 interface LandingModule {
   readonly title: string;
@@ -10,6 +11,7 @@ interface LandingModule {
 }
 
 interface LandingStat {
+  readonly icon: LpIconName;
   readonly value: string;
   readonly label: string;
 }
@@ -52,9 +54,9 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
   readonly rating = { score: 4.8 } as const;
 
   readonly stats: readonly LandingStat[] = [
-    { value: '3 platforms', label: 'GrabFood, Foodpanda, Deliveroo' },
-    { value: '6 modules', label: 'POS, QR, kiosk, KDS, web, hub' },
-    { value: 'Singapore', label: 'Local support team' }
+    { icon: 'package', value: '3 platforms', label: 'GrabFood, Foodpanda, Deliveroo' },
+    { icon: 'layers', value: '6 modules', label: 'POS, QR, kiosk, KDS, web, hub' },
+    { icon: 'pin', value: 'Singapore', label: 'Local support team' }
   ];
 
   readonly modules: readonly LandingModule[] = [
@@ -94,11 +96,11 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
     { question: 'How do I get started?', answer: 'Book a free demo with your name, email and mobile number. We will get in touch to walk you through the modules, help you choose modules and hardware, and check your EDGE Grant eligibility.' }
   ];
 
-  /** Two side-by-side columns of five questions each. */
-  get faqColumns(): readonly (readonly LandingFaq[])[] {
-    const half = Math.ceil(this.faqs.length / 2);
-    return [this.faqs.slice(0, half), this.faqs.slice(half)];
-  }
+  /**
+   * Two side-by-side columns of five questions each. A field, not a getter: a getter returns new arrays on
+   * every change detection, which makes ngFor rebuild the <details> elements and instantly closes any open answer.
+   */
+  readonly faqColumns: readonly (readonly LandingFaq[])[] = [this.faqs.slice(0, 5), this.faqs.slice(5)];
 
   constructor(
     private readonly title: Title,

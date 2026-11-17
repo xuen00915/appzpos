@@ -77,6 +77,11 @@ body.appz-landing :is(.appz-site-floating-contacts a, #gotoTop, .appzpos-bottom-
 body.appz-landing { --lp-bubble: 52px; }
 body.appz-landing :is(.appz-site-floating-contacts a, #gotoTop) { --cnvs-gotoTop-size: var(--lp-bubble); box-sizing: border-box !important; width: var(--lp-bubble) !important; height: var(--lp-bubble) !important; min-width: 0 !important; min-height: 0 !important; line-height: 1 !important; }
 
+/* Same 12px gap between all three floating controls: the rail sits one bubble plus one gap above back-to-top. */
+body.appz-landing { --lp-bubble-gap: 12px; --lp-bubble-edge: max(22px, env(safe-area-inset-right)); --lp-bubble-floor: max(22px, env(safe-area-inset-bottom)); }
+body.appz-landing .appz-site-floating-contacts { --appz-floating-gap: var(--lp-bubble-gap); --appz-floating-size: var(--lp-bubble); right: var(--lp-bubble-edge) !important; bottom: calc(var(--lp-bubble-floor) + var(--lp-bubble) + var(--lp-bubble-gap)) !important; gap: var(--lp-bubble-gap) !important; }
+body.appz-landing #gotoTop { right: var(--lp-bubble-edge) !important; bottom: var(--lp-bubble-floor) !important; }
+
 /* Messenger bubble becomes a phone-call bubble on this page (swapped in by the component). */
 body.appz-landing .appz-site-floating-contacts .btn-fb.lp-call { border-color: var(--appz-blue) !important; background: var(--appz-blue) !important; }
 body.appz-landing .appz-site-floating-contacts .btn-fb.lp-call img { display: none !important; }
@@ -84,9 +89,10 @@ body.appz-landing .appz-site-floating-contacts .btn-fb.lp-call .lp-call__icon { 
 
 /* Three data cards: under the hero copy on desktop, under the EDGE banner on smaller screens */
 .lp-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0 0 20px; padding: 0; list-style: none; }
-.lp-stat { display: grid; align-content: start; gap: 2px; padding: 12px 14px; border: 1px solid var(--appz-line); border-radius: $lp-radius; background: #fff; line-height: 1.35; }
-.lp-stat strong { font-size: 1.05rem; letter-spacing: -.01em; }
-.lp-stat span { color: var(--appz-ink-soft); font-size: .84rem; }
+.lp-stat { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "icon value" "label label"; align-items: center; align-content: start; gap: 6px 10px; padding: 12px 14px; border: 1px solid var(--appz-line); border-radius: $lp-radius; background: #fff; line-height: 1.35; }
+.lp-stat__icon { grid-area: icon; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: $lp-radius; background: var(--appz-blue-pale); color: var(--appz-blue-deep); font-size: 20px; }
+.lp-stat strong { grid-area: value; font-size: 1.05rem; letter-spacing: -.01em; }
+.lp-stat__label { grid-area: label; color: var(--appz-ink-soft); font-size: .84rem; }
 .lp-stats--below { display: none; margin: 20px 0 0; }
 
 /* Sections */
