@@ -44,7 +44,7 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
   });
 
   it('keeps WhatsApp links on the tracked destination with the "WhatsApp Us" text', () => {
-    const links = Array.from(root.querySelectorAll<HTMLAnchorElement>('a[href*="wa.me"]'));
+    const links = Array.from(root.querySelectorAll<HTMLAnchorElement>('a[href*="wa.me"]:not(.lp-pkg__quote)'));
     expect(links.length).toBeGreaterThanOrEqual(3);
     for (const link of links) {
       expect(link.getAttribute('href')).toContain('https://wa.me/6583109631');
@@ -81,6 +81,23 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
     }
   });
 
+  it('moves the system screen out of the hero and into the EDGE Grant packages section', () => {
+    expect(root.querySelector('.lp-hero img[src*="appzpos-screen-restaurant"]')).toBeNull();
+    const section = root.querySelector('#packages') as HTMLElement;
+    expect(section.querySelector('img.lp-pkgs__screen')?.getAttribute('src')).toContain('appzpos-screen-restaurant');
+    const pkgs = Array.from(section.querySelectorAll<HTMLElement>('.lp-pkg'));
+    expect(pkgs.length).toBe(5);
+    expect(pkgs[0].textContent).toContain('Package 1');
+    expect(pkgs[4].textContent).toContain('1 Order Hub + 1 Self-ordering Kiosk');
+    pkgs.forEach(pkg => expect(pkg.querySelector('.lp-chip svg')).not.toBeNull());
+    const quote = pkgs[2].querySelector<HTMLAnchorElement>('a.lp-pkg__quote')!;
+    expect(quote.href).toContain('https://wa.me/6583109631?text=');
+    expect(quote.href).toContain('EDGE%20Grant%20Package%203');
+    expect(quote.rel).toContain('noopener');
+    expect(section.textContent).toContain('1-year subscription');
+    expect(section.textContent).toContain('Central Admin Portal with unlimited users');
+  });
+
   it('shows the purple IMDA / EDGE Grant banner and the Google rating in the hero', () => {
     const hero = root.querySelector('.lp-hero') as HTMLElement;
     const banner = hero.querySelector<HTMLImageElement>('img.lp-hero__edge');
@@ -114,7 +131,7 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
 
   it('uses one section header pattern (eyebrow, title) for every content section', () => {
     const heads = Array.from(root.querySelectorAll('.lp-head'));
-    expect(heads.length).toBe(3);
+    expect(heads.length).toBe(4);
     heads.forEach(head => {
       expect(head.querySelector('.lp-eyebrow')).not.toBeNull();
       expect(head.querySelector('h2.lp-title')).not.toBeNull();
@@ -169,29 +186,26 @@ describe('CustomRequestDemoComponent compact mode (used by the landing page)', (
     expect(root.querySelector('.appz-demo__contact')).not.toBeNull();
   });
 
-  it('hides the lead, eyebrow and contact block and swaps the restaurant name for an EDGE Grant opt-in', () => {
+  it('hides the lead, eyebrow and contact block and asks only for name, email and mobile number', () => {
     const root = render(true);
     expect(root.querySelector('.appz-demo--compact')).not.toBeNull();
     expect(root.querySelector('.appz-demo__lead')).toBeNull();
     expect(root.querySelector('.appz-demo__contact')).toBeNull();
     expect(root.querySelector('#appz-demo-title')?.textContent).toContain('Demo');
+    const ids = Array.from(root.querySelectorAll('.appz-demo__fields input')).map(i => i.id);
+    expect(ids).toEqual(['name', 'email', 'mobilenum']);
     expect(root.querySelector('#restaurant_name')).toBeNull();
-    const edge = root.querySelector<HTMLInputElement>('input#edge_grant');
-    expect(edge?.type).toBe('checkbox');
-    expect(edge?.checked).toBeFalse();
-    expect(root.querySelector('label[for="edge_grant"]')?.textContent).toContain('EDGE Grant');
-    expect(root.querySelectorAll('.appz-demo__field input').length).toBe(4);
+    expect(root.querySelector('#edge_grant')).toBeNull();
     expect(root.querySelector('form')).not.toBeNull();
   });
 
-  it('keeps the restaurant name field and has no EDGE Grant option on every other page', () => {
+  it('keeps the restaurant name field on every other page', () => {
     const root = render(false);
     expect(root.querySelector('#restaurant_name')).not.toBeNull();
-    expect(root.querySelector('#edge_grant')).toBeNull();
   });
 
   describe('submission', () => {
-    const submit = (compact: boolean, edgeGrant: boolean) => {
+    const submit = (compact: boolean) => {
       const sent: any[] = [];
       const api = { apiCallPOST_Sync: (_url: string, body: any) => {
         sent.push(body);
@@ -209,28 +223,24 @@ describe('CustomRequestDemoComponent compact mode (used by the landing page)', (
       fixture.componentInstance.compact = compact;
       fixture.detectChanges();
       fixture.componentInstance.requestDemoForm.patchValue({
-        name: 'Test Owner', email: 'owner@example.com', mobilenum: '+6591234567', edge_grant: edgeGrant
+        name: 'Test Owner', email: 'owner@example.com', mobilenum: '+6591234567'
       });
       fixture.componentInstance.onSubmit();
-      return { sent, component: fixture.componentInstance };
+      return sent;
     };
 
-    it('submits without a restaurant name and flags the EDGE Grant in the subject when ticked', () => {
-      const { sent, component } = submit(true, true);
+    it('submits with only name, email and mobile number on the landing page', () => {
+      const sent = submit(true);
       expect(sent.length).toBe(1);
-      expect(sent[0].ContactUs.Subject).toBe('Demo Enquiry - EDGE Grant');
-      expect(sent[0].ContactUs.RestaurantName).toBe('');
-      expect(component.requestDemoForm.value.edge_grant).toBeFalse();
-    });
-
-    it('keeps the normal subject when the EDGE Grant box is not ticked', () => {
-      const { sent } = submit(true, false);
       expect(sent[0].ContactUs.Subject).toBe('Demo Enquiry');
+      expect(sent[0].ContactUs.RestaurantName).toBe('');
+      expect(sent[0].ContactUs.Name).toBe('Test Owner');
+      expect(sent[0].ContactUs.EmailAddress).toBe('owner@example.com');
+      expect(sent[0].ContactUs.Phone).toBe('+6591234567');
     });
 
     it('still requires a restaurant name outside the landing page', () => {
-      const { sent } = submit(false, false);
-      expect(sent.length).toBe(0);
+      expect(submit(false).length).toBe(0);
     });
   });
 });

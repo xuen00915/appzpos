@@ -41,8 +41,6 @@
           </li>
         </ul>
         <p class="lp-footnote">Eligibility and support levels vary by activity.</p>
-        <img class="lp-hero__screen" src="assets/images/appzpos-screen-restaurant-1120.webp"
-             alt="Illustration of the APPZPOS restaurant ordering screen with menu items and an open table bill" width="1120" height="630" fetchpriority="high">
       </div>
       <div class="lp-hero__form appz-conversion-panel" id="requestdemo">
         <app-custom-request-demo [compact]="true"></app-custom-request-demo>
@@ -80,6 +78,31 @@
         <p class="lp-sub">Eligible Singapore companies can receive EDGE Grant support for qualifying APPZPOS digitalisation projects. Support levels vary by activity.</p>
         <a class="lp-btn lp-btn--whatsapp" [href]="whatsappUrl" target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
       </div>
+    </div>
+  </section>
+
+  <section class="lp-section" id="packages" aria-labelledby="lp-packages-title">
+    <div class="lp-shell">
+      <header class="lp-head">
+        <p class="lp-eyebrow">EDGE GRANT PACKAGES</p>
+        <h2 id="lp-packages-title" class="lp-title">Five EDGE Grant packages for your outlet</h2>
+        <p class="lp-sub">Every package includes 1 Digital Ordering System (POS) + 1 QR Ordering system. Eligible SMEs may receive up to 50% support; support levels vary by activity.</p>
+      </header>
+      <div class="lp-pkgs">
+        <img class="lp-pkgs__screen" src="assets/images/appzpos-screen-restaurant-1120.webp"
+             alt="Illustration of the APPZPOS restaurant ordering screen with menu items and an open table bill" width="1120" height="630" loading="lazy">
+        <ol class="lp-pkgs__list">
+          <li class="lp-pkg" *ngFor="let pkg of packages">
+            <span class="lp-chip"><app-lp-icon [name]="pkg.icon"></app-lp-icon></span>
+            <div class="lp-pkg__body">
+              <h3>Package {{ pkg.id }} <span>{{ pkg.title }}</span></h3>
+              <p>{{ pkg.includes }}</p>
+            </div>
+            <a class="lp-pkg__quote" [href]="packageQuote(pkg.id)" target="_blank" rel="noopener noreferrer" [attr.aria-label]="'Get a quote for Package ' + pkg.id">Get a quote</a>
+          </li>
+        </ol>
+      </div>
+      <p class="lp-pkgs__shared">Included in all 5 packages: <strong>1-year subscription</strong> and <strong>Central Admin Portal with unlimited users.</strong></p>
     </div>
   </section>
 
