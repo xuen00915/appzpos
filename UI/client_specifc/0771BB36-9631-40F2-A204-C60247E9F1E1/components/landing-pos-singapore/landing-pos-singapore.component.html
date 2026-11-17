@@ -32,13 +32,15 @@
         <h1 id="lp-hero-title">Cloud POS System for Singapore Restaurants &amp; Cafés</h1>
         <ng-container *ngTemplateOutlet="ratingBadge"></ng-container>
         <p class="lp-lead">One system for ordering, kitchen, payments and delivery, backed by local support in Singapore.</p>
+        <img class="lp-hero__edge" src="assets/images/smes-go-digital-imda-banner-horizontal.webp"
+             alt="IMDA pre-approved solution, eligible for up to 50% business grant support, SMEs Go Digital" width="1400" height="495">
         <ul class="lp-stats">
           <li class="lp-stat" *ngFor="let stat of stats">
             <span class="lp-chip"><app-lp-icon [name]="stat.icon"></app-lp-icon></span>
             <span class="lp-stat__text"><strong>{{ stat.value }}</strong><span>{{ stat.label }}</span></span>
           </li>
         </ul>
-        <p class="lp-footnote">*Eligibility and support levels vary by activity.</p>
+        <p class="lp-footnote">Eligibility and support levels vary by activity.</p>
         <img class="lp-hero__screen" src="assets/images/appzpos-screen-restaurant-1120.webp"
              alt="Illustration of the APPZPOS restaurant ordering screen with menu items and an open table bill" width="1120" height="630" fetchpriority="high">
       </div>

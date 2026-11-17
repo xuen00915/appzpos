@@ -53,7 +53,6 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
   readonly rating = { score: 4.8, count: 25, caption: 'Software company in Singapore' } as const;
 
   readonly stats: readonly LandingStat[] = [
-    { icon: 'percent', value: 'Up to 50%', label: 'EDGE Grant support*' },
     { icon: 'package', value: '3 platforms', label: 'GrabFood, Foodpanda, Deliveroo' },
     { icon: 'layers', value: '6 modules', label: 'POS, QR, kiosk, KDS, web, hub' },
     { icon: 'pin', value: 'Singapore', label: 'Local support team' }
@@ -69,7 +68,7 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
   ];
 
   readonly steps: readonly LandingStep[] = [
-    { icon: 'clipboard', title: 'Tell us about your outlet', text: 'Share your contact details and business name. It takes under a minute.' },
+    { icon: 'clipboard', title: 'Tell us about your outlet', text: 'Share your name, email and mobile number. It takes under a minute.' },
     { icon: 'play', title: 'See APPZPOS in a free demo', text: 'We get in touch to walk you through the modules that suit your F&B business.' },
     { icon: 'headset', title: 'Set up with local support', text: 'Choose your modules and hardware, and check your EDGE Grant eligibility with our team.' }
   ];

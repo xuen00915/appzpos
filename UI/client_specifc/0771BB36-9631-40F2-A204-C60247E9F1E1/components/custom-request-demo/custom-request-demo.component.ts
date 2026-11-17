@@ -25,6 +25,8 @@ interface RequestDemoCopy {
   readonly businessLabel: string;
   readonly businessRequired: string;
   readonly businessInvalid: string;
+  readonly edgeGrantLabel: string;
+  readonly edgeGrantHint: string;
   readonly submitLabel: string;
 }
 
@@ -46,6 +48,8 @@ const REQUEST_DEMO_COPY: Readonly<Record<RequestDemoLocale, RequestDemoCopy>> = 
     businessLabel: 'Restaurant Name',
     businessRequired: 'Restaurant Name is required!',
     businessInvalid: 'Invalid Restaurant Name!',
+    edgeGrantLabel: 'I am interested in the EDGE Grant',
+    edgeGrantHint: 'Up to 50% support for eligible companies. We will check eligibility with you.',
     submitLabel: 'Submit'
   },
   zh: {
@@ -68,6 +72,8 @@ const REQUEST_DEMO_COPY: Readonly<Record<RequestDemoLocale, RequestDemoCopy>> = 
     businessLabel: '公司名字',
     businessRequired: '公司名字为必填项!',
     businessInvalid: '不合规公司名字!',
+    edgeGrantLabel: 'I am interested in the EDGE Grant',
+    edgeGrantHint: 'Up to 50% support for eligible companies. We will check eligibility with you.',
     submitLabel: 'Submit'
   }
 };
@@ -92,7 +98,8 @@ export class CustomRequestDemoComponent implements OnInit{
       name: new FormControl(''),
       email: new FormControl(''),
       mobilenum:new FormControl(''),
-      restaurant_name:new FormControl('')
+      restaurant_name:new FormControl(''),
+      edge_grant:new FormControl(false)
     });
   constructor(private apiService: ApiService, private commonFunctionService: CommonFunctionService,private formBuilder:FormBuilder) { 
   }
@@ -102,7 +109,9 @@ export class CustomRequestDemoComponent implements OnInit{
         name:['',[ Validators.required, Validators.pattern('^[A-Za-z]|[\s]+')]],
        email:['',[Validators.required,Validators.email]],
        mobilenum:['',[Validators.required, Validators.pattern("^[+]?[0-9]*$")]],
-       restaurant_name:['',Validators.required],
+       // The landing page (compact) asks about the EDGE Grant instead of the restaurant name.
+       restaurant_name:['',this.compact ? [] : Validators.required],
+       edge_grant:[false],
       })
   }
   get objData(): { [key: string]: AbstractControl } {
@@ -123,8 +132,9 @@ export class CustomRequestDemoComponent implements OnInit{
  
     if(this.requestDemoForm.valid){
       var objParam: any = {};
-      objParam.Subject ="Demo Enquiry";
-      objParam.RestaurantName = this.requestDemoForm.value.restaurant_name;
+      const edgeGrant = this.compact && this.requestDemoForm.value.edge_grant === true;
+      objParam.Subject = edgeGrant ? "Demo Enquiry - EDGE Grant" : "Demo Enquiry";
+      objParam.RestaurantName = this.requestDemoForm.value.restaurant_name || "";
       objParam.Name = this.requestDemoForm.value.name;
       objParam.EmailAddress= this.requestDemoForm.value.email;
       objParam.Phone = this.requestDemoForm.value.mobilenum; 
@@ -138,6 +148,7 @@ export class CustomRequestDemoComponent implements OnInit{
         (Object as any).values(this.requestDemoForm.controls).forEach((control: FormControl) => {
           control.setValue("");
       });
+      this.requestDemoForm.controls['edge_grant'].setValue(false);
       this.submitted=false;   
       }
       else{

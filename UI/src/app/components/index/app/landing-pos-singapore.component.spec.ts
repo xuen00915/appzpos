@@ -81,11 +81,22 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
     }
   });
 
-  it('shows four hero highlights, each with an icon and the qualified grant claim', () => {
+  it('shows the purple IMDA / EDGE Grant banner and the Google rating in the hero', () => {
+    const hero = root.querySelector('.lp-hero') as HTMLElement;
+    const banner = hero.querySelector<HTMLImageElement>('img.lp-hero__edge');
+    expect(banner?.getAttribute('src')).toContain('smes-go-digital-imda-banner-horizontal');
+    expect(banner?.alt).toContain('up to 50% business grant support');
+    const rating = hero.querySelector('.lp-rating');
+    expect(rating?.getAttribute('aria-label')).toBe('Rated 4.8 out of 5 from 25 Google reviews');
+    expect(rating?.querySelectorAll('.lp-rating__stars svg').length).toBe(5);
+    expect(rating?.textContent).toContain('25 Google reviews');
+  });
+
+  it('shows three hero highlights, each with an icon, and the grant qualifier', () => {
     const stats = Array.from(root.querySelectorAll<HTMLElement>('.lp-hero .lp-stat'));
-    expect(stats.length).toBe(4);
+    expect(stats.length).toBe(3);
     stats.forEach(stat => expect(stat.querySelector('.lp-chip svg')).not.toBeNull());
-    expect(stats[0].textContent).toContain('Up to 50%');
+    expect(stats[0].textContent).toContain('3 platforms');
     expect(root.querySelector('.lp-hero .lp-footnote')?.textContent).toContain('vary by activity');
   });
 
@@ -158,13 +169,68 @@ describe('CustomRequestDemoComponent compact mode (used by the landing page)', (
     expect(root.querySelector('.appz-demo__contact')).not.toBeNull();
   });
 
-  it('hides only the lead, eyebrow and contact block, keeping the same four-field form', () => {
+  it('hides the lead, eyebrow and contact block and swaps the restaurant name for an EDGE Grant opt-in', () => {
     const root = render(true);
     expect(root.querySelector('.appz-demo--compact')).not.toBeNull();
     expect(root.querySelector('.appz-demo__lead')).toBeNull();
     expect(root.querySelector('.appz-demo__contact')).toBeNull();
     expect(root.querySelector('#appz-demo-title')?.textContent).toContain('Demo');
+    expect(root.querySelector('#restaurant_name')).toBeNull();
+    const edge = root.querySelector<HTMLInputElement>('input#edge_grant');
+    expect(edge?.type).toBe('checkbox');
+    expect(edge?.checked).toBeFalse();
+    expect(root.querySelector('label[for="edge_grant"]')?.textContent).toContain('EDGE Grant');
     expect(root.querySelectorAll('.appz-demo__field input').length).toBe(4);
     expect(root.querySelector('form')).not.toBeNull();
+  });
+
+  it('keeps the restaurant name field and has no EDGE Grant option on every other page', () => {
+    const root = render(false);
+    expect(root.querySelector('#restaurant_name')).not.toBeNull();
+    expect(root.querySelector('#edge_grant')).toBeNull();
+  });
+
+  describe('submission', () => {
+    const submit = (compact: boolean, edgeGrant: boolean) => {
+      const sent: any[] = [];
+      const api = { apiCallPOST_Sync: (_url: string, body: any) => {
+        sent.push(body);
+        return { __zone_symbol__value: JSON.stringify({ APIResponse: { Message: '' } }) };
+      } };
+      TestBed.configureTestingModule({
+        imports: [ReactiveFormsModule],
+        declarations: [CustomRequestDemoComponent],
+        providers: [
+          { provide: ApiService, useValue: api },
+          { provide: CommonFunctionService, useValue: { BindURL_Image: (name: string) => name } }
+        ]
+      });
+      const fixture = TestBed.createComponent(CustomRequestDemoComponent);
+      fixture.componentInstance.compact = compact;
+      fixture.detectChanges();
+      fixture.componentInstance.requestDemoForm.patchValue({
+        name: 'Test Owner', email: 'owner@example.com', mobilenum: '+6591234567', edge_grant: edgeGrant
+      });
+      fixture.componentInstance.onSubmit();
+      return { sent, component: fixture.componentInstance };
+    };
+
+    it('submits without a restaurant name and flags the EDGE Grant in the subject when ticked', () => {
+      const { sent, component } = submit(true, true);
+      expect(sent.length).toBe(1);
+      expect(sent[0].ContactUs.Subject).toBe('Demo Enquiry - EDGE Grant');
+      expect(sent[0].ContactUs.RestaurantName).toBe('');
+      expect(component.requestDemoForm.value.edge_grant).toBeFalse();
+    });
+
+    it('keeps the normal subject when the EDGE Grant box is not ticked', () => {
+      const { sent } = submit(true, false);
+      expect(sent[0].ContactUs.Subject).toBe('Demo Enquiry');
+    });
+
+    it('still requires a restaurant name outside the landing page', () => {
+      const { sent } = submit(false, false);
+      expect(sent.length).toBe(0);
+    });
   });
 });
