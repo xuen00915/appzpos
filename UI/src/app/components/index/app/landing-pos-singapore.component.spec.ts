@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Meta } from '@angular/platform-browser';
 
 import { LandingPosSingaporeComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/landing-pos-singapore/landing-pos-singapore.component';
+import { LpIconComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/lp-icon/lp-icon.component';
 import { CustomRequestDemoComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/custom-request-demo/custom-request-demo.component';
 import { ApiService } from '../../../services/shared_function/api.service';
 import { CommonFunctionService } from '../../../services/shared_function/common-function.service';
@@ -17,7 +18,7 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [LandingPosSingaporeComponent, DemoFormStubComponent],
+      declarations: [LandingPosSingaporeComponent, LpIconComponent, DemoFormStubComponent],
       providers: [{ provide: CommonFunctionService, useValue: { BindURL_Image: (name: string) => `/img/${name}` } }]
     });
     fixture = TestBed.createComponent(LandingPosSingaporeComponent);
@@ -63,6 +64,50 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
     expect(root.querySelectorAll('.lp-card').length).toBe(6);
     expect(root.querySelectorAll('.lp-steps li').length).toBe(3);
     expect(root.querySelectorAll('.lp-faq details summary').length).toBe(5);
+  });
+
+  it('shows the Google rating in the hero and again before the final call to action', () => {
+    const badges = Array.from(root.querySelectorAll<HTMLElement>('.lp-rating'));
+    expect(badges.length).toBe(2);
+    expect(root.querySelector('.lp-hero .lp-rating')).not.toBeNull();
+    expect(root.querySelector('.lp-final .lp-rating')).not.toBeNull();
+    for (const badge of badges) {
+      expect(badge.getAttribute('role')).toBe('img');
+      expect(badge.getAttribute('aria-label')).toBe('Rated 4.8 out of 5 from 25 Google reviews');
+      expect(badge.textContent).toContain('4.8');
+      expect(badge.textContent).toContain('25 Google reviews');
+      expect(badge.textContent).toContain('Software company in Singapore');
+      expect(badge.querySelectorAll('.lp-rating__stars svg').length).toBe(5);
+    }
+  });
+
+  it('shows four hero highlights, each with an icon and the qualified grant claim', () => {
+    const stats = Array.from(root.querySelectorAll<HTMLElement>('.lp-hero .lp-stat'));
+    expect(stats.length).toBe(4);
+    stats.forEach(stat => expect(stat.querySelector('.lp-chip svg')).not.toBeNull());
+    expect(stats[0].textContent).toContain('Up to 50%');
+    expect(root.querySelector('.lp-hero .lp-footnote')?.textContent).toContain('vary by activity');
+  });
+
+  it('gives every step and FAQ item an icon, and keeps the FAQ keyboard-operable (native details)', () => {
+    expect(root.querySelectorAll('.lp-step .lp-chip svg').length).toBe(3);
+    const items = Array.from(root.querySelectorAll<HTMLDetailsElement>('.lp-faq details.lp-faq__item'));
+    expect(items.length).toBe(5);
+    items.forEach(item => {
+      expect(item.querySelector('summary .lp-chip svg')).not.toBeNull();
+      expect(item.querySelector('summary .lp-faq__arrow svg')).not.toBeNull();
+      expect(item.querySelector('p')?.textContent?.trim().length).toBeGreaterThan(20);
+    });
+    root.querySelectorAll<HTMLElement>('svg').forEach(svg => expect(svg.getAttribute('aria-hidden')).toBe('true'));
+  });
+
+  it('uses one section header pattern (eyebrow, title) for every content section', () => {
+    const heads = Array.from(root.querySelectorAll('.lp-head'));
+    expect(heads.length).toBe(3);
+    heads.forEach(head => {
+      expect(head.querySelector('.lp-eyebrow')).not.toBeNull();
+      expect(head.querySelector('h2.lp-title')).not.toBeNull();
+    });
   });
 
   it('hides the site header and footer only while the landing page is shown', () => {
