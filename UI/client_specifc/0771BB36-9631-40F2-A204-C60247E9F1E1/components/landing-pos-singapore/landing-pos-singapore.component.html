@@ -1,9 +1,17 @@
-<!-- Google rating (stars only, no numbers), shown in the hero and again above the final call to action. -->
+<!-- Google rating, shown in the hero and again above the final call to action. -->
 <ng-template #ratingBadge>
-  <div class="lp-rating" role="img" aria-label="Highly rated on Google">
+  <div class="lp-rating" role="img" [attr.aria-label]="'Rated ' + rating.score + ' out of 5 on Google'">
+    <span class="lp-rating__score" aria-hidden="true">{{ rating.score }}</span>
     <span class="lp-rating__stars" aria-hidden="true"><app-lp-icon *ngFor="let s of [1, 2, 3, 4, 5]" name="star"></app-lp-icon></span>
     <span class="lp-rating__label" aria-hidden="true">Google rating</span>
   </div>
+</ng-template>
+
+<!-- Three data cards: shown under the hero copy on desktop, under the banner on smaller screens. -->
+<ng-template #statCards let-where="where">
+  <ul class="lp-stats" [ngClass]="'lp-stats--' + where">
+    <li class="lp-stat" *ngFor="let stat of stats"><strong>{{ stat.value }}</strong><span>{{ stat.label }}</span></li>
+  </ul>
 </ng-template>
 
 <header class="lp-bar">
@@ -24,15 +32,14 @@
       <div class="lp-hero__copy">
         <h1 id="lp-hero-title">Restaurant POS System in Singapore</h1>
         <p class="lp-lead">Cloud POS for restaurants and cafés. QR ordering, self-ordering kiosk, kitchen display and delivery integration in one system, backed by local support.</p>
-        <ul class="lp-checks">
-          <li *ngFor="let item of highlights">{{ item }}</li>
-        </ul>
+        <ng-container *ngTemplateOutlet="statCards; context: { where: 'copy' }"></ng-container>
         <ng-container *ngTemplateOutlet="ratingBadge"></ng-container>
       </div>
       <div class="lp-hero__edgebox">
         <img class="lp-hero__edge" src="assets/images/smes-go-digital-imda-banner-horizontal.webp"
              alt="IMDA pre-approved solution, eligible for up to 50% business grant support, SMEs Go Digital" width="1400" height="495">
         <p class="lp-footnote">Eligibility and support levels vary by activity.</p>
+        <ng-container *ngTemplateOutlet="statCards; context: { where: 'below' }"></ng-container>
       </div>
       <div class="lp-hero__form appz-conversion-panel" id="requestdemo">
         <app-custom-request-demo [compact]="true"></app-custom-request-demo>
@@ -115,13 +122,15 @@
         <h2 id="lp-faq-title" class="lp-title">Questions before you book</h2>
       </header>
       <div class="lp-faq">
-        <details class="lp-faq__item" *ngFor="let faq of faqs">
-          <summary>
-            <span class="lp-faq__q">{{ faq.question }}</span>
-            <span class="lp-faq__arrow"><app-lp-icon name="chevron"></app-lp-icon></span>
-          </summary>
-          <p>{{ faq.answer }}</p>
-        </details>
+        <div class="lp-faq__col" *ngFor="let column of faqColumns">
+          <details class="lp-faq__item" *ngFor="let faq of column">
+            <summary>
+              <span class="lp-faq__q">{{ faq.question }}</span>
+              <span class="lp-faq__arrow"><app-lp-icon name="chevron"></app-lp-icon></span>
+            </summary>
+            <p>{{ faq.answer }}</p>
+          </details>
+        </div>
       </div>
     </div>
   </section>
