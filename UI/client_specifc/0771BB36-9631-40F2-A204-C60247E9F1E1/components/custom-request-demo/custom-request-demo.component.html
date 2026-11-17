@@ -73,7 +73,7 @@
                 </div>
             </div>
 
-            <div class="appz-demo__field">
+            <div class="appz-demo__field" *ngIf="!compact">
                 <label for="restaurant_name">{{ copy.businessLabel }}</label>
                 <input type="text"
                        id="restaurant_name"
@@ -85,6 +85,17 @@
                     <span *ngIf="objData['restaurant_name'].errors['required']">{{ copy.businessRequired }}</span>
                     <span *ngIf="objData['restaurant_name'].errors['pattern']">{{ copy.businessInvalid }}</span>
                 </div>
+            </div>
+
+            <div class="appz-demo__field appz-demo__check" *ngIf="compact">
+                <input type="checkbox"
+                       id="edge_grant"
+                       name="edge_grant"
+                       formControlName="edge_grant">
+                <label for="edge_grant">
+                    <strong>{{ copy.edgeGrantLabel }}</strong>
+                    <span>{{ copy.edgeGrantHint }}</span>
+                </label>
             </div>
         </div>
 

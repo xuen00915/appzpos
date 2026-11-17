@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { Meta } from '@angular/platform-browser';
 
 import { LandingPosSingaporeComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/landing-pos-singapore/landing-pos-singapore.component';
+import { LpIconComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/lp-icon/lp-icon.component';
 import { CustomRequestDemoComponent } from '../../../../../client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/custom-request-demo/custom-request-demo.component';
 import { ApiService } from '../../../services/shared_function/api.service';
 import { CommonFunctionService } from '../../../services/shared_function/common-function.service';
@@ -17,7 +18,7 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [LandingPosSingaporeComponent, DemoFormStubComponent],
+      declarations: [LandingPosSingaporeComponent, LpIconComponent, DemoFormStubComponent],
       providers: [{ provide: CommonFunctionService, useValue: { BindURL_Image: (name: string) => `/img/${name}` } }]
     });
     fixture = TestBed.createComponent(LandingPosSingaporeComponent);
@@ -63,6 +64,61 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
     expect(root.querySelectorAll('.lp-card').length).toBe(6);
     expect(root.querySelectorAll('.lp-steps li').length).toBe(3);
     expect(root.querySelectorAll('.lp-faq details summary').length).toBe(5);
+  });
+
+  it('shows the Google rating in the hero and again before the final call to action', () => {
+    const badges = Array.from(root.querySelectorAll<HTMLElement>('.lp-rating'));
+    expect(badges.length).toBe(2);
+    expect(root.querySelector('.lp-hero .lp-rating')).not.toBeNull();
+    expect(root.querySelector('.lp-final .lp-rating')).not.toBeNull();
+    for (const badge of badges) {
+      expect(badge.getAttribute('role')).toBe('img');
+      expect(badge.getAttribute('aria-label')).toBe('Rated 4.8 out of 5 from 25 Google reviews');
+      expect(badge.textContent).toContain('4.8');
+      expect(badge.textContent).toContain('25 Google reviews');
+      expect(badge.textContent).toContain('Software company in Singapore');
+      expect(badge.querySelectorAll('.lp-rating__stars svg').length).toBe(5);
+    }
+  });
+
+  it('shows the purple IMDA / EDGE Grant banner and the Google rating in the hero', () => {
+    const hero = root.querySelector('.lp-hero') as HTMLElement;
+    const banner = hero.querySelector<HTMLImageElement>('img.lp-hero__edge');
+    expect(banner?.getAttribute('src')).toContain('smes-go-digital-imda-banner-horizontal');
+    expect(banner?.alt).toContain('up to 50% business grant support');
+    const rating = hero.querySelector('.lp-rating');
+    expect(rating?.getAttribute('aria-label')).toBe('Rated 4.8 out of 5 from 25 Google reviews');
+    expect(rating?.querySelectorAll('.lp-rating__stars svg').length).toBe(5);
+    expect(rating?.textContent).toContain('25 Google reviews');
+  });
+
+  it('shows three hero highlights, each with an icon, and the grant qualifier', () => {
+    const stats = Array.from(root.querySelectorAll<HTMLElement>('.lp-hero .lp-stat'));
+    expect(stats.length).toBe(3);
+    stats.forEach(stat => expect(stat.querySelector('.lp-chip svg')).not.toBeNull());
+    expect(stats[0].textContent).toContain('3 platforms');
+    expect(root.querySelector('.lp-hero .lp-footnote')?.textContent).toContain('vary by activity');
+  });
+
+  it('gives every step and FAQ item an icon, and keeps the FAQ keyboard-operable (native details)', () => {
+    expect(root.querySelectorAll('.lp-step .lp-chip svg').length).toBe(3);
+    const items = Array.from(root.querySelectorAll<HTMLDetailsElement>('.lp-faq details.lp-faq__item'));
+    expect(items.length).toBe(5);
+    items.forEach(item => {
+      expect(item.querySelector('summary .lp-chip svg')).not.toBeNull();
+      expect(item.querySelector('summary .lp-faq__arrow svg')).not.toBeNull();
+      expect(item.querySelector('p')?.textContent?.trim().length).toBeGreaterThan(20);
+    });
+    root.querySelectorAll<HTMLElement>('svg').forEach(svg => expect(svg.getAttribute('aria-hidden')).toBe('true'));
+  });
+
+  it('uses one section header pattern (eyebrow, title) for every content section', () => {
+    const heads = Array.from(root.querySelectorAll('.lp-head'));
+    expect(heads.length).toBe(3);
+    heads.forEach(head => {
+      expect(head.querySelector('.lp-eyebrow')).not.toBeNull();
+      expect(head.querySelector('h2.lp-title')).not.toBeNull();
+    });
   });
 
   it('hides the site header and footer only while the landing page is shown', () => {
@@ -113,13 +169,68 @@ describe('CustomRequestDemoComponent compact mode (used by the landing page)', (
     expect(root.querySelector('.appz-demo__contact')).not.toBeNull();
   });
 
-  it('hides only the lead, eyebrow and contact block, keeping the same four-field form', () => {
+  it('hides the lead, eyebrow and contact block and swaps the restaurant name for an EDGE Grant opt-in', () => {
     const root = render(true);
     expect(root.querySelector('.appz-demo--compact')).not.toBeNull();
     expect(root.querySelector('.appz-demo__lead')).toBeNull();
     expect(root.querySelector('.appz-demo__contact')).toBeNull();
     expect(root.querySelector('#appz-demo-title')?.textContent).toContain('Demo');
+    expect(root.querySelector('#restaurant_name')).toBeNull();
+    const edge = root.querySelector<HTMLInputElement>('input#edge_grant');
+    expect(edge?.type).toBe('checkbox');
+    expect(edge?.checked).toBeFalse();
+    expect(root.querySelector('label[for="edge_grant"]')?.textContent).toContain('EDGE Grant');
     expect(root.querySelectorAll('.appz-demo__field input').length).toBe(4);
     expect(root.querySelector('form')).not.toBeNull();
+  });
+
+  it('keeps the restaurant name field and has no EDGE Grant option on every other page', () => {
+    const root = render(false);
+    expect(root.querySelector('#restaurant_name')).not.toBeNull();
+    expect(root.querySelector('#edge_grant')).toBeNull();
+  });
+
+  describe('submission', () => {
+    const submit = (compact: boolean, edgeGrant: boolean) => {
+      const sent: any[] = [];
+      const api = { apiCallPOST_Sync: (_url: string, body: any) => {
+        sent.push(body);
+        return { __zone_symbol__value: JSON.stringify({ APIResponse: { Message: '' } }) };
+      } };
+      TestBed.configureTestingModule({
+        imports: [ReactiveFormsModule],
+        declarations: [CustomRequestDemoComponent],
+        providers: [
+          { provide: ApiService, useValue: api },
+          { provide: CommonFunctionService, useValue: { BindURL_Image: (name: string) => name } }
+        ]
+      });
+      const fixture = TestBed.createComponent(CustomRequestDemoComponent);
+      fixture.componentInstance.compact = compact;
+      fixture.detectChanges();
+      fixture.componentInstance.requestDemoForm.patchValue({
+        name: 'Test Owner', email: 'owner@example.com', mobilenum: '+6591234567', edge_grant: edgeGrant
+      });
+      fixture.componentInstance.onSubmit();
+      return { sent, component: fixture.componentInstance };
+    };
+
+    it('submits without a restaurant name and flags the EDGE Grant in the subject when ticked', () => {
+      const { sent, component } = submit(true, true);
+      expect(sent.length).toBe(1);
+      expect(sent[0].ContactUs.Subject).toBe('Demo Enquiry - EDGE Grant');
+      expect(sent[0].ContactUs.RestaurantName).toBe('');
+      expect(component.requestDemoForm.value.edge_grant).toBeFalse();
+    });
+
+    it('keeps the normal subject when the EDGE Grant box is not ticked', () => {
+      const { sent } = submit(true, false);
+      expect(sent[0].ContactUs.Subject).toBe('Demo Enquiry');
+    });
+
+    it('still requires a restaurant name outside the landing page', () => {
+      const { sent } = submit(false, false);
+      expect(sent.length).toBe(0);
+    });
   });
 });

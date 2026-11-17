@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { CommonFunctionService } from '../../../../src/app/services/shared_function/common-function.service';
+import { LpIconName } from '../lp-icon/lp-icon.component';
 
 interface LandingModule {
   readonly title: string;
@@ -12,6 +13,19 @@ interface LandingModule {
 interface LandingFaq {
   readonly question: string;
   readonly answer: string;
+  readonly icon: LpIconName;
+}
+
+interface LandingStat {
+  readonly icon: LpIconName;
+  readonly value: string;
+  readonly label: string;
+}
+
+interface LandingStep {
+  readonly icon: LpIconName;
+  readonly title: string;
+  readonly text: string;
 }
 
 const WHATSAPP_URL = "https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!";
@@ -24,17 +38,24 @@ const WHATSAPP_URL = "https://wa.me/6583109631?text=I'm%20interested%20in%20APPZ
 @Component({
   selector: 'app-landing-pos-singapore',
   templateUrl: './landing-pos-singapore.component.html',
-  styleUrls: ['./landing-pos-singapore.component.css']
+  // Styles live in src/styles/_appzpos-landing.scss (global, `lp-` prefixed): they outgrew the per-component style budget.
+  styles: []
 })
 export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
   readonly whatsappUrl = WHATSAPP_URL;
   readonly year = new Date().getFullYear();
 
-  readonly benefits: readonly string[] = [
-    'Up to 50% EDGE Grant support for eligible companies*',
-    'GrabFood, Foodpanda and Deliveroo orders in one place',
-    'Cloud-based: manage menus and sales from anywhere',
-    'Local support from our Singapore team'
+  /**
+   * Google Business Profile figures, copied by hand from the live listing on 2026-11-17
+   * (4.8 stars, 25 Google reviews, "Software company in Singapore"). They are static:
+   * update them when the listing changes.
+   */
+  readonly rating = { score: 4.8, count: 25, caption: 'Software company in Singapore' } as const;
+
+  readonly stats: readonly LandingStat[] = [
+    { icon: 'package', value: '3 platforms', label: 'GrabFood, Foodpanda, Deliveroo' },
+    { icon: 'layers', value: '6 modules', label: 'POS, QR, kiosk, KDS, web, hub' },
+    { icon: 'pin', value: 'Singapore', label: 'Local support team' }
   ];
 
   readonly modules: readonly LandingModule[] = [
@@ -46,18 +67,18 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
     { title: 'Order Hub', summary: 'Bring GrabFood, Foodpanda and Deliveroo into one platform and send orders straight to POS and KDS.', image: 'assets/images/ecosystem/ecosystem-delivery.webp', imageClass: 'hub' }
   ];
 
-  readonly steps: readonly { title: string; text: string }[] = [
-    { title: 'Tell us about your outlet', text: 'Share your contact details and business name. It takes under a minute.' },
-    { title: 'See APPZPOS in a free demo', text: 'We get in touch to walk you through the modules that suit your F&B business.' },
-    { title: 'Set up with local support', text: 'Choose your modules and hardware, and check your EDGE Grant eligibility with our team.' }
+  readonly steps: readonly LandingStep[] = [
+    { icon: 'clipboard', title: 'Tell us about your outlet', text: 'Share your name, email and mobile number. It takes under a minute.' },
+    { icon: 'play', title: 'See APPZPOS in a free demo', text: 'We get in touch to walk you through the modules that suit your F&B business.' },
+    { icon: 'headset', title: 'Set up with local support', text: 'Choose your modules and hardware, and check your EDGE Grant eligibility with our team.' }
   ];
 
   readonly faqs: readonly LandingFaq[] = [
-    { question: 'Which businesses is APPZPOS built for?', answer: 'APPZPOS is an all-in-one POS for F&B businesses such as restaurants, cafés and quick-service outlets, with versions for retail stores and beauty salons as well.' },
-    { question: 'Does it work with GrabFood, Foodpanda and Deliveroo?', answer: 'Yes. Order Hub brings these platforms into one centralised system, with real-time order status sent directly to your POS and kitchen display.' },
-    { question: 'Can I check my sales when I am not in the shop?', answer: 'Yes. APPZPOS is cloud-based, so you can access your data, menus and real-time reports from anywhere.' },
-    { question: 'Is the EDGE Grant available to me?', answer: 'Eligible Singapore companies can receive EDGE Grant support for qualifying APPZPOS digitalisation projects, up to 50%. Support levels vary by activity, so we will confirm eligibility with you.' },
-    { question: 'What hardware do I need?', answer: 'APPZPOS combines software with POS terminals, receipt printers and cash drawers. Self-ordering kiosks come in 15.6", 21", 24" and 32" sizes. We will recommend a set-up that fits your outlet.' }
+    { icon: 'store', question: 'Which businesses is APPZPOS built for?', answer: 'APPZPOS is an all-in-one POS for F&B businesses such as restaurants, cafés and quick-service outlets, with versions for retail stores and beauty salons as well.' },
+    { icon: 'package', question: 'Does it work with GrabFood, Foodpanda and Deliveroo?', answer: 'Yes. Order Hub brings these platforms into one centralised system, with real-time order status sent directly to your POS and kitchen display.' },
+    { icon: 'cloud', question: 'Can I check my sales when I am not in the shop?', answer: 'Yes. APPZPOS is cloud-based, so you can access your data, menus and real-time reports from anywhere.' },
+    { icon: 'percent', question: 'Is the EDGE Grant available to me?', answer: 'Eligible Singapore companies can receive EDGE Grant support for qualifying APPZPOS digitalisation projects, up to 50%. Support levels vary by activity, so we will confirm eligibility with you.' },
+    { icon: 'monitor', question: 'What hardware do I need?', answer: 'APPZPOS combines software with POS terminals, receipt printers and cash drawers. Self-ordering kiosks come in 15.6", 21", 24" and 32" sizes. We will recommend a set-up that fits your outlet.' }
   ];
 
   constructor(

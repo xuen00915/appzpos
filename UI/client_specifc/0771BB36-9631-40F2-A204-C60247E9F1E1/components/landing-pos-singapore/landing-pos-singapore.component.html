@@ -1,3 +1,17 @@
+<!-- Google rating, shown in the hero and again above the final call to action. -->
+<ng-template #ratingBadge>
+  <div class="lp-rating" role="img" [attr.aria-label]="'Rated ' + rating.score + ' out of 5 from ' + rating.count + ' Google reviews'">
+    <span class="lp-rating__score" aria-hidden="true">{{ rating.score }}</span>
+    <span class="lp-rating__body" aria-hidden="true">
+      <span class="lp-rating__line">
+        <span class="lp-rating__stars"><app-lp-icon *ngFor="let s of [1, 2, 3, 4, 5]" name="star"></app-lp-icon></span>
+        <span class="lp-rating__count">{{ rating.count }} Google reviews</span>
+      </span>
+      <span class="lp-rating__caption">{{ rating.caption }}</span>
+    </span>
+  </div>
+</ng-template>
+
 <header class="lp-bar">
   <div class="lp-shell lp-bar__inner">
     <a class="lp-bar__logo" href="/" aria-label="APPZPOS home">
@@ -16,11 +30,17 @@
       <div class="lp-hero__copy">
         <p class="lp-eyebrow">APPZPOS &middot; F&amp;B POINT OF SALE</p>
         <h1 id="lp-hero-title">Cloud POS System for Singapore Restaurants &amp; Cafés</h1>
+        <ng-container *ngTemplateOutlet="ratingBadge"></ng-container>
         <p class="lp-lead">One system for ordering, kitchen, payments and delivery, backed by local support in Singapore.</p>
-        <ul class="lp-ticks">
-          <li *ngFor="let benefit of benefits">{{ benefit }}</li>
+        <img class="lp-hero__edge" src="assets/images/smes-go-digital-imda-banner-horizontal.webp"
+             alt="IMDA pre-approved solution, eligible for up to 50% business grant support, SMEs Go Digital" width="1400" height="495">
+        <ul class="lp-stats">
+          <li class="lp-stat" *ngFor="let stat of stats">
+            <span class="lp-chip"><app-lp-icon [name]="stat.icon"></app-lp-icon></span>
+            <span class="lp-stat__text"><strong>{{ stat.value }}</strong><span>{{ stat.label }}</span></span>
+          </li>
         </ul>
-        <p class="lp-footnote">*Eligibility and support levels vary by activity.</p>
+        <p class="lp-footnote">Eligibility and support levels vary by activity.</p>
         <img class="lp-hero__screen" src="assets/images/appzpos-screen-restaurant-1120.webp"
              alt="Illustration of the APPZPOS restaurant ordering screen with menu items and an open table bill" width="1120" height="630" fetchpriority="high">
       </div>
@@ -32,8 +52,11 @@
 
   <section class="lp-section" aria-labelledby="lp-modules-title">
     <div class="lp-shell">
-      <h2 id="lp-modules-title" class="lp-title">Everything your outlet runs on, working together</h2>
-      <p class="lp-sub">Start with the POS and add the modules you need, from the table to the kitchen to delivery.</p>
+      <header class="lp-head">
+        <p class="lp-eyebrow">MODULES</p>
+        <h2 id="lp-modules-title" class="lp-title">Everything your outlet runs on, working together</h2>
+        <p class="lp-sub">Start with the POS and add the modules you need, from the table to the kitchen to delivery.</p>
+      </header>
       <ul class="lp-cards">
         <li class="lp-card" *ngFor="let module of modules">
           <div class="lp-card__art"><img [class]="'lp-card__img lp-card__img--' + module.imageClass" [src]="module.image" alt="" width="1536" height="1024" loading="lazy"></div>
@@ -51,7 +74,8 @@
     <div class="lp-shell lp-grant">
       <img class="lp-grant__badge" src="assets/images/smes-go-digital-lockup-vertical.png"
            alt="IMDA pre-approved solution eligible for up to 50% business grant support under SMEs Go Digital" width="1273" height="1251" loading="lazy">
-      <div>
+      <div class="lp-grant__copy">
+        <p class="lp-eyebrow">EDGE GRANT</p>
         <h2 id="lp-grant-title" class="lp-title">Up to 50% EDGE Grant support for your POS</h2>
         <p class="lp-sub">Eligible Singapore companies can receive EDGE Grant support for qualifying APPZPOS digitalisation projects. Support levels vary by activity.</p>
         <a class="lp-btn lp-btn--whatsapp" [href]="whatsappUrl" target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
@@ -61,10 +85,14 @@
 
   <section class="lp-section" aria-labelledby="lp-steps-title">
     <div class="lp-shell">
-      <h2 id="lp-steps-title" class="lp-title">How to get started</h2>
+      <header class="lp-head">
+        <p class="lp-eyebrow">HOW IT WORKS</p>
+        <h2 id="lp-steps-title" class="lp-title">How to get started</h2>
+      </header>
       <ol class="lp-steps">
-        <li *ngFor="let step of steps; index as i">
-          <span class="lp-steps__num" aria-hidden="true">{{ i + 1 }}</span>
+        <li class="lp-step" *ngFor="let step of steps; index as i">
+          <span class="lp-chip lp-chip--lg"><app-lp-icon [name]="step.icon"></app-lp-icon></span>
+          <span class="lp-step__num" aria-hidden="true">STEP {{ i + 1 }}</span>
           <h3>{{ step.title }}</h3>
           <p>{{ step.text }}</p>
         </li>
@@ -73,17 +101,27 @@
   </section>
 
   <section class="lp-section lp-section--tint" aria-labelledby="lp-faq-title">
-    <div class="lp-shell lp-faq">
-      <h2 id="lp-faq-title" class="lp-title">Questions before you book</h2>
-      <details *ngFor="let faq of faqs">
-        <summary>{{ faq.question }}</summary>
-        <p>{{ faq.answer }}</p>
-      </details>
+    <div class="lp-shell">
+      <header class="lp-head">
+        <p class="lp-eyebrow">FAQ</p>
+        <h2 id="lp-faq-title" class="lp-title">Questions before you book</h2>
+      </header>
+      <div class="lp-faq">
+        <details class="lp-faq__item" *ngFor="let faq of faqs">
+          <summary>
+            <span class="lp-chip"><app-lp-icon [name]="faq.icon"></app-lp-icon></span>
+            <span class="lp-faq__q">{{ faq.question }}</span>
+            <span class="lp-faq__arrow"><app-lp-icon name="chevron"></app-lp-icon></span>
+          </summary>
+          <p>{{ faq.answer }}</p>
+        </details>
+      </div>
     </div>
   </section>
 
   <section class="lp-final" aria-labelledby="lp-final-title">
     <div class="lp-shell lp-final__inner">
+      <ng-container *ngTemplateOutlet="ratingBadge"></ng-container>
       <h2 id="lp-final-title">Ready to see APPZPOS in action?</h2>
       <p>Book a free POS demo and we will show you the modules that fit your outlet.</p>
       <div class="lp-final__actions">
