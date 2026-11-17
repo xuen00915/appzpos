@@ -25,6 +25,7 @@ app-lp-icon { display: inline-flex; width: 1em; height: 1em; line-height: 0; }
 /* Top bar: logo and two actions only, so the ad click has nowhere else to go. */
 .lp-bar { background: #fff; border-bottom: 1px solid var(--appz-line); }
 .lp-bar__inner { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 76px; }
+.lp-bar__logo { display: inline-flex; align-items: center; min-height: 44px; }
 .lp-bar__logo img { display: block; height: 52px; width: auto; }
 .lp-bar__actions { display: flex; align-items: center; gap: 12px; }
 .lp-bar__whatsapp { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px; font-weight: 700; font-size: .94rem; text-decoration: none; }
@@ -55,7 +56,8 @@ app-lp-icon { display: inline-flex; width: 1em; height: 1em; line-height: 0; }
 .lp-hero .lp-rating { margin-top: 22px; }
 .lp-hero .lp-rating__stars { font-size: 16px; }
 .lp-hero__edge { display: block; width: 100%; max-width: clamp(300px, 38vw, min(480px, 54dvh)); height: auto; margin: 0 0 8px; }
-.lp-footnote { margin: 0; color: var(--appz-ink-soft); font-size: .78rem; }
+.lp-footnote { margin: 0; color: var(--appz-ink-soft); font-size: .82rem; }
+.lp-hero__form .appz-demo__note { margin: 12px 0 0; color: var(--appz-ink-soft); font-size: .82rem; line-height: 1.45; }
 .lp-hero .lp-hero__form.appz-conversion-panel { width: 100% !important; max-width: 520px !important; margin: 0 0 0 auto !important; padding: clamp(20px, 2.4vw, 30px); box-shadow: 0 24px 60px rgba(14, 37, 66, .18); scroll-margin-top: 16px; }
 
 @media (min-width: 1025px) and (max-height: 760px) { .lp-lead { margin-bottom: 16px; } .lp-hero__form { padding: 20px 24px; } }
@@ -96,7 +98,7 @@ body.appz-landing :is(.appz-site-floating-contacts a, #gotoTop, .appzpos-bottom-
 .lp-pkg h3 { margin: 0 0 2px; font-size: 1.02rem; letter-spacing: -.01em; }
 .lp-pkg h3 span { color: var(--appz-blue-deep); font-weight: 600; }
 .lp-pkg p { margin: 0; color: var(--appz-ink-soft); font-size: .88rem; line-height: 1.45; }
-.lp-pkg__quote { flex: none; padding: 9px 14px; border: 1px solid var(--appz-blue-deep); border-radius: $lp-radius; color: var(--appz-blue-deep); font-weight: 700; font-size: .88rem; text-decoration: none; white-space: nowrap; }
+.lp-pkg__quote { flex: none; display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border: 1px solid var(--appz-blue-deep); border-radius: $lp-radius; color: var(--appz-blue-deep); font-weight: 700; font-size: .88rem; text-decoration: none; white-space: nowrap; }
 .lp-pkg__quote:hover, .lp-pkg__quote:focus-visible { background: var(--appz-blue-deep); color: #fff; }
 .lp-pkgs__shared { margin: clamp(16px, 2vw, 22px) 0 0; color: var(--appz-ink-soft); font-size: .95rem; }
 
@@ -127,7 +129,7 @@ body.appz-landing :is(.appz-site-floating-contacts a, #gotoTop, .appzpos-bottom-
 
 .lp-footer { padding: 24px 0 96px; background: #fff; color: var(--appz-ink-soft); font-size: .85rem; line-height: 1.6; }
 .lp-footer p { margin: 0; }
-.lp-footer a { color: inherit; }
+.lp-footer a { display: inline-block; padding: 7px 0; color: inherit; }
 
 @media (max-width: 1024px) {
   .lp-pkgs { grid-template-columns: minmax(0, 1fr); }

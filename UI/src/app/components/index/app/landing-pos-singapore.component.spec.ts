@@ -187,7 +187,8 @@ describe('CustomRequestDemoComponent compact mode (used by the landing page)', (
     expect(root.querySelector('.appz-demo--compact')).not.toBeNull();
     expect(root.querySelector('.appz-demo__lead')).toBeNull();
     expect(root.querySelector('.appz-demo__contact')).toBeNull();
-    expect(root.querySelector('#appz-demo-title')?.textContent).toContain('Demo');
+    expect(root.querySelector('#appz-demo-title')?.textContent).toContain('Get your free POS demo');
+    expect(root.querySelector('.appz-demo__note')?.textContent).toContain('agree to be contacted');
     const ids = Array.from(root.querySelectorAll('.appz-demo__fields input')).map(i => i.id);
     expect(ids).toEqual(['name', 'email', 'mobilenum']);
     expect(root.querySelector('#restaurant_name')).toBeNull();
