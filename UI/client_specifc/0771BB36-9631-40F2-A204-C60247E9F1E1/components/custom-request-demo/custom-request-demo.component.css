@@ -251,11 +251,3 @@
 .appz-demo--compact h2 { font-size: clamp(1.5rem, 2.2vw, 1.9rem); margin-bottom: 6px; }
 .appz-demo--compact .appz-demo__intro { margin: 0; }
 .appz-demo--compact .appz-demo__fields { grid-template-columns: minmax(0, 1fr); }
-
-/* EDGE Grant opt-in (landing page only). */
-.appz-demo__check { align-items: flex-start; background: #f6f8fb; border: 1px solid #b8cbdc; border-radius: 11px; display: flex; gap: 12px; padding: 12px 14px; }
-.appz-demo__check input { accent-color: #0a86e8; flex: none; height: 20px; margin: 2px 0 0; padding: 0; width: 20px; }
-.appz-demo__check label { cursor: pointer; display: grid; font-weight: 400; gap: 2px; margin: 0; }
-.appz-demo__check label strong { color: #0b2347; font-size: .9375rem; }
-.appz-demo__check label span { color: #4a5f78; font-size: .8125rem; line-height: 1.4; }
-.appz-demo__check:focus-within { border-color: #0a86e8; box-shadow: 0 0 0 3px rgba(10, 134, 232, .12); }

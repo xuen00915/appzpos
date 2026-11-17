@@ -57,7 +57,6 @@ app-lp-icon { display: inline-flex; width: 1em; height: 1em; line-height: 0; }
 .lp-stat__text span { color: var(--appz-ink-soft); font-size: .82rem; }
 .lp-hero__edge { display: block; width: 100%; max-width: 620px; height: auto; margin: 0 0 18px; }
 .lp-footnote { margin: 0; color: var(--appz-ink-soft); font-size: .8rem; }
-.lp-hero__screen { display: block; width: min(100%, 560px); height: auto; margin-top: 28px; border: 1px solid var(--appz-line); border-radius: var(--appz-radius); box-shadow: var(--appz-shadow-sm); }
 .lp-hero__form { width: 100%; max-width: none; margin: 0; padding: clamp(20px, 2.4vw, 28px); box-shadow: var(--appz-shadow); scroll-margin-top: 16px; }
 
 /* Sections */
@@ -71,6 +70,19 @@ app-lp-icon { display: inline-flex; width: 1em; height: 1em; line-height: 0; }
 .lp-card__img { position: absolute; left: 50%; top: 50%; width: 100%; height: auto; max-width: none; transform: translate(-50%, -50%) scale(1.5); }
 .lp-card h3, .lp-step h3 { margin: 0 0 8px; font-size: 1.15rem; letter-spacing: -.01em; }
 .lp-card p, .lp-step p { margin: 0; color: var(--appz-ink-soft); line-height: 1.6; font-size: .96rem; }
+
+/* EDGE Grant packages: system screen beside the five packages */
+.lp-pkgs { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(20px, 3vw, 40px); align-items: center; }
+.lp-pkgs__screen { display: block; width: 100%; height: auto; border: 1px solid var(--appz-line); border-radius: var(--appz-radius); box-shadow: var(--appz-shadow-sm); }
+.lp-pkgs__list { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+.lp-pkg { display: flex; align-items: center; gap: 14px; padding: 14px 16px; border: 1px solid var(--appz-line); border-radius: var(--appz-radius); background: #fff; box-shadow: var(--appz-shadow-sm); }
+.lp-pkg__body { flex: 1; min-width: 0; }
+.lp-pkg h3 { margin: 0 0 2px; font-size: 1.02rem; letter-spacing: -.01em; }
+.lp-pkg h3 span { color: var(--appz-blue-deep); font-weight: 600; }
+.lp-pkg p { margin: 0; color: var(--appz-ink-soft); font-size: .88rem; line-height: 1.45; }
+.lp-pkg__quote { flex: none; padding: 9px 14px; border: 1px solid var(--appz-blue-deep); border-radius: 6px; color: var(--appz-blue-deep); font-weight: 700; font-size: .88rem; text-decoration: none; white-space: nowrap; }
+.lp-pkg__quote:hover, .lp-pkg__quote:focus-visible { background: var(--appz-blue-deep); color: #fff; }
+.lp-pkgs__shared { margin: clamp(20px, 2.4vw, 28px) 0 0; text-align: center; color: var(--appz-ink-soft); font-size: .95rem; }
 
 .lp-grant { display: grid; grid-template-columns: minmax(120px, 200px) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: center; }
 .lp-grant__badge { display: block; width: 100%; height: auto; }
@@ -105,7 +117,7 @@ app-lp-icon { display: inline-flex; width: 1em; height: 1em; line-height: 0; }
 
 @media (max-width: 1024px) {
   .lp-hero__grid { grid-template-columns: minmax(0, 1fr); }
-  .lp-hero__screen { display: none; }
+  .lp-pkgs { grid-template-columns: minmax(0, 1fr); }
   .lp-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 767px) {
@@ -121,6 +133,9 @@ app-lp-icon { display: inline-flex; width: 1em; height: 1em; line-height: 0; }
   .lp-rating { display: flex; }
   .lp-final .lp-rating { display: inline-flex; text-align: left; }
   .lp-grant { grid-template-columns: minmax(0, 1fr); }
+  .lp-pkg { flex-wrap: wrap; gap: 12px 14px; }
+  .lp-pkg__body { flex: 1 1 calc(100% - 66px); }
+  .lp-pkg__quote { margin-left: 58px; }
   .lp-grant__badge { max-width: 140px; }
   .lp-faq summary { padding: 10px 14px; gap: 12px; }
   .lp-faq__item p { padding: 0 16px 18px; }

@@ -22,6 +22,13 @@ interface LandingStat {
   readonly label: string;
 }
 
+interface LandingPackage {
+  readonly id: number;
+  readonly title: string;
+  readonly includes: string;
+  readonly icon: LpIconName;
+}
+
 interface LandingStep {
   readonly icon: LpIconName;
   readonly title: string;
@@ -73,6 +80,15 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
     { icon: 'headset', title: 'Set up with local support', text: 'Choose your modules and hardware, and check your EDGE Grant eligibility with our team.' }
   ];
 
+  /** Same five EDGE Grant packages as the /psg-pos-system-grant-singapore page. */
+  readonly packages: readonly LandingPackage[] = [
+    { id: 1, title: 'POS + QR', icon: 'clipboard', includes: '1 Digital Ordering (POS) + 1 QR Ordering' },
+    { id: 2, title: 'With Order Hub', icon: 'package', includes: '1 Digital Ordering (POS) + 1 QR Ordering + 1 Order Hub' },
+    { id: 3, title: 'With 1 kiosk', icon: 'monitor', includes: '1 Digital Ordering (POS) + 1 QR Ordering + 1 Self-ordering Kiosk' },
+    { id: 4, title: 'With 2 kiosks', icon: 'monitor', includes: '1 Digital Ordering (POS) + 1 QR Ordering + 2 Self-ordering Kiosks' },
+    { id: 5, title: 'Kiosk + Order Hub', icon: 'layers', includes: '1 Digital Ordering (POS) + 1 QR Ordering + 1 Order Hub + 1 Self-ordering Kiosk' }
+  ];
+
   readonly faqs: readonly LandingFaq[] = [
     { icon: 'store', question: 'Which businesses is APPZPOS built for?', answer: 'APPZPOS is an all-in-one POS for F&B businesses such as restaurants, cafés and quick-service outlets, with versions for retail stores and beauty salons as well.' },
     { icon: 'package', question: 'Does it work with GrabFood, Foodpanda and Deliveroo?', answer: 'Yes. Order Hub brings these platforms into one centralised system, with real-time order status sent directly to your POS and kitchen display.' },
@@ -102,6 +118,10 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.meta.removeTag("name='robots'");
     document.body.classList.remove('appz-landing');
+  }
+
+  packageQuote(id: number): string {
+    return "https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20EDGE%20Grant%20Package%20" + id;
   }
 
   BindURL_Image(fileName: string): string {
