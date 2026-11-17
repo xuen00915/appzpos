@@ -49,10 +49,10 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
 
   /**
    * Google Business Profile figures, copied by hand from the live listing on 2026-11-17
-   * (4.8 stars, 25 Google reviews, "Software company in Singapore"). They are static:
+   * (4.8 stars). They are static:
    * update them when the listing changes.
    */
-  readonly rating = { score: 4.8, count: 25, caption: 'Software company in Singapore' } as const;
+  readonly rating = { score: 4.8 } as const;
 
   readonly stats: readonly LandingStat[] = [
     { value: '3 platforms', label: 'GrabFood, Foodpanda, Deliveroo' },

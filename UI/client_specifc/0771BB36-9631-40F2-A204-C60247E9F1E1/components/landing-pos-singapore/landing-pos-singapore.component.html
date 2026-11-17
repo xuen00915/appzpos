@@ -1,14 +1,9 @@
-<!-- Google rating, shown in the hero and again above the final call to action. -->
+<!-- Google rating (score only), shown in the hero and again above the final call to action. -->
 <ng-template #ratingBadge>
-  <div class="lp-rating" role="img" [attr.aria-label]="'Rated ' + rating.score + ' out of 5 from ' + rating.count + ' Google reviews'">
+  <div class="lp-rating" role="img" [attr.aria-label]="'Rated ' + rating.score + ' out of 5 on Google'">
     <span class="lp-rating__score" aria-hidden="true">{{ rating.score }}</span>
-    <span class="lp-rating__body" aria-hidden="true">
-      <span class="lp-rating__line">
-        <span class="lp-rating__stars"><app-lp-icon *ngFor="let s of [1, 2, 3, 4, 5]" name="star"></app-lp-icon></span>
-        <span class="lp-rating__count">{{ rating.count }} Google reviews</span>
-      </span>
-      <span class="lp-rating__caption">{{ rating.caption }}</span>
-    </span>
+    <span class="lp-rating__stars" aria-hidden="true"><app-lp-icon *ngFor="let s of [1, 2, 3, 4, 5]" name="star"></app-lp-icon></span>
+    <span class="lp-rating__label" aria-hidden="true">Google rating</span>
   </div>
 </ng-template>
 
