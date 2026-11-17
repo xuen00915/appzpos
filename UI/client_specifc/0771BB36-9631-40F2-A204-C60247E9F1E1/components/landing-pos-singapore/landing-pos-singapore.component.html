@@ -10,7 +10,11 @@
 <!-- Three data cards: shown under the hero copy on desktop, under the banner on smaller screens. -->
 <ng-template #statCards let-where="where">
   <ul class="lp-stats" [ngClass]="'lp-stats--' + where">
-    <li class="lp-stat" *ngFor="let stat of stats"><strong>{{ stat.value }}</strong><span>{{ stat.label }}</span></li>
+    <li class="lp-stat" *ngFor="let stat of stats">
+      <span class="lp-stat__icon"><app-lp-icon [name]="stat.icon"></app-lp-icon></span>
+      <strong>{{ stat.value }}</strong>
+      <span class="lp-stat__label">{{ stat.label }}</span>
+    </li>
   </ul>
 </ng-template>
 
