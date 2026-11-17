@@ -1,11 +1,11 @@
-<section class="appz-demo" aria-labelledby="appz-demo-title">
+<section class="appz-demo" [class.appz-demo--compact]="compact" aria-labelledby="appz-demo-title">
     <div class="appz-demo__copy">
-        <p *ngIf="copy.eyebrow" class="appz-demo__eyebrow">{{ copy.eyebrow }}</p>
+        <p *ngIf="copy.eyebrow && !compact" class="appz-demo__eyebrow">{{ copy.eyebrow }}</p>
         <h2 id="appz-demo-title" class="appz-section-title">{{ copy.title }}</h2>
-        <p class="appz-demo__lead appz-section-description">{{ copy.lead }}</p>
+        <p *ngIf="!compact" class="appz-demo__lead appz-section-description">{{ copy.lead }}</p>
         <p *ngFor="let paragraph of copy.intro" class="appz-demo__intro">{{ paragraph }}</p>
 
-        <address class="appz-demo__contact">
+        <address *ngIf="!compact" class="appz-demo__contact">
             <a href="mailto:enquiry@appzgate.com">
                 <i class="bi-envelope" aria-hidden="true"></i>
                 <span>enquiry&#64;appzgate.com</span>

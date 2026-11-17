@@ -1888,3 +1888,7 @@ app-solution-page {
 [data-home-page-template][lang='en'] .appz-demo__eyebrow {
   display: none;
 }
+
+/* Google Ads landing pages: no site navigation or footer, so the ad click stays on the offer. */
+body.appz-landing app-header,
+body.appz-landing app-footer { display: none !important; }

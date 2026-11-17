@@ -45,6 +45,7 @@ import { HomeStorySectionsComponent } from '../components/home-story-sections/ho
 import { MarketingRevealDirective } from '../components/marketing-reveal/marketing-reveal.directive';
 import { SolutionHeroComponent } from '../components/solution-hero/solution-hero.component';
 import { SolutionPageComponent, SolutionFeatureHeadingComponent, SolutionHardwareFiltersComponent } from '../components/solution-page/solution-page.component';
+import { LandingPosSingaporeComponent } from '../components/landing-pos-singapore/landing-pos-singapore.component';
 import { MatDialogRef } from '@angular/material/dialog';
 
 
@@ -86,6 +87,7 @@ import { MatDialogRef } from '@angular/material/dialog';
     HomeStorySectionsComponent,
     MarketingRevealDirective,
     SolutionHeroComponent,
+    LandingPosSingaporeComponent,
   ],
   imports: [
     IndustryPageComponent, IndustryIslandsComponent, IndustryDiagramHandoffDirective, IndustryWorkflowDirective,

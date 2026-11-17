@@ -79,6 +79,8 @@ const REQUEST_DEMO_COPY: Readonly<Record<RequestDemoLocale, RequestDemoCopy>> = 
 })
 export class CustomRequestDemoComponent implements OnInit{
     @Input() locale: RequestDemoLocale = 'en';
+    /** Form-only presentation for landing pages: hides the eyebrow, lead and contact details. */
+    @Input() compact = false;
 
     showSuccessMsg: boolean = false;
     successMsg: string = "";

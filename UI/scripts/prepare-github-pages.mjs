@@ -1,4 +1,4 @@
-import { readFile, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 
 const indexPath = new URL('../dist/e-commerce/index.html', import.meta.url);
 const fallbackPath = new URL('../dist/e-commerce/404.html', import.meta.url);
@@ -33,3 +33,14 @@ if (!source.includes('data-github-pages-navigation')) {
   await writeFile(indexPath, output);
   await writeFile(fallbackPath, output);
 }
+
+// Pages answers unknown paths with 404.html (HTTP 404). Google Ads disapproves final URLs
+// that return 404, so ad landing pages get a real index.html and answer with HTTP 200.
+const landingRoutes = ['lp/restaurant-pos-system-singapore'];
+const landingHtml = await readFile(indexPath, 'utf8');
+for (const route of landingRoutes) {
+  const directory = new URL(`../dist/e-commerce/${route}/`, import.meta.url);
+  await mkdir(directory, { recursive: true });
+  await writeFile(new URL('index.html', directory), landingHtml);
+}
+
