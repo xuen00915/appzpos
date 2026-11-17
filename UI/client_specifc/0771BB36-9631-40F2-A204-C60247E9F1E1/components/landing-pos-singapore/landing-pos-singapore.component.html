@@ -28,18 +28,13 @@
   <section class="lp-hero" aria-labelledby="lp-hero-title">
     <div class="lp-shell lp-hero__grid">
       <div class="lp-hero__copy">
-        <p class="lp-eyebrow">APPZPOS &middot; F&amp;B POINT OF SALE</p>
-        <h1 id="lp-hero-title">Cloud POS System for Singapore Restaurants &amp; Cafés</h1>
+        <h1 id="lp-hero-title">Restaurant POS System in Singapore</h1>
+        <p class="lp-lead">Cloud POS for restaurants and cafés. QR ordering, self-ordering kiosk, kitchen display and delivery integration in one system, backed by local support.</p>
         <ng-container *ngTemplateOutlet="ratingBadge"></ng-container>
-        <p class="lp-lead">One system for ordering, kitchen, payments and delivery, backed by local support in Singapore.</p>
+      </div>
+      <div class="lp-hero__edgebox">
         <img class="lp-hero__edge" src="assets/images/smes-go-digital-imda-banner-horizontal.webp"
              alt="IMDA pre-approved solution, eligible for up to 50% business grant support, SMEs Go Digital" width="1400" height="495">
-        <ul class="lp-stats">
-          <li class="lp-stat" *ngFor="let stat of stats">
-            <span class="lp-chip"><app-lp-icon [name]="stat.icon"></app-lp-icon></span>
-            <span class="lp-stat__text"><strong>{{ stat.value }}</strong><span>{{ stat.label }}</span></span>
-          </li>
-        </ul>
         <p class="lp-footnote">Eligibility and support levels vary by activity.</p>
       </div>
       <div class="lp-hero__form appz-conversion-panel" id="requestdemo">
@@ -48,10 +43,17 @@
     </div>
   </section>
 
+  <section class="lp-trust" aria-label="APPZPOS at a glance">
+    <ul class="lp-shell lp-stats">
+      <li class="lp-stat" *ngFor="let stat of stats">
+        <span class="lp-stat__text"><strong>{{ stat.value }}</strong><span>{{ stat.label }}</span></span>
+      </li>
+    </ul>
+  </section>
+
   <section class="lp-section" aria-labelledby="lp-modules-title">
     <div class="lp-shell">
       <header class="lp-head">
-        <p class="lp-eyebrow">MODULES</p>
         <h2 id="lp-modules-title" class="lp-title">Everything your outlet runs on, working together</h2>
         <p class="lp-sub">Start with the POS and add the modules you need, from the table to the kitchen to delivery.</p>
       </header>
@@ -73,7 +75,6 @@
       <img class="lp-grant__badge" src="assets/images/smes-go-digital-lockup-vertical.png"
            alt="IMDA pre-approved solution eligible for up to 50% business grant support under SMEs Go Digital" width="1273" height="1251" loading="lazy">
       <div class="lp-grant__copy">
-        <p class="lp-eyebrow">EDGE GRANT</p>
         <h2 id="lp-grant-title" class="lp-title">Up to 50% EDGE Grant support for your POS</h2>
         <p class="lp-sub">Eligible Singapore companies can receive EDGE Grant support for qualifying APPZPOS digitalisation projects. Support levels vary by activity.</p>
         <a class="lp-btn lp-btn--whatsapp" [href]="whatsappUrl" target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
@@ -84,7 +85,6 @@
   <section class="lp-section" id="packages" aria-labelledby="lp-packages-title">
     <div class="lp-shell">
       <header class="lp-head">
-        <p class="lp-eyebrow">EDGE GRANT PACKAGES</p>
         <h2 id="lp-packages-title" class="lp-title">Five EDGE Grant packages for your outlet</h2>
         <p class="lp-sub">Every package includes 1 Digital Ordering System (POS) + 1 QR Ordering system. Eligible SMEs may receive up to 50% support; support levels vary by activity.</p>
       </header>
@@ -93,7 +93,6 @@
              alt="Illustration of the APPZPOS restaurant ordering screen with menu items and an open table bill" width="1120" height="630" loading="lazy">
         <ol class="lp-pkgs__list">
           <li class="lp-pkg" *ngFor="let pkg of packages">
-            <span class="lp-chip"><app-lp-icon [name]="pkg.icon"></app-lp-icon></span>
             <div class="lp-pkg__body">
               <h3>Package {{ pkg.id }} <span>{{ pkg.title }}</span></h3>
               <p>{{ pkg.includes }}</p>
@@ -109,13 +108,11 @@
   <section class="lp-section" aria-labelledby="lp-steps-title">
     <div class="lp-shell">
       <header class="lp-head">
-        <p class="lp-eyebrow">HOW IT WORKS</p>
         <h2 id="lp-steps-title" class="lp-title">How to get started</h2>
       </header>
       <ol class="lp-steps">
         <li class="lp-step" *ngFor="let step of steps; index as i">
-          <span class="lp-chip lp-chip--lg"><app-lp-icon [name]="step.icon"></app-lp-icon></span>
-          <span class="lp-step__num" aria-hidden="true">STEP {{ i + 1 }}</span>
+          <span class="lp-step__num" aria-hidden="true">{{ i + 1 }}</span>
           <h3>{{ step.title }}</h3>
           <p>{{ step.text }}</p>
         </li>
@@ -126,13 +123,11 @@
   <section class="lp-section lp-section--tint" aria-labelledby="lp-faq-title">
     <div class="lp-shell">
       <header class="lp-head">
-        <p class="lp-eyebrow">FAQ</p>
         <h2 id="lp-faq-title" class="lp-title">Questions before you book</h2>
       </header>
       <div class="lp-faq">
         <details class="lp-faq__item" *ngFor="let faq of faqs">
           <summary>
-            <span class="lp-chip"><app-lp-icon [name]="faq.icon"></app-lp-icon></span>
             <span class="lp-faq__q">{{ faq.question }}</span>
             <span class="lp-faq__arrow"><app-lp-icon name="chevron"></app-lp-icon></span>
           </summary>

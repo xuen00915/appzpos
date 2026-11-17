@@ -28,7 +28,7 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
 
   it('has one h1 and exactly one conversion form, passed in compact mode', () => {
     expect(root.querySelectorAll('h1').length).toBe(1);
-    expect(root.querySelector('h1')?.textContent).toContain('Cloud POS System for Singapore Restaurants');
+    expect(root.querySelector('h1')?.textContent).toContain('Restaurant POS System in Singapore');
     expect(root.querySelectorAll('app-custom-request-demo').length).toBe(1);
     expect(root.querySelector('#requestdemo app-custom-request-demo')).not.toBeNull();
     const demo = fixture.debugElement.query(sel => sel.name === 'app-custom-request-demo');
@@ -89,7 +89,6 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
     expect(pkgs.length).toBe(5);
     expect(pkgs[0].textContent).toContain('Package 1');
     expect(pkgs[4].textContent).toContain('1 Order Hub + 1 Self-ordering Kiosk');
-    pkgs.forEach(pkg => expect(pkg.querySelector('.lp-chip svg')).not.toBeNull());
     const quote = pkgs[2].querySelector<HTMLAnchorElement>('a.lp-pkg__quote')!;
     expect(quote.href).toContain('https://wa.me/6583109631?text=');
     expect(quote.href).toContain('EDGE%20Grant%20Package%203');
@@ -109,31 +108,30 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
     expect(rating?.textContent).toContain('25 Google reviews');
   });
 
-  it('shows three hero highlights, each with an icon, and the grant qualifier', () => {
-    const stats = Array.from(root.querySelectorAll<HTMLElement>('.lp-hero .lp-stat'));
+  it('shows three plain highlights under the hero and the grant qualifier in the hero', () => {
+    const stats = Array.from(root.querySelectorAll<HTMLElement>('.lp-trust .lp-stat'));
     expect(stats.length).toBe(3);
-    stats.forEach(stat => expect(stat.querySelector('.lp-chip svg')).not.toBeNull());
     expect(stats[0].textContent).toContain('3 platforms');
     expect(root.querySelector('.lp-hero .lp-footnote')?.textContent).toContain('vary by activity');
   });
 
-  it('gives every step and FAQ item an icon, and keeps the FAQ keyboard-operable (native details)', () => {
-    expect(root.querySelectorAll('.lp-step .lp-chip svg').length).toBe(3);
+  it('numbers the steps and keeps the FAQ keyboard-operable (native details)', () => {
+    expect(Array.from(root.querySelectorAll('.lp-step__num')).map(n => n.textContent?.trim())).toEqual(['1', '2', '3']);
     const items = Array.from(root.querySelectorAll<HTMLDetailsElement>('.lp-faq details.lp-faq__item'));
     expect(items.length).toBe(5);
     items.forEach(item => {
-      expect(item.querySelector('summary .lp-chip svg')).not.toBeNull();
       expect(item.querySelector('summary .lp-faq__arrow svg')).not.toBeNull();
       expect(item.querySelector('p')?.textContent?.trim().length).toBeGreaterThan(20);
     });
     root.querySelectorAll<HTMLElement>('svg').forEach(svg => expect(svg.getAttribute('aria-hidden')).toBe('true'));
   });
 
-  it('uses one section header pattern (eyebrow, title) for every content section', () => {
+  it('uses one section header pattern (a title only, no eyebrow) for every content section', () => {
     const heads = Array.from(root.querySelectorAll('.lp-head'));
     expect(heads.length).toBe(4);
+    expect(root.querySelectorAll('.lp-eyebrow').length).toBe(0);
     heads.forEach(head => {
-      expect(head.querySelector('.lp-eyebrow')).not.toBeNull();
+      expect(head.querySelector('.lp-eyebrow')).toBeNull();
       expect(head.querySelector('h2.lp-title')).not.toBeNull();
     });
   });
