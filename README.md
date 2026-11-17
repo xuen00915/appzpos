@@ -100,6 +100,38 @@ Customer-specific routes are configured in `UI/client_specifc/0771BB36-9631-40F2
 - POS features, hardware, partner integrations, and grant information
 - Demo request and contact pages
 - Blog pages
+- The Google Ads landing page (`/lp/restaurant-pos-system-singapore`, see below)
+
+## Google Ads landing page
+
+The repository includes a focused landing page for Google Ads traffic:
+
+- **Route:** `/lp/restaurant-pos-system-singapore`, declared in `custom-app-routing.module.ts`
+- **Live URL (GitHub Pages):** <https://xuen00915.github.io/appzpos/lp/restaurant-pos-system-singapore/>
+- **Ad keyword:** the headline is "Restaurant POS System in Singapore", written for the "restaurant POS system Singapore" search intent.
+- **Component:** `UI/client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/landing-pos-singapore/`
+- **Styles:** `UI/src/styles/_appzpos-landing.scss`. Every selector uses the `lp-` prefix. A single `$lp-radius` token sets the corner radius for the whole page.
+- **Tests:** `UI/src/app/components/index/app/landing-pos-singapore.component.spec.ts`
+
+What the page contains, in order: a slim top bar (logo, WhatsApp, Get a Free Demo), a one-screen hero with the demo form, the EDGE Grant packages, the six product modules, the EDGE Grant band, three steps, a ten-question FAQ in two columns, a final call to action and a compact footer.
+
+Behaviour to keep in mind when editing:
+
+- The site header and footer are hidden while the page is shown (the component toggles `body.appz-landing`). The floating WhatsApp bubble stays, the Messenger bubble becomes a phone-call link (`tel:+6583109631`) and is restored when the visitor leaves, and all floating controls share one size and gap.
+- The form is the shared `CustomRequestDemoComponent` in `compact` mode (name, email and mobile number only). Other pages are unchanged. The shared form posts to the production `SendEmail` API, so do not submit test enquiries.
+- The page sets `noindex, nofollow`. The sitewide Google Tag Manager container and Meta Pixel still load through the hidden header. No landing-specific Ads conversion action exists yet.
+- The 4.8 Google rating is a static value copied from the Google Business Profile listing. Update it by hand in `landing-pos-singapore.component.ts` when the listing changes.
+- Facts on the page (up to 50% EDGE Grant support, the five packages, the supported delivery platforms) come from existing site copy. Keep the qualifier "support levels vary by activity" next to grant claims.
+
+### Deploy the landing page (GitHub Pages only)
+
+`.github/workflows/deploy-pages.yml` builds the app with `--base-href /appzpos/` and publishes it to GitHub Pages when a change reaches `main`. `UI/scripts/prepare-github-pages.mjs` writes a real `index.html` for the landing route, with the landing title, description and `noindex` in the static HTML, so the ad URL returns HTTP 200 instead of the Pages 404 fallback that Google Ads rejects.
+
+This workflow has no cPanel, Vodien, FTP or SSH step. Landing page changes must never touch `appzpos.com` or `website.appzpos.com`.
+
+## References
+
+- [SMEs Go Digital solution listing: APPZPOS F&B Point of Sales](https://smesgodigital.gov.sg/web/solution/20240028/appzpos-f-b-point-of-sales). The public SMEs Go Digital (IMDA) listing for this product, solution ID 20240028. Check the EDGE Grant and "IMDA pre-approved" wording on the website and the landing page against this listing.
 
 ## API access
 
