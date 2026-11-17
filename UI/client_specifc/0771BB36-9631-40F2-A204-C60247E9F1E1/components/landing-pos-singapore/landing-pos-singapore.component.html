@@ -51,6 +51,29 @@
     </div>
   </section>
 
+  <section class="lp-section lp-section--tint" id="packages" aria-labelledby="lp-packages-title">
+    <div class="lp-shell">
+      <header class="lp-head lp-head--wide">
+        <h2 id="lp-packages-title" class="lp-title">Five EDGE Grant packages for your outlet</h2>
+        <p class="lp-sub">Every package includes 1 Digital Ordering System (POS) + 1 QR Ordering system. Eligible SMEs may receive up to 50% support; support levels vary by activity.</p>
+      </header>
+      <div class="lp-pkgs">
+        <img class="lp-pkgs__screen" src="assets/images/appzpos-screen-restaurant-1120.webp"
+             alt="Illustration of the APPZPOS restaurant ordering screen with menu items and an open table bill" width="1120" height="630" loading="lazy">
+        <ol class="lp-pkgs__list">
+          <li class="lp-pkg" *ngFor="let pkg of packages">
+            <div class="lp-pkg__body">
+              <h3>Package {{ pkg.id }} <span>{{ pkg.title }}</span></h3>
+              <p>{{ pkg.includes }}</p>
+            </div>
+            <a class="lp-pkg__quote" [href]="packageQuote(pkg.id)" target="_blank" rel="noopener noreferrer" [attr.aria-label]="'Get a quote for Package ' + pkg.id">Get a quote</a>
+          </li>
+        </ol>
+      </div>
+      <p class="lp-pkgs__shared">Included in all 5 packages: <strong>1-year subscription</strong> and <strong>Central Admin Portal with unlimited users.</strong></p>
+    </div>
+  </section>
+
   <section class="lp-section" aria-labelledby="lp-modules-title">
     <div class="lp-shell">
       <header class="lp-head">
@@ -72,36 +95,16 @@
 
   <section class="lp-section lp-section--tint" aria-labelledby="lp-grant-title">
     <div class="lp-shell lp-grant">
-      <img class="lp-grant__badge" src="assets/images/smes-go-digital-lockup-vertical.png"
-           alt="IMDA pre-approved solution eligible for up to 50% business grant support under SMEs Go Digital" width="1273" height="1251" loading="lazy">
+      <picture class="lp-grant__badge">
+        <source media="(max-width: 767px)" srcset="assets/images/smes-go-digital-imda-banner-horizontal.webp" width="1400" height="495">
+        <img src="assets/images/smes-go-digital-lockup-vertical.png"
+             alt="IMDA pre-approved solution eligible for up to 50% business grant support under SMEs Go Digital" width="1273" height="1251" loading="lazy">
+      </picture>
       <div class="lp-grant__copy">
         <h2 id="lp-grant-title" class="lp-title">Up to 50% EDGE Grant support for your POS</h2>
         <p class="lp-sub">Eligible Singapore companies can receive EDGE Grant support for qualifying APPZPOS digitalisation projects. Support levels vary by activity.</p>
         <a class="lp-btn lp-btn--whatsapp" [href]="whatsappUrl" target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
       </div>
-    </div>
-  </section>
-
-  <section class="lp-section" id="packages" aria-labelledby="lp-packages-title">
-    <div class="lp-shell">
-      <header class="lp-head lp-head--wide">
-        <h2 id="lp-packages-title" class="lp-title">Five EDGE Grant packages for your outlet</h2>
-        <p class="lp-sub">Every package includes 1 Digital Ordering System (POS) + 1 QR Ordering system. Eligible SMEs may receive up to 50% support; support levels vary by activity.</p>
-      </header>
-      <div class="lp-pkgs">
-        <img class="lp-pkgs__screen" src="assets/images/appzpos-screen-restaurant-1120.webp"
-             alt="Illustration of the APPZPOS restaurant ordering screen with menu items and an open table bill" width="1120" height="630" loading="lazy">
-        <ol class="lp-pkgs__list">
-          <li class="lp-pkg" *ngFor="let pkg of packages">
-            <div class="lp-pkg__body">
-              <h3>Package {{ pkg.id }} <span>{{ pkg.title }}</span></h3>
-              <p>{{ pkg.includes }}</p>
-            </div>
-            <a class="lp-pkg__quote" [href]="packageQuote(pkg.id)" target="_blank" rel="noopener noreferrer" [attr.aria-label]="'Get a quote for Package ' + pkg.id">Get a quote</a>
-          </li>
-        </ol>
-      </div>
-      <p class="lp-pkgs__shared">Included in all 5 packages: <strong>1-year subscription</strong> and <strong>Central Admin Portal with unlimited users.</strong></p>
     </div>
   </section>
 
