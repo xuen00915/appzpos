@@ -73,9 +73,8 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
     expect(root.querySelector('.lp-final .lp-rating')).not.toBeNull();
     for (const badge of badges) {
       expect(badge.getAttribute('role')).toBe('img');
-      expect(badge.getAttribute('aria-label')).toBe('Rated 4.8 out of 5 on Google');
-      expect(badge.textContent).toContain('4.8');
-      expect(badge.textContent).not.toMatch(/reviews/i);
+      expect(badge.getAttribute('aria-label')).toBe('Highly rated on Google');
+      expect(badge.textContent).not.toMatch(/\d|reviews/i);
       expect(badge.querySelectorAll('.lp-rating__stars svg').length).toBe(5);
     }
   });
@@ -102,15 +101,15 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
     expect(banner?.getAttribute('src')).toContain('smes-go-digital-imda-banner-horizontal');
     expect(banner?.alt).toContain('up to 50% business grant support');
     const rating = hero.querySelector('.lp-rating');
-    expect(rating?.getAttribute('aria-label')).toBe('Rated 4.8 out of 5 on Google');
+    expect(rating?.getAttribute('aria-label')).toBe('Highly rated on Google');
     expect(rating?.querySelectorAll('.lp-rating__stars svg').length).toBe(5);
-    expect(rating?.textContent).not.toMatch(/reviews/i);
+    expect(rating?.textContent).not.toMatch(/\d|reviews/i);
   });
 
-  it('shows three plain highlights under the hero and the grant qualifier in the hero', () => {
-    const stats = Array.from(root.querySelectorAll<HTMLElement>('.lp-trust .lp-stat'));
-    expect(stats.length).toBe(3);
-    expect(stats[0].textContent).toContain('3 platforms');
+  it('shows three plain benefit lines and the grant qualifier in the hero', () => {
+    const checks = Array.from(root.querySelectorAll<HTMLElement>('.lp-hero .lp-checks li'));
+    expect(checks.length).toBe(3);
+    expect(checks[0].textContent).toContain('GrabFood, Foodpanda and Deliveroo');
     expect(root.querySelector('.lp-hero .lp-footnote')?.textContent).toContain('vary by activity');
   });
 

@@ -1,7 +1,6 @@
-<!-- Google rating (score only), shown in the hero and again above the final call to action. -->
+<!-- Google rating (stars only, no numbers), shown in the hero and again above the final call to action. -->
 <ng-template #ratingBadge>
-  <div class="lp-rating" role="img" [attr.aria-label]="'Rated ' + rating.score + ' out of 5 on Google'">
-    <span class="lp-rating__score" aria-hidden="true">{{ rating.score }}</span>
+  <div class="lp-rating" role="img" aria-label="Highly rated on Google">
     <span class="lp-rating__stars" aria-hidden="true"><app-lp-icon *ngFor="let s of [1, 2, 3, 4, 5]" name="star"></app-lp-icon></span>
     <span class="lp-rating__label" aria-hidden="true">Google rating</span>
   </div>
@@ -25,6 +24,9 @@
       <div class="lp-hero__copy">
         <h1 id="lp-hero-title">Restaurant POS System in Singapore</h1>
         <p class="lp-lead">Cloud POS for restaurants and cafés. QR ordering, self-ordering kiosk, kitchen display and delivery integration in one system, backed by local support.</p>
+        <ul class="lp-checks">
+          <li *ngFor="let item of highlights">{{ item }}</li>
+        </ul>
         <ng-container *ngTemplateOutlet="ratingBadge"></ng-container>
       </div>
       <div class="lp-hero__edgebox">
@@ -36,14 +38,6 @@
         <app-custom-request-demo [compact]="true"></app-custom-request-demo>
       </div>
     </div>
-  </section>
-
-  <section class="lp-trust" aria-label="APPZPOS at a glance">
-    <ul class="lp-shell lp-stats">
-      <li class="lp-stat" *ngFor="let stat of stats">
-        <span class="lp-stat__text"><strong>{{ stat.value }}</strong><span>{{ stat.label }}</span></span>
-      </li>
-    </ul>
   </section>
 
   <section class="lp-section" aria-labelledby="lp-modules-title">
@@ -79,7 +73,7 @@
 
   <section class="lp-section" id="packages" aria-labelledby="lp-packages-title">
     <div class="lp-shell">
-      <header class="lp-head">
+      <header class="lp-head lp-head--wide">
         <h2 id="lp-packages-title" class="lp-title">Five EDGE Grant packages for your outlet</h2>
         <p class="lp-sub">Every package includes 1 Digital Ordering System (POS) + 1 QR Ordering system. Eligible SMEs may receive up to 50% support; support levels vary by activity.</p>
       </header>
