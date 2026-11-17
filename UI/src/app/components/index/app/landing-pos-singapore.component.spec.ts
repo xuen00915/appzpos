@@ -63,7 +63,10 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
   it('renders six modules, three steps and an accessible FAQ', () => {
     expect(root.querySelectorAll('.lp-card').length).toBe(6);
     expect(root.querySelectorAll('.lp-steps li').length).toBe(3);
-    expect(root.querySelectorAll('.lp-faq details summary').length).toBe(5);
+    expect(root.querySelectorAll('.lp-faq details summary').length).toBe(10);
+    const columns = Array.from(root.querySelectorAll('.lp-faq .lp-faq__col'));
+    expect(columns.length).toBe(2);
+    columns.forEach(column => expect(column.querySelectorAll('details').length).toBe(5));
   });
 
   it('shows the Google rating in the hero and again before the final call to action', () => {
@@ -73,8 +76,9 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
     expect(root.querySelector('.lp-final .lp-rating')).not.toBeNull();
     for (const badge of badges) {
       expect(badge.getAttribute('role')).toBe('img');
-      expect(badge.getAttribute('aria-label')).toBe('Highly rated on Google');
-      expect(badge.textContent).not.toMatch(/\d|reviews/i);
+      expect(badge.getAttribute('aria-label')).toBe('Rated 4.8 out of 5 on Google');
+      expect(badge.textContent).toContain('4.8');
+      expect(badge.textContent).not.toMatch(/reviews/i);
       expect(badge.querySelectorAll('.lp-rating__stars svg').length).toBe(5);
     }
   });
@@ -101,22 +105,23 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
     expect(banner?.getAttribute('src')).toContain('smes-go-digital-imda-banner-horizontal');
     expect(banner?.alt).toContain('up to 50% business grant support');
     const rating = hero.querySelector('.lp-rating');
-    expect(rating?.getAttribute('aria-label')).toBe('Highly rated on Google');
+    expect(rating?.getAttribute('aria-label')).toBe('Rated 4.8 out of 5 on Google');
     expect(rating?.querySelectorAll('.lp-rating__stars svg').length).toBe(5);
-    expect(rating?.textContent).not.toMatch(/\d|reviews/i);
+    expect(rating?.textContent).toContain('4.8');
+    expect(rating?.textContent).not.toMatch(/reviews/i);
   });
 
-  it('shows three plain benefit lines and the grant qualifier in the hero', () => {
-    const checks = Array.from(root.querySelectorAll<HTMLElement>('.lp-hero .lp-checks li'));
-    expect(checks.length).toBe(3);
-    expect(checks[0].textContent).toContain('GrabFood, Foodpanda and Deliveroo');
+  it('shows three data cards in the hero copy (and again under the banner for small screens) with the grant qualifier', () => {
+    expect(root.querySelectorAll('.lp-hero .lp-stats--copy .lp-stat').length).toBe(3);
+    expect(root.querySelectorAll('.lp-hero .lp-stats--below .lp-stat').length).toBe(3);
+    expect(root.querySelector('.lp-hero .lp-stat')?.textContent).toContain('3 platforms');
     expect(root.querySelector('.lp-hero .lp-footnote')?.textContent).toContain('vary by activity');
   });
 
   it('numbers the steps and keeps the FAQ keyboard-operable (native details)', () => {
     expect(Array.from(root.querySelectorAll('.lp-step__num')).map(n => n.textContent?.trim())).toEqual(['1', '2', '3']);
     const items = Array.from(root.querySelectorAll<HTMLDetailsElement>('.lp-faq details.lp-faq__item'));
-    expect(items.length).toBe(5);
+    expect(items.length).toBe(10);
     items.forEach(item => {
       expect(item.querySelector('summary .lp-faq__arrow svg')).not.toBeNull();
       expect(item.querySelector('p')?.textContent?.trim().length).toBeGreaterThan(20);
@@ -132,6 +137,28 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
       expect(head.querySelector('.lp-eyebrow')).toBeNull();
       expect(head.querySelector('h2.lp-title')).not.toBeNull();
     });
+  });
+
+  it('turns the floating Messenger bubble into a phone-call link and restores it on leave', () => {
+    const nav = document.createElement('nav');
+    nav.className = 'appz-site-floating-contacts';
+    nav.innerHTML = '<a class="btn-fb" href="http://m.me/APPZPOS" target="_blank" rel="noopener" aria-label="Messenger Us"><img alt=""></a>';
+    document.body.appendChild(nav);
+    const link = nav.querySelector('a')!;
+    try {
+      fixture.componentInstance.ngOnInit();
+      expect(link.getAttribute('href')).toBe('tel:+6583109631');
+      expect(link.getAttribute('aria-label')).toBe('Call APPZPOS');
+      expect(link.hasAttribute('target')).toBeFalse();
+      expect(link.querySelector('.fa-phone')).not.toBeNull();
+      fixture.componentInstance.ngOnDestroy();
+      expect(link.getAttribute('href')).toBe('http://m.me/APPZPOS');
+      expect(link.getAttribute('target')).toBe('_blank');
+      expect(link.getAttribute('aria-label')).toBe('Messenger Us');
+      expect(link.querySelector('.fa-phone')).toBeNull();
+    } finally {
+      nav.remove();
+    }
   });
 
   it('hides the site header and footer only while the landing page is shown', () => {

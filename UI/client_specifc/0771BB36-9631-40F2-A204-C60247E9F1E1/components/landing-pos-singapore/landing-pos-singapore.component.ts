@@ -9,6 +9,11 @@ interface LandingModule {
   readonly imageClass: string;
 }
 
+interface LandingStat {
+  readonly value: string;
+  readonly label: string;
+}
+
 interface LandingFaq {
   readonly question: string;
   readonly answer: string;
@@ -25,6 +30,7 @@ interface LandingStep {
   readonly text: string;
 }
 
+const CALL_URL = 'tel:+6583109631';
 const WHATSAPP_URL = "https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!";
 
 /**
@@ -42,10 +48,13 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
   readonly whatsappUrl = WHATSAPP_URL;
   readonly year = new Date().getFullYear();
 
-  readonly highlights: readonly string[] = [
-    'GrabFood, Foodpanda and Deliveroo orders in one system',
-    'POS, QR ordering, kiosk, kitchen display, website and Order Hub',
-    'Local support team in Singapore'
+  /** Google Business Profile rating, copied by hand from the live listing on 2026-11-17. Static: update it when the listing changes. */
+  readonly rating = { score: 4.8 } as const;
+
+  readonly stats: readonly LandingStat[] = [
+    { value: '3 platforms', label: 'GrabFood, Foodpanda, Deliveroo' },
+    { value: '6 modules', label: 'POS, QR, kiosk, KDS, web, hub' },
+    { value: 'Singapore', label: 'Local support team' }
   ];
 
   readonly modules: readonly LandingModule[] = [
@@ -77,8 +86,19 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
     { question: 'Does it work with GrabFood, Foodpanda and Deliveroo?', answer: 'Yes. Order Hub brings these platforms into one centralised system, with real-time order status sent directly to your POS and kitchen display.' },
     { question: 'Can I check my sales when I am not in the shop?', answer: 'Yes. APPZPOS is cloud-based, so you can access your data, menus and real-time reports from anywhere.' },
     { question: 'Is the EDGE Grant available to me?', answer: 'Eligible Singapore companies can receive EDGE Grant support for qualifying APPZPOS digitalisation projects, up to 50%. Support levels vary by activity, so we will confirm eligibility with you.' },
-    { question: 'What hardware do I need?', answer: 'APPZPOS combines software with POS terminals, receipt printers and cash drawers. Self-ordering kiosks come in 15.6", 21", 24" and 32" sizes. We will recommend a set-up that fits your outlet.' }
+    { question: 'What hardware do I need?', answer: 'APPZPOS combines software with POS terminals, receipt printers and cash drawers. Self-ordering kiosks come in 15.6", 21", 24" and 32" sizes. We will recommend a set-up that fits your outlet.' },
+    { question: 'What is included in the EDGE Grant packages?', answer: 'Every package includes 1 Digital Ordering System (POS) and 1 QR Ordering system. Packages then add an Order Hub and/or 1 or 2 self-ordering kiosks, and all five include a 1-year subscription and the Central Admin Portal with unlimited users.' },
+    { question: 'Can customers order from their own phones?', answer: 'Yes. With Table QR Ordering, customers scan a QR code, view the menu and order from their phones, which reduces printed menus and reliance on manpower.' },
+    { question: 'Can I take online orders for pickup or delivery?', answer: 'Yes. Website Ordering lets customers order online for pickup or delivery, schedule ahead and pay securely.' },
+    { question: 'How does the kitchen see new orders?', answer: 'The Kitchen Display System shows new orders, changes and cancellations in real time, with colour-coded status for your kitchen.' },
+    { question: 'How do I get started?', answer: 'Book a free demo with your name, email and mobile number. We will get in touch to walk you through the modules, help you choose modules and hardware, and check your EDGE Grant eligibility.' }
   ];
+
+  /** Two side-by-side columns of five questions each. */
+  get faqColumns(): readonly (readonly LandingFaq[])[] {
+    const half = Math.ceil(this.faqs.length / 2);
+    return [this.faqs.slice(0, half), this.faqs.slice(half)];
+  }
 
   constructor(
     private readonly title: Title,
@@ -96,11 +116,52 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
     this.meta.updateTag({ name: 'robots', content: 'noindex, nofollow' });
     // Paid-traffic landing page: global styles hide the site header and footer while this class is set.
     document.body.classList.add('appz-landing');
+    this.swapMessengerForCall();
   }
 
   ngOnDestroy(): void {
     this.meta.removeTag("name='robots'");
     document.body.classList.remove('appz-landing');
+    this.restoreMessenger();
+  }
+
+  private messengerLink: HTMLAnchorElement | null = null;
+  private messengerOriginal: { href: string | null; target: string | null; rel: string | null; label: string | null } | null = null;
+
+  /**
+   * The sitewide floating rail has a Messenger bubble. On this ad landing page it becomes a phone-call
+   * bubble (same number as the header's Call Us link). The shared shell element is reused so size and
+   * position match the other bubbles, and it is restored when the visitor leaves the page.
+   */
+  private swapMessengerForCall(): void {
+    const link = document.querySelector<HTMLAnchorElement>('.appz-site-floating-contacts .btn-fb');
+    if (!link || this.messengerLink) return;
+    this.messengerLink = link;
+    this.messengerOriginal = { href: link.getAttribute('href'), target: link.getAttribute('target'), rel: link.getAttribute('rel'), label: link.getAttribute('aria-label') };
+    link.setAttribute('href', CALL_URL);
+    link.removeAttribute('target');
+    link.removeAttribute('rel');
+    link.setAttribute('aria-label', 'Call APPZPOS');
+    link.classList.add('lp-call');
+    const icon = document.createElement('i');
+    icon.className = 'fa-solid fa-phone lp-call__icon';
+    icon.setAttribute('aria-hidden', 'true');
+    link.appendChild(icon);
+  }
+
+  private restoreMessenger(): void {
+    const link = this.messengerLink;
+    const original = this.messengerOriginal;
+    if (!link || !original) return;
+    link.classList.remove('lp-call');
+    link.querySelector('.lp-call__icon')?.remove();
+    const put = (name: string, value: string | null) => value === null ? link.removeAttribute(name) : link.setAttribute(name, value);
+    put('href', original.href);
+    put('target', original.target);
+    put('rel', original.rel);
+    put('aria-label', original.label);
+    this.messengerLink = null;
+    this.messengerOriginal = null;
   }
 
   packageQuote(id: number): string {
