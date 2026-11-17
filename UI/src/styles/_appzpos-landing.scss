@@ -95,7 +95,7 @@ app-lp-icon { display: inline-flex; width: 1em; height: 1em; line-height: 0; }
 .lp-step { padding-top: 20px; border-top: 2px solid var(--appz-ink); }
 .lp-step__num { display: block; margin-bottom: 14px; color: var(--appz-blue); font-size: 2.4rem; font-weight: 700; line-height: 1; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
 
-.lp-faq { max-width: 860px; margin: 0; border-top: 1px solid var(--appz-line); }
+.lp-faq { margin: 0; border-top: 1px solid var(--appz-line); }
 .lp-faq__item { border-bottom: 1px solid var(--appz-line); }
 
 .lp-faq summary { display: flex; align-items: center; gap: 14px; min-height: 64px; padding: 12px 4px; cursor: pointer; list-style: none; }
