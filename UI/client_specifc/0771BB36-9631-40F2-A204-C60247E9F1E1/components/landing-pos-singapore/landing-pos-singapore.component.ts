@@ -14,11 +14,6 @@ interface LandingFaq {
   readonly answer: string;
 }
 
-interface LandingStat {
-  readonly value: string;
-  readonly label: string;
-}
-
 interface LandingPackage {
   readonly id: number;
   readonly title: string;
@@ -47,17 +42,10 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
   readonly whatsappUrl = WHATSAPP_URL;
   readonly year = new Date().getFullYear();
 
-  /**
-   * Google Business Profile figures, copied by hand from the live listing on 2026-11-17
-   * (4.8 stars). They are static:
-   * update them when the listing changes.
-   */
-  readonly rating = { score: 4.8 } as const;
-
-  readonly stats: readonly LandingStat[] = [
-    { value: '3 platforms', label: 'GrabFood, Foodpanda, Deliveroo' },
-    { value: '6 modules', label: 'POS, QR, kiosk, KDS, web, hub' },
-    { value: 'Singapore', label: 'Local support team' }
+  readonly highlights: readonly string[] = [
+    'GrabFood, Foodpanda and Deliveroo orders in one system',
+    'POS, QR ordering, kiosk, kitchen display, website and Order Hub',
+    'Local support team in Singapore'
   ];
 
   readonly modules: readonly LandingModule[] = [
