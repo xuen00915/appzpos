@@ -135,12 +135,14 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
     expect(rating?.textContent).not.toMatch(/reviews/i);
   });
 
-  it('shows three data cards in the hero copy (and again under the banner for small screens) with the grant qualifier', () => {
+  it('makes business types and their workflows visible in the hero with the grant qualifier', () => {
     expect(root.querySelectorAll('.lp-hero .lp-stats--copy .lp-stat').length).toBe(3);
     expect(root.querySelectorAll('.lp-hero .lp-stats--below .lp-stat').length).toBe(3);
     const cards = Array.from(root.querySelectorAll<HTMLElement>('.lp-hero .lp-stats--copy .lp-stat'));
-    expect(cards.map(c => c.querySelector('strong')?.textContent)).toEqual(['Unlimited users', '1-year subscription', 'Local support']);
-    expect(cards[2].textContent).toContain('Email, phone and messaging apps');
+    expect(cards.map(c => c.querySelector('strong')?.textContent)).toEqual(['Restaurants', 'Cafés', 'Quick service']);
+    expect(cards[0].textContent).toContain('Table orders & split bills');
+    expect(cards[1].textContent).toContain('Fast checkout & daily sales');
+    expect(cards[2].textContent).toContain('Counter orders & kitchen flow');
     expect(cards.every(c => c.querySelector('.lp-stat__icon svg'))).toBeTrue();
     // the hero no longer names delivery platforms
     expect(root.querySelector('.lp-hero')?.textContent).not.toMatch(/deliveroo|foodpanda|grabfood/i);
