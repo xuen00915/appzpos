@@ -28,7 +28,10 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
 
   it('has one h1 and exactly one conversion form, passed in compact mode', () => {
     expect(root.querySelectorAll('h1').length).toBe(1);
-    expect(root.querySelector('h1')?.textContent).toContain('Restaurant POS System in Singapore');
+    expect(root.querySelector('h1')?.textContent).toContain('less than S$2 a day.');
+    expect(root.querySelector('.lp-hero__eyebrow')?.textContent).toContain('Restaurant POS System in Singapore');
+    expect(root.querySelector('.lp-hero__price')?.textContent).toContain('S$660');
+    expect(root.querySelector('.lp-hero__price')?.textContent).toContain('over 365 days. Hardware quoted separately.');
     expect(root.querySelectorAll('app-custom-request-demo').length).toBe(1);
     expect(root.querySelector('#requestdemo app-custom-request-demo')).not.toBeNull();
     const demo = fixture.debugElement.query(sel => sel.name === 'app-custom-request-demo');

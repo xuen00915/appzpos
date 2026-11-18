@@ -280,27 +280,32 @@ body.appz-landing .appz-site-floating-contacts .btn-fb.lp-call .lp-call__icon { 
 /* Reference-led Ads hero: open benefits, orange emphasis and a blue demo panel. */
 app-landing-pos-singapore { position: relative; }
 .lp-bar { position: absolute; inset: 0 0 auto; z-index: 3; background: transparent; border: 0; }
-.lp-bar__inner { min-height: 112px; }
-.lp-bar__logo img { width: 210px; height: auto; }
+.lp-bar__inner { min-height: 88px; }
+.lp-bar__logo img { width: 170px; height: auto; }
 .lp-bar__actions { display: none; }
-.lp-hero { box-sizing: border-box; min-height: 100svh; padding: 126px 0 90px; align-items: flex-start; }
+.lp-hero { box-sizing: border-box; min-height: 100svh; padding: 104px 0 32px; align-items: center; }
 .lp-hero__background { object-position: center bottom; filter: blur(4px); }
-.lp-hero::before { background: linear-gradient(90deg, rgba(255,255,255,.12), rgba(255,255,255,.04) 43%, transparent 62%); }
-.lp-hero__grid { grid-template-columns: minmax(0, 48%) minmax(0, 40%); justify-content: space-between; gap: 24px 0; align-items: start; }
-.lp-hero h1 { font-size: clamp(42px, 3.9vw, 56px); line-height: 1.07; letter-spacing: -.035em; margin-bottom: 30px; text-wrap: initial; }
+.lp-hero::before { background: linear-gradient(90deg, rgba(247,249,253,.55), rgba(247,249,253,.85) 49%, rgba(247,249,253,.08) 67%); }
+.lp-hero__grid { grid-template-columns: minmax(0, 48%) minmax(0, 40%); justify-content: space-between; gap: 18px 0; align-items: center; }
+.lp-hero h1 { font-size: clamp(36px, 3.4vw, 48px); line-height: 1.1; letter-spacing: -.035em; margin-bottom: 26px; text-wrap: initial; }
+.lp-hero__eyebrow { margin: 0 0 12px; color: var(--appz-blue-deep); font-size: .8rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
+.lp-hero__price { margin: 0 0 16px; color: var(--appz-ink); font-size: 1rem; }
+.lp-hero__price strong { font-size: 1.5rem; font-weight: 800; }
+.lp-hero__price span { display: block; margin-top: 4px; color: var(--appz-ink-soft); font-size: .76rem; line-height: 1.5; }
+.lp-hero__edge { max-width: 340px; }
 .lp-hero__accent { position: relative; display: inline-block; color: #ff7200; }
 .lp-hero__accent::after { content: ''; position: absolute; left: 4%; right: -3%; bottom: -14px; height: 13px; border-top: 4px solid #ff7200; border-radius: 50%; transform: rotate(-3deg); }
-.lp-lead { max-width: 660px; font-size: clamp(16px, 1.3vw, 22px); line-height: 1.5; margin-bottom: 32px; }
-.lp-stats { gap: 0; margin-bottom: 30px; }
+.lp-lead { max-width: 660px; font-size: 17px; line-height: 1.5; margin-bottom: 20px; }
+.lp-stats { gap: 0; margin-bottom: 20px; }
 .lp-stat { padding: 0 16px; grid-template-areas: "icon value" "icon label"; grid-template-columns: 38px minmax(0, 1fr); gap: 6px 10px; border: 0; border-right: 1px solid #bdccdf; border-radius: 0; background: transparent; }
 .lp-stat:first-child { padding-left: 0; }
 .lp-stat:last-child { border-right: 0; padding-right: 0; }
 .lp-stat__icon { background: transparent; width: 36px; height: 40px; font-size: 34px; color: #0084d2; align-self: start; }
-.lp-stat strong { font-size: clamp(15px, 1.05vw, 18px); min-height: 2.6em; align-items: flex-start; }
+.lp-stat strong { font-size: clamp(15px, 1.05vw, 18px); min-height: 0; align-items: flex-start; }
 .lp-stat__label { font-size: clamp(12px, .9vw, 15px); line-height: 1.4; }
-.lp-hero .lp-rating { padding: 10px 16px; border-radius: 12px; box-shadow: 0 2px 3px #17355417; }
-.lp-hero .lp-rating__score { font-size: 32px; }
-.lp-hero .lp-rating__stars { font-size: 22px; }
+.lp-hero .lp-rating { padding: 8px 12px; border-radius: 12px; box-shadow: 0 2px 3px #17355417; }
+.lp-hero .lp-rating__score { font-size: 28px; }
+.lp-hero .lp-rating__stars { font-size: 18px; }
 .lp-hero .lp-footnote { margin-top: 8px; font-size: 11px; }
 .lp-hero .lp-hero__form.appz-conversion-panel { max-width: none !important; padding: 24px 22px !important; background: var(--appz-blue) !important; border: 2px solid #fff; border-radius: 30px !important; box-shadow: 0 14px 30px #08274b38; }
 .lp-hero__form #appz-demo-title { color: #fff; font-size: clamp(26px, 2.15vw, 38px); line-height: 1.13; letter-spacing: -.035em; margin-bottom: 12px; }
