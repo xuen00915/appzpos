@@ -106,6 +106,11 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
     expect(quote.rel).toContain('noopener');
     expect(section.textContent).toContain('1-year subscription');
     expect(section.textContent).toContain('Central Admin Portal with unlimited users');
+    const incl = section.querySelector('.lp-incl') as HTMLElement;
+    expect(incl.textContent).toContain('Business Analytics Module: customer management, food menu, promotion and upsell, inventory management');
+    expect(incl.textContent).toContain('Email, phone and messaging apps');
+    // only the support types the SMEs Go Digital listing ticks are claimed
+    expect(incl.textContent).not.toMatch(/FAQ|forum|onsite|chatbot|contact form/i);
   });
 
   it('shows the purple IMDA / EDGE Grant banner and the Google rating in the hero', () => {
