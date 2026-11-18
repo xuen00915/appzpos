@@ -83,13 +83,18 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
     }
   });
 
-  it('tells visitors their price after grant starts from Package 1 without showing any price', () => {
+  it('shows a sourced starting price with the scope of the comparison made explicit', () => {
     const from = root.querySelector('#packages .lp-from') as HTMLElement;
-    expect(from.textContent).toContain('Your price after grant starts from');
-    expect(from.querySelector('strong')?.textContent).toBe('Package 1');
+    expect(from.textContent).toContain('Listed starting price after grant');
+    expect(from.querySelector('strong')?.textContent).toBe('S$1,660');
     expect(from.textContent).toMatch(/Get a quote/);
     expect(root.querySelectorAll('.lp-from').length).toBe(1);
-    expect(root.textContent).not.toMatch(/\$\s?\d|S\$|SGD\s?\d/);
+    const comparison = root.querySelector('.lp-comparison')!;
+    expect(comparison.querySelectorAll('.lp-compare').length).toBe(4);
+    expect(comparison.textContent).toContain('Source: IMDA’s SMEs Go Digital platform.');
+    expect(comparison.textContent).toContain('different package inclusions and terms');
+    expect(comparison.querySelector('a')?.textContent).toContain('View more on IMDA');
+    expect(comparison.querySelector<HTMLAnchorElement>('a')?.href).toBe('https://smesgodigital.gov.sg/web/solution/20240028/appzpos-f-b-point-of-sales');
   });
 
   it('shows the hardware line-up image in the EDGE Grant packages section, not in the hero', () => {
@@ -150,9 +155,9 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
     root.querySelectorAll<HTMLElement>('svg').forEach(svg => expect(svg.getAttribute('aria-hidden')).toBe('true'));
   });
 
-  it('uses one section header pattern (a title only, no eyebrow) for every content section', () => {
+  it('keeps consistent section titles, with a source label on the comparison', () => {
     const heads = Array.from(root.querySelectorAll('.lp-head'));
-    expect(heads.length).toBe(4);
+    expect(heads.length).toBe(5);
     expect(root.querySelectorAll('.lp-eyebrow').length).toBe(0);
     heads.forEach(head => {
       expect(head.querySelector('.lp-eyebrow')).toBeNull();

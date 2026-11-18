@@ -50,6 +50,16 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
   readonly whatsappUrl = WHATSAPP_URL;
   readonly year = new Date().getFullYear();
 
+  readonly imdaUrl = 'https://smesgodigital.gov.sg/web/solution/20240028/appzpos-f-b-point-of-sales';
+  // Static comparison transcribed from the supplied IMDA screenshot dated 18 Nov 2026.
+  // These are selected listings with different package scopes, not a market-wide ranking.
+  readonly priceComparison = [
+    { name: 'APPZPOS F&B Point of Sales', vendor: 'APPZGATE SOLUTIONS PTE. LTD.', price: '1,660', beforeGrant: '3,320', rating: '4.6', starFill: 92, reviews: 23, years: 10, featured: true },
+    { name: 'Yumstone F&B Management Solutions', vendor: 'YUMSTONE ESOLUTIONS PTE. LTD.', price: '4,025', beforeGrant: '8,050', rating: '4.9', starFill: 98, reviews: 35, years: 13, featured: false },
+    { name: 'Ellie Food Services Business Suite', vendor: 'SUPPLY ELLIE PTE. LTD.', price: '3,250', beforeGrant: '6,500', rating: '4.9', starFill: 98, reviews: 45, years: 6, featured: false },
+    { name: 'Getz F&B Omni Channel Solution', vendor: 'GETZ GROUP PTE. LTD.', price: '3,120', beforeGrant: '6,240', rating: '4.9', starFill: 98, reviews: 22, years: 7, featured: false }
+  ] as const;
+
   /** Google Business Profile rating, copied by hand from the live listing on 2026-11-17. Static: update it when the listing changes. */
   readonly rating = { score: 4.8 } as const;
 

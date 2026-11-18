@@ -11,6 +11,24 @@
         ],
         "createdAt": "2026-11-02T01:21:54.791Z",
         "reason": "Assistant verified Angular [src] uses required imageSrc input; all nine real local banner assets loaded in desktop and mobile browser checks."
+      },
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "UI/client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/landing-pos-singapore/landing-pos-singapore.component.html"
+        ],
+        "createdAt": "2026-11-18T01:33:07.419Z",
+        "reason": "Agent reviewed: existing Angular [src] bindings resolve logo and module images; no missing static image sources."
+      },
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "UI/src/app/components/index/app/landing-pos-singapore.component.spec.ts"
+        ],
+        "createdAt": "2026-11-18T01:33:07.485Z",
+        "reason": "Agent reviewed: intentionally source-free image in Messenger DOM test fixture, not a rendered product image."
       }
     ]
   }

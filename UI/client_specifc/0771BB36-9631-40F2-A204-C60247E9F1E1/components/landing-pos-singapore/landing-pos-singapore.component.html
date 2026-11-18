@@ -56,7 +56,7 @@
       <header class="lp-head lp-head--wide">
         <h2 id="lp-packages-title" class="lp-title">Five EDGE Grant packages for your outlet</h2>
         <p class="lp-sub">Every package includes 1 Digital Ordering System (POS) + 1 QR Ordering system. Eligible SMEs may receive up to 50% support; support levels vary by activity.</p>
-        <p class="lp-from">Your price after grant starts from <strong>Package 1</strong><span>Use Get a quote on any package for your exact price. Grant support is for eligible SMEs and varies by activity.</span></p>
+        <p class="lp-from">Listed starting price after grant <strong>S$1,660</strong><span>See the comparison below. Get a quote for your chosen package; eligibility and support levels vary by activity.</span></p>
       </header>
       <div class="lp-pkgs">
         <img class="lp-pkgs__screen" src="assets/images/appzpos-hardware-lineup-1168.webp"
@@ -87,6 +87,47 @@
             <p>Email, phone and messaging apps.</p>
           </section>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section lp-comparison" id="price-comparison" aria-labelledby="lp-comparison-title">
+    <div class="lp-shell">
+      <header class="lp-head lp-head--wide">
+        <p class="lp-comparison__eyebrow">Source: IMDA · SMEs Go Digital</p>
+        <h2 id="lp-comparison-title" class="lp-title">Similar solutions</h2>
+        <p class="lp-sub">Compare selected Integrated F&amp;B Operations solutions listed on IMDA’s SMEs Go Digital platform.</p>
+      </header>
+      <p class="lp-comparison__count">4 selected solutions from IMDA</p>
+      <p class="lp-comparison__swipe" id="lp-comparison-swipe">Swipe left or right to compare <span aria-hidden="true">↔</span></p>
+      <div class="lp-comparison__scroll" tabindex="0" role="region" aria-label="IMDA solution comparison" aria-describedby="lp-comparison-swipe">
+      <ol class="lp-comparison__grid" aria-label="Four selected solutions from IMDA’s SMEs Go Digital platform">
+        <li class="lp-compare" [class.lp-compare--featured]="item.featured" *ngFor="let item of priceComparison">
+          <div class="lp-compare__heading">
+            <h3>{{ item.name }}</h3>
+            <p class="lp-compare__vendor">by <strong>{{ item.vendor }}</strong></p>
+            <span class="lp-compare__tag">{{ item.featured ? 'Current solution' : 'Listed on SMEs Go Digital' }}</span>
+          </div>
+          <div class="lp-compare__price">
+            <span>Starting from</span>
+            <div class="lp-compare__amount"><strong>S${{ item.price }}</strong><span class="lp-compare__before"><span class="visually-hidden">Before grant: </span><s>S${{ item.beforeGrant }}</s></span></div>
+            <span class="lp-compare__after">Price after grant</span>
+          </div>
+          <div class="lp-compare__rating">
+            <div class="lp-compare__score" role="img" [attr.aria-label]="'Rated ' + item.rating + ' out of 5 on IMDA SMEs Go Digital'">
+              <strong>{{ item.rating }}</strong>
+              <span class="lp-compare__stars" aria-hidden="true"><span>★★★★★</span><span [style.width.%]="item.starFill">★★★★★</span></span>
+            </div>
+            <p>{{ item.reviews }} Verified Reviews</p>
+          </div>
+          <div class="lp-compare__detail"><h4>Years in operation</h4><p>{{ item.years }} years</p></div>
+          <div class="lp-compare__detail lp-compare__detail--tint"><h4>HR System Integration</h4><span class="lp-compare__no" role="img" aria-label="Not included">×</span></div>
+        </li>
+      </ol>
+      </div>
+      <div class="lp-comparison__source">
+        <p><strong>Source: IMDA’s SMEs Go Digital platform.</strong> Recreated from the comparison screenshot dated 18 November 2026. These four selected listings have different package inclusions and terms. Prices, ratings and grant eligibility may change.</p>
+        <a class="lp-comparison__link" [href]="imdaUrl" target="_blank" rel="noopener noreferrer">View more on IMDA <span aria-hidden="true">↗</span></a>
       </div>
     </div>
   </section>
