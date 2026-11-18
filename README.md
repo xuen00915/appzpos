@@ -108,7 +108,7 @@ The repository includes a focused landing page for Google Ads traffic:
 
 - **Route:** `/lp/restaurant-pos-system-singapore`, declared in `custom-app-routing.module.ts`
 - **Live URL (GitHub Pages):** <https://xuen00915.github.io/appzpos/lp/restaurant-pos-system-singapore/>
-- **Ad keyword:** the headline is "Restaurant POS System in Singapore", written for the "restaurant POS system Singapore" search intent.
+- **Ad keyword:** "Restaurant POS System in Singapore" appears above the offer headline, "POS software for less than S$2 a day."
 - **Component:** `UI/client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/landing-pos-singapore/`
 - **Styles:** `UI/src/styles/_appzpos-landing.scss`. Every selector uses the `lp-` prefix. A single `$lp-radius` token sets the corner radius for the whole page.
 - **Tests:** `UI/src/app/components/index/app/landing-pos-singapore.component.spec.ts`
@@ -117,6 +117,7 @@ What the page contains, in order: a slim top bar (logo, WhatsApp, Get a Free Dem
 
 Behaviour to keep in mind when editing:
 
+- The hero uses the user-supplied S$660 software price, showing the equivalent S$1.81/day over 365 days explicitly. This is a daily cost comparison, not a daily billing option. Hardware packages retain their separate pricing; the software offer does not state a grant deduction or renewal price.
 - The site header and footer are hidden while the page is shown (the component toggles `body.appz-landing`). The floating WhatsApp bubble stays, the Messenger bubble becomes a phone-call link (`tel:+6583109631`) and is restored when the visitor leaves, and all floating controls share one size and gap.
 - The form is the shared `CustomRequestDemoComponent` in `compact` mode (name, email and mobile number only). Other pages are unchanged. The shared form posts to the production `SendEmail` API, so do not submit test enquiries.
 - The page sets `noindex, nofollow`. The sitewide Google Tag Manager container and Meta Pixel still load through the hidden header. No landing-specific Ads conversion action exists yet.
