@@ -1,7 +1,7 @@
 <section class="appz-demo" [class.appz-demo--compact]="compact" aria-labelledby="appz-demo-title">
     <div class="appz-demo__copy">
         <p *ngIf="copy.eyebrow && !compact" class="appz-demo__eyebrow">{{ copy.eyebrow }}</p>
-        <h2 id="appz-demo-title" class="appz-section-title">{{ compact ? 'Get your free POS demo' : copy.title }}</h2>
+        <h2 id="appz-demo-title" class="appz-section-title"><ng-container *ngIf="compact; else standardDemoTitle">Get your <span class="appz-demo__free">free</span> POS demo</ng-container><ng-template #standardDemoTitle>{{ copy.title }}</ng-template></h2>
         <p *ngIf="!compact" class="appz-demo__lead appz-section-description">{{ copy.lead }}</p>
         <p *ngFor="let paragraph of copy.intro" class="appz-demo__intro">{{ paragraph }}</p>
 
@@ -37,6 +37,7 @@
                        name="name"
                        formControlName="name"
                        autocomplete="name"
+                       [attr.placeholder]="compact ? 'Your name' : null"
                        [ngClass]="{ 'is-invalid': submitted && objData['name'].errors }">
                 <div *ngIf="submitted && objData['name'].errors" class="invalid-feedback">
                     <span *ngIf="objData['name'].errors['required']">{{ copy.nameRequired }}</span>
@@ -51,6 +52,7 @@
                        name="email"
                        formControlName="email"
                        autocomplete="email"
+                       [attr.placeholder]="compact ? 'Your email address' : null"
                        [ngClass]="{ 'is-invalid': submitted && objData['email'].errors }">
                 <div *ngIf="submitted && objData['email'].errors" class="invalid-feedback">
                     <span *ngIf="objData['email'].errors['required']">{{ copy.emailRequired }}</span>
@@ -65,6 +67,7 @@
                        name="mobilenum"
                        formControlName="mobilenum"
                        autocomplete="tel"
+                       [attr.placeholder]="compact ? 'Your mobile number' : null"
                        inputmode="tel"
                        [ngClass]="{ 'is-invalid': submitted && objData['mobilenum'].errors }">
                 <div *ngIf="submitted && objData['mobilenum'].errors" class="invalid-feedback">
@@ -89,7 +92,7 @@
         </div>
 
         <button type="submit" class="appz-demo__submit">
-            {{ copy.submitLabel }}
+            {{ compact ? 'Book My Free Demo' : copy.submitLabel }}<span *ngIf="compact" aria-hidden="true"> →</span>
         </button>
         <p *ngIf="compact" class="appz-demo__note">By submitting, you agree to be contacted about your enquiry.</p>
     </form>
