@@ -278,7 +278,7 @@ app-landing-pos-singapore { position: relative; }
 .lp-bar__logo img { width: 210px; height: auto; }
 .lp-bar__actions { display: none; }
 .lp-hero { min-height: 800px; padding: 126px 0 90px; align-items: flex-start; }
-.lp-hero__background { object-position: center bottom; }
+.lp-hero__background { object-position: center bottom; filter: blur(4px); }
 .lp-hero::before { background: linear-gradient(90deg, rgba(255,255,255,.12), rgba(255,255,255,.04) 43%, transparent 62%); }
 .lp-hero__grid { grid-template-columns: minmax(0, 48%) minmax(0, 40%); justify-content: space-between; gap: 24px 0; align-items: start; }
 .lp-hero h1 { font-size: clamp(42px, 3.9vw, 56px); line-height: 1.07; letter-spacing: -.035em; margin-bottom: 30px; text-wrap: initial; }
@@ -296,7 +296,7 @@ app-landing-pos-singapore { position: relative; }
 .lp-hero .lp-rating__score { font-size: 32px; }
 .lp-hero .lp-rating__stars { font-size: 22px; }
 .lp-hero .lp-footnote { margin-top: 8px; font-size: 11px; }
-.lp-hero .lp-hero__form.appz-conversion-panel { max-width: none !important; padding: 24px 22px !important; background: linear-gradient(145deg,#003f83,#00306c) !important; border: 2px solid #fff; border-radius: 30px !important; box-shadow: 0 14px 30px #08274b38; }
+.lp-hero .lp-hero__form.appz-conversion-panel { max-width: none !important; padding: 24px 22px !important; background: var(--appz-blue) !important; border: 2px solid #fff; border-radius: 30px !important; box-shadow: 0 14px 30px #08274b38; }
 .lp-hero__form #appz-demo-title { color: #fff; font-size: clamp(26px, 2.15vw, 38px); line-height: 1.13; letter-spacing: -.035em; margin-bottom: 12px; }
 .lp-hero__form .appz-demo__free { color: #ff7900; }
 .lp-hero .appz-demo__intro { display: block; font-size: clamp(14px, 1.15vw, 20px); line-height: 1.5; margin: 0; color: #fff; }
