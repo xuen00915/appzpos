@@ -7,9 +7,9 @@
   </div>
 </ng-template>
 
-<!-- Three data cards: shown under the hero copy on desktop, under the banner on smaller screens. -->
+<!-- Business types and practical workflows, shown in the responsive hero. -->
 <ng-template #statCards let-where="where">
-  <ul class="lp-stats" [ngClass]="'lp-stats--' + where">
+  <ul class="lp-stats" [ngClass]="'lp-stats--' + where" aria-label="Built for your kind of business">
     <li class="lp-stat" *ngFor="let stat of stats">
       <span class="lp-stat__icon"><app-lp-icon [name]="stat.icon"></app-lp-icon></span>
       <strong>{{ stat.value }}</strong>
@@ -39,7 +39,7 @@
         <p class="lp-hero__eyebrow">Restaurant POS System in Singapore</p>
         <h1 id="lp-hero-title">POS software for<br><span class="lp-hero__accent">less than S$2 a day.</span></h1>
         <p class="lp-hero__price"><strong>S$660</strong> software price<span>Equivalent to S$1.81/day over 365 days. Hardware quoted separately.</span></p>
-        <p class="lp-lead">Manage orders, payments and sales in one place, with local support for your restaurant or café.</p>
+        <p class="lp-lead">From table service to takeaway, keep orders, payments and sales moving—with local support when you need it.</p>
         <ng-container *ngTemplateOutlet="statCards; context: { where: 'copy' }"></ng-container>
         <ng-container *ngTemplateOutlet="ratingBadge"></ng-container>
       </div>

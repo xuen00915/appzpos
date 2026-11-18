@@ -64,9 +64,9 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
   readonly rating = { score: 4.8 } as const;
 
   readonly stats: readonly LandingStat[] = [
-    { icon: 'users', value: 'Unlimited users', label: 'With the Central Admin Portal' },
-    { icon: 'package', value: '1-year subscription', label: 'Included in all 5 packages' },
-    { icon: 'headset', value: 'Local support', label: 'Email, phone and messaging apps' }
+    { icon: 'restaurant', value: 'Restaurants', label: 'Table orders & split bills' },
+    { icon: 'cafe', value: 'Cafés', label: 'Fast checkout & daily sales' },
+    { icon: 'monitor', value: 'Quick service', label: 'Counter orders & kitchen flow' }
   ];
 
   readonly modules: readonly LandingModule[] = [

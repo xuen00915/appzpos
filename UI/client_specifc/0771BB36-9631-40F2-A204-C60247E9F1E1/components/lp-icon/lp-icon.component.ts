@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 export type LpIconName =
   | 'star' | 'users' | 'percent' | 'layers' | 'package' | 'pin'
-  | 'clipboard' | 'play' | 'headset' | 'store' | 'cloud' | 'chart' | 'monitor' | 'chevron';
+  | 'clipboard' | 'play' | 'headset' | 'store' | 'cloud' | 'chart' | 'monitor' | 'chevron' | 'restaurant' | 'cafe';
 
 /**
  * Decorative inline SVG icon set for the landing page (24px grid, 1.8 stroke).
@@ -16,6 +16,8 @@ export type LpIconName =
          [attr.fill]="name === 'star' ? 'currentColor' : 'none'" stroke="currentColor"
          [attr.stroke-width]="name === 'star' ? 0 : 1.8" stroke-linecap="round" stroke-linejoin="round">
       <ng-container [ngSwitch]="name">
+        <ng-container *ngSwitchCase="'restaurant'"><path d="M4 3v5a3 3 0 006 0V3M7 3v18M20 21V3c-4 2-5 6-5 10h5"/></ng-container>
+        <ng-container *ngSwitchCase="'cafe'"><path d="M4 9h13v7a4 4 0 01-4 4H8a4 4 0 01-4-4zM17 10h2a3 3 0 010 6h-2M3 22h16M7 3v3M12 2v4"/></ng-container>
         <path *ngSwitchCase="'star'" d="M12 2.6l2.9 6 6.6.9-4.8 4.6 1.2 6.5L12 17.4l-5.9 3.2 1.2-6.5L2.5 9.5l6.6-.9z"/>
         <ng-container *ngSwitchCase="'users'"><circle cx="9" cy="8" r="3.4"/><path d="M2.5 20a6.5 6.5 0 0113 0"/><path d="M16 4.7a3.4 3.4 0 010 6.6M18.5 14.4A6.5 6.5 0 0121.5 20"/></ng-container>
         <ng-container *ngSwitchCase="'percent'"><path d="M19 5L5 19"/><circle cx="7.2" cy="7.2" r="2.6"/><circle cx="16.8" cy="16.8" r="2.6"/></ng-container>
