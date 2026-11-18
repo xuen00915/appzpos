@@ -129,6 +129,12 @@ Behaviour to keep in mind when editing:
 
 This workflow has no cPanel, Vodien, FTP or SSH step. Landing page changes must never touch `appzpos.com` or `website.appzpos.com`.
 
+## Landing page price comparison draft
+
+The landing page includes a responsive comparison of four selected SMEs Go Digital listings, in the same order as the source screenshot. Static figures are transcribed from the user-supplied screenshot dated 18 November 2026: APPZPOS S$1,660, Getz S$3,120, Ellie S$3,250 and Yumstone S$4,025. The section follows the screenshot’s purple featured column and alternating rows, attributes the data to IMDA, and offers a “View more on IMDA” link to the official APPZPOS listing. Package inclusions differ. It does not claim market-wide cheapest pricing or highest ratings. Comparison ratings are from SMEs Go Digital, separate from the existing Google rating.
+
+The IMDA page blocks third-party iframe embedding (`X-Frame-Options: SAMEORIGIN` and restricted `frame-ancestors`, checked 18 November 2026), so this is a native static section, not a live embed. Refresh figures against the source before publishing price changes.
+
 ## References
 
 - [SMEs Go Digital solution listing: APPZPOS F&B Point of Sales](https://smesgodigital.gov.sg/web/solution/20240028/appzpos-f-b-point-of-sales). The public SMEs Go Digital (IMDA) listing for this product, solution ID 20240028. Check the EDGE Grant and "IMDA pre-approved" wording on the website and the landing page against this listing.
