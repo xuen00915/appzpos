@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { CommonFunctionService } from '../../../../src/app/services/shared_function/common-function.service';
 import { LpIconName } from '../lp-icon/lp-icon.component';
@@ -47,6 +47,25 @@ const WHATSAPP_URL = "https://wa.me/6583109631?text=I'm%20interested%20in%20APPZ
   styles: []
 })
 export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
+  @ViewChild('heroVideo') private heroVideo?: ElementRef<HTMLVideoElement>;
+  heroVideoEnabled = false;
+  heroVideoPaused = true;
+  private motionPreference?: MediaQueryList;
+  private readonly updateMotionPreference = (): void => {
+    const connection = (navigator as Navigator & { connection?: { saveData?: boolean } }).connection;
+    this.heroVideoEnabled = !this.motionPreference?.matches && !connection?.saveData;
+  };
+
+  toggleHeroVideo(): void {
+    const video = this.heroVideo?.nativeElement;
+    if (!video) return;
+    if (video.paused) {
+      void video.play().catch(() => { this.heroVideoPaused = true; });
+    } else {
+      video.pause();
+    }
+  }
+
   readonly whatsappUrl = WHATSAPP_URL;
   readonly year = new Date().getFullYear();
 
@@ -119,6 +138,9 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    this.updateMotionPreference();
+    this.motionPreference.addEventListener('change', this.updateMotionPreference);
     this.title.setTitle('Restaurant POS System Singapore | Cloud F&B POS | APPZPOS');
     this.meta.updateTag({
       name: 'description',
@@ -132,6 +154,7 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.motionPreference?.removeEventListener('change', this.updateMotionPreference);
     this.meta.removeTag("name='robots'");
     document.body.classList.remove('appz-landing');
     this.restoreMessenger();

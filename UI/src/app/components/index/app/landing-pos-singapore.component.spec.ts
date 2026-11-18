@@ -26,9 +26,23 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
     root = fixture.nativeElement as HTMLElement;
   });
 
+  it('uses a still background when reduced motion is requested', () => {
+    fixture.destroy();
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    spyOn(window, 'matchMedia').and.returnValue({
+      ...preference, matches: true, addEventListener: jasmine.createSpy('addEventListener'),
+      removeEventListener: jasmine.createSpy('removeEventListener')
+    } as unknown as MediaQueryList);
+    fixture = TestBed.createComponent(LandingPosSingaporeComponent);
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('.lp-hero__video')).toBeNull();
+    expect(fixture.nativeElement.querySelector('.lp-hero__motion')).toBeNull();
+  });
+
   it('has one h1 and exactly one conversion form, passed in compact mode', () => {
     expect(root.querySelectorAll('h1').length).toBe(1);
-    expect(root.querySelector('h1')?.textContent).toContain('Restaurant POS System in Singapore');
+    expect(root.querySelector('h1')?.textContent).toContain('Your whole outlet.');
+    expect(root.querySelector('.lp-hero__kicker')?.textContent).toContain('Restaurant POS System in Singapore');
     expect(root.querySelectorAll('app-custom-request-demo').length).toBe(1);
     expect(root.querySelector('#requestdemo app-custom-request-demo')).not.toBeNull();
     const demo = fixture.debugElement.query(sel => sel.name === 'app-custom-request-demo');

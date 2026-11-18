@@ -108,7 +108,7 @@ The repository includes a focused landing page for Google Ads traffic:
 
 - **Route:** `/lp/restaurant-pos-system-singapore`, declared in `custom-app-routing.module.ts`
 - **Live URL (GitHub Pages):** <https://xuen00915.github.io/appzpos/lp/restaurant-pos-system-singapore/>
-- **Ad keyword:** the headline is "Restaurant POS System in Singapore", written for the "restaurant POS system Singapore" search intent.
+- **Ad keyword:** "Restaurant POS System in Singapore" appears above the hero headline, "Your whole outlet. One connected POS."
 - **Component:** `UI/client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/landing-pos-singapore/`
 - **Styles:** `UI/src/styles/_appzpos-landing.scss`. Every selector uses the `lp-` prefix. A single `$lp-radius` token sets the corner radius for the whole page.
 - **Tests:** `UI/src/app/components/index/app/landing-pos-singapore.component.spec.ts`
@@ -117,6 +117,9 @@ What the page contains, in order: a slim top bar (logo, WhatsApp, Get a Free Dem
 
 Behaviour to keep in mind when editing:
 
+- The hero fills the viewport below the header on desktop and grows to fit the content on smaller screens. Its muted café video has a pause control; reduced-motion and data-saving preferences use the poster instead.
+- Hero media was generated with Higgsfield Seedance 2.5 on 18 November 2026 (job `578fa975-c7f3-4896-b113-d68e77c905a4`). The silent 8-second loop is stored in `UI/src/assets/videos/landing-cafe-loop.mp4`, with its poster in `UI/src/assets/images/landing-cafe-poster.jpg`. It depicts an illustrative café, not an actual APPZPOS installation.
+- The user supplied a software price of S$660. Confirm its billing period and whether it is before or after grant before adding the proposed daily-price claim; the S$1,660 comparison remains a separate package price.
 - The site header and footer are hidden while the page is shown (the component toggles `body.appz-landing`). The floating WhatsApp bubble stays, the Messenger bubble becomes a phone-call link (`tel:+6583109631`) and is restored when the visitor leaves, and all floating controls share one size and gap.
 - The form is the shared `CustomRequestDemoComponent` in `compact` mode (name, email and mobile number only). Other pages are unchanged. The shared form posts to the production `SendEmail` API, so do not submit test enquiries.
 - The page sets `noindex, nofollow`. The sitewide Google Tag Manager container and Meta Pixel still load through the hidden header. No landing-specific Ads conversion action exists yet.
