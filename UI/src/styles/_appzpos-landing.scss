@@ -96,7 +96,7 @@ body.appz-landing .appz-site-floating-contacts .btn-fb.lp-call .lp-call__icon { 
 .lp-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin: 0 0 20px; padding: 0; list-style: none; }
 .lp-stat { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-areas: "icon value" "label label"; align-items: center; align-content: start; gap: 6px 10px; padding: 12px 14px; border: 1px solid var(--appz-line); border-radius: $lp-radius; background: #fff; line-height: 1.35; }
 .lp-stat__icon { grid-area: icon; display: inline-flex; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: $lp-radius; background: var(--appz-blue-pale); color: var(--appz-blue-deep); font-size: 20px; }
-.lp-stat strong { grid-area: value; font-size: 1.05rem; letter-spacing: -.01em; }
+.lp-stat strong { grid-area: value; display: flex; align-items: center; min-height: 2.6em; font-size: 1.05rem; line-height: 1.3; letter-spacing: -.01em; }
 .lp-stat__label { grid-area: label; color: var(--appz-ink-soft); font-size: .84rem; }
 .lp-stats--below { display: none; margin: 20px 0 0; }
 
@@ -203,6 +203,7 @@ body.appz-landing .appz-site-floating-contacts .btn-fb.lp-call .lp-call__icon { 
   .lp-grant__badge { max-width: none; }
   .lp-faq__item p { padding-right: 8px; }
   .lp-stats--below { grid-template-columns: minmax(0, 1fr); gap: 8px; }
+  .lp-stats--below .lp-stat strong { min-height: 0; }
   .lp-footer { padding: 12px 0 76px; }
   .lp-footer__inner { justify-content: flex-start; text-align: left; }
   .lp-final__actions .lp-btn { width: 100%; }

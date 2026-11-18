@@ -54,9 +54,9 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
   readonly rating = { score: 4.8 } as const;
 
   readonly stats: readonly LandingStat[] = [
-    { icon: 'package', value: '3 platforms', label: 'GrabFood, Foodpanda, Deliveroo' },
-    { icon: 'layers', value: '6 modules', label: 'POS, QR, kiosk, KDS, web, hub' },
-    { icon: 'pin', value: 'Singapore', label: 'Local support team' }
+    { icon: 'users', value: 'Unlimited users', label: 'With the Central Admin Portal' },
+    { icon: 'package', value: '1-year subscription', label: 'Included in all 5 packages' },
+    { icon: 'headset', value: 'Local support', label: 'Email, phone and messaging apps' }
   ];
 
   readonly modules: readonly LandingModule[] = [
