@@ -122,9 +122,9 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
 
   it('shows the purple IMDA / EDGE Grant banner and the Google rating in the hero', () => {
     const hero = root.querySelector('.lp-hero') as HTMLElement;
-    const banner = hero.querySelector('.lp-imda');
-    expect(banner?.textContent).toContain('IMDA Pre-Approved Solution');
-    expect(banner?.getAttribute('aria-label')).toContain('up to 50% business grant support');
+    const banner = hero.querySelector<HTMLImageElement>('img.lp-hero__edge');
+    expect(banner?.getAttribute('src')).toContain('smes-go-digital-imda-banner-horizontal');
+    expect(banner?.alt).toContain('up to 50% business grant support');
     const rating = hero.querySelector('.lp-rating');
     expect(rating?.getAttribute('aria-label')).toBe('Rated 4.8 out of 5 on Google');
     expect(rating?.querySelectorAll('.lp-rating__stars svg').length).toBe(5);

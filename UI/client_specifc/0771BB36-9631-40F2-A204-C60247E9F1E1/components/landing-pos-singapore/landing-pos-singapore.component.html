@@ -42,10 +42,8 @@
         <ng-container *ngTemplateOutlet="ratingBadge"></ng-container>
       </div>
       <div class="lp-hero__edgebox">
-        <div class="lp-imda" aria-label="IMDA pre-approved solution, eligible for up to 50% business grant support">
-          <span class="lp-imda__logo" aria-hidden="true"><img src="assets/images/smes-go-digital-imda-pre-approved-solution.png" alt=""></span>
-          <div><strong>IMDA Pre-Approved Solution</strong><span>Eligible for up to 50% business grant support</span></div>
-        </div>
+        <img class="lp-hero__edge" src="assets/images/smes-go-digital-imda-banner-horizontal.webp"
+             alt="IMDA pre-approved solution, eligible for up to 50% business grant support, SMEs Go Digital" width="1400" height="495">
         <p class="lp-footnote">Eligibility and support levels vary by activity.</p>
         <ng-container *ngTemplateOutlet="statCards; context: { where: 'below' }"></ng-container>
       </div>
@@ -53,7 +51,6 @@
         <app-custom-request-demo [compact]="true"></app-custom-request-demo>
       </div>
     </div>
-    <svg class="lp-hero__wave" viewBox="0 0 1800 80" preserveAspectRatio="none" aria-hidden="true"><path fill="#007cc7" d="M0 15C190 15 330 63 620 80H0Z"/><path fill="#ff7800" d="M1190 80C1440 78 1560 -12 1800 16V80Z"/></svg>
   </section>
 
   <section class="lp-section lp-section--tint" id="packages" aria-labelledby="lp-packages-title">
