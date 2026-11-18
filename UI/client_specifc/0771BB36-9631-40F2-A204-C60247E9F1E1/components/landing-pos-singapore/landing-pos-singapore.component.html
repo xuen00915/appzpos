@@ -58,36 +58,40 @@
       <header class="lp-head lp-head--wide">
         <h2 id="lp-packages-title" class="lp-title">Five EDGE Grant packages for your outlet</h2>
         <p class="lp-sub">Every package includes 1 Digital Ordering System (POS) + 1 QR Ordering system. Eligible SMEs may receive up to 50% support; support levels vary by activity.</p>
-        <p class="lp-from">Listed starting price after grant <strong>S$1,660</strong><span>See the comparison below. Get a quote for your chosen package; eligibility and support levels vary by activity.</span></p>
       </header>
-      <div class="lp-pkgs">
-        <img class="lp-pkgs__screen" src="assets/images/appzpos-hardware-lineup-1168.webp"
-             alt="APPZPOS hardware: a self-ordering kiosk, a POS terminal with customer display and receipt printer, and mobile ordering on a phone" width="1168" height="980" loading="lazy">
-        <ol class="lp-pkgs__list">
-          <li class="lp-pkg" *ngFor="let pkg of packages">
-            <div class="lp-pkg__body">
-              <h3>Package {{ pkg.id }} <span>{{ pkg.title }}</span></h3>
-              <p>{{ pkg.includes }}</p>
-            </div>
-            <a class="lp-pkg__quote" [href]="packageQuote(pkg.id)" target="_blank" rel="noopener noreferrer" [attr.aria-label]="'Get a quote for Package ' + pkg.id">Get a quote</a>
-          </li>
-        </ol>
-      </div>
-      <div class="lp-incl">
-        <h3 class="lp-incl__title">Included in all 5 packages</h3>
-        <div class="lp-incl__grid">
-          <section aria-labelledby="lp-incl-software">
-            <h4 id="lp-incl-software">Software</h4>
-            <ul>
-              <li><strong>1-year subscription</strong> for digital ordering and payment</li>
-              <li>Central Admin Portal with unlimited users</li>
-              <li>Business Analytics Module: customer management, food menu, promotion and upsell, inventory management</li>
-            </ul>
-          </section>
-          <section aria-labelledby="lp-incl-support">
-            <h4 id="lp-incl-support">Support</h4>
-            <p>Email, phone and messaging apps.</p>
-          </section>
+      <div class="lp-package-panel">
+        <div class="lp-pkgs">
+          <div class="lp-pkgs__overview">
+            <img class="lp-pkgs__screen" src="assets/images/appzpos-hardware-lineup-1168.webp"
+                 alt="APPZPOS hardware: a self-ordering kiosk, a POS terminal with customer display and receipt printer, and mobile ordering on a phone" width="1168" height="980" loading="lazy">
+            <p class="lp-from">Listed starting price after grant <strong>S$1,660</strong><span>See the comparison below. Get a quote for your chosen package; eligibility and support levels vary by activity.</span></p>
+          </div>
+          <ol class="lp-pkgs__list">
+            <li class="lp-pkg" *ngFor="let pkg of packages">
+              <div class="lp-pkg__body">
+                <h3>Package {{ pkg.id }} <span>{{ pkg.title }}</span></h3>
+                <p>{{ pkg.includes }}</p>
+              </div>
+              <a class="lp-pkg__quote" [href]="packageQuote(pkg.id)" target="_blank" rel="noopener noreferrer" [attr.aria-label]="'Get a quote for Package ' + pkg.id">Get a quote</a>
+            </li>
+          </ol>
+        </div>
+        <div class="lp-incl">
+          <h3 class="lp-incl__title">Included in all 5 packages</h3>
+          <div class="lp-incl__grid">
+            <section aria-labelledby="lp-incl-software">
+              <h4 id="lp-incl-software">Software</h4>
+              <ul>
+                <li><strong>1-year subscription</strong> for digital ordering and payment</li>
+                <li>Central Admin Portal with unlimited users</li>
+                <li>Business Analytics Module: customer management, food menu, promotion and upsell, inventory management</li>
+              </ul>
+            </section>
+            <section aria-labelledby="lp-incl-support">
+              <h4 id="lp-incl-support">Support</h4>
+              <p>Email, phone and messaging apps.</p>
+            </section>
+          </div>
         </div>
       </div>
     </div>
