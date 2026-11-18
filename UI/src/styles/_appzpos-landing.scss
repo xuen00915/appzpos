@@ -129,6 +129,9 @@ body.appz-landing .appz-site-floating-contacts .btn-fb.lp-call .lp-call__icon { 
 .lp-grant__badge { display: block; width: 100%; }
 .lp-grant__badge img { display: block; width: 100%; height: auto; }
 .lp-grant .lp-sub { margin-bottom: 22px; }
+.lp-from { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 14px; margin: 14px 0 0; font-size: 1.125rem; font-weight: 600; line-height: 1.4; color: var(--appz-ink); text-wrap: balance; }
+.lp-from strong { font-size: 1.25rem; font-weight: 800; line-height: 1.2; letter-spacing: -.02em; color: var(--appz-blue-deep); }
+.lp-from span { font-size: .9375rem; font-weight: 400; color: var(--appz-ink-soft); text-wrap: pretty; }
 
 .lp-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(16px, 2vw, 24px); margin: 0; padding: 0; list-style: none; }
 .lp-step { padding-top: 20px; border-top: 2px solid var(--appz-ink); }
