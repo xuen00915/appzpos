@@ -83,6 +83,15 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
     }
   });
 
+  it('tells visitors their price after grant starts from Package 1 without showing any price', () => {
+    const from = root.querySelector('#packages .lp-from') as HTMLElement;
+    expect(from.textContent).toContain('Your price after grant starts from');
+    expect(from.querySelector('strong')?.textContent).toBe('Package 1');
+    expect(from.textContent).toMatch(/Get a quote/);
+    expect(root.querySelectorAll('.lp-from').length).toBe(1);
+    expect(root.textContent).not.toMatch(/\$\s?\d|S\$|SGD\s?\d/);
+  });
+
   it('moves the system screen out of the hero and into the EDGE Grant packages section', () => {
     expect(root.querySelector('.lp-hero img[src*="appzpos-screen-restaurant"]')).toBeNull();
     const section = root.querySelector('#packages') as HTMLElement;
