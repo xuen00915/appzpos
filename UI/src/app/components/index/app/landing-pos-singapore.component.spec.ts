@@ -92,10 +92,12 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
     expect(root.textContent).not.toMatch(/\$\s?\d|S\$|SGD\s?\d/);
   });
 
-  it('moves the system screen out of the hero and into the EDGE Grant packages section', () => {
-    expect(root.querySelector('.lp-hero img[src*="appzpos-screen-restaurant"]')).toBeNull();
+  it('shows the hardware line-up image in the EDGE Grant packages section, not in the hero', () => {
+    expect(root.querySelector('.lp-hero img[src*="appzpos-hardware-lineup"]')).toBeNull();
     const section = root.querySelector('#packages') as HTMLElement;
-    expect(section.querySelector('img.lp-pkgs__screen')?.getAttribute('src')).toContain('appzpos-screen-restaurant');
+    const img = section.querySelector('img.lp-pkgs__screen') as HTMLImageElement;
+    expect(img.getAttribute('src')).toContain('appzpos-hardware-lineup');
+    expect(img.getAttribute('alt')).toMatch(/kiosk.*POS terminal.*receipt printer/i);
     const pkgs = Array.from(section.querySelectorAll<HTMLElement>('.lp-pkg'));
     expect(pkgs.length).toBe(5);
     expect(pkgs[0].textContent).toContain('Package 1');
