@@ -1892,3 +1892,183 @@ app-solution-page {
 /* Google Ads landing pages: no site navigation or footer, so the ad click stays on the offer. */
 body.appz-landing app-header,
 body.appz-landing app-footer { display: none !important; }
+
+/* Keep homepage and POS review content on the same responsive shell. */
+body:has(.appz-home-template) .appzpos-header__inner,
+body:has(.appz-home-template) .appzpos-footer__inner,
+body:has(.appz-home-template) #copyrights.appzpos-footer__bottom,
+body:has(app-cloud-pos-point-of-sales-system) .appzpos-header__inner,
+body:has(app-cloud-pos-point-of-sales-system) .appzpos-footer__inner,
+body:has(app-cloud-pos-point-of-sales-system) #copyrights.appzpos-footer__bottom,
+body .appz-home-template .appzpos-product-hero__frame {
+  width: min(calc(100% - (var(--appz-page-gutter) * 2)), var(--appz-shell-width)) !important;
+  max-width: var(--appz-shell-width) !important;
+  margin-inline: auto !important;
+}
+body app-cloud-pos-point-of-sales-system .pos-overview__layout {
+  width: 100%;
+  max-width: none;
+}
+
+body .appz-home-template .appz-ecosystem__window {
+  width: min(100%, var(--appz-shell-width)) !important;
+  max-width: var(--appz-shell-width) !important;
+  margin-inline: auto !important;
+}
+
+/* Align article heading, image and copy with the site's shared content shell. */
+html body #content.blog-detail .blog-detail__hero,
+html body #content.blog-detail .blog-detail__image,
+html body #content.blog-detail .blog-detail__content {
+  width: 100% !important;
+  max-width: none !important;
+  box-sizing: border-box;
+}
+/* Match the blog header/footer to the shared responsive article shell. */
+html body:has(#content.blog-detail) .appzpos-header__inner,
+html body:has(#content.blog-detail) .appzpos-footer__inner,
+html body:has(#content.blog-detail) #copyrights.appzpos-footer__bottom,
+html body #content.blog-detail .blog-detail__shell {
+  width: min(calc(100% - (var(--appz-page-gutter) * 2)), var(--appz-shell-width)) !important;
+  max-width: var(--appz-shell-width) !important;
+  margin-inline: auto !important;
+}
+/* Keep the featured illustration compact without cropping its content. */
+html body #content.blog-detail .blog-detail__image {
+  width: min(100%, 800px) !important;
+  max-width: 800px !important;
+  aspect-ratio: auto;
+}
+html body #content.blog-detail .blog-detail__image img {
+  height: auto !important;
+  object-fit: contain;
+}
+@media (min-width: 768px) and (max-width: 1100px) {
+  html body #content.blog-detail .blog-detail__image {
+    width: min(100%, 640px) !important;
+    max-width: 640px !important;
+  }
+}
+/* Use the full copy column for the English and Chinese custom POS headings. */
+@media (max-width: 767px) {
+  html body [data-home-page-template] #integrated-pos-title,
+  html body [data-home-page-template][lang="zh"] #cn-custom-pos-title {
+    width: 100% !important;
+    max-width: none !important;
+    text-wrap: wrap;
+  }
+}
+/* Mobile body copy follows a consistent left edge; hero sections retain their layout. */
+@media (max-width: 767px) {
+  html body :is(#content, main.appz-home-story, .appz-page) :is(h2, h3, h4, p, .appz-section-description):not(:is([data-home-section="hero"], [data-solution-hero], .restaurant-hero, .blog-hero, .blog-detail__hero, .features-hero, .hardware-hero, .partners-hero, .appz-solution-hero, .solution-island-hero) *) {
+    text-align: left !important;
+    margin-inline: 0 !important;
+  }
+  html body :is(#content, main.appz-home-story, .appz-page) :is(h2, h3, h4):not(:is([data-home-section="hero"], [data-solution-hero], .restaurant-hero, .blog-hero, .blog-detail__hero, .features-hero, .hardware-hero, .partners-hero, .appz-solution-hero, .solution-island-hero) *) {
+    width: 100% !important;
+    max-width: none !important;
+  }
+}
+/* The homepage island section sits outside the main story content wrapper. */
+@media (max-width: 767px) {
+  html body [data-home-section="island"] .appz-ecosystem__heading,
+  html body [data-home-section="island"] :is(h2, h3, p) {
+    text-align: left !important;
+  }
+  html body [data-home-section="island"] .appz-ecosystem__heading :is(h2, p) {
+    width: 100% !important;
+    max-width: none !important;
+    margin-inline: 0 !important;
+  }
+}
+/* Industry hero headings share the Solutions type scale. */
+html body .restaurant-hero :is(#restaurant-hero-title, #retail-hero-title, #beauty-hero-title) {
+  font-family: var(--appz-font) !important;
+  font-size: clamp(44px, 4.7vw, 68px) !important;
+  font-weight: 700 !important;
+  line-height: 1.04 !important;
+  letter-spacing: -.035em !important;
+  text-wrap: balance;
+}
+@media (max-width: 1000px) {
+  html body .restaurant-hero :is(#restaurant-hero-title, #retail-hero-title, #beauty-hero-title) { font-size: 46px !important; }
+}
+@media (max-width: 767px) {
+  html body .restaurant-hero :is(#restaurant-hero-title, #retail-hero-title, #beauty-hero-title) { font-size: clamp(38px, 10vw, 54px) !important; }
+}
+
+/* Shared hero typography follows the English homepage at every breakpoint. */
+html body :is(.appzpos-product-hero, .restaurant-hero, [data-solution-hero], .product-banner, .solution-island-hero, .appz-solution-hero, .blog-hero, .blog-detail__hero, .features-hero, .hardware-hero, .partners-hero) h1:not(#hero-type-exclusion):not(#hero-type-legacy), html body :is(#contact-title, #psg-hero-title, #partners-title) {
+ font-family: var(--appz-font) !important;
+ font-size: clamp(2.35rem, min(4.4vw, 7.2dvh), 4rem) !important;
+ font-weight: 700 !important;
+ line-height: 1.12 !important;
+ letter-spacing: -.03em !important;
+}
+@media (max-width: 64rem) {
+html body :is(.appzpos-product-hero, .restaurant-hero, [data-solution-hero], .product-banner, .solution-island-hero, .appz-solution-hero, .blog-hero, .blog-detail__hero, .features-hero, .hardware-hero, .partners-hero) h1:not(#hero-type-exclusion):not(#hero-type-legacy), html body :is(#contact-title, #psg-hero-title, #partners-title) { font-size: clamp(2rem, 5.6vw, 3.25rem) !important; }
+}
+@media (max-width: 39.99rem) {
+html body :is(.appzpos-product-hero, .restaurant-hero, [data-solution-hero], .product-banner, .solution-island-hero, .appz-solution-hero, .blog-hero, .blog-detail__hero, .features-hero, .hardware-hero, .partners-hero) h1:not(#hero-type-exclusion):not(#hero-type-legacy), html body :is(#contact-title, #psg-hero-title, #partners-title) { font-size: clamp(1.85rem, 8.5vw, 2.45rem) !important; }
+}
+
+/* Mobile EDGE Grant and Blog heroes: copy before artwork. */
+@media (max-width: 767px) {
+  html body .blog-hero__copy { grid-row: 1 !important; }
+  html body .blog-hero__diagram { grid-row: 2 !important; }
+  html body .psg-hero__copy { order: 0 !important; }
+  html body .psg-hero__art { order: 1 !important; }
+}
+/* Align Chinese management heading and cards with the shared page shell. */
+html body #cn-unified-management {
+  width: min(calc(100% - (var(--appz-page-gutter) * 2)), var(--appz-shell-width));
+  max-width: var(--appz-shell-width);
+  margin-inline: auto;
+}
+html body #cn-unified-management .home-story-section__bullets,
+html body #cn-unified-management #cn-unified-management-title {
+  width: 100%;
+  max-width: none !important;
+}
+
+/* Google Ads landing pages (/lp/...): no site navigation or footer, so the ad click stays on the offer. */
+body.appz-landing app-header,
+body.appz-landing app-footer { display: none !important; }
+
+/* Bottom request-demo panel: email, phone and address rows share one size (16px). Pages that wrap the form in
+   #content otherwise apply their own paragraph size to the address row. */
+html body:not(#_):not(#__) .appz-conversion-panel .appz-demo__contact { gap: 8px; }
+html body:not(#_):not(#__) .appz-conversion-panel .appz-demo__contact :is(a, p) {
+  font-size: 1rem !important;
+  line-height: 1.5 !important;
+  font-weight: 400 !important;
+  letter-spacing: normal !important;
+  margin: 0 !important;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 12px;
+}
+html body:not(#_):not(#__) .appz-conversion-panel .appz-demo__contact span { font-size: inherit !important; line-height: inherit !important; }
+html body:not(#_):not(#__) .appz-conversion-panel .appz-demo__contact i { font-size: 1.2rem !important; line-height: 1 !important; margin-top: 2px; }
+
+/* Office and WhatsApp numbers share one contact row but are two separate links (tel: and wa.me). They read as
+   plain inline text (no underline), not the green WhatsApp button used elsewhere, and are not grid rows like the other contacts. */
+html body:not(#_):not(#__):not(#___) .appz-conversion-panel .appz-demo__contact .appz-demo__phones { min-height: 44px; padding-block: 2px; }
+html body:not(#_):not(#__):not(#___) .appz-conversion-panel .appz-demo__contact a.appz-demo__phone-link:any-link {
+  display: inline !important;
+  min-height: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: inherit !important;
+  font: inherit !important;
+  text-decoration: none !important;
+  white-space: nowrap;
+}
+html body:not(#_):not(#__):not(#___) .appz-conversion-panel .appz-demo__contact a.appz-demo__phone-link:any-link:is(:hover, :focus-visible) {
+  background: transparent !important;
+  color: #fff !important;
+}
+html body:not(#_):not(#__):not(#___) .appz-conversion-panel .appz-demo__contact a.appz-demo__phone-link:focus-visible { outline: 2px solid #75c5ff; outline-offset: 3px; }
+html body:not(#_):not(#__):not(#___) .appz-conversion-panel .appz-demo__contact a.appz-demo__phone-link::before { content: none !important; display: none !important; }

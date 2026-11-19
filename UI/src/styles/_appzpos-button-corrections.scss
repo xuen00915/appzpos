@@ -1,0 +1,171 @@
+/* Rectangular action controls; preserve card and image geometry. */
+:root { --appz-radius-control: 6px; }
+html body :is(button, [role="button"], .button, .btn, [class*="__button"], [class*="__cta"], .appzpos-bottom-demo, .appzpos-bottom-demo a, .btn-whatsapp, .btn-fb, #gotoTop, .more-link, .solution-feature-demo),
+html body #content :is(button, [role="button"], .button, .btn, [class*="__button"], .more-link, .solution-feature-demo),
+html body .appz-site-floating-contacts :is(a.btn-whatsapp, a.btn-fb) {
+  border-radius: 6px !important;
+}
+html body .appz-site-floating-contacts a.btn-whatsapp[href]:any-link,
+html body a[href*="wa.me/"]:any-link,
+html body #content a[href*="wa.me/"]:any-link {
+  background: #438b55 !important;
+  border-color: #438b55 !important;
+  color: #fff !important;
+  border-radius: 6px !important;
+  font-weight: 700;
+  box-shadow: 0 10px 24px rgb(67 139 85 / 16%) !important;
+}
+html body .appz-site-floating-contacts a.btn-whatsapp[href]:any-link:is(:hover, :focus-visible),
+html body a[href*="wa.me/"]:any-link:is(:hover, :focus-visible),
+html body #content a[href*="wa.me/"]:any-link:is(:hover, :focus-visible) {
+  background: #357144 !important;
+  border-color: #357144 !important;
+}
+
+html body a[href*="wa.me/"]:not(:has(i, svg, img))::before {
+  content: "\f232";
+  font-family: "Font Awesome 6 Brands";
+  font-weight: 400;
+  margin-inline-end: 10px;
+}
+
+/* Semantic CTA links in the English and Chinese homepage sections. */
+html body :is(.appz-ecosystem__details-learn-more, .ecosystem__grant-link, .industries__more-info, .proof__review-link),
+html body #content :is(.appz-ecosystem__details-learn-more, .ecosystem__grant-link, .industries__more-info, .proof__review-link) {
+  border-radius: 6px !important;
+}
+
+/* English and Chinese homepage hero WhatsApp CTAs are text-only. */
+html body a.appzpos-product-hero__button--secondary[href*="wa.me/"]:not(:has(i, svg, img))::before {
+  content: none;
+  display: none;
+}
+
+/* Give Solutions CTA icons a clear 24px presence without enlarging floating controls. */
+html body app-solution-page a[href*="wa.me/"] :is(i, svg),
+html body :is(app-pos-hardware-machine-receipt-printer, app-pos-features-crm-payment-gateway) a[href*="wa.me/"] :is(i, svg) {
+  font-size: 24px !important;
+  width: 24px;
+  height: 24px;
+  line-height: 24px;
+  flex-shrink: 0;
+}
+html body app-solution-page a[href*="wa.me/"]::before,
+html body :is(app-pos-hardware-machine-receipt-printer, app-pos-features-crm-payment-gateway) a[href*="wa.me/"]::before {
+  font-size: 24px;
+  line-height: 24px;
+}
+
+/* The shared contact rail is available on every public route and scroll position. */
+html body nav:is(.appz-site-floating-contacts, #gotoTop).appz-site-floating-contacts[aria-label],
+html body:is(.appz-form-visible, :has(form:focus-within)) :is(.appz-site-floating-contacts, #gotoTop).appz-site-floating-contacts {
+  display: flex !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* Keep the Grant FAQ contact sentence as an inline text link. */
+html body #content .psg-faq__contact a[href*="wa.me/"]:any-link,
+html body #content .psg-faq__contact a[href*="wa.me/"]:any-link:is(:hover, :focus-visible) {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  color: #743995 !important;
+}
+html body #content .psg-faq__contact a[href*="wa.me/"]::before {
+  content: none;
+  display: none;
+}
+
+/* Hero WhatsApp actions are text-only; body CTAs and floating contacts keep icons. */
+html body :is(.appzpos-product-hero, .restaurant-hero, .blog-hero, .features-hero, .hardware-hero, .partners-hero, .appz-solution-hero, .solution-island-hero) a[href*="wa.me/"]::before {
+  content: none !important;
+  display: none !important;
+}
+html body :is(.appzpos-product-hero, .restaurant-hero, .blog-hero, .features-hero, .hardware-hero, .partners-hero, .appz-solution-hero, .solution-island-hero) a[href*="wa.me/"] :is(i, svg, img) {
+  display: none !important;
+}
+/* Contact dropdown links use the same neutral row treatment. */
+html body #contact-menu a.appzpos-nav__utility--whatsapp[href]:any-link {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  color: #34455b !important;
+}
+html body #contact-menu a.appzpos-nav__utility--whatsapp[href]:any-link:is(:hover, :focus-visible) {
+  background: #f0f6fa !important;
+  color: #075c95 !important;
+}
+html body #contact-menu .appzpos-nav__utility i {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  font-size: 24px;
+  line-height: 24px;
+  flex: 0 0 24px;
+}
+
+/* Brand glyphs need a larger font size to visually match the solid phone symbol. */
+html body #contact-menu .appzpos-nav__utility--call i { font-size: 20px; }
+
+/* Consistent industry WhatsApp colour, including Salon's legacy desktop variant. */
+html body a.restaurant-hero__whatsapp:any-link {
+  background: #438b55 !important;
+  border-color: #438b55 !important;
+  color: #fff !important;
+  box-shadow: 0 10px 24px rgb(67 139 85 / 16%) !important;
+}
+html body a.restaurant-hero__whatsapp:any-link:is(:hover, :focus-visible) {
+  background: #357144 !important;
+  border-color: #357144 !important;
+}
+/* Compact hero/solution introduction actions, preserving a 44px tap target. */
+html body :is(.restaurant-hero__actions, .blog-hero__actions, .features-hero__actions, .hardware-hero__actions, .partners-hero__actions) :is(a.button, button.button),
+html body app-solution-page #content .pos-overview :is(a.button, button.button) {
+  box-sizing: border-box;
+  align-items: center;
+  justify-content: center;
+  height: 44px !important;
+  min-height: 44px !important;
+  padding-block: 0 !important;
+  line-height: 42px !important;
+}
+
+/* Shared Solutions banner uses the same 44px action height as other page heroes. */
+html body app-solution-banner .product-banner__actions :is(button, a) {
+  box-sizing: border-box;
+  height: 44px !important;
+  min-height: 44px !important;
+  padding-block: 0 !important;
+  line-height: 1.3 !important;
+}
+
+/* Homepage hero actions share the sitewide 44px hero control height. */
+html body .appzpos-product-hero__actions .appzpos-product-hero__button {
+  box-sizing: border-box;
+  height: 44px !important;
+  min-height: 44px !important;
+  padding-block: 0 !important;
+  line-height: 1.3 !important;
+  align-items: center;
+  justify-content: center;
+}
+/* Contact numbers remain inline links, not WhatsApp CTA buttons. */
+html body #content .contact-channel--whatsapp .subtitle a[href*="wa.me/"]:any-link,
+html body #content .contact-channel--whatsapp .subtitle a[href*="wa.me/"]:any-link:is(:hover, :focus-visible) {
+  background: transparent !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  color: #009df0 !important;
+}
+html body #content .contact-channel--whatsapp .subtitle a[href*="wa.me/"]::before {
+  content: none !important;
+  display: none !important;
+}
+html body #content .contact-channel--whatsapp .subtitle a[href*="wa.me/"]:any-link,
+html body #content .contact-channel--whatsapp .subtitle a[href*="wa.me/"]:any-link:is(:hover, :focus-visible) {
+  color: #357144 !important;
+}

@@ -344,3 +344,99 @@ body:has(.appz-site-floating-contacts) #gotoTop:focus-visible {
     transition-duration: .01ms !important;
   }
 }
+
+/* Equal contact-symbol sizing while retaining the existing tracking elements. */
+body .appz-site-floating-contacts .btn-fb img {
+  position: absolute;
+  opacity: 0;
+}
+body .appz-site-floating-contacts .btn-fb::before,
+body .appz-site-floating-contacts .btn-whatsapp .fa-whatsapp {
+  display: flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  font-family: "Font Awesome 6 Brands";
+  font-weight: 400;
+  font-size: 33px;
+  line-height: 1;
+}
+body .appz-site-floating-contacts .btn-fb::before {
+  content: "\f39f";
+  color: #1688d8;
+  -webkit-font-smoothing: antialiased;
+}
+@media (max-width: 768px) {
+  body .appz-site-floating-contacts .btn-fb::before,
+  body .appz-site-floating-contacts .btn-whatsapp .fa-whatsapp {
+    width: 38px;
+    height: 38px;
+    font-size: 31px;
+  }
+}
+
+/* All three floating bubbles share the same diameter and spacing. */
+body:has(.appz-site-floating-contacts) #gotoTop {
+  --cnvs-gotoTop-size: 52px;
+  width: 52px;
+  height: 52px;
+  min-width: 52px;
+  min-height: 52px;
+  padding: 0;
+  line-height: 1;
+}
+body .appz-site-floating-contacts {
+  bottom: calc(86px + env(safe-area-inset-bottom));
+}
+@media (max-width: 768px) {
+  body:has(.appz-site-floating-contacts) #gotoTop {
+    --cnvs-gotoTop-size: 48px;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    min-height: 48px;
+  }
+  body .appz-site-floating-contacts {
+    bottom: calc(80px + env(safe-area-inset-bottom));
+  }
+}
+
+/* One outer-circle geometry for contacts and back-to-top, including borders. */
+body {
+  --appz-bubble-size: 52px;
+  --appz-bubble-gap: 12px;
+  --appz-bubble-bottom: max(22px, env(safe-area-inset-bottom));
+}
+body .appz-site-floating-contacts[aria-label] a[href],
+body:has(.appz-site-floating-contacts) #gotoTop {
+  box-sizing: border-box;
+  width: var(--appz-bubble-size) !important;
+  height: var(--appz-bubble-size) !important;
+  min-width: var(--appz-bubble-size);
+  min-height: var(--appz-bubble-size);
+  max-width: var(--appz-bubble-size);
+  max-height: var(--appz-bubble-size);
+  flex-shrink: 0;
+  padding: 0;
+  border-width: 2px;
+  border-radius: 50%;
+  box-shadow: 0 6px 20px rgba(14, 42, 73, .16);
+}
+body .appz-site-floating-contacts[aria-label] .btn-fb[href] {
+  border-color: #cbd5e1;
+  background: #fff;
+}
+body .appz-site-floating-contacts[aria-label] {
+  gap: var(--appz-bubble-gap);
+  bottom: calc(var(--appz-bubble-bottom) + var(--appz-bubble-size) + var(--appz-bubble-gap));
+}
+body .appz-site-floating-contacts[aria-label] a[href]:active,
+body:has(.appz-site-floating-contacts) #gotoTop:active { transform: translateY(-1px); }
+@media (max-width: 768px) {
+  body {
+    --appz-bubble-size: 48px;
+    --appz-bubble-gap: 16px;
+    --appz-bubble-bottom: max(16px, env(safe-area-inset-bottom));
+  }
+}
