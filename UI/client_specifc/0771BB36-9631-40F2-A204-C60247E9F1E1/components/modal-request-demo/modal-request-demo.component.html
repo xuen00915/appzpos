@@ -8,7 +8,7 @@
                 <div class="alert alert-success" *ngIf="showSuccessMsg">
                     {{successMsg}}
                 </div>
-                <div class="alert alert-danger" *ngIf="showErrorMsg">
+                <div class="alert alert-danger" role="alert" *ngIf="showErrorMsg">
                     {{errorMsg}}
                 </div>
                 <div class="col-12 form-group">
@@ -44,7 +44,7 @@
                     </div>
                 </div>
                 <div class="col-12 form-group">
-                    <input type="submit" class="button button-large button-circle" value="Submit" />
+                    <input type="submit" [disabled]="sending" [attr.aria-busy]="sending" class="button button-large button-circle" [value]="sending ? 'Sending…' : 'Submit'" />
                     <button type="button" class="button button2 button-large button-light button-circle" style="color:black;" mat-button (click)="onNoClick()">Cancel</button>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                 <div class="alert alert-success" *ngIf="showSuccessMsg">
                     {{successMsg}}
                 </div>
-                <div class="alert alert-danger" *ngIf="showErrorMsg">
+                <div class="alert alert-danger" role="alert" *ngIf="showErrorMsg">
                     {{errorMsg}}
                 </div>
                 <div class="col-12 form-group">
@@ -98,7 +98,7 @@
                     </div>
                 </div>
                 <div class="col-12 form-group">
-                    <input type="submit" class="button button-large button-circle" value="Submit" />
+                    <input type="submit" [disabled]="sending" [attr.aria-busy]="sending" class="button button-large button-circle" [value]="sending ? 'Sending…' : 'Submit'" />
                     <button type="button" class="button button2 button-large button-light button-circle" style="color:black;" mat-button (click)="onNoClick()">Cancel</button>
                 </div>
             </div>

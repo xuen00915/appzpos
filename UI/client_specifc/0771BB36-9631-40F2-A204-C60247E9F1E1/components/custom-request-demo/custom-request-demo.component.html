@@ -91,8 +91,8 @@
             </div>
         </div>
 
-        <button type="submit" class="appz-demo__submit">
-            {{ compact ? 'Book My Free Demo' : copy.submitLabel }}
+        <button type="submit" [disabled]="sending" [attr.aria-busy]="sending" class="appz-demo__submit">
+            {{ sending ? (locale === 'zh' ? '提交中…' : 'Sending…') : (compact ? 'Book My Free Demo' : copy.submitLabel) }}
         </button>
         <p *ngIf="compact" class="appz-demo__note">By submitting, you agree to be contacted about your enquiry.</p>
     </form>

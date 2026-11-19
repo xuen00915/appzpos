@@ -1,3 +1,4 @@
+import { finalize } from 'rxjs';
 
 import { Component, OnInit, ViewChild  } from '@angular/core';
 import { CommonFunctionService } from '../../../../src/app/services/shared_function/common-function.service';
@@ -18,6 +19,7 @@ export class ModalRequestDemoComponent implements OnInit{
     showErrorMsg:boolean =false;
     errorMsg:string = "";
     submitted = false;
+    sending = false;
 
     requestDemoForm = new FormGroup({
       name: new FormControl(''),
@@ -47,7 +49,9 @@ export class ModalRequestDemoComponent implements OnInit{
     return this.commonFunctionService.BindURL_Image(FileName);
   }
  
-  onSubmit( ):void { 
+  onSubmit( ):void {
+    if (this.sending) return;
+    this.showSuccessMsg = false;
     this.showErrorMsg =false; 
     this.submitted = true;   
  
@@ -60,21 +64,22 @@ export class ModalRequestDemoComponent implements OnInit{
       objParam.Phone = this.requestDemoForm.value.mobilenum; 
       var objRequestDemo:any={};
       objRequestDemo.ContactUs = objParam;
-      var objResponse: any = this.apiService.apiCallPOST_Sync("/api/WebSiteController/SendEmail", objRequestDemo);
-      var objAPIResponse: any = objResponse.__zone_symbol__value;
-      if(JSON.parse(objAPIResponse).APIResponse.Message == ""){
-        this.showSuccessMsg=true;
-        this.successMsg="Successfully submitted !";     
-        (Object as any).values(this.requestDemoForm.controls).forEach((control: FormControl) => {
-          control.setValue("");
+      this.sending = true;
+      this.apiService.sendWebsiteEmail(objRequestDemo).pipe(
+        finalize(() => { this.sending = false; })
+      ).subscribe({
+        next: () => {
+          this.showSuccessMsg = true;
+          this.successMsg = "Successfully submitted !";
+          Object.values(this.requestDemoForm.controls).forEach(control => control.setValue(''));
+          this.submitted = false;
+        },
+        error: () => {
+          this.showErrorMsg = true;
+          this.errorMsg = "We couldn't confirm your enquiry. Your details are still here. Please try again later, or WhatsApp us on +65 8310 9631.";
+          this.submitted = false;
+        }
       });
-      this.submitted=false;   
-      }
-      else{
-        this.showErrorMsg=true;
-        this.errorMsg = JSON.parse(objAPIResponse).APIResponse.Message;
-        this.submitted=false;
-      } 
-    } 
+    }
   }
 }

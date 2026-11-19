@@ -142,9 +142,11 @@ The IMDA page blocks third-party iframe embedding (`X-Frame-Options: SAMEORIGIN`
 
 ## API access
 
-`UI/src/app/services/shared_function/api.service.ts` contains the shared HTTP service. Application startup retrieves configuration data from `/api/IndexController/GetConfigurationValues` and stores it through the shared configuration service.
+`UI/src/app/services/shared_function/api.service.ts` contains the shared HTTP service. Marketing pages render from bundled public branding in `ConfigService` and local page content. Startup makes no `GetConfigurationValues` or `GetHomePageDetails` request, so disabling those endpoints cannot block the homepage or landing page. No operational POS configuration is downloaded or cached by this marketing build.
 
-The application requires access to the configured AppzPOS backend for server-driven content and settings.
+Enquiry forms still use `/api/WebSiteController/SendEmail`. Requests are asynchronous, time out after 15 seconds and are never retried automatically. Only the explicit success response clears the form. Failed, timed-out or malformed responses preserve entered details and display a WhatsApp contact alternative; repeat clicks are blocked while a request is pending.
+
+Some existing images are still hosted at `appzpos.com/admin/Upload/`. API independence does not guarantee those images remain available if the entire hosting domain is offline.
 
 ## Generated and local files
 
