@@ -1,3 +1,4 @@
+import { of } from 'rxjs';
 import { Component, Input } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -264,9 +265,9 @@ describe('CustomRequestDemoComponent compact mode (used by the landing page)', (
   describe('submission', () => {
     const submit = (compact: boolean) => {
       const sent: any[] = [];
-      const api = { apiCallPOST_Sync: (_url: string, body: any) => {
+      const api = { sendWebsiteEmail: (body: any) => {
         sent.push(body);
-        return { __zone_symbol__value: JSON.stringify({ APIResponse: { Message: '' } }) };
+        return of(undefined);
       } };
       TestBed.configureTestingModule({
         imports: [ReactiveFormsModule],

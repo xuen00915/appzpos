@@ -21,7 +21,8 @@ const files = [
   resolve(componentRoot, 'home-proof/home-proof.component.html'),
   resolve(componentRoot, 'index/home-page-proof.en.ts'),
   resolve(componentRoot, 'custom-request-demo/custom-request-demo.component.html'),
-  resolve(componentRoot, 'custom-request-demo/custom-request-demo.component.ts')
+  resolve(componentRoot, 'custom-request-demo/custom-request-demo.component.ts'),
+  resolve(uiRoot, 'src/app/services/shared_function/api.service.ts')
 ];
 
 for (const file of files) {

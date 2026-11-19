@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, catchError, map, throwError } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, catchError, map, throwError, timeout } from 'rxjs';
 import { CommonFunctionService } from './common-function.service';
 
 
@@ -43,41 +43,18 @@ export class ApiService {
     )
   }
 
-  //POST method synchronous call
-  apiCallPOST_Sync(strAPIURL: string, objParamData: any = null, objHeaderData: any = {}, objOptions: any = {}): Promise<any> {
-    const cstAPIURL = this.commonFunctionService.BindURL_API(strAPIURL);
-    return new Promise<any>((resolve, reject) => {
-      const xhr = new XMLHttpRequest();
-      xhr.open('POST', cstAPIURL, false);
-      //Header
-      xhr.setRequestHeader('Content-Type', 'application/json');
-      for (var key in objHeaderData) {
-        if (key == "Authorization") {
-          xhr.setRequestHeader(key, "Bearer " + objHeaderData[key]);
+  /** A bounded, asynchronous enquiry request; never retry email sends automatically. */
+  sendWebsiteEmail(payload: unknown): Observable<void> {
+    return this.apiCallPOST_Async('/api/WebSiteController/SendEmail', payload).pipe(
+      timeout(15000),
+      map((response: unknown) => {
+        // The current API returns a JSON-encoded string. Accept an object too,
+        // but only the explicit success envelope may clear a visitor's form.
+        const result = typeof response === 'string' ? JSON.parse(response) : response;
+        if (result?.APIResponse?.Message !== '') {
+          throw new Error('Enquiry was not confirmed');
         }
-        else {
-          xhr.setRequestHeader(key, objHeaderData[key]);
-        }
-      }
-      //Body
-      const requestBody = JSON.stringify(objParamData);
-      //Set up event listeners
-      xhr.onload = () => {
-        if (xhr.status === 200) {
-          // The request was successful
-          const response = JSON.parse(xhr.responseText);
-          resolve(response);
-        } else {
-          // Handle errors
-          reject(xhr.statusText);
-        }
-      };
-      xhr.onerror = () => {
-        // Handle network errors
-        reject('Network error');
-      };
-      //Send the request synchronously
-      xhr.send(requestBody);
-    });
+      })
+    );
   }
 }

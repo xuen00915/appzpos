@@ -1,3 +1,4 @@
+import { finalize } from 'rxjs';
  import { Component, OnInit} from '@angular/core';
 import { CommonFunctionService } from '../../../../src/app/services/shared_function/common-function.service';
 import { ConfigService } from '../../../../src/app/services/shared_data/config.service';
@@ -18,6 +19,7 @@ export class CustomContactComponent implements OnInit{
   showErrorMsg:boolean =false;
   errorMsg:string = "";
   submitted = false;
+    sending = false;
   contactForm = new FormGroup({
     fullname: new FormControl(''),
     email: new FormControl(''),
@@ -63,6 +65,8 @@ export class CustomContactComponent implements OnInit{
   }
 
   onSubmit( ):void{
+    if (this.sending) return;
+    this.showSuccessMsg = false;
     this.showErrorMsg =false;
     this.showSuccessMsg=false;
     this.submitted = true;
@@ -76,21 +80,22 @@ export class CustomContactComponent implements OnInit{
       objParam.Services = this.contactForm.value.services;
       var objectContact:any={};
       objectContact.ContactUs = objParam; 
-      var objResponse: any = this.apiService.apiCallPOST_Sync("/api/WebSiteController/SendEmail", objectContact);
-      var objAPIResponse: any = objResponse.__zone_symbol__value;
-      if(JSON.parse(objAPIResponse).APIResponse.Message == ""){
-        this.showSuccessMsg=true;
-        this.successMsg="Successfully submitted !";
-        (Object as any).values(this.contactForm.controls).forEach((control: FormControl) => {
-          control.setValue("");
-          this.submitted=false;
-      }); 
-      }
-      else{
-        this.showErrorMsg=true;
-        this.errorMsg = JSON.parse(objAPIResponse).APIResponse.Message;
-        this.submitted=false;
-      }
-    }  
+      this.sending = true;
+      this.apiService.sendWebsiteEmail(objectContact).pipe(
+        finalize(() => { this.sending = false; })
+      ).subscribe({
+        next: () => {
+          this.showSuccessMsg = true;
+          this.successMsg = "Successfully submitted !";
+          Object.values(this.contactForm.controls).forEach(control => control.setValue(''));
+          this.submitted = false;
+        },
+        error: () => {
+          this.showErrorMsg = true;
+          this.errorMsg = "We couldn't confirm your enquiry. Your details are still here. Please try again later, or WhatsApp us on +65 8310 9631.";
+          this.submitted = false;
+        }
+      });
+    }
   }
 }
