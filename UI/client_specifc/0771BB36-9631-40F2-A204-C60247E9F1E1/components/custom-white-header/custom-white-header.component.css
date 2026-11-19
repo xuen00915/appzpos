@@ -49,18 +49,21 @@
   .appzpos-nav__panel--wide { left:-160px; }
 }
 @media(max-width:1100px) {
+  /* Canvas adds a sticky transform after scrolling. It otherwise makes this
+     76px wrapper the containing block for the fixed dropdown. */
+  #header.appzpos-header #header-wrap { transform:none!important; }
   .appzpos-header__inner { width:calc(100% - 40px); gap:16px; }
   .appzpos-header__logo img { width:136px; }
   .appzpos-header__mobile-toggle { display:grid; }
-  .appzpos-nav { position:fixed; inset:76px 0 0; display:none; margin:0; padding:16px max(24px,calc((100vw - 720px)/2)) 40px; background:#fff; overflow-y:auto; overscroll-behavior:contain; }
+  .appzpos-nav { position:fixed; inset:84px 20px auto auto; display:none; box-sizing:border-box; width:min(420px,calc(100% - 40px)); max-height:min(60vh,480px,calc(100vh - 108px)); max-height:min(60dvh,480px,calc(100dvh - 108px)); margin:0; padding:8px 20px 16px; border:1px solid #dce5ed; border-radius:12px; box-shadow:0 12px 32px #10243b24; background:#fff; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:thin; scrollbar-color:#9aaec0 #f0f4f8; }
   .appzpos-nav.is-mobile-open { display:block; }
-  .appzpos-nav__link,.appzpos-nav__trigger { width:100%; min-height:60px; padding:12px 0; justify-content:space-between; font-size:20px; border-bottom:1px solid #e5ebf0; }
+  .appzpos-nav__link,.appzpos-nav__trigger { width:100%; min-height:48px; padding:10px 0; justify-content:space-between; font-size:17px; border-bottom:1px solid #e5ebf0; }
   .appzpos-nav__primary-item::after { content:none; }
   .appzpos-nav__language { border-left:0; }
   .appzpos-nav__panel { position:static; display:none; width:100%; padding:8px 0 20px; border-radius:0; box-shadow:none; transform:none; }
   .appzpos-nav__panel.is-open { display:block; }
   .appzpos-nav__panel::before { content:none; }
-  .appzpos-nav__link-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:4px 16px; }
+  .appzpos-nav__link-grid { grid-template-columns:1fr; gap:4px; }
   .appzpos-nav__link-grid>a { padding:14px 8px; }
   .appzpos-nav__item-copy strong { font-size:15px; }
   .appzpos-nav__item-copy>span { font-size:13px; }
@@ -68,6 +71,7 @@
   .appzpos-nav__utility-label { font-size:15px; }
 }
 @media(max-width:600px) {
+  .appzpos-nav { right:16px; width:calc(100% - 32px); padding-inline:16px; }
   .appzpos-header__inner { width:calc(100% - 32px); gap:12px; }
   .appzpos-header__logo img { width:124px; }
   .appzpos-nav__cta { padding:0 14px; font-size:12px; }
@@ -82,3 +86,5 @@
 @media(prefers-reduced-motion:reduce) {
   .appzpos-header *,.appzpos-header *::after { transition:none!important; }
 }
+.appzpos-header #logo > .appzpos-header__logo { width: auto; }
+.appzpos-header #logo > .appzpos-header__logo img { height: auto !important; max-height: 76px; margin: 0; }

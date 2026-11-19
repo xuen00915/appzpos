@@ -108,7 +108,7 @@
 .ecosystem__growth-list {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  width: min(100%, 1120px);
+  width: 100%;
   gap: clamp(14px, 1.8vw, 22px);
   margin: 0 auto;
   padding: 0;
