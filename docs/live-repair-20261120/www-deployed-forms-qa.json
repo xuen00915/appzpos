@@ -1,0 +1,22 @@
+[
+  {
+    "kind": "contact",
+    "route": "/point-of-sales-demo-quotation",
+    "width": 1440,
+    "fields": [
+      "website_url",
+      "fullname",
+      "email",
+      "mobilenum",
+      "services",
+      "restaurant_name",
+      "message"
+    ],
+    "failureRetainsValues": true,
+    "malformedResponseRejected": true,
+    "duplicateSubmissionsBlocked": true,
+    "elapsedIncludingMock250ms": 322,
+    "refreshConversionCount": 0,
+    "errors": []
+  }
+]

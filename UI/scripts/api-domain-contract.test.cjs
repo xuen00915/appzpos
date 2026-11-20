@@ -22,9 +22,9 @@ const { CommonFunctionService } = load('src/app/services/shared_function/common-
   '../../../environment': { environment }
 });
 const service = new CommonFunctionService({objConfigData: {Configuration: {CompanyDetails: {Company_Ref_No: 'public-brand'}}}}, {});
-test('configured enquiry endpoint remains on the existing backend', () => {
-  assert.equal(environment.apiserverDomain, 'https://appzpos.com');
-  assert.equal(service.BindURL_API('/api/WebSiteController/SendEmail'), 'https://appzpos.com/api/WebSiteController/SendEmail');
+test('configured enquiry endpoint remains on the separate backend', () => {
+  assert.equal(environment.apiserverDomain, 'https://website-api.appzpos.com');
+  assert.equal(service.BindURL_API('/api/WebSiteController/SendEmail'), 'https://website-api.appzpos.com/api/WebSiteController/SendEmail');
 });
 test('API and image URLs can use different domains without rewriting absolute API URLs', () => {
   const original = {...environment};

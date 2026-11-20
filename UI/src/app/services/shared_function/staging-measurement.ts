@@ -1,5 +1,5 @@
-/** Temporary staging-only compatibility layer. Remove after the shared GTM container is corrected. */
-export const isMeasurementStaging = (): boolean => location.hostname === 'website.appzpos.com';
+/** APPZPOS compatibility layer promoted with the 2026-11-20 live repair. Remove only after shared GTM is reconciled. */
+export const isMeasurementStaging = (): boolean => ['website.appzpos.com', 'appzpos.com', 'www.appzpos.com'].includes(location.hostname);
 /** GA4 property of Appzgate (not APPZPOS). Staging traffic must never be reported to it. */
 const APPZGATE_GA4_ID = 'G-JW8VE6FEP3';
 const contactReceipts = new Set<string>();

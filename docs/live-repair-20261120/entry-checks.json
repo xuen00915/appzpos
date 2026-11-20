@@ -1,0 +1,17 @@
+[
+  {
+    "host": "appzpos.com",
+    "sha256": "e33ab994f2592d3d1fc1dc7d4e774803561d70ee4df51aa0425cacb818c5f65c",
+    "expectedMatch": true
+  },
+  {
+    "host": "www.appzpos.com",
+    "sha256": "e33ab994f2592d3d1fc1dc7d4e774803561d70ee4df51aa0425cacb818c5f65c",
+    "expectedMatch": true
+  },
+  {
+    "host": "website.appzpos.com",
+    "sha256": "f759c784b5ed8887e2affc51573c3f2f447f7b315a65c326389b56f2b3e67bf7",
+    "expectedMatch": true
+  }
+]

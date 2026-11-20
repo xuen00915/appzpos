@@ -1,3 +1,11 @@
+# Live repair authorization — 2026-11-20
+
+The user explicitly requested fixing the blank live appzpos.com page and making it show the website.appzpos.com design after IT changed DNS. This supersedes the staging-only restriction below for this live repair. Both live names now resolve to Vodien 101.100.228.105; do not assume writes in this document root are staging-only. Preserve existing backend/account settings and do not send real test enquiries.
+
+Live exact public routes now serve /_forms-review-20261113/live.html with main.edf77d588efaa7c5.js. Staging still serves site.html unchanged. API and uploaded-image origin for the live build is https://website-api.appzpos.com (backend remains at 4.193.116.8); fixed hardcoded uploaded-image URLs too. Existing corrected measurement/form hostname guard now includes appzpos.com and www.appzpos.com in the live bundle. No shared GTM account settings changed.
+
+Routing rollback: .htaccess.pre-live-20261120 in /home2/appzgate/public_html/appzpos.com. Restoring it reverts live routing to the old fallback and its known blank-page problem; use only for incident rollback. Live repair artifacts: /Users/dmsyx/.codex/appzpos-staging-deployments/20261120-live-repair. Earlier staging-only history follows.
+
 # Mandatory staging-only scope
 
 The user requires all website changes to be confined to `website.appzpos.com`. Strictly do not modify the live `appzpos.com` or `www.appzpos.com` website.

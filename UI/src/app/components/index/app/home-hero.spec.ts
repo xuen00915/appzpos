@@ -124,7 +124,7 @@ describe('APPZPOS home hero', () => {
       .withContext('the software display should expose exactly one logo layer')
       .toBe(1);
     expect(officialLogo?.getAttribute('src')).toBe(
-      'https://appzpos.com/admin/Upload/0771BB36-9631-40F2-A204-C60247E9F1E1/Images/APPZPOS-300X150px.png'
+      'https://website-api.appzpos.com/admin/Upload/0771BB36-9631-40F2-A204-C60247E9F1E1/Images/APPZPOS-300X150px.png'
     );
 
     officialLogo?.dispatchEvent(new Event('error'));

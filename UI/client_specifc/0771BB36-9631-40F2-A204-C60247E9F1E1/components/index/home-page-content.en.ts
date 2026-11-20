@@ -137,7 +137,7 @@ export const ENGLISH_HOME_PAGE_CONFIG: HomePageTemplateConfig = {
       hardwareAlt: 'APPZPOS touchscreen POS terminal with receipt printer',
       hardwareWidth: 1672,
       hardwareHeight: 941,
-      brandImage: 'https://appzpos.com/admin/Upload/0771BB36-9631-40F2-A204-C60247E9F1E1/Images/APPZPOS-300X150px.png',
+      brandImage: 'https://website-api.appzpos.com/admin/Upload/0771BB36-9631-40F2-A204-C60247E9F1E1/Images/APPZPOS-300X150px.png',
       industries: [
         {
           id: 'quick-service', label: 'Quick Service', eyebrow: 'F&B QUICK SERVICE',

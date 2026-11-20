@@ -1,7 +1,7 @@
 import { HomePageTemplateConfig, HomeSolutionsConfig } from '../home-page-template/home-page-template.models';
 import { ENGLISH_HOME_PROOF_CONFIG } from '../index/home-page-proof.en';
 
-const imageBase = 'https://appzpos.com/admin/Upload/0771BB36-9631-40F2-A204-C60247E9F1E1/Images/';
+const imageBase = 'https://website-api.appzpos.com/admin/Upload/0771BB36-9631-40F2-A204-C60247E9F1E1/Images/';
 
 export const CHINESE_HOME_SOLUTIONS_CONFIG: HomeSolutionsConfig = {
   title: '新加坡本地最佳POS系统供应商满足您餐饮业务的一切需求，您的餐厅运营首选',
@@ -135,7 +135,7 @@ export const CHINESE_HOME_PAGE_CONFIG: HomePageTemplateConfig = {
       hardwareAlt: 'APPZPOS触摸屏POS收银机与小票打印机',
       hardwareWidth: 1672,
       hardwareHeight: 941,
-      brandImage: 'https://appzpos.com/admin/Upload/0771BB36-9631-40F2-A204-C60247E9F1E1/Images/APPZPOS-300X150px.png',
+      brandImage: 'https://website-api.appzpos.com/admin/Upload/0771BB36-9631-40F2-A204-C60247E9F1E1/Images/APPZPOS-300X150px.png',
       industries: [
         {
           id: 'quick-service', label: '快餐服务', eyebrow: '餐饮 / 快餐服务',

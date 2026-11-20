@@ -1,0 +1,30 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteBase /
+  # Unified forms and thank-you pages: staging only.
+  RewriteCond %{HTTP_HOST} ^website\.appzpos\.com$ [NC]
+  RewriteRule ^(?:cn-f&b-restaurant-cloud-pos-system|custom-solutions|point-of-sales-demo-quotation|f&b-restaurant-cloud-pos-system|retail-store-cloud-pos-system|salon-cloud-pos-system|pos-features-crm-payment-gateway|psg-pos-system-grant-singapore|cloud-pos-point-of-sales-system|f&b-restaurant-emenu-qr-code-ordering-system|f&b-restaurant-online-ordering-website|self-order-kiosk-restaurant|f&b-restaurant-kitchen-display-system|f&b-restaurant-queue-number-display-system|f&b-restaurant-delivery-integration|pos-hardware-machine-receipt-printer|pos-solutions-partner-integrations|blog|blog-bcrs|thank-you/contact|thank-you/demo)?/?$ /_forms-review-20261113/site.html [END]
+  # Remaining public marketing pages, staging only.
+  RewriteCond %{HTTP_HOST} ^website\.appzpos\.com$ [NC]
+  RewriteRule ^(cn-f&b-restaurant-cloud-pos-system|custom-solutions|f&b-restaurant-cloud-pos-system|retail-store-cloud-pos-system|salon-cloud-pos-system|psg-pos-system-grant-singapore|pos-solutions-partner-integrations|blog|blog-bcrs)/?$ /_remaining-review-6a1e1cf/remaining.html [END]
+  # All Solutions menu pages, staging only.
+  RewriteCond %{HTTP_HOST} ^website\.appzpos\.com$ [NC]
+  RewriteRule ^(cloud-pos-point-of-sales-system|f&b-restaurant-online-ordering-website|f&b-restaurant-emenu-qr-code-ordering-system|self-order-kiosk-restaurant|f&b-restaurant-kitchen-display-system|f&b-restaurant-queue-number-display-system|f&b-restaurant-delivery-integration|pos-hardware-machine-receipt-printer|pos-features-crm-payment-gateway)/?$ /_solutions-review-6a1e1cf/solutions.html [END]
+  # Homepage review only, on staging.
+  RewriteCond %{HTTP_HOST} ^website\.appzpos\.com$ [NC]
+  RewriteRule ^$ /_home-review-6a1e1cf/home.html [END]
+  # Contact Us review only. Leave all other routes on the existing build.
+  RewriteCond %{HTTP_HOST} ^website\.appzpos\.com$ [NC]
+  RewriteRule ^point-of-sales-demo-quotation/?$ /_contact-review-6a1e1cf/contact.html [END]
+  RewriteRule ^index\.html$ - [L]
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule . /index.html [L]
+</IfModule>
+
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “alt-php74” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-alt-php74___lsphp .php .php7 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit
