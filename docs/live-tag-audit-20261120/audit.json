@@ -1,0 +1,1344 @@
+{
+  "pages": [
+    {
+      "route": "/",
+      "expected": "9wWMCJyzu_cYEKiftvkC",
+      "labels": [
+        "9wWMCJyzu_cYEKiftvkC"
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "page_view",
+          "page": "https://appzpos.com/"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "9wWMCJyzu_cYEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "9wWMCJyzu_cYEKiftvkC"
+        }
+      ],
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/9wWMCJyzu_cYEKiftvkC"
+        }
+      ],
+      "appzgateDisabled": true,
+      "adapter": true,
+      "blocklist": [
+        "awct"
+      ],
+      "api": [],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "route": "/cn-f&b-restaurant-cloud-pos-system",
+      "expected": "3hdFCLPr5aQZEKiftvkC",
+      "labels": [
+        "3hdFCLPr5aQZEKiftvkC"
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "page_view",
+          "page": "https://appzpos.com/cn-f&b-restaurant-cloud-pos-system"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "3hdFCLPr5aQZEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "3hdFCLPr5aQZEKiftvkC"
+        }
+      ],
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/3hdFCLPr5aQZEKiftvkC"
+        }
+      ],
+      "appzgateDisabled": true,
+      "adapter": true,
+      "blocklist": [
+        "awct"
+      ],
+      "api": [],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "route": "/custom-solutions",
+      "expected": null,
+      "labels": [],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "page_view",
+          "page": "https://appzpos.com/custom-solutions"
+        }
+      ],
+      "ads": [],
+      "commands": [],
+      "appzgateDisabled": true,
+      "adapter": true,
+      "blocklist": [
+        "awct"
+      ],
+      "api": [],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "route": "/point-of-sales-demo-quotation",
+      "expected": null,
+      "labels": [],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "page_view",
+          "page": "https://appzpos.com/point-of-sales-demo-quotation"
+        }
+      ],
+      "ads": [],
+      "commands": [],
+      "appzgateDisabled": true,
+      "adapter": true,
+      "blocklist": [
+        "awct"
+      ],
+      "api": [],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "route": "/f&b-restaurant-cloud-pos-system",
+      "expected": "hFUiCNDdsZ0ZEKiftvkC",
+      "labels": [
+        "hFUiCNDdsZ0ZEKiftvkC"
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "page_view",
+          "page": "https://appzpos.com/f&b-restaurant-cloud-pos-system"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "hFUiCNDdsZ0ZEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "hFUiCNDdsZ0ZEKiftvkC"
+        }
+      ],
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/hFUiCNDdsZ0ZEKiftvkC"
+        }
+      ],
+      "appzgateDisabled": true,
+      "adapter": true,
+      "blocklist": [
+        "awct"
+      ],
+      "api": [],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "route": "/retail-store-cloud-pos-system",
+      "expected": "3Vr3CNGDq50ZEKiftvkC",
+      "labels": [
+        "3Vr3CNGDq50ZEKiftvkC"
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "page_view",
+          "page": "https://appzpos.com/retail-store-cloud-pos-system"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "3Vr3CNGDq50ZEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "3Vr3CNGDq50ZEKiftvkC"
+        }
+      ],
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/3Vr3CNGDq50ZEKiftvkC"
+        }
+      ],
+      "appzgateDisabled": true,
+      "adapter": true,
+      "blocklist": [
+        "awct"
+      ],
+      "api": [],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "route": "/salon-cloud-pos-system",
+      "expected": "Q1U5CKb0o50ZEKiftvkC",
+      "labels": [
+        "Q1U5CKb0o50ZEKiftvkC"
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "page_view",
+          "page": "https://appzpos.com/salon-cloud-pos-system"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "Q1U5CKb0o50ZEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "Q1U5CKb0o50ZEKiftvkC"
+        }
+      ],
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/Q1U5CKb0o50ZEKiftvkC"
+        }
+      ],
+      "appzgateDisabled": true,
+      "adapter": true,
+      "blocklist": [
+        "awct"
+      ],
+      "api": [],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "route": "/pos-features-crm-payment-gateway",
+      "expected": null,
+      "labels": [],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "page_view",
+          "page": "https://appzpos.com/pos-features-crm-payment-gateway"
+        }
+      ],
+      "ads": [],
+      "commands": [],
+      "appzgateDisabled": true,
+      "adapter": true,
+      "blocklist": [
+        "awct"
+      ],
+      "api": [],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "route": "/psg-pos-system-grant-singapore",
+      "expected": "K4I1CJDbsJ0ZEKiftvkC",
+      "labels": [
+        "K4I1CJDbsJ0ZEKiftvkC"
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "page_view",
+          "page": "https://appzpos.com/psg-pos-system-grant-singapore"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "K4I1CJDbsJ0ZEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "K4I1CJDbsJ0ZEKiftvkC"
+        }
+      ],
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/K4I1CJDbsJ0ZEKiftvkC"
+        }
+      ],
+      "appzgateDisabled": true,
+      "adapter": true,
+      "blocklist": [
+        "awct"
+      ],
+      "api": [],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "route": "/cloud-pos-point-of-sales-system",
+      "expected": "Wt87COKVqJ0ZEKiftvkC",
+      "labels": [
+        "Wt87COKVqJ0ZEKiftvkC"
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "page_view",
+          "page": "https://appzpos.com/cloud-pos-point-of-sales-system"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "Wt87COKVqJ0ZEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "Wt87COKVqJ0ZEKiftvkC"
+        }
+      ],
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/Wt87COKVqJ0ZEKiftvkC"
+        }
+      ],
+      "appzgateDisabled": true,
+      "adapter": true,
+      "blocklist": [
+        "awct"
+      ],
+      "api": [],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "route": "/f&b-restaurant-emenu-qr-code-ordering-system",
+      "expected": "bCITCNyKsp0ZEKiftvkC",
+      "labels": [
+        "bCITCNyKsp0ZEKiftvkC"
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "page_view",
+          "page": "https://appzpos.com/f&b-restaurant-emenu-qr-code-ordering-system"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "bCITCNyKsp0ZEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "bCITCNyKsp0ZEKiftvkC"
+        }
+      ],
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/bCITCNyKsp0ZEKiftvkC"
+        }
+      ],
+      "appzgateDisabled": true,
+      "adapter": true,
+      "blocklist": [
+        "awct"
+      ],
+      "api": [],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "route": "/f&b-restaurant-online-ordering-website",
+      "expected": "plM_CKjDo50ZEKiftvkC",
+      "labels": [
+        "plM_CKjDo50ZEKiftvkC"
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "page_view",
+          "page": "https://appzpos.com/f&b-restaurant-online-ordering-website"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "plM_CKjDo50ZEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "plM_CKjDo50ZEKiftvkC"
+        }
+      ],
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/plM_CKjDo50ZEKiftvkC"
+        }
+      ],
+      "appzgateDisabled": true,
+      "adapter": true,
+      "blocklist": [
+        "awct"
+      ],
+      "api": [],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "route": "/self-order-kiosk-restaurant",
+      "expected": "x3e4CP7Io50ZEKiftvkC",
+      "labels": [
+        "x3e4CP7Io50ZEKiftvkC"
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "page_view",
+          "page": "https://appzpos.com/self-order-kiosk-restaurant"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "x3e4CP7Io50ZEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "x3e4CP7Io50ZEKiftvkC"
+        }
+      ],
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/x3e4CP7Io50ZEKiftvkC"
+        }
+      ],
+      "appzgateDisabled": true,
+      "adapter": true,
+      "blocklist": [
+        "awct"
+      ],
+      "api": [],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "route": "/f&b-restaurant-kitchen-display-system",
+      "expected": "7vEgCMfYqp0ZEKiftvkC",
+      "labels": [
+        "7vEgCMfYqp0ZEKiftvkC"
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "page_view",
+          "page": "https://appzpos.com/f&b-restaurant-kitchen-display-system"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "7vEgCMfYqp0ZEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "7vEgCMfYqp0ZEKiftvkC"
+        }
+      ],
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/7vEgCMfYqp0ZEKiftvkC"
+        }
+      ],
+      "appzgateDisabled": true,
+      "adapter": true,
+      "blocklist": [
+        "awct"
+      ],
+      "api": [],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "route": "/f&b-restaurant-queue-number-display-system",
+      "expected": "u9QuCMHqqp0ZEKiftvkC",
+      "labels": [
+        "u9QuCMHqqp0ZEKiftvkC"
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "page_view",
+          "page": "https://appzpos.com/f&b-restaurant-queue-number-display-system"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "u9QuCMHqqp0ZEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "u9QuCMHqqp0ZEKiftvkC"
+        }
+      ],
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/u9QuCMHqqp0ZEKiftvkC"
+        }
+      ],
+      "appzgateDisabled": true,
+      "adapter": true,
+      "blocklist": [
+        "awct"
+      ],
+      "api": [],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "route": "/f&b-restaurant-delivery-integration",
+      "expected": "_oDjCLn9qp0ZEKiftvkC",
+      "labels": [
+        "_oDjCLn9qp0ZEKiftvkC"
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "page_view",
+          "page": "https://appzpos.com/f&b-restaurant-delivery-integration"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "_oDjCLn9qp0ZEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "_oDjCLn9qp0ZEKiftvkC"
+        }
+      ],
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/_oDjCLn9qp0ZEKiftvkC"
+        }
+      ],
+      "appzgateDisabled": true,
+      "adapter": true,
+      "blocklist": [
+        "awct"
+      ],
+      "api": [],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "route": "/pos-hardware-machine-receipt-printer",
+      "expected": "401tCPP5o50ZEKiftvkC",
+      "labels": [
+        "401tCPP5o50ZEKiftvkC"
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "page_view",
+          "page": "https://appzpos.com/pos-hardware-machine-receipt-printer"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "401tCPP5o50ZEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "401tCPP5o50ZEKiftvkC"
+        }
+      ],
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/401tCPP5o50ZEKiftvkC"
+        }
+      ],
+      "appzgateDisabled": true,
+      "adapter": true,
+      "blocklist": [
+        "awct"
+      ],
+      "api": [],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "route": "/pos-solutions-partner-integrations",
+      "expected": null,
+      "labels": [],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "page_view",
+          "page": "https://appzpos.com/pos-solutions-partner-integrations"
+        }
+      ],
+      "ads": [],
+      "commands": [],
+      "appzgateDisabled": true,
+      "adapter": true,
+      "blocklist": [
+        "awct"
+      ],
+      "api": [],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "route": "/blog",
+      "expected": null,
+      "labels": [],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "page_view",
+          "page": "https://appzpos.com/blog"
+        }
+      ],
+      "ads": [],
+      "commands": [],
+      "appzgateDisabled": true,
+      "adapter": true,
+      "blocklist": [
+        "awct"
+      ],
+      "api": [],
+      "errors": [],
+      "pass": true
+    },
+    {
+      "route": "/blog-bcrs",
+      "expected": null,
+      "labels": [],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "page_view",
+          "page": "https://appzpos.com/blog-bcrs"
+        }
+      ],
+      "ads": [],
+      "commands": [],
+      "appzgateDisabled": true,
+      "adapter": true,
+      "blocklist": [
+        "awct"
+      ],
+      "api": [],
+      "errors": [],
+      "pass": true
+    }
+  ],
+  "clicks": [
+    {
+      "host": "appzpos.com",
+      "width": 1440,
+      "name": "floating WhatsApp",
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/UufyCO6P5vYYEKiftvkC"
+        },
+        {
+          "event": "whatsapp_click",
+          "to": "G-681EVHYGDY"
+        }
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "whatsapp_click",
+          "page": "https://appzpos.com/"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "UufyCO6P5vYYEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "UufyCO6P5vYYEKiftvkC"
+        }
+      ],
+      "labels": [
+        "UufyCO6P5vYYEKiftvkC"
+      ],
+      "pass": true
+    },
+    {
+      "host": "appzpos.com",
+      "width": 1440,
+      "name": "hero WhatsApp",
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/UufyCO6P5vYYEKiftvkC"
+        },
+        {
+          "event": "whatsapp_click",
+          "to": "G-681EVHYGDY"
+        }
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "whatsapp_click",
+          "page": "https://appzpos.com/"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "UufyCO6P5vYYEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "UufyCO6P5vYYEKiftvkC"
+        }
+      ],
+      "labels": [
+        "UufyCO6P5vYYEKiftvkC"
+      ],
+      "pass": true
+    },
+    {
+      "host": "appzpos.com",
+      "width": 1440,
+      "name": "Messenger",
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/X5zoCJfsmJ0ZEKiftvkC"
+        },
+        {
+          "event": "messenger_click",
+          "to": "G-681EVHYGDY"
+        }
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "messenger_click",
+          "page": "https://appzpos.com/"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "X5zoCJfsmJ0ZEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "X5zoCJfsmJ0ZEKiftvkC"
+        }
+      ],
+      "labels": [
+        "X5zoCJfsmJ0ZEKiftvkC"
+      ],
+      "pass": true
+    },
+    {
+      "host": "appzpos.com",
+      "width": 1440,
+      "name": "call",
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/6nuZCNL96vYYEKiftvkC"
+        }
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "Call",
+          "page": "https://appzpos.com/"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "6nuZCNL96vYYEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "6nuZCNL96vYYEKiftvkC"
+        }
+      ],
+      "labels": [
+        "6nuZCNL96vYYEKiftvkC"
+      ],
+      "pass": true
+    },
+    {
+      "host": "appzpos.com",
+      "width": 390,
+      "name": "floating WhatsApp",
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/UufyCO6P5vYYEKiftvkC"
+        },
+        {
+          "event": "whatsapp_click",
+          "to": "G-681EVHYGDY"
+        }
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "whatsapp_click",
+          "page": "https://appzpos.com/"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "UufyCO6P5vYYEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "UufyCO6P5vYYEKiftvkC"
+        }
+      ],
+      "labels": [
+        "UufyCO6P5vYYEKiftvkC"
+      ],
+      "pass": true
+    },
+    {
+      "host": "appzpos.com",
+      "width": 390,
+      "name": "hero WhatsApp",
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/UufyCO6P5vYYEKiftvkC"
+        },
+        {
+          "event": "whatsapp_click",
+          "to": "G-681EVHYGDY"
+        }
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "whatsapp_click",
+          "page": "https://appzpos.com/"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "UufyCO6P5vYYEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "UufyCO6P5vYYEKiftvkC"
+        }
+      ],
+      "labels": [
+        "UufyCO6P5vYYEKiftvkC"
+      ],
+      "pass": true
+    },
+    {
+      "host": "appzpos.com",
+      "width": 390,
+      "name": "Messenger",
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/X5zoCJfsmJ0ZEKiftvkC"
+        },
+        {
+          "event": "messenger_click",
+          "to": "G-681EVHYGDY"
+        }
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "messenger_click",
+          "page": "https://appzpos.com/"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "X5zoCJfsmJ0ZEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "X5zoCJfsmJ0ZEKiftvkC"
+        }
+      ],
+      "labels": [
+        "X5zoCJfsmJ0ZEKiftvkC"
+      ],
+      "pass": true
+    },
+    {
+      "host": "appzpos.com",
+      "width": 390,
+      "name": "call",
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/6nuZCNL96vYYEKiftvkC"
+        }
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "Call",
+          "page": "https://appzpos.com/"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "6nuZCNL96vYYEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "6nuZCNL96vYYEKiftvkC"
+        }
+      ],
+      "labels": [
+        "6nuZCNL96vYYEKiftvkC"
+      ],
+      "pass": true
+    },
+    {
+      "host": "www.appzpos.com",
+      "width": 1440,
+      "name": "floating WhatsApp",
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/UufyCO6P5vYYEKiftvkC"
+        },
+        {
+          "event": "whatsapp_click",
+          "to": "G-681EVHYGDY"
+        }
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "whatsapp_click",
+          "page": "https://www.appzpos.com/"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "UufyCO6P5vYYEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "UufyCO6P5vYYEKiftvkC"
+        }
+      ],
+      "labels": [
+        "UufyCO6P5vYYEKiftvkC"
+      ],
+      "pass": true
+    },
+    {
+      "host": "www.appzpos.com",
+      "width": 1440,
+      "name": "hero WhatsApp",
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/UufyCO6P5vYYEKiftvkC"
+        },
+        {
+          "event": "whatsapp_click",
+          "to": "G-681EVHYGDY"
+        }
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "whatsapp_click",
+          "page": "https://www.appzpos.com/"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "UufyCO6P5vYYEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "UufyCO6P5vYYEKiftvkC"
+        }
+      ],
+      "labels": [
+        "UufyCO6P5vYYEKiftvkC"
+      ],
+      "pass": true
+    },
+    {
+      "host": "www.appzpos.com",
+      "width": 1440,
+      "name": "Messenger",
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/X5zoCJfsmJ0ZEKiftvkC"
+        },
+        {
+          "event": "messenger_click",
+          "to": "G-681EVHYGDY"
+        }
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "messenger_click",
+          "page": "https://www.appzpos.com/"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "X5zoCJfsmJ0ZEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "X5zoCJfsmJ0ZEKiftvkC"
+        }
+      ],
+      "labels": [
+        "X5zoCJfsmJ0ZEKiftvkC"
+      ],
+      "pass": true
+    },
+    {
+      "host": "www.appzpos.com",
+      "width": 1440,
+      "name": "call",
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/6nuZCNL96vYYEKiftvkC"
+        }
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "Call",
+          "page": "https://www.appzpos.com/"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "6nuZCNL96vYYEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "6nuZCNL96vYYEKiftvkC"
+        }
+      ],
+      "labels": [
+        "6nuZCNL96vYYEKiftvkC"
+      ],
+      "pass": true
+    },
+    {
+      "host": "www.appzpos.com",
+      "width": 390,
+      "name": "floating WhatsApp",
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/UufyCO6P5vYYEKiftvkC"
+        },
+        {
+          "event": "whatsapp_click",
+          "to": "G-681EVHYGDY"
+        }
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "whatsapp_click",
+          "page": "https://www.appzpos.com/"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "UufyCO6P5vYYEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "UufyCO6P5vYYEKiftvkC"
+        }
+      ],
+      "labels": [
+        "UufyCO6P5vYYEKiftvkC"
+      ],
+      "pass": true
+    },
+    {
+      "host": "www.appzpos.com",
+      "width": 390,
+      "name": "hero WhatsApp",
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/UufyCO6P5vYYEKiftvkC"
+        },
+        {
+          "event": "whatsapp_click",
+          "to": "G-681EVHYGDY"
+        }
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "whatsapp_click",
+          "page": "https://www.appzpos.com/"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "UufyCO6P5vYYEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "UufyCO6P5vYYEKiftvkC"
+        }
+      ],
+      "labels": [
+        "UufyCO6P5vYYEKiftvkC"
+      ],
+      "pass": true
+    },
+    {
+      "host": "www.appzpos.com",
+      "width": 390,
+      "name": "Messenger",
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/X5zoCJfsmJ0ZEKiftvkC"
+        },
+        {
+          "event": "messenger_click",
+          "to": "G-681EVHYGDY"
+        }
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "messenger_click",
+          "page": "https://www.appzpos.com/"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "X5zoCJfsmJ0ZEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "X5zoCJfsmJ0ZEKiftvkC"
+        }
+      ],
+      "labels": [
+        "X5zoCJfsmJ0ZEKiftvkC"
+      ],
+      "pass": true
+    },
+    {
+      "host": "www.appzpos.com",
+      "width": 390,
+      "name": "call",
+      "commands": [
+        {
+          "event": "conversion",
+          "to": "AW-791515048/6nuZCNL96vYYEKiftvkC"
+        }
+      ],
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "Call",
+          "page": "https://www.appzpos.com/"
+        }
+      ],
+      "ads": [
+        {
+          "host": "www.googleadservices.com",
+          "path": "/pagead/conversion/791515048/",
+          "label": "6nuZCNL96vYYEKiftvkC"
+        },
+        {
+          "host": "www.googleadservices.com",
+          "path": "/ccm/conversion/791515048/",
+          "label": "6nuZCNL96vYYEKiftvkC"
+        }
+      ],
+      "labels": [
+        "6nuZCNL96vYYEKiftvkC"
+      ],
+      "pass": true
+    }
+  ],
+  "navigation": [
+    {
+      "host": "appzpos.com",
+      "width": 1440,
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "page_view",
+          "page": "https://appzpos.com/blog"
+        }
+      ],
+      "ads": [],
+      "pass": true
+    },
+    {
+      "host": "appzpos.com",
+      "width": 390,
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "page_view",
+          "page": "https://appzpos.com/blog"
+        }
+      ],
+      "ads": [],
+      "pass": true
+    },
+    {
+      "host": "www.appzpos.com",
+      "width": 1440,
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "page_view",
+          "page": "https://www.appzpos.com/blog"
+        }
+      ],
+      "ads": [],
+      "pass": true
+    },
+    {
+      "host": "www.appzpos.com",
+      "width": 390,
+      "ga": [
+        {
+          "id": "G-681EVHYGDY",
+          "event": "page_view",
+          "page": "https://www.appzpos.com/blog"
+        }
+      ],
+      "ads": [],
+      "pass": true
+    }
+  ]
+}

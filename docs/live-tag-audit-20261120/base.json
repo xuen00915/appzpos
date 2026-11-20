@@ -1,0 +1,128 @@
+{
+  "requests": [
+    {
+      "host": "www.googletagmanager.com",
+      "path": "/ns.html",
+      "event": null,
+      "id": null,
+      "label": null
+    },
+    {
+      "host": "www.google.com",
+      "path": "/ccm/collect",
+      "event": "page_view",
+      "id": null,
+      "label": null
+    },
+    {
+      "host": "www.googleadservices.com",
+      "path": "/pagead/set_partitioned_cookie",
+      "event": "page_view",
+      "id": null,
+      "label": null
+    },
+    {
+      "host": "ad.doubleclick.net",
+      "path": "/ccm/s/collect",
+      "event": null,
+      "id": null,
+      "label": null
+    },
+    {
+      "host": "googleads.g.doubleclick.net",
+      "path": "/pagead/viewthroughconversion/791515048/",
+      "event": "gtag.config",
+      "id": null,
+      "label": null
+    },
+    {
+      "host": "www.google.com",
+      "path": "/rmkt/collect/791515048/",
+      "event": "gtag.config",
+      "id": null,
+      "label": null
+    },
+    {
+      "host": "www.googleadservices.com",
+      "path": "/pagead/conversion/791515048/",
+      "event": "conversion",
+      "id": null,
+      "label": "9wWMCJyzu_cYEKiftvkC"
+    },
+    {
+      "host": "www.googleadservices.com",
+      "path": "/ccm/conversion/791515048/",
+      "event": "conversion",
+      "id": null,
+      "label": "9wWMCJyzu_cYEKiftvkC"
+    },
+    {
+      "host": "www.google.com",
+      "path": "/ccm/collect",
+      "event": "page_view",
+      "id": "AW-791515048",
+      "label": null
+    },
+    {
+      "host": "analytics.google.com",
+      "path": "/g/collect",
+      "event": "page_view",
+      "id": "G-681EVHYGDY",
+      "label": null
+    },
+    {
+      "host": "stats.g.doubleclick.net",
+      "path": "/g/collect",
+      "event": null,
+      "id": "G-681EVHYGDY",
+      "label": null
+    },
+    {
+      "host": "www.googletagmanager.com",
+      "path": "/td",
+      "event": null,
+      "id": null,
+      "label": null
+    },
+    {
+      "host": "www.google.com.sg",
+      "path": "/ads/ga-audiences",
+      "event": null,
+      "id": "G-681EVHYGDY",
+      "label": null
+    }
+  ],
+  "cookies": [
+    {
+      "name": "_gcl_aw",
+      "domain": ".appzpos.com",
+      "secure": false
+    },
+    {
+      "name": "_gcl_au",
+      "domain": ".appzpos.com",
+      "secure": false
+    },
+    {
+      "name": "_ga_681EVHYGDY",
+      "domain": ".appzpos.com",
+      "secure": false
+    },
+    {
+      "name": "_ga",
+      "domain": ".appzpos.com",
+      "secure": false
+    }
+  ],
+  "state": {
+    "blocklist": {
+      "gtm.blocklist": [
+        "awct"
+      ]
+    },
+    "configs": [
+      "AW-791515048"
+    ],
+    "appzgateDisabled": true
+  }
+}

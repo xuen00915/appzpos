@@ -1,0 +1,30 @@
+[
+  {
+    "width": 1440,
+    "ga": [
+      {
+        "id": "G-681EVHYGDY",
+        "event": "scroll",
+        "page": "https://appzpos.com/"
+      }
+    ],
+    "ads": [],
+    "extraAdsConversions": 0,
+    "apiRequests": [],
+    "errors": []
+  },
+  {
+    "width": 390,
+    "ga": [
+      {
+        "id": "G-681EVHYGDY",
+        "event": "scroll",
+        "page": "https://appzpos.com/"
+      }
+    ],
+    "ads": [],
+    "extraAdsConversions": 0,
+    "apiRequests": [],
+    "errors": []
+  }
+]
