@@ -1,0 +1,38 @@
+[
+  {
+    "host": "appzpos.com",
+    "width": 1440,
+    "chineseScrollTop": 156.078125,
+    "chinesePopup": false,
+    "englishPopup": true,
+    "errors": [],
+    "api": []
+  },
+  {
+    "host": "appzpos.com",
+    "width": 390,
+    "chineseScrollTop": 154.75,
+    "chinesePopup": false,
+    "englishPopup": true,
+    "errors": [],
+    "api": []
+  },
+  {
+    "host": "www.appzpos.com",
+    "width": 1440,
+    "chineseScrollTop": 156.078125,
+    "chinesePopup": false,
+    "englishPopup": true,
+    "errors": [],
+    "api": []
+  },
+  {
+    "host": "www.appzpos.com",
+    "width": 390,
+    "chineseScrollTop": 154.75,
+    "chinesePopup": false,
+    "englishPopup": true,
+    "errors": [],
+    "api": []
+  }
+]

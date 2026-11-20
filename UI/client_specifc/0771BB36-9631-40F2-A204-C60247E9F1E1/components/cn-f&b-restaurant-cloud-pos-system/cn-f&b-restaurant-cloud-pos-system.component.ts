@@ -1,9 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Meta, Title } from '@angular/platform-browser';
 
 import { CommonFunctionService } from '../../../../src/app/services/shared_function/common-function.service';
-import { ModalRequestDemoComponent } from '../modal-request-demo/modal-request-demo.component';
 import { CHINESE_HOME_PAGE_CONFIG } from './home-page-content.zh';
 
 @Component({
@@ -17,8 +15,7 @@ export class CustomHomeCNComponent implements OnInit {
   constructor(
     private readonly titleService: Title,
     private readonly commonFunctionService: CommonFunctionService,
-    private readonly meta: Meta,
-    public readonly dialog: MatDialog
+    private readonly meta: Meta
   ) {
     this.titleService.setTitle('APPZPOS云端智能POS餐饮系统 收银系统 | 新加坡餐厅运营首选');
   }
@@ -34,13 +31,14 @@ export class CustomHomeCNComponent implements OnInit {
     });
   }
 
-  openDialog(): void {
-    const dialogRef = this.dialog.open(ModalRequestDemoComponent, {
-      id: 'mat-mdc-dialog-0',
-      data: {locale: 'zh'},
-      width: '600px',
-      panelClass: 'appz-demo-dialog'
-    });
-    dialogRef.afterClosed().subscribe(() => console.log('The dialog was closed'));
+  scrollToDemo(): void {
+    const section = document.getElementById(this.pageConfig.conversion?.sectionId || 'requestdemo');
+    if (!section) return;
+    const header = document.getElementById('header-wrap');
+    const top = section.getBoundingClientRect().top + window.scrollY - (header?.getBoundingClientRect().height || 76) - 24;
+    window.scrollTo({ top: Math.max(0, top), behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    const heading = section.querySelector<HTMLElement>('h2, h3');
+    heading?.setAttribute('tabindex', '-1');
+    heading?.focus({ preventScroll: true });
   }
 }
