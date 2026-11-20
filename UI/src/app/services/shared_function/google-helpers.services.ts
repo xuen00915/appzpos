@@ -1,3 +1,4 @@
+import { initializeStagingMeasurement } from './staging-measurement';
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -5,6 +6,7 @@ export class GoogleAnalyticsHelpersService {
   constructor() {}
   
   static LoadGoogleTag(tagID: string): void {
+    initializeStagingMeasurement();
     let node = document.createElement('script'); // creates the script tag
     node.type = 'text/javascript'; // set the script type
     node.text=`

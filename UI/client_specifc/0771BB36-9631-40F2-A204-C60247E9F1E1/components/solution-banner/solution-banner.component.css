@@ -36,8 +36,8 @@
 }
 .product-banner__actions { display: flex; align-items: center; flex-wrap: wrap; gap: 20px 28px; margin-top: 32px; }
 .product-banner__actions button,
-.product-banner__actions a { display: inline-flex; align-items: center; justify-content: center; gap: 14px; min-height: 52px; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
-.product-banner__demo { padding: 14px 22px; background: #fff; color: #10243b; border: 0; border-radius: var(--appz-radius-control, 8px); transition: background 180ms ease; }
+.product-banner__actions a { display: inline-flex; align-items: center; justify-content: center; gap: 14px; box-sizing: border-box; height: 44px; min-height: 44px; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
+.product-banner__demo { padding: 0 22px; background: #fff; color: #10243b; border: 0; border-radius: var(--appz-radius-control, 8px); transition: background 180ms ease; }
 .product-banner__demo:hover { background: #e1f1fc; }
 .product-banner__actions a { color: #fff; text-decoration: underline; text-underline-offset: 6px; text-decoration-color: #8edcff; }
 .product-banner__actions a:hover { text-decoration-color: #fff; }

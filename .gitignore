@@ -1,3 +1,7 @@
 .DS_Store
 *.zip
 .vercel
+
+# Local preview process/session state (keep design content in Git)
+/.superpowers/**/state/
+/.superpowers/brainstorm/.last-*

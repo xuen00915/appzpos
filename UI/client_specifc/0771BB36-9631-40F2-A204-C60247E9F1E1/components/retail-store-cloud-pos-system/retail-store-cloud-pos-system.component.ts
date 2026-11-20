@@ -38,8 +38,18 @@ export class CustomIndustryRestoreStoreComponent  {
         content: 'Empower your Retail Store Operations - Simplify inventory, transaction, customer / employee management, sales and reports. WhatsApp: +𝟔𝟓 𝟖𝟑𝟏𝟎 𝟗𝟔𝟑𝟏'
     });
  }
+ scrollToDemo(): void {
+  const target = document.querySelector<HTMLElement>('#requestdemo');
+  if (!target) return;
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  target.scrollIntoView({ behavior: reduced ? 'instant' : 'smooth', block: 'start' });
+  target.setAttribute('tabindex', '-1');
+  target.focus({ preventScroll: true });
+ }
+
  openDialog(): void {
   const dialogRef = this.dialog.open(ModalRequestDemoComponent, {
+      id: 'mat-mdc-dialog-0',
     width: '600px',
     panelClass: 'appz-demo-dialog',
   });

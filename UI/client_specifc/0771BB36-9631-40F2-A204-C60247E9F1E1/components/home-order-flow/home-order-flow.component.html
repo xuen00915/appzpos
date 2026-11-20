@@ -27,11 +27,19 @@
           </button>
         </nav>
 
-        <div class="appz-ecosystem__copy">
+        <div class="appz-ecosystem__copy" [attr.data-switch-phase]="switchPhase">
           <div class="appz-ecosystem__selected-visual appz-ecosystem__selected-visual--enlarged"
-               [attr.data-visual-id]="selected.id"
-               *ngIf="activeDetailsIsland as selected">
-            <img [src]="selected.image" [alt]="selected.imageAlt" width="1536" height="1024" decoding="async">
+               [attr.data-selected-id]="activeDetailsIslandId"
+               *ngIf="activeDetailsIsland">
+            <span *ngFor="let layer of islands; trackBy: trackIsland"
+                  class="appz-ecosystem__visual-layer"
+                  [class.is-selected]="layer.id === activeDetailsIslandId"
+                  [attr.data-visual-id]="layer.id"
+                  [attr.aria-hidden]="layer.id === activeDetailsIslandId ? null : 'true'">
+              <img [src]="layer.image" [alt]="layer.id === activeDetailsIslandId ? layer.imageAlt : ''"
+                   width="1536" height="1024" decoding="async"
+                   [attr.fetchpriority]="layer.id === activeDetailsIslandId ? null : 'low'">
+            </span>
           </div>
 
         <section *ngIf="activeDetailsIsland as detailsIsland"

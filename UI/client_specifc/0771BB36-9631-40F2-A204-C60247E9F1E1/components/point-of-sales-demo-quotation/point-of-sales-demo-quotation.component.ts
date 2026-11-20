@@ -1,4 +1,7 @@
- import { Component, OnInit} from '@angular/core';
+import { LeadSpamError } from '../lead-spam-guard';
+import { isMeasurementStaging } from '../../../../src/app/services/shared_function/staging-measurement';
+import { LeadSubmissionService } from '../lead-submission.service';
+ import { Component, OnInit, ElementRef, ChangeDetectorRef, inject} from '@angular/core';
 import { CommonFunctionService } from '../../../../src/app/services/shared_function/common-function.service';
 import { ConfigService } from '../../../../src/app/services/shared_data/config.service';
 import { ApiService } from '../../../../src/app/services/shared_function/api.service';
@@ -12,6 +15,11 @@ import {Meta, Title} from "@angular/platform-browser";
   styleUrls: ['./point-of-sales-demo-quotation.component.css']
 })
 export class CustomContactComponent implements OnInit{
+  private readonly leads = inject(LeadSubmissionService);
+  private readonly host = inject(ElementRef<HTMLElement>);
+  private readonly changeDetector = inject(ChangeDetectorRef);
+  readonly stagingMeasurement = isMeasurementStaging();
+  sending = false;
  
   showSuccessMsg: boolean = false;
   successMsg: string = "";
@@ -23,7 +31,9 @@ export class CustomContactComponent implements OnInit{
     email: new FormControl(''),
     mobilenum:new FormControl(''),
     services:new FormControl(''),
-    message:new FormControl('')
+    message:new FormControl(''),
+    restaurant_name: new FormControl(''),
+    website_url: new FormControl('')
 
   });
 
@@ -35,11 +45,13 @@ export class CustomContactComponent implements OnInit{
   ngOnInit(): void {
    this.contactForm  = this.formBuilder.group(
  {
-  fullname:['', [Validators.required, Validators.pattern('^[A-Za-z]|[\s]+')]],
+  fullname:['', [Validators.required, Validators.pattern(/.*\S.*/)]],
   email:['',[Validators.required,Validators.email]],
-  mobilenum:['',[Validators.required, Validators.pattern("^[+]?[0-9]*$")]],
+  mobilenum:['',[Validators.required, Validators.pattern(/^[+]?[0-9 ()-]{6,20}$/)]],
   services:['',Validators.required],
-  message:['',Validators.required],
+  message:[''],
+  restaurant_name:[''],
+  website_url:[''],
  }
 
    )
@@ -62,35 +74,24 @@ export class CustomContactComponent implements OnInit{
     document.getElementById('gotoTop')?.click();
   }
 
-  onSubmit( ):void{
-    this.showErrorMsg =false;
-    this.showSuccessMsg=false;
+  async onSubmit(): Promise<void> {
+    if (this.sending || this.showSuccessMsg) return;
+    this.showErrorMsg = false;
     this.submitted = true;
-    if (this.contactForm.valid) { 
-      var objParam: any = {};
-      objParam.Subject ="Contact Enquiry";
-      objParam.Message =this.contactForm.value.message;
-      objParam.Name = this.contactForm.value.fullname;
-      objParam.EmailAddress= this.contactForm.value.email;
-      objParam.Phone = this.contactForm.value.mobilenum;
-      objParam.Services = this.contactForm.value.services;
-      var objectContact:any={};
-      objectContact.ContactUs = objParam; 
-      var objResponse: any = this.apiService.apiCallPOST_Sync("/api/WebSiteController/SendEmail", objectContact);
-      var objAPIResponse: any = objResponse.__zone_symbol__value;
-      if(JSON.parse(objAPIResponse).APIResponse.Message == ""){
-        this.showSuccessMsg=true;
-        this.successMsg="Successfully submitted !";
-        (Object as any).values(this.contactForm.controls).forEach((control: FormControl) => {
-          control.setValue("");
-          this.submitted=false;
-      }); 
-      }
-      else{
-        this.showErrorMsg=true;
-        this.errorMsg = JSON.parse(objAPIResponse).APIResponse.Message;
-        this.submitted=false;
-      }
-    }  
+    if (this.contactForm.invalid) { this.contactForm.markAllAsTouched(); return; }
+    this.sending = true;
+    const v = this.contactForm.getRawValue();
+    try {
+      await this.leads.send({Subject:'Contact Enquiry', Name:(v.fullname || '').trim(), EmailAddress:(v.email || '').trim(), Phone:(v.mobilenum || '').trim(), Services:v.services || '', Message:v.message || '', RestaurantName:v.restaurant_name || ''}, 'contact', 'page', v.website_url || '');
+      this.successMsg = 'Successfully submitted! Opening your confirmation…';
+      this.showSuccessMsg = !isMeasurementStaging();
+      this.changeDetector.detectChanges();
+      await this.leads.complete('contact', 'page', this.host.nativeElement);
+    } catch (error) {
+      this.sending = false;
+      this.showErrorMsg = true;
+      this.errorMsg = error instanceof LeadSpamError ? error.messageFor() : 'We could not send your enquiry. Please try again. Your details have been kept.';
+      this.changeDetector.detectChanges();
+    }
   }
 }

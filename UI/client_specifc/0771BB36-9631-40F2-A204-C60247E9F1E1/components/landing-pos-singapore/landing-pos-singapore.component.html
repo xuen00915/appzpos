@@ -1,0 +1,102 @@
+<header class="lp-bar">
+  <div class="lp-shell lp-bar__inner">
+    <a class="lp-bar__logo" href="/" aria-label="APPZPOS home">
+      <img [src]="BindURL_Image('APPZPOS-300X150px.png')" alt="APPZPOS" width="152" height="76">
+    </a>
+    <div class="lp-bar__actions">
+      <a class="lp-bar__whatsapp" [href]="whatsappUrl" target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
+      <button type="button" class="lp-btn lp-btn--primary lp-bar__demo" (click)="scrollToForm()">Get a Free Demo</button>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="lp-hero" aria-labelledby="lp-hero-title">
+    <div class="lp-shell lp-hero__grid">
+      <div class="lp-hero__copy">
+        <p class="lp-eyebrow">APPZPOS &middot; F&amp;B POINT OF SALE</p>
+        <h1 id="lp-hero-title">Cloud POS System for Singapore Restaurants &amp; Cafés</h1>
+        <p class="lp-lead">One system for ordering, kitchen, payments and delivery, backed by local support in Singapore.</p>
+        <ul class="lp-ticks">
+          <li *ngFor="let benefit of benefits">{{ benefit }}</li>
+        </ul>
+        <p class="lp-footnote">*Eligibility and support levels vary by activity.</p>
+        <img class="lp-hero__screen" src="assets/images/appzpos-screen-restaurant-1120.webp"
+             alt="Illustration of the APPZPOS restaurant ordering screen with menu items and an open table bill" width="1120" height="630" fetchpriority="high">
+      </div>
+      <div class="lp-hero__form appz-conversion-panel" id="requestdemo">
+        <app-custom-request-demo [compact]="true"></app-custom-request-demo>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section" aria-labelledby="lp-modules-title">
+    <div class="lp-shell">
+      <h2 id="lp-modules-title" class="lp-title">Everything your outlet runs on, working together</h2>
+      <p class="lp-sub">Start with the POS and add the modules you need, from the table to the kitchen to delivery.</p>
+      <ul class="lp-cards">
+        <li class="lp-card" *ngFor="let module of modules">
+          <div class="lp-card__art"><img [class]="'lp-card__img lp-card__img--' + module.imageClass" [src]="module.image" alt="" width="1536" height="1024" loading="lazy"></div>
+          <h3>{{ module.title }}</h3>
+          <p>{{ module.summary }}</p>
+        </li>
+      </ul>
+      <div class="lp-cta-row">
+        <button type="button" class="lp-btn lp-btn--primary" (click)="scrollToForm()">Get a Free Demo</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section lp-section--tint" aria-labelledby="lp-grant-title">
+    <div class="lp-shell lp-grant">
+      <img class="lp-grant__badge" src="assets/images/smes-go-digital-lockup-vertical.png"
+           alt="IMDA pre-approved solution eligible for up to 50% business grant support under SMEs Go Digital" width="1273" height="1251" loading="lazy">
+      <div>
+        <h2 id="lp-grant-title" class="lp-title">Up to 50% EDGE Grant support for your POS</h2>
+        <p class="lp-sub">Eligible Singapore companies can receive EDGE Grant support for qualifying APPZPOS digitalisation projects. Support levels vary by activity.</p>
+        <a class="lp-btn lp-btn--whatsapp" [href]="whatsappUrl" target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-section" aria-labelledby="lp-steps-title">
+    <div class="lp-shell">
+      <h2 id="lp-steps-title" class="lp-title">How to get started</h2>
+      <ol class="lp-steps">
+        <li *ngFor="let step of steps; index as i">
+          <span class="lp-steps__num" aria-hidden="true">{{ i + 1 }}</span>
+          <h3>{{ step.title }}</h3>
+          <p>{{ step.text }}</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="lp-section lp-section--tint" aria-labelledby="lp-faq-title">
+    <div class="lp-shell lp-faq">
+      <h2 id="lp-faq-title" class="lp-title">Questions before you book</h2>
+      <details *ngFor="let faq of faqs">
+        <summary>{{ faq.question }}</summary>
+        <p>{{ faq.answer }}</p>
+      </details>
+    </div>
+  </section>
+
+  <section class="lp-final" aria-labelledby="lp-final-title">
+    <div class="lp-shell lp-final__inner">
+      <h2 id="lp-final-title">Ready to see APPZPOS in action?</h2>
+      <p>Book a free POS demo and we will show you the modules that fit your outlet.</p>
+      <div class="lp-final__actions">
+        <button type="button" class="lp-btn lp-btn--primary" (click)="scrollToForm()">Get a Free Demo</button>
+        <a class="lp-btn lp-btn--whatsapp" [href]="whatsappUrl" target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="lp-footer">
+  <div class="lp-shell lp-footer__inner">
+    <p>&copy; {{ year }} APPZPOS by APPZGATE. 5 Little Road, #05-01, Cemtex Industrial Building, Singapore 536983</p>
+    <p><a href="mailto:enquiry@appzgate.com">enquiry&#64;appzgate.com</a> &middot; WhatsApp +65 8310 9631</p>
+  </div>
+</footer>

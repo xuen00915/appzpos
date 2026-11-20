@@ -26,3 +26,5 @@ background-color:#41bdff;
 b, strong {
   font-weight: 500 !important;
 }
+/* Staging success uses a separate hook to avoid the obsolete shared GTM Ads label. */
+.appz-contact-success { color: #0f5132; background-color: #d1e7dd; border-color: #badbcc; }

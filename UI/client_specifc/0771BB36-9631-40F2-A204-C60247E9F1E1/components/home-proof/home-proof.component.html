@@ -4,7 +4,7 @@
     <h2 id="customers-title" class="proof__customers-title appz-section-title">{{ config.customersTitle }}</h2>
     <button *ngIf="config.showAllLabel" class="proof__show-all" type="button" aria-haspopup="dialog" aria-controls="customer-dialog" (click)="customerDialog.showModal()">{{ config.showAllLabel }}</button>
     <div id="customer-panel" class="proof__customer-panel">
-      <div class="proof__customer-row" *ngFor="let row of customerRows; let index = index" tabindex="0" [attr.aria-label]="'Customer logos, row ' + (index + 1)">
+      <div class="proof__customer-row" *ngFor="let row of customerRows; let index = index; trackBy: trackCustomerRow" tabindex="0" [attr.aria-label]="'Customer logos, row ' + (index + 1)">
         <div class="proof__customer-track" [class.is-reversed]="index === 1">
           <ul class="proof__customer-group" aria-label="APPZPOS customers">
             <li *ngFor="let customer of row">

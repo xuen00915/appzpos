@@ -40,9 +40,12 @@
                 </div>
                 <div class="form-widget">
                     <div class="form-result"></div>
-                    <form [formGroup]="contactForm"  (ngSubmit)="onSubmit()" class="mb-0">
+                    <form [formGroup]="contactForm"  (ngSubmit)="onSubmit()" class="mb-0" data-form-type="contact" data-form-placement="page" [attr.aria-busy]="sending" novalidate>
+<div aria-hidden="true" style="position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);pointer-events:none;">
+  <label>Leave this field empty<input type="text" name="website_url" formControlName="website_url" tabindex="-1" autocomplete="off"></label>
+</div>
                         <div class="row">
-                            <div class="alert alert-success" *ngIf="showSuccessMsg">
+                            <div class="alert" [class.alert-success]="!stagingMeasurement" [class.appz-contact-success]="stagingMeasurement" *ngIf="showSuccessMsg">
                                {{successMsg}}
                             </div>
                             <div class="alert alert-danger" *ngIf="showErrorMsg">
@@ -73,23 +76,26 @@
                                   </div>
                             </div>
                             <div class="col-md-6 form-group">
-                                <label for="services">Services</label>
+                                <label for="services">Enquiry type <small>*</small></label>
                                 <select id="services" formControlName="services" [ngClass]="{ 'is-invalid': submitted && objData['services'].errors }" class="form-select">
-                                    <option value="">-- Select Category --</option>
-                                    <option value="Sales">Sales</option>
-                                    <option value="Support">Support</option>
-                                    <option value="General Enquiry">General Enquiry</option>
-                                    <option value="Free Trial">Free Trial</option>
-                                    <option value="Free Demo">Free Demo</option>
+                                    <option value="">-- Select enquiry type --</option>
+                                    <option value="Free Demo">Demo</option>
+                                    <option value="Sales">Pricing</option>
+                                    <option value="API / Integration">API / Integration</option>
+                                    <option value="General Enquiry">General enquiry</option>
                                 </select>
                                 <div *ngIf="submitted && objData['services'].errors" class="invalid-feedback">
-                                    <div *ngIf="objData['services'].errors['required']">Service is required!</div> 
+                                    <div *ngIf="objData['services'].errors['required']">Enquiry type is required!</div> 
                                   </div>
                             </div>  
                             <div class="w-100"></div>  
                             <div class="w-100"></div>
                             <div class="col-12 form-group">
-                                <label for="message">Message <small>*</small></label>
+                                <label for="restaurant_name">Business name (optional)</label>
+                                <input id="restaurant_name" type="text" formControlName="restaurant_name" class="form-control" autocomplete="organization">
+                            </div>
+                            <div class="col-12 form-group">
+                                <label for="message">Message (optional)</label>
                                 <textarea id="message" class="form-control" formControlName="message" [ngClass]="{ 'is-invalid': submitted && objData['message'].errors }" rows="4" cols="30"></textarea>
                                 <div *ngIf="submitted && objData['message'].errors" class="invalid-feedback">
                                     <div *ngIf="objData['message'].errors['required']">Message is required!</div>
@@ -97,7 +103,7 @@
                                   </div>
                             </div>
                             <div class="col-12 form-group">
-                                <input type="submit"  class="button button-large button-circle"  value="Submit"  />
+                                <input type="submit"  class="button button-large button-circle"  [disabled]="sending" [value]="sending ? 'Sending…' : 'Send Enquiry'"  />
                             </div>
                         </div>  
                     </form>

@@ -1130,3 +1130,125 @@ app-home-order-flow {
     transition: none;
   }
 }
+/* Contain selected solution artwork and reserve a clear gap beside the copy. */
+html body .appz-ecosystem__window .appz-ecosystem__copy {
+  gap: 32px;
+}
+html body .appz-ecosystem__window .appz-ecosystem__selected-visual {
+  width: min(100%, 320px);
+}
+html body .appz-ecosystem__window .appz-ecosystem__selected-visual img {
+  transform: none;
+  max-width: 100%;
+  object-fit: contain;
+}
+@media (max-width: 1100px) {
+  html body .appz-ecosystem__window .appz-ecosystem__copy { gap: 28px; }
+  html body .appz-ecosystem__window .appz-ecosystem__selected-visual {
+    width: min(100%, 300px);
+  }
+}
+@media (max-width: 767px) {
+  html body .appz-ecosystem__window .appz-ecosystem__copy { gap: 24px; }
+  html body .appz-ecosystem__window .appz-ecosystem__selected-visual {
+    width: min(100%, 260px);
+  }
+}
+/* Balance illustration prominence with a reserved text gutter. */
+html body .appz-ecosystem__window .appz-ecosystem__selected-visual {
+  width: min(100%, 400px);
+}
+@media (min-width: 1101px) {
+  html body .appz-ecosystem__window .appz-ecosystem__copy {
+    grid-template-columns: minmax(0, .95fr) minmax(0, 1.05fr);
+    column-gap: 40px;
+  }
+}
+@media (max-width: 1100px) {
+  html body .appz-ecosystem__window .appz-ecosystem__selected-visual {
+    width: min(100%, 360px);
+  }
+}
+@media (max-width: 767px) {
+  html body .appz-ecosystem__window .appz-ecosystem__selected-visual {
+    width: min(100%, 300px);
+  }
+}
+
+/* Normalize visible artwork, compensating for each asset's transparent padding. */
+html body .appz-ecosystem__window .appz-ecosystem__selected-visual {
+  position: relative;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+}
+html body .appz-ecosystem__window .appz-ecosystem__selected-visual img {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--island-image-width);
+  max-width: none;
+  height: auto;
+  transform: translate(var(--island-image-x), var(--island-image-y));
+}
+html body .appz-ecosystem__window [data-visual-id="admin"], html body .appz-ecosystem__window [data-visual-id="pos"] { --island-image-width: 119.06679%; --island-image-x: -50.24205%; --island-image-y: -53.03588%; }
+html body .appz-ecosystem__window [data-visual-id="website"] { --island-image-width: 121.17318%; --island-image-x: -49.79253%; --island-image-y: -57.03125%; }
+html body .appz-ecosystem__window [data-visual-id="dining"], html body .appz-ecosystem__window [data-visual-id="qr"] { --island-image-width: 104.86704%; --island-image-x: -50.51867%; --island-image-y: -53.35478%; }
+html body .appz-ecosystem__window [data-visual-id="kiosk"] { --island-image-width: 121.09801%; --island-image-x: -50.89903%; --island-image-y: -53.40074%; }
+html body .appz-ecosystem__window [data-visual-id="queue"] { --island-image-width: 109.06737%; --island-image-x: -50.99931%; --island-image-y: -51.01476%; }
+html body .appz-ecosystem__window [data-visual-id="kitchen"], html body .appz-ecosystem__window [data-visual-id="kds"] { --island-image-width: 121.09801%; --island-image-x: -50.72614%; --island-image-y: -49.31003%; }
+html body .appz-ecosystem__window [data-visual-id="delivery"], html body .appz-ecosystem__window [data-visual-id="hub"] { --island-image-width: 147.21719%; --island-image-x: -50.55325%; --island-image-y: -54.18583%; }
+
+/* Island switching: every illustration stays mounted and cross-fades, so a click never waits for an image. */
+html body .appz-ecosystem__window .appz-ecosystem__visual-layer {
+  position: absolute;
+  inset: 0;
+  display: block;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+html body .appz-ecosystem__window .appz-ecosystem__visual-layer.is-selected {
+  opacity: 1;
+  visibility: visible;
+}
+html body .appz-ecosystem__window .appz-ecosystem__option {
+  transition: background-color .28s ease, color .28s ease, border-color .28s ease, box-shadow .28s ease;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html body .appz-ecosystem__window .appz-ecosystem__visual-layer {
+    transition: opacity .5s cubic-bezier(.33, 0, .2, 1), visibility 0s linear .5s,
+                translate .6s cubic-bezier(.22, 1, .36, 1), scale .6s cubic-bezier(.22, 1, .36, 1);
+    translate: 0 10px;
+    scale: .97;
+    will-change: opacity, translate, scale;
+  }
+  html body .appz-ecosystem__window .appz-ecosystem__visual-layer.is-selected {
+    transition-delay: .06s, 0s, .06s, .06s;
+    translate: 0 0;
+    scale: 1;
+  }
+  html body .appz-ecosystem__window .appz-ecosystem__copy > .appz-ecosystem__details {
+    animation-duration: .55s;
+    animation-timing-function: cubic-bezier(.22, 1, .36, 1);
+    animation-fill-mode: both;
+    animation-delay: .08s;
+  }
+  html body .appz-ecosystem__window .appz-ecosystem__copy[data-switch-phase="0"] > .appz-ecosystem__details { animation-name: appz-island-text-a; }
+  html body .appz-ecosystem__window .appz-ecosystem__copy[data-switch-phase="1"] > .appz-ecosystem__details { animation-name: appz-island-text-b; }
+  html body .appz-ecosystem__window .appz-ecosystem__copy[data-switch-phase="0"] .appz-ecosystem__details-body li { animation: appz-island-item-a .5s cubic-bezier(.22, 1, .36, 1) both; }
+  html body .appz-ecosystem__window .appz-ecosystem__copy[data-switch-phase="1"] .appz-ecosystem__details-body li { animation: appz-island-item-b .5s cubic-bezier(.22, 1, .36, 1) both; }
+  html body .appz-ecosystem__window .appz-ecosystem__details-body li:nth-child(1) { animation-delay: .14s !important; }
+  html body .appz-ecosystem__window .appz-ecosystem__details-body li:nth-child(2) { animation-delay: .19s !important; }
+  html body .appz-ecosystem__window .appz-ecosystem__details-body li:nth-child(3) { animation-delay: .24s !important; }
+  html body .appz-ecosystem__window .appz-ecosystem__details-body li:nth-child(4) { animation-delay: .29s !important; }
+  html body .appz-ecosystem__window .appz-ecosystem__details-body li:nth-child(5) { animation-delay: .34s !important; }
+  html body .appz-ecosystem__window .appz-ecosystem__details-body li:nth-child(n+6) { animation-delay: .39s !important; }
+}
+@keyframes appz-island-text-a { from { opacity: 0; translate: 0 10px; } to { opacity: 1; translate: 0 0; } }
+@keyframes appz-island-text-b { from { opacity: 0; translate: 0 10px; } to { opacity: 1; translate: 0 0; } }
+@keyframes appz-island-item-a { from { opacity: 0; translate: 0 8px; } to { opacity: 1; translate: 0 0; } }
+@keyframes appz-island-item-b { from { opacity: 0; translate: 0 8px; } to { opacity: 1; translate: 0 0; } }
+@media (prefers-reduced-motion: reduce) {
+  html body .appz-ecosystem__window .appz-ecosystem__visual-layer { transition: none; }
+  html body .appz-ecosystem__window .appz-ecosystem__option { transition: none; }
+}

@@ -27,6 +27,7 @@ export class BlogBcrsComponent  {
  }
  openDialog(): void {
   const dialogRef = this.dialog.open(ModalRequestDemoComponent, {
+      id: 'mat-mdc-dialog-0',
     width: '600px',
     panelClass: 'appz-demo-dialog',
   });

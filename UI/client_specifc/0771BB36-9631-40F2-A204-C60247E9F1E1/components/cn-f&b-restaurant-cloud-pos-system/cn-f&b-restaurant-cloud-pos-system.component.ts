@@ -3,7 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { Meta, Title } from '@angular/platform-browser';
 
 import { CommonFunctionService } from '../../../../src/app/services/shared_function/common-function.service';
-import { CNModalRequestDemoComponent } from '../cn-modal-request-demo/cn-modal-request-demo.component';
+import { ModalRequestDemoComponent } from '../modal-request-demo/modal-request-demo.component';
 import { CHINESE_HOME_PAGE_CONFIG } from './home-page-content.zh';
 
 @Component({
@@ -35,7 +35,9 @@ export class CustomHomeCNComponent implements OnInit {
   }
 
   openDialog(): void {
-    const dialogRef = this.dialog.open(CNModalRequestDemoComponent, {
+    const dialogRef = this.dialog.open(ModalRequestDemoComponent, {
+      id: 'mat-mdc-dialog-0',
+      data: {locale: 'zh'},
       width: '600px',
       panelClass: 'appz-demo-dialog'
     });

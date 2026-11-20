@@ -109,7 +109,7 @@ describe('HomeOrderFlowComponent ecosystem', () => {
     fixture.detectChanges();
 
     expect(qrOption.getAttribute('aria-pressed')).toBe('true');
-    expect(host.querySelector('.appz-ecosystem__selected-visual img')?.getAttribute('src')).toBe('/images/cn-qr.png');
+    expect(host.querySelector('.appz-ecosystem__visual-layer.is-selected img')?.getAttribute('src')).toBe('/images/cn-qr.png');
     expect(host.querySelector('[data-details-learn-more]')?.getAttribute('href')).toBe('/f&b-restaurant-emenu-qr-code-ordering-system');
     expect(host.querySelector('[data-details-learn-more]')?.textContent?.trim()).toBe('了解更多');
   });
@@ -132,7 +132,8 @@ describe('HomeOrderFlowComponent ecosystem', () => {
       'From order to kitchen, pickup, delivery and management — connect the APPZPOS modules that fit your business.'
     );
     expect(host.querySelectorAll('[data-ecosystem-island]').length).toBe(7);
-    expect(host.querySelectorAll('.appz-ecosystem__selected-visual img').length).toBe(1);
+    expect(host.querySelectorAll('.appz-ecosystem__selected-visual img').length).toBe(7);
+    expect(host.querySelectorAll('.appz-ecosystem__visual-layer.is-selected').length).toBe(1);
     expect(host.querySelectorAll('[data-ecosystem-connection]').length).toBe(0);
     expect(host.querySelector('[data-ecosystem-hub]')).toBeNull();
     expect(host.querySelector('.appz-ecosystem__connections')).toBeNull();
@@ -145,7 +146,8 @@ describe('HomeOrderFlowComponent ecosystem', () => {
     const windowPanel = root.querySelector('.appz-ecosystem__window')!;
     expect(windowPanel.querySelectorAll('.appz-ecosystem__option').length).toBe(7);
     expect(windowPanel.querySelector('.appz-ecosystem__options')?.nextElementSibling?.classList.contains('appz-ecosystem__copy')).toBeTrue();
-    expect(windowPanel.querySelectorAll('.appz-ecosystem__selected-visual img').length).toBe(1);
+    expect(windowPanel.querySelectorAll('.appz-ecosystem__selected-visual img').length).toBe(7);
+    expect(windowPanel.querySelectorAll('.appz-ecosystem__visual-layer.is-selected').length).toBe(1);
   });
 
   it('highlights POS / E-Waiter as the default solution on first load', () => {
@@ -185,8 +187,8 @@ describe('HomeOrderFlowComponent ecosystem', () => {
     fixture.detectChanges();
     expect(option.getAttribute('aria-pressed')).toBe('true');
     expect(option.classList).toContain('is-active');
-    expect(root.querySelector('.appz-ecosystem__selected-visual img')?.getAttribute('src')).toBe(fixture.componentInstance.activeDetailsIsland!.image);
-    expect(root.querySelector('.appz-ecosystem__selected-visual img')?.getAttribute('alt')).toBe('Kitchen Display System (KDS)');
+    expect(root.querySelector('.appz-ecosystem__visual-layer.is-selected img')?.getAttribute('src')).toBe(fixture.componentInstance.activeDetailsIsland!.image);
+    expect(root.querySelector('.appz-ecosystem__visual-layer.is-selected img')?.getAttribute('alt')).toBe('Kitchen Display System (KDS)');
     expect(root.querySelector('[data-island-id="dining"]')?.getAttribute('aria-pressed')).toBe('false');
   });
 
@@ -196,15 +198,17 @@ describe('HomeOrderFlowComponent ecosystem', () => {
     const initialVisual = root.querySelector<HTMLElement>('.appz-ecosystem__selected-visual');
     expect(initialVisual?.classList)
       .toContain('appz-ecosystem__selected-visual--enlarged');
-    expect(initialVisual?.dataset['visualId']).toBe('admin');
+    expect(initialVisual?.querySelector<HTMLElement>('.is-selected')?.dataset['visualId']).toBe('admin');
 
     root.querySelector<HTMLButtonElement>('[data-island-id="delivery"]')!.click();
     fixture.detectChanges();
 
     const visual = root.querySelector<HTMLElement>('.appz-ecosystem__selected-visual');
     expect(visual?.classList).toContain('appz-ecosystem__selected-visual--enlarged');
-    expect(visual?.dataset['visualId']).toBe('delivery');
-    expect(visual?.querySelector('img')?.getAttribute('alt')).toBe('Order Hub');
+    expect(visual?.querySelector<HTMLElement>('.is-selected')?.dataset['visualId']).toBe('delivery');
+    expect(visual?.querySelector('.is-selected img')?.getAttribute('alt')).toBe('Order Hub');
+    expect(visual?.querySelectorAll('.is-selected').length).toBe(1);
+    expect(root.querySelector('.appz-ecosystem__copy')?.getAttribute('data-switch-phase')).toBe('1');
   });
 
 

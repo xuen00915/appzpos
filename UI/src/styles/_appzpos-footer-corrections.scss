@@ -1,0 +1,26 @@
+/* Compact shared footer while retaining readable links and mobile tap targets. */
+html body #footer.appzpos-footer .appzpos-footer__inner {
+  padding-top: 32px;
+  padding-bottom: 24px;
+  row-gap: 24px;
+}
+html body #footer #copyrights.appzpos-footer__bottom {
+  padding: 16px 0 32px !important;
+}
+@media (max-width: 960px) {
+  html body #footer.appzpos-footer .appzpos-footer__inner {
+    padding-top: 28px;
+    padding-bottom: 20px;
+    row-gap: 24px;
+  }
+}
+@media (max-width: 600px) {
+  html body #footer.appzpos-footer .appzpos-footer__inner {
+    padding-top: 24px;
+    padding-bottom: 20px;
+    row-gap: 20px;
+  }
+  html body #footer #copyrights.appzpos-footer__bottom {
+    padding: 14px 0 80px !important;
+  }
+}

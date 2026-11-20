@@ -1,0 +1,46 @@
+<style>
+  .direction-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:28px}.direction{padding:0!important;overflow:hidden}.direction .card-body{padding:18px 20px 22px}.site-mini{min-height:540px;background:#f6f8fb;color:#102342;font-family:Arial,sans-serif}.hero-lock{height:104px;padding:18px 22px;background:linear-gradient(135deg,#f9fcff,#eaf5ff);border-bottom:1px solid #dce7f0}.hero-lock strong{display:block;font-size:18px;letter-spacing:-.04em}.hero-lock span{font-size:10px;color:#6f8195}.machine{height:44px;margin:13px auto 0;border-radius:7px 7px 14px 14px;background:linear-gradient(160deg,#263348,#0e1728);box-shadow:0 8px 18px rgba(20,50,80,.2);width:66%}.mini-section{padding:20px 22px}.mini-title{font-weight:800;font-size:17px;line-height:1.05;letter-spacing:-.04em}.mini-copy{margin-top:6px;font-size:8px;line-height:1.4;color:#66788d}.hairline{height:1px;background:#d9e3ec}.flow-lane{position:relative;height:74px;margin-top:14px;border-radius:12px;background:#0e2546;overflow:hidden}.flow-lane:before,.flow-lane:after{position:absolute;content:'';height:2px;left:14px;right:14px;background:linear-gradient(90deg,#f47a38,#4db5ea);top:27px}.flow-lane:after{top:46px;left:42px}.flow-node{position:absolute;width:12px;height:12px;border:3px solid #fff;border-radius:50%;background:#1688d8;top:22px}.flow-node:nth-child(1){left:18px}.flow-node:nth-child(2){left:42%}.flow-node:nth-child(3){right:22px}.asym{display:grid;grid-template-columns:1.25fr .75fr;gap:9px;margin-top:14px}.block{min-height:74px;border-radius:12px;background:#fff;border:1px solid #dce7f0;padding:12px}.block.orange{background:#fff0e8;border-color:#ffd2ba}.block.blue{background:#eaf6ff}.rail{display:flex;gap:7px;margin-top:12px;overflow:hidden}.rail i{display:block;flex:0 0 72px;height:42px;border-radius:9px;background:#fff;border:1px solid #dce7f0}.atlas{display:grid;grid-template-columns:.62fr 1.38fr;min-height:318px}.atlas-nav{padding:20px 15px;background:#102342;color:#fff}.atlas-nav b{display:block;margin-bottom:18px;font-size:12px}.atlas-nav span{display:block;padding:10px 0;border-bottom:1px solid rgba(255,255,255,.14);font-size:8px}.atlas-stage{padding:20px;background:#fff}.screen{height:126px;margin-top:14px;border:7px solid #1a2637;border-radius:14px 14px 25px 25px;background:linear-gradient(135deg,#edf7ff,#fff);box-shadow:0 18px 26px rgba(20,50,80,.16)}.module-strip{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:16px}.module-strip i{display:block;height:48px;border-radius:10px;background:#edf5fb}.operator{background:#f8fafc}.chapter{display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:13px;padding:19px 22px;border-bottom:1px solid #dce7f0}.chapter:nth-child(even){grid-template-columns:1.15fr .85fr;background:#102342;color:#fff}.chapter:nth-child(even) .mini-copy{color:#b8c6d7}.photo{height:94px;border-radius:12px;background:linear-gradient(135deg,#cceaff,#1688d8);position:relative;overflow:hidden}.photo:after{content:'';position:absolute;inset:18px 14px 0;background:linear-gradient(145deg,#28364b,#101827);border-radius:9px 9px 0 0}.chapter:nth-child(even) .photo{background:linear-gradient(135deg,#ffdec9,#f47a38)}.end-cta{padding:22px;background:#eaf6ff;text-align:center}.badge-rec{display:inline-block;margin-bottom:8px;padding:4px 8px;border-radius:99px;background:#eaf6ff;color:#0875c2;font-size:10px;font-weight:800}.card[data-choice="a"]{outline:2px solid rgba(22,136,216,.25)}@media(max-width:900px){.direction-grid{grid-template-columns:1fr}.site-mini{min-height:auto}}
+</style>
+
+<h2>Choose the new homepage architecture</h2>
+<p class="subtitle">The current POS-machine hero stays exactly as it is. These are three structurally different directions for everything below it and for the related public pages.</p>
+
+<div class="direction-grid cards">
+  <div class="card direction" data-choice="a" onclick="toggleSelect(this)">
+    <div class="site-mini">
+      <div class="hero-lock"><strong>Current hero stays</strong><span>Existing machine, copy and interactions</span><div class="machine"></div></div>
+      <div class="mini-section">
+        <span class="badge-rec">Recommended</span>
+        <div class="mini-title">One platform.<br>Every order path.</div>
+        <div class="mini-copy">A concise product story that moves from connected ordering to product suite, industries and proof.</div>
+        <div class="flow-lane"><i class="flow-node"></i><i class="flow-node"></i><i class="flow-node"></i></div>
+        <div class="asym"><div class="block blue"><div class="mini-title">Ordering ecosystem</div></div><div class="block orange"><div class="mini-title">Hardware</div></div><div class="block"><div class="mini-title">Industries</div></div><div class="block blue"><div class="mini-title">PSG grant</div></div></div>
+        <div class="rail"><i></i><i></i><i></i><i></i></div>
+      </div>
+    </div>
+    <div class="card-body"><h3>A. Connected product story</h3><p>Asymmetric, spacious and product-led. The ordering journey becomes the spine of the page, followed by a varied editorial grid instead of repeated cards.</p></div>
+  </div>
+
+  <div class="card direction" data-choice="b" onclick="toggleSelect(this)">
+    <div class="site-mini">
+      <div class="hero-lock"><strong>Current hero stays</strong><span>Existing machine, copy and interactions</span><div class="machine"></div></div>
+      <div class="atlas">
+        <aside class="atlas-nav"><b>APPZPOS Suite</b><span>POS / E-Waiter</span><span>Website Ordering</span><span>QR Ordering</span><span>Kiosk</span><span>KDS</span><span>Order Hub</span></aside>
+        <main class="atlas-stage"><div class="mini-title">Explore the system</div><div class="mini-copy">Select a module to change the real product visual and supporting copy.</div><div class="screen"></div><div class="module-strip"><i></i><i></i><i></i><i></i></div></main>
+      </div>
+      <div class="end-cta"><div class="mini-title">Built around your operation</div></div>
+    </div>
+    <div class="card-body"><h3>B. Interactive product atlas</h3><p>A software-catalogue experience. Users explore each real APPZPOS module through a persistent navigation rail and changing product stage.</p></div>
+  </div>
+
+  <div class="card direction" data-choice="c" onclick="toggleSelect(this)">
+    <div class="site-mini operator">
+      <div class="hero-lock"><strong>Current hero stays</strong><span>Existing machine, copy and interactions</span><div class="machine"></div></div>
+      <div class="chapter"><div><div class="mini-title">The order begins anywhere.</div><div class="mini-copy">QR, kiosk, website or staff.</div></div><div class="photo"></div></div>
+      <div class="chapter"><div class="photo"></div><div><div class="mini-title">One queue keeps service moving.</div><div class="mini-copy">Orders converge before kitchen preparation.</div></div></div>
+      <div class="chapter"><div><div class="mini-title">Your whole operation stays visible.</div><div class="mini-copy">Real product imagery and business scenarios lead each chapter.</div></div><div class="photo"></div></div>
+      <div class="end-cta"><div class="mini-title">Choose your business type</div></div>
+    </div>
+    <div class="card-body"><h3>C. Operator journey</h3><p>A cinematic narrative organized around the daily customer and staff experience, with fewer controls and larger real-world visuals.</p></div>
+  </div>
+</div>

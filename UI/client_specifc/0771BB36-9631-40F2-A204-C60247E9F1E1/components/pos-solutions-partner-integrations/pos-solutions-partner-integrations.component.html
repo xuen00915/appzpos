@@ -1,82 +1,76 @@
-<section class="partners-hero" aria-labelledby="partners-title">
-    <div class="partners-hero__inner">
-        <div class="partners-hero__copy">
-            <h1 id="partners-title">Seamless POS Integration with the Leading Third Party Platforms</h1>
-            <span class="partners-hero__eyebrow">CONNECTED TO YOUR BUSINESS</span>
-        </div>
-        <figure class="partners-hero__diagram">
-            <img src="assets/images/partners-puzzle-transparent.png" width="1536" height="1024" alt="3D interlocking puzzle pieces representing payment, delivery, retail, and accounting integrations.">
-        </figure>
-    </div>
-</section>
+<app-solution-banner
+    headingId="partners-title"
+    title="Seamless POS Integration with the Leading Third Party Platforms"
+    description="CONNECTED TO YOUR BUSINESS"
+    imageSrc="assets/images/partners-puzzle-transparent.png"
+    imageAlt="3D interlocking puzzle pieces representing payment, delivery, retail, and accounting integrations."
+    [imageWidth]="1536" [imageHeight]="1024"
+    [highlights]="['Payments', 'Delivery', 'Accounting']"
+    demoMode="scroll"
+    exploreTarget="#partners-list" exploreLabel="Explore integrations"
+></app-solution-banner>
 
 <section id="content">
     <div class="content-wrap">
-        <div class="container partners-grid">
+        <div class="container partners-grid" id="partners-list">
             <article class="partners-card">
                 <h2>Online Payment Gateway</h2>
                 <ul class="partners-logos">
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Online-Payment-Gateway-Rapyd.png')}}" alt="APPZPOS-POS-Online-Payment-Gateway-Rapyd"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Online-Payment-Gateway-stripe.png')}}" alt="APPZPOS-POS-Online-Payment-Gateway-stripe"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Online-Payment-Gateway-Fomopay.png')}}" alt="APPZPOS-POS-Online-Payment-Gateway-Fomopay"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Online-Payment-Gateway-Braintree.png')}}" alt="APPZPOS-POS-Online-Payment-Gateway-Braintree"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Online-Payment-Gateway-Rapyd.png')}}" alt="Rapyd logo" width="500" height="375" loading="lazy" style="--cw:401;--ch:124;--ox:0.0;--oy:0.0"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Online-Payment-Gateway-stripe.png')}}" alt="Stripe logo" width="500" height="375" loading="lazy" style="--cw:382;--ch:160;--ox:-0.5;--oy:0.0"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Online-Payment-Gateway-Fomopay.png')}}" alt="Fomopay logo" width="500" height="375" loading="lazy" style="--cw:468;--ch:90;--ox:-1.5;--oy:0.0"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Online-Payment-Gateway-Braintree.png')}}" alt="Braintree logo" width="500" height="375" loading="lazy" style="--cw:485;--ch:66;--ox:0.0;--oy:1.0"></li>
                 </ul>
 
             </article>
             <article class="partners-card">
                 <h2>Payment Terminal</h2>
                 <ul class="partners-logos">
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Terminal-NETS.png')}}" alt="APPZPOS-POS-Payment-Terminal-NETS"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Terminal-Kpay.png')}}" alt="APPZPOS-POS-Payment-Terminal-Kpay"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Terminal-ASCAN.png')}}" alt="APPZPOS-POS-Payment-Terminal-ASCAN"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Terminal-fiserv.png')}}" alt="APPZPOS-POS-Payment-Terminal-fiserv"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Terminal-NETS.png')}}" alt="NETS logo" width="500" height="375" loading="lazy" style="--cw:412;--ch:102;--ox:1.5;--oy:-1.0"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Terminal-Kpay.png')}}" alt="KPay logo" width="500" height="375" loading="lazy" style="--cw:387;--ch:146;--ox:3.0;--oy:8.0"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Terminal-ASCAN.png')}}" alt="ASCAN logo" width="500" height="375" loading="lazy" style="--cw:377;--ch:226;--ox:-4.0;--oy:-10.0"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Terminal-fiserv.png')}}" alt="Fiserv logo" width="500" height="375" loading="lazy" style="--cw:411;--ch:207;--ox:11.0;--oy:-5.5"></li>
                 </ul>
 
             </article>
             <article class="partners-card partners-card--wide">
                 <h2>Payment Method</h2>
                 <ul class="partners-logos">
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-PAYNOW.png')}}" alt="APPZPOS-POS-Payment-Methods-PAYNOW"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Mastercarfd.png')}}" alt="APPZPOS-POS-Payment-Methods-Mastercarfd"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-VISA.png')}}" alt="APPZPOS-POS-Payment-Methods-VISA"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Paypal.png')}}" alt="APPZPOS-POS-Payment-Methods-Paypal"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Union-Pay.png')}}" alt="APPZPOS-POS-Payment-Methods-Union-Pay"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-American-Expresss.png')}}" alt="APPZPOS-POS-Payment-Methods-American-Expresss"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-DBS-Paylah.png')}}" alt="APPZPOS-POS-Payment-Methods-DBS-Paylah"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Dinner-Club.png')}}" alt="APPZPOS-POS-Payment-Methods-Dinner-Club"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Applepay.png')}}" alt="APPZPOS-POS-Payment-Methods-Applepay"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Googlepay.png')}}" alt="APPZPOS-POS-Payment-Methods-Googlepay"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Samsungpay.png')}}" alt="APPZPOS-POS-Payment-Methods-Samsungpay"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Favepay.png')}}" alt="APPZPOS-POS-Payment-Methods-Favepay"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-NETS.png')}}" alt="APPZPOS-POS-Payment-Methods-NETS"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Ezlink.png')}}" alt="APPZPOS-POS-Payment-Methods-Ezlink"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Alipay.png')}}" alt="APPZPOS-POS-Payment-Methods-Alipay"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Grabpay.png')}}" alt="APPZPOS-POS-Payment-Methods-Grabpay"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Shopeepay.png')}}" alt="APPZPOS-POS-Payment-Methods-Shopeepay"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Wechatpay.png')}}" alt="APPZPOS-POS-Payment-Methods-Wechatpay"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-TNG.png')}}" alt="APPZPOS-POS-Payment-Methods-TNG"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Singtel-Dash.png')}}" alt="APPZPOS-POS-Payment-Methods-Singtel-Dash"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Atome.png')}}" alt="APPZPOS-POS-Payment-Methods-Atome"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-PAYNOW.png')}}" alt="PayNow logo" width="500" height="375" loading="lazy" style="--cw:341;--ch:211;--ox:11.0;--oy:4.5"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Mastercarfd.png')}}" alt="Mastercard logo" width="500" height="375" loading="lazy" style="--cw:377;--ch:226;--ox:0.0;--oy:0.0"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-VISA.png')}}" alt="Visa logo" width="500" height="375" loading="lazy" style="--cw:422;--ch:137;--ox:-14.5;--oy:-0.5"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Paypal.png')}}" alt="PayPal logo" width="500" height="375" loading="lazy" style="--cw:355;--ch:252;--ox:1.0;--oy:0.0"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Union-Pay.png')}}" alt="UnionPay logo" width="500" height="375" loading="lazy" style="--cw:364;--ch:228;--ox:-0.5;--oy:0.0"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-American-Expresss.png')}}" alt="American Express logo" width="500" height="375" loading="lazy" style="--cw:436;--ch:119;--ox:-3.5;--oy:-0.5"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-DBS-Paylah.png')}}" alt="DBS PayLah! logo" width="500" height="375" loading="lazy" style="--cw:307;--ch:307;--ox:0.0;--oy:-0.5"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Dinner-Club.png')}}" alt="Diners Club logo" width="500" height="375" loading="lazy" style="--cw:380;--ch:274;--ox:-0.5;--oy:0.0"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Applepay.png')}}" alt="Apple Pay logo" width="500" height="375" loading="lazy" style="--cw:384;--ch:158;--ox:-0.5;--oy:0.0"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Googlepay.png')}}" alt="Google Pay logo" width="500" height="375" loading="lazy" style="--cw:403;--ch:160;--ox:1.0;--oy:-2.0"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Samsungpay.png')}}" alt="Samsung Pay logo" width="500" height="375" loading="lazy" style="--cw:424;--ch:192;--ox:-0.5;--oy:7.0"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Favepay.png')}}" alt="FavePay logo" width="500" height="375" loading="lazy" style="--cw:430;--ch:133;--ox:-5.5;--oy:-0.5"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-NETS.png')}}" alt="NETS logo" width="500" height="375" loading="lazy" style="--cw:411;--ch:102;--ox:2.0;--oy:-1.0"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Ezlink.png')}}" alt="EZ-Link logo" width="500" height="375" loading="lazy" style="--cw:459;--ch:116;--ox:0.0;--oy:0.0"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Alipay.png')}}" alt="Alipay logo" width="500" height="375" loading="lazy" style="--cw:428;--ch:151;--ox:0.5;--oy:-0.5"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Grabpay.png')}}" alt="GrabPay logo" width="500" height="375" loading="lazy" style="--cw:318;--ch:276;--ox:-0.5;--oy:0.0"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Shopeepay.png')}}" alt="ShopeePay logo" width="500" height="375" loading="lazy" style="--cw:407;--ch:180;--ox:0.0;--oy:0.0"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Wechatpay.png')}}" alt="WeChat Pay logo" width="500" height="375" loading="lazy" style="--cw:449;--ch:142;--ox:-3.0;--oy:0.0"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-TNG.png')}}" alt="Touch 'n Go logo" width="500" height="375" loading="lazy" style="--cw:307;--ch:307;--ox:0.0;--oy:-0.5"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Singtel-Dash.png')}}" alt="Singtel Dash logo" width="500" height="375" loading="lazy" style="--cw:382;--ch:129;--ox:-0.5;--oy:1.5"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Payment-Methods-Atome.png')}}" alt="Atome logo" width="500" height="375" loading="lazy" style="--cw:470;--ch:104;--ox:1.5;--oy:-2.0"></li>
                 </ul>
 
             </article>
-            <article class="partners-card">
-                <h2>Delivery Logistic</h2>
-                <ul class="partners-logos">
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Delivery-Logistics-Grab-Express.png')}}" alt="APPZPOS-POS-Delivery-Logistics-Grab-Express"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Delivery-Logistics-pandago.png')}}" alt="APPZPOS-POS-Delivery-Logistics-pandago"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Delivery-Logistics-Lalamove.png')}}" alt="APPZPOS-POS-Delivery-Logistics-Lalamove"></li>
+            <article class="partners-card partners-card--wide partners-card--delivery">
+                <h2>Delivery Partners</h2>
+                <ul class="partners-logos partners-logos--row" aria-label="Delivery logistics">
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Delivery-Logistics-Grab-Express.png')}}" alt="GrabExpress logo" width="500" height="375" loading="lazy" style="--cw:463;--ch:80;--ox:-1.0;--oy:2.0"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Delivery-Logistics-pandago.png')}}" alt="pandago logo" width="500" height="375" loading="lazy" style="--cw:403;--ch:94;--ox:0.0;--oy:0.0"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Delivery-Logistics-Lalamove.png')}}" alt="Lalamove logo" width="500" height="375" loading="lazy" style="--cw:486;--ch:136;--ox:-4.5;--oy:-5.0"></li>
                 </ul>
-
-            </article>
-            <article class="partners-card">
-                <h2>Food Delivery Apps</h2>
-                <ul class="partners-logos">
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Food-delivery-Grabfood.png')}}" alt="APPZPOS-POS-Food-delivery-Grabfood"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Food-delivery-foodpanda.png')}}" alt="APPZPOS-POS-Food-delivery-foodpanda"></li>
-                    <li><img class="cuslogo_maxwidth" src="{{BindURL_Image('APPZPOS-POS-Food-delivery-deliveroo.png')}}" alt="APPZPOS-POS-Food-delivery-deliveroo"></li>
+                <ul class="partners-logos partners-logos--row" aria-label="Food delivery apps">
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Food-delivery-Grabfood.png')}}" alt="GrabFood logo" width="500" height="375" loading="lazy" style="--cw:419;--ch:78;--ox:0.0;--oy:-7.0"></li>
+                    <li><img src="{{BindURL_Image('APPZPOS-POS-Food-delivery-foodpanda.png')}}" alt="foodpanda logo" width="500" height="375" loading="lazy" style="--cw:466;--ch:85;--ox:0.5;--oy:0.5"></li>
                 </ul>
-
             </article>
             <article class="partners-card">
                 <h2>GTO Mall Integration</h2>

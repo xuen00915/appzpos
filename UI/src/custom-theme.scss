@@ -93,3 +93,10 @@ body { margin: 0; font-family: var(--appz-font); }
 @import "styles/appzpos-refinements";
 
 @import "styles/appzpos-solution-refinements";
+
+// Keep spacing corrections after the legacy theme and catalogue refinements.
+@import "styles/appzpos-spacing-corrections";
+
+@import "styles/appzpos-button-corrections";
+
+@import "styles/appzpos-footer-corrections";

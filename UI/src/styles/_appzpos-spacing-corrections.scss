@@ -1,0 +1,42 @@
+/* Website Ordering: match the WhatsApp CTA and use one section gap before hardware. */
+:is(app-f\&b-restaurant-online-ordering-website, b-restaurant-online-ordering-website) #content .solution-detail-card a[href^="https://wa.me/"] {
+  background: #168c4e !important;
+  border-color: #168c4e !important;
+  color: #fff !important;
+  box-shadow: 0 6px 16px rgb(22 140 78 / 14%);
+}
+:is(app-f\&b-restaurant-online-ordering-website, b-restaurant-online-ordering-website) #content .solution-detail-card a[href^="https://wa.me/"]:is(:hover, :focus-visible) {
+  background: #107842 !important;
+  border-color: #107842 !important;
+}
+/* Reset obsolete five-row cards after the catalogue changed to alternating rows. */
+body app-solution-page #content .solution-detail-grid .solution-detail-card:not(.pos-system-card--featured) {
+  grid-template-rows: auto;
+  grid-row: auto;
+}
+body app-solution-page { --solution-section-gap: clamp(32px, 4vw, 56px); }
+body app-solution-page #content:not(.appz-home-story) .content-wrap.solution-page__sections > .container {
+  margin-block: var(--solution-section-gap) !important;
+}
+body app-solution-page #content .pos-system-showcase { padding-block: 0; }
+body app-solution-page #content :is(.pos-system-showcase__grid, .solution-detail-grid) {
+  gap: var(--solution-section-gap);
+}
+
+/* Legacy marketing containers must not add a second oversized section interval. */
+body #content:not(.appz-home-story) .content-wrap > .container,
+body #content:not(.appz-home-story) .content-wrap > #webview > .container,
+body #content:not(.appz-home-story) .content-wrap > #mobile_view > .container {
+  margin-block: clamp(32px, 4vw, 56px) !important;
+}
+/* Keep the Chinese custom POS section close to its following content. */
+html body [data-home-page-template][lang="zh"] #cn-custom-pos {
+  padding-bottom: 24px;
+}
+html body [data-home-page-template][lang="zh"] #cn-custom-pos + .home-story-section {
+  padding-top: 32px;
+}
+/* Tighten the lead-in to the Chinese custom POS section. */
+html body [data-home-page-template][lang="zh"] #cn-custom-pos {
+  padding-top: clamp(24px, 3vw, 40px);
+}

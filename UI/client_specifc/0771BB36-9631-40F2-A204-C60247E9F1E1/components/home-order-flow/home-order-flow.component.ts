@@ -52,6 +52,8 @@ export class HomeOrderFlowComponent implements OnInit, OnChanges, AfterViewInit,
 
   activeIslandId: string | null = null;
   activeDetailsIslandId: string | null = null;
+  /** Alternates 0/1 on each selection so CSS can replay the entrance animation. */
+  switchPhase: 0 | 1 = 0;
   islands: readonly EcosystemIsland[] = [];
   productModules: readonly ProductModule[] = [];
   isVisible = false;
@@ -89,6 +91,10 @@ export class HomeOrderFlowComponent implements OnInit, OnChanges, AfterViewInit,
     window.scrollTo({ top: 0, left: 0, behavior: 'auto' });
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
+  }
+
+  trackIsland(_index: number, island: EcosystemIsland): string {
+    return island.id;
   }
 
   get activeDetailsIsland(): EcosystemIsland | undefined {
@@ -143,6 +149,7 @@ export class HomeOrderFlowComponent implements OnInit, OnChanges, AfterViewInit,
   openIslandDetails(event: Event, islandId: string): false {
     event.preventDefault();
     event.stopPropagation();
+    if (this.activeDetailsIslandId !== islandId) this.switchPhase = this.switchPhase === 0 ? 1 : 0;
     this.activeDetailsIslandId = islandId;
     this.activeIslandId = islandId;
     this.changeDetectorRef.markForCheck();

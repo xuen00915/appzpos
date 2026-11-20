@@ -1,10 +1,8 @@
-
-import { Component, Input, OnInit  } from '@angular/core';
-import { CommonFunctionService } from '../../../../src/app/services/shared_function/common-function.service';
-import { ApiService } from '../../../../src/app/services/shared_function/api.service';
-import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
-
-declare var $: any;
+import { LeadSpamError } from '../lead-spam-guard';
+import { isMeasurementStaging } from '../../../../src/app/services/shared_function/staging-measurement';
+import { Component, Input, ElementRef, ChangeDetectorRef, inject } from '@angular/core';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { LeadSubmissionService } from '../lead-submission.service';
 
 type RequestDemoLocale = 'en' | 'zh';
 
@@ -31,7 +29,7 @@ interface RequestDemoCopy {
 const REQUEST_DEMO_COPY: Readonly<Record<RequestDemoLocale, RequestDemoCopy>> = {
   en: {
     eyebrow: 'REQUEST A DEMO',
-    title: 'Request For Demo',
+    title: 'Request a Demo',
     lead: 'Discover the best pos system in Singapore to upgrade your business.',
     intro: ['Contact us and schedule a free POS demo today!'],
     nameLabel: 'Name',
@@ -40,13 +38,13 @@ const REQUEST_DEMO_COPY: Readonly<Record<RequestDemoLocale, RequestDemoCopy>> = 
     emailLabel: 'Email',
     emailRequired: 'Email is required!',
     emailInvalid: 'Invalid Email!',
-    mobileLabel: 'Mobile Number',
+    mobileLabel: 'Phone / WhatsApp',
     mobileRequired: 'Mobile Number is required!',
     mobileInvalid: 'Mobile Number is not valid!',
-    businessLabel: 'Restaurant Name',
+    businessLabel: 'Business name (optional)',
     businessRequired: 'Restaurant Name is required!',
     businessInvalid: 'Invalid Restaurant Name!',
-    submitLabel: 'Submit'
+    submitLabel: 'Request a Demo'
   },
   zh: {
     eyebrow: '',
@@ -65,10 +63,10 @@ const REQUEST_DEMO_COPY: Readonly<Record<RequestDemoLocale, RequestDemoCopy>> = 
     mobileLabel: '电话号码',
     mobileRequired: '电话号码为必填项!',
     mobileInvalid: '不合规电话号码!',
-    businessLabel: '公司名字',
+    businessLabel: '公司名字（选填）',
     businessRequired: '公司名字为必填项!',
     businessInvalid: '不合规公司名字!',
-    submitLabel: 'Submit'
+    submitLabel: '预约演示'
   }
 };
 
@@ -77,72 +75,49 @@ const REQUEST_DEMO_COPY: Readonly<Record<RequestDemoLocale, RequestDemoCopy>> = 
   templateUrl: './custom-request-demo.component.html',
   styleUrls: ['./custom-request-demo.component.css']
 })
-export class CustomRequestDemoComponent implements OnInit{
-    @Input() locale: RequestDemoLocale = 'en';
-
-    showSuccessMsg: boolean = false;
-    successMsg: string = "";
-    showErrorMsg:boolean =false;
-    errorMsg:string = "";
-    submitted = false;
-
-    requestDemoForm = new FormGroup({
-      name: new FormControl(''),
-      email: new FormControl(''),
-      mobilenum:new FormControl(''),
-      restaurant_name:new FormControl('')
-    });
-  constructor(private apiService: ApiService, private commonFunctionService: CommonFunctionService,private formBuilder:FormBuilder) { 
-  }
-  ngOnInit(): void {
-    this.requestDemoForm  = this.formBuilder.group(
-      {
-        name:['',[ Validators.required, Validators.pattern('^[A-Za-z]|[\s]+')]],
-       email:['',[Validators.required,Validators.email]],
-       mobilenum:['',[Validators.required, Validators.pattern("^[+]?[0-9]*$")]],
-       restaurant_name:['',Validators.required],
-      })
-  }
-  get objData(): { [key: string]: AbstractControl } {
-    return this.requestDemoForm.controls;
-  }
-
-  get copy() {
-    return REQUEST_DEMO_COPY[this.locale];
-  }
-
-  BindURL_Image(FileName: string): string {
-    return this.commonFunctionService.BindURL_Image(FileName);
-  }
- 
-  onSubmit( ):void { 
-    this.showErrorMsg =false; 
-    this.submitted = true;   
- 
-    if(this.requestDemoForm.valid){
-      var objParam: any = {};
-      objParam.Subject ="Demo Enquiry";
-      objParam.RestaurantName = this.requestDemoForm.value.restaurant_name;
-      objParam.Name = this.requestDemoForm.value.name;
-      objParam.EmailAddress= this.requestDemoForm.value.email;
-      objParam.Phone = this.requestDemoForm.value.mobilenum; 
-      var objRequestDemo:any={};
-      objRequestDemo.ContactUs = objParam;
-      var objResponse: any = this.apiService.apiCallPOST_Sync("/api/WebSiteController/SendEmail", objRequestDemo);
-      var objAPIResponse: any = objResponse.__zone_symbol__value;
-      if(JSON.parse(objAPIResponse).APIResponse.Message == ""){
-        this.showSuccessMsg=true;
-        this.successMsg="Successfully submitted !";     
-        (Object as any).values(this.requestDemoForm.controls).forEach((control: FormControl) => {
-          control.setValue("");
-      });
-      this.submitted=false;   
-      }
-      else{
-        this.showErrorMsg=true;
-        this.errorMsg = JSON.parse(objAPIResponse).APIResponse.Message;
-        this.submitted=false;
-      } 
-    } 
+export class CustomRequestDemoComponent {
+  @Input() locale: RequestDemoLocale = 'en';
+  /** Form-only presentation for landing pages: hides the eyebrow, lead and contact details. */
+  @Input() compact = false;
+  placement: 'embedded' | 'popup' = 'embedded';
+  protected readonly leads = inject(LeadSubmissionService);
+  protected readonly host = inject(ElementRef<HTMLElement>);
+  private readonly builder = inject(FormBuilder);
+  showSuccessMsg = false;
+  successMsg = '';
+  showErrorMsg = false;
+  errorMsg = '';
+  submitted = false;
+  private readonly changeDetector = inject(ChangeDetectorRef);
+  sending = false;
+  requestDemoForm = this.builder.nonNullable.group({
+    name: ['', [Validators.required, Validators.pattern(/.*\S.*/)]],
+    email: ['', [Validators.required, Validators.email]],
+    mobilenum: ['', [Validators.required, Validators.pattern(/^[+]?[0-9 ()-]{6,20}$/)]],
+    restaurant_name: [''],
+    website_url: ['']
+  });
+  get objData(): { [key: string]: AbstractControl } { return this.requestDemoForm.controls; }
+  get copy() { return REQUEST_DEMO_COPY[this.locale]; }
+  onNoClick(): void {}
+  async onSubmit(): Promise<void> {
+    if (this.sending || this.showSuccessMsg) return;
+    this.submitted = true;
+    this.showErrorMsg = false;
+    if (this.requestDemoForm.invalid) { this.requestDemoForm.markAllAsTouched(); return; }
+    this.sending = true;
+    const v = this.requestDemoForm.getRawValue();
+    try {
+      await this.leads.send({Subject: 'Demo Enquiry', Name: v.name.trim(), EmailAddress: v.email.trim(), Phone: v.mobilenum.trim(), RestaurantName: v.restaurant_name.trim()}, 'demo', this.placement, v.website_url);
+      this.successMsg = this.locale === 'zh' ? '提交成功，正在转至确认页面。' : 'Successfully submitted! Opening your confirmation…';
+      this.showSuccessMsg = !isMeasurementStaging();
+      this.changeDetector.detectChanges();
+      await this.leads.complete('demo', this.placement, this.host.nativeElement, () => this.onNoClick());
+    } catch (error) {
+      this.showErrorMsg = true;
+      this.errorMsg = error instanceof LeadSpamError ? error.messageFor(this.locale) : this.locale === 'zh' ? '暂时无法发送，请重试。您输入的内容已保留。' : 'We could not send your request. Please try again. Your details have been kept.';
+      this.sending = false;
+      this.changeDetector.detectChanges();
+    }
   }
 }

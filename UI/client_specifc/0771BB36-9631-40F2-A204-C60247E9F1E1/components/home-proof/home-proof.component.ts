@@ -24,6 +24,10 @@ export class HomeProofComponent {
 
   imageUrl(name: string): string { return this.commonFunctionService.BindURL_Image(name); }
 
+  // The getter returns new arrays during change detection. Preserve each row's
+  // DOM and running CSS animation when other sections update or the page scrolls.
+  trackCustomerRow(index: number): number { return index; }
+
   toggleTestimonial(index: number): void {
     if (this.expandedTestimonials.has(index)) this.expandedTestimonials.delete(index);
     else this.expandedTestimonials.add(index);

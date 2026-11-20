@@ -56,70 +56,8 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 })
 export class AppModule {
 
-  constructor(
-    private apiService: ApiService, private configService: ConfigService,
-    private commonFunctionService: CommonFunctionService,
-    private globalVariableService: GlobalVariableService
-  ) {
-    //Initialize app module
-    this.initializeModule();
-  }
-
-  private initializeModule(): void {
-    //Initialize page
-    this.initPage();
-  }
-
-  private initPage(): void {
+  constructor(private commonFunctionService: CommonFunctionService) {
+    // ConfigService provides the public branding locally before any page renders.
     this.commonFunctionService.initPageDefault();
-    //Get configuration data
-    this.getConfigurationData();
-  }
-
-  private getConfigurationData() {
-    this.commonFunctionService.ShowLoader();
-    var objParam: any = {};
-    objParam.Device = "38";//Web
-    objParam.UserDeviceInfo = this.commonFunctionService.CheckForNull(localStorage.getItem("UserDeviceInfo"));
-    objParam.QR_Image_Scanned_DateTime = this.commonFunctionService.CheckForNull(localStorage.getItem("QR_Image_Scanned_DateTime"));
-    //objParam.DomainName = "192.168.1.69:8005";
-    var objResponse: any = this.apiService.apiCallPOST_Sync("/api/IndexController/GetConfigurationValues", objParam);
-    var objAPIResponse: any = objResponse.__zone_symbol__value;
-    this.BindConfigurationData(objAPIResponse);
-  }
-
-  BindConfigurationData(objAPIResponse: any) {
-    console.log(objAPIResponse);
-    //Update device info
-    this.configService.objConfigData.DeviceInfo = this.commonFunctionService.GetDeviceInfo();
-    //Update app info
-    this.configService.objConfigData.AppInfo = { AppVersion: this.commonFunctionService.GetEnvironmentValues("version") };
-    //Update system configuration
-    this.configService.objConfigData.Configuration = objAPIResponse.Configuration;
-    this.configService.objConfigData.Configuration.Outlet_List = JSON.parse(this.configService.objConfigData.Configuration.Outlet_List);
-    this.configService.objConfigData.Configuration.PaymentMethodList = JSON.parse(this.configService.objConfigData.Configuration.PaymentMethodList);
-    this.configService.objConfigData.Configuration.Customer_Group_List = JSON.parse(this.configService.objConfigData.Configuration.Customer_Group_List);
-    this.configService.objConfigData.Configuration.WebDesign.Web_Design_Template = JSON.parse(this.configService.objConfigData.Configuration.WebDesign.Web_Design_Template);
-    this.configService.objConfigData.Configuration.WebDesign.QR_Web_Design_Template = JSON.parse(this.configService.objConfigData.Configuration.OutletDetails.QR_Web_Design_Template);
-    if (this.commonFunctionService.CheckForNull(this.configService.objConfigData.Configuration.WebDesign.Web_Design_Template.Design) == "") {
-      this.configService.objConfigData.Configuration.WebDesign.Web_Design_Template.Design = {};
-    }
-    if (this.commonFunctionService.CheckForNull(this.configService.objConfigData.Configuration.WebDesign.QR_Web_Design_Template.Design) == "") {
-      this.configService.objConfigData.Configuration.WebDesign.QR_Web_Design_Template.Design = {};
-    }
-    //Update theme
-
-    //Navigation menu
-    this.configService.objConfigData.Configuration.WebsiteData.Navigation_Menu = {
-      Layer_1: [
-        { Menu_ID: 1, Menu_Name: "HOME", Path: "/home", Master_Menu_ID: "" },
-        { Menu_ID: 2, Menu_Name: "ABOUT US", Path: "/about-us", Master_Menu_ID: "" },
-        { Menu_ID: 3, Menu_Name: "CONTACT US", Path: "/contact-us", Master_Menu_ID: "" },
-        { Menu_ID: 4, Menu_Name: "RESERVATION", Path: "/reservation", Master_Menu_ID: "" },
-        { Menu_ID: 5, Menu_Name: "ORDER", Path: "/order", Master_Menu_ID: "" }
-      ],
-      Layer_2: [],
-      Layer_3: []
-    }
   }
 }

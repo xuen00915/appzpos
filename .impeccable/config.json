@@ -11,6 +11,15 @@
         ],
         "createdAt": "2026-11-02T01:21:54.791Z",
         "reason": "Assistant verified Angular [src] uses required imageSrc input; all nine real local banner assets loaded in desktop and mobile browser checks."
+      },
+      {
+        "rule": "broken-image",
+        "value": "*",
+        "files": [
+          "UI/client_specifc/0771BB36-9631-40F2-A204-C60247E9F1E1/components/home-proof/home-proof.component.html"
+        ],
+        "createdAt": "2026-11-13T08:43:45.061Z",
+        "reason": "Codex verified Angular [src] bindings supply customer and testimonial image URLs; the static scanner does not resolve these bindings."
       }
     ]
   }

@@ -1,4 +1,7 @@
 import { Component, AfterViewInit, HostListener } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { trackStagingPageView } from '../../../services/shared_function/staging-measurement';
 
 declare var $: any;
 
@@ -9,6 +12,11 @@ declare var $: any;
 })
 
 export class AppComponent implements AfterViewInit {
+  constructor(router: Router) {
+    router.events.pipe(takeUntilDestroyed()).subscribe(event => {
+      if (event instanceof NavigationEnd) trackStagingPageView();
+    });
+  }
   ngAfterViewInit() {
     $.getScript('assets/template/canvas/js/functions.js');
     this.updateScrollTopVisibility();

@@ -1,9 +1,12 @@
 <header id="header" class="appzpos-header" data-mobile-sticky="true" data-sticky-class="not-dark">
   <div id="header-wrap">
     <div class="appzpos-header__inner">
-      <a class="appzpos-header__logo" href="/" [attr.aria-current]="isCurrentPage('/') ? 'page' : null" aria-label="APPZPOS home">
-        <img src="{{BindURL_Image('APPZPOS-300X150px.png')}}" alt="APPZPOS" width="152" height="76">
-      </a>
+      <!-- Preserve the published GTM logo visibility selector without adding a layout box. -->
+      <div id="logo" style="display: contents">
+        <a class="appzpos-header__logo" href="/" [attr.aria-current]="isCurrentPage('/') ? 'page' : null" aria-label="APPZPOS home">
+          <img class="logo-default" src="{{BindURL_Image('APPZPOS-300X150px.png')}}" alt="APPZPOS" width="152" height="76">
+        </a>
+      </div>
 
       <nav id="appzpos-primary-nav" class="appzpos-nav" aria-label="Primary navigation"
         [class.is-mobile-open]="mobileMenuOpen" (click)="handleNavigationClick($event)">
@@ -69,7 +72,7 @@
           href="https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20POS%20System%20for%20my%20Business!"
           aria-label="WhatsApp APPZPOS">
           <i class="fa-brands fa-whatsapp" aria-hidden="true"></i>
-          <span class="appzpos-nav__utility-label">WhatsApp +65 8310 9631</span>
+          <span class="appzpos-nav__utility-label">WhatsApp Us +65 8310 9631</span>
         </a>
         <a class="appzpos-nav__utility appzpos-nav__utility--messenger"
           target="_blank" rel="noopener"

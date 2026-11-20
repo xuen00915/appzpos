@@ -1,3 +1,4 @@
+import { ThankYouComponent } from '../components/thank-you/thank-you.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CustomHomeComponent } from '../components/index/index.component';
@@ -19,6 +20,7 @@ import { CustomQueueSystemComponent } from '../components/f&b-restaurant-queue-n
 import { CustomOrderHubComponent } from '../components/f&b-restaurant-delivery-integration/f&b-restaurant-delivery-integration.component';
 import { CustomFeaturesComponent } from '../components/pos-features-crm-payment-gateway/pos-features-crm-payment-gateway.component';
 import { CustomHardwareComponent } from '../components/pos-hardware-machine-receipt-printer/pos-hardware-machine-receipt-printer.component';
+import { LandingPosSingaporeComponent } from '../components/landing-pos-singapore/landing-pos-singapore.component';
 import { BlogMainPageComponent } from '../components/blogs/blog-main-page/blog-main-page.component';
 import { BlogBcrsComponent } from '../components/blogs/blog-bcrs/blog-bcrs.component';
 
@@ -41,8 +43,11 @@ const routes: Routes = [
   { path: 'f&b-restaurant-delivery-integration', component: CustomOrderHubComponent },
   { path: 'pos-hardware-machine-receipt-printer', component: CustomHardwareComponent },
   { path: 'pos-solutions-partner-integrations', component: CustomPartnerIntegrationComponent },
+  { path: 'lp/restaurant-pos-system-singapore', component: LandingPosSingaporeComponent, data: { landing: true } },
   { path: 'blog', component: BlogMainPageComponent },
   { path: 'blog-bcrs', component: BlogBcrsComponent },
+  { path: 'thank-you/contact', component: ThankYouComponent, data: {leadType: 'contact'} },
+  { path: 'thank-you/demo', component: ThankYouComponent, data: {leadType: 'demo'} },
   { path: '**', component: NoPageFoundComponent }
 ];
 

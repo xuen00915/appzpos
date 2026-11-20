@@ -20,7 +20,8 @@ test('original analytics and conversion hooks remain present', () => {
   assert.match(shell, /class="btn-whatsapp"/);
   assert.match(shell, /class="btn-fb"/);
   assert.ok(shell.includes(whatsapp));
-  assert.ok(shell.includes(messenger));
+  // APPZPOS username and numeric ID resolve to the same conversation; GTM requires the numeric URL.
+  assert.ok(shell.includes(messenger.replace("http://m.me/APPZPOS", "https://m.me/157417637460775")));
   assert.match(hero, /data-track-cta/);
   assert.match(english, /sectionId:\s*'requestdemo'/);
   assert.match(chinese, /sectionId:\s*'requestdemo'/);
