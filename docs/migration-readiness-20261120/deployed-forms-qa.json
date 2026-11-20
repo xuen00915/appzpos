@@ -1,0 +1,150 @@
+[
+  {
+    "kind": "contact",
+    "route": "/point-of-sales-demo-quotation",
+    "width": 1440,
+    "fields": [
+      "website_url",
+      "fullname",
+      "email",
+      "mobilenum",
+      "services",
+      "restaurant_name",
+      "message"
+    ],
+    "failureRetainsValues": true,
+    "malformedResponseRejected": true,
+    "duplicateSubmissionsBlocked": true,
+    "elapsedIncludingMock250ms": 312,
+    "refreshConversionCount": 0,
+    "errors": []
+  },
+  {
+    "kind": "embedded",
+    "route": "/",
+    "width": 1440,
+    "fields": [
+      "website_url",
+      "name",
+      "email",
+      "mobilenum",
+      "restaurant_name"
+    ],
+    "failureRetainsValues": true,
+    "malformedResponseRejected": true,
+    "duplicateSubmissionsBlocked": true,
+    "elapsedIncludingMock250ms": 315,
+    "refreshConversionCount": 0,
+    "errors": []
+  },
+  {
+    "kind": "popup",
+    "route": "/",
+    "width": 1440,
+    "fields": [
+      "website_url",
+      "name",
+      "email",
+      "mobilenum",
+      "restaurant_name"
+    ],
+    "failureRetainsValues": true,
+    "malformedResponseRejected": true,
+    "duplicateSubmissionsBlocked": true,
+    "elapsedIncludingMock250ms": 307,
+    "refreshConversionCount": 0,
+    "errors": []
+  },
+  {
+    "kind": "embedded",
+    "route": "/pos-features-crm-payment-gateway",
+    "width": 390,
+    "fields": [
+      "website_url",
+      "name",
+      "email",
+      "mobilenum",
+      "restaurant_name"
+    ],
+    "failureRetainsValues": true,
+    "malformedResponseRejected": true,
+    "duplicateSubmissionsBlocked": true,
+    "elapsedIncludingMock250ms": 320,
+    "refreshConversionCount": 0,
+    "errors": []
+  },
+  {
+    "kind": "contact",
+    "route": "/point-of-sales-demo-quotation",
+    "width": 390,
+    "fields": [
+      "website_url",
+      "fullname",
+      "email",
+      "mobilenum",
+      "services",
+      "restaurant_name",
+      "message"
+    ],
+    "failureRetainsValues": true,
+    "malformedResponseRejected": true,
+    "duplicateSubmissionsBlocked": true,
+    "elapsedIncludingMock250ms": 299,
+    "refreshConversionCount": 0,
+    "errors": []
+  },
+  {
+    "kind": "popup",
+    "route": "/",
+    "width": 390,
+    "fields": [
+      "website_url",
+      "name",
+      "email",
+      "mobilenum",
+      "restaurant_name"
+    ],
+    "failureRetainsValues": true,
+    "malformedResponseRejected": true,
+    "duplicateSubmissionsBlocked": true,
+    "elapsedIncludingMock250ms": 315,
+    "refreshConversionCount": 0,
+    "errors": []
+  },
+  {
+    "kind": "popup",
+    "route": "/cn-f&b-restaurant-cloud-pos-system",
+    "width": 390,
+    "fields": [
+      "website_url",
+      "name",
+      "email",
+      "mobilenum",
+      "restaurant_name"
+    ],
+    "failureRetainsValues": true,
+    "malformedResponseRejected": true,
+    "duplicateSubmissionsBlocked": true,
+    "elapsedIncludingMock250ms": 302,
+    "refreshConversionCount": 0,
+    "errors": []
+  },
+  {
+    "kind": "embedded",
+    "route": "/cn-f&b-restaurant-cloud-pos-system",
+    "width": 390,
+    "fields": [
+      "website_url",
+      "name",
+      "email",
+      "mobilenum",
+      "restaurant_name"
+    ],
+    "failureRetainsValues": true,
+    "malformedResponseRejected": true,
+    "duplicateSubmissionsBlocked": true,
+    "elapsedIncludingMock250ms": 313,
+    "refreshConversionCount": 0,
+    "errors": []
+  }
+]

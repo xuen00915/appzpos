@@ -1,0 +1,171 @@
+{
+  "results": [
+    {
+      "url": "https://website.appzpos.com/",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/cn-f&b-restaurant-cloud-pos-system",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/custom-solutions",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/point-of-sales-demo-quotation",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/f&b-restaurant-cloud-pos-system",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/retail-store-cloud-pos-system",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/salon-cloud-pos-system",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/pos-features-crm-payment-gateway",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/psg-pos-system-grant-singapore",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/cloud-pos-point-of-sales-system",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/f&b-restaurant-emenu-qr-code-ordering-system",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/f&b-restaurant-online-ordering-website",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/self-order-kiosk-restaurant",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/f&b-restaurant-kitchen-display-system",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/f&b-restaurant-queue-number-display-system",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/f&b-restaurant-delivery-integration",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/pos-hardware-machine-receipt-printer",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/pos-solutions-partner-integrations",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/blog",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/blog-bcrs",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/thank-you/contact",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/thank-you/demo",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/_forms-review-20261113/54.4e6898a3272c043b.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/_forms-review-20261113/main.29755e39b3f92626.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/_forms-review-20261113/runtime.6d3297ed59d7ac10.js",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/_forms-review-20261113/site.html",
+      "status": 200,
+      "matches": true
+    },
+    {
+      "url": "https://website.appzpos.com/_forms-review-20261113/site.pre-api-domain-20261120.html",
+      "status": 200,
+      "matches": true
+    }
+  ],
+  "production": [
+    {
+      "url": "https://appzpos.com/",
+      "status": 200,
+      "unchanged": true
+    },
+    {
+      "url": "https://appzpos.com/point-of-sales-demo-quotation",
+      "status": 200,
+      "unchanged": true
+    },
+    {
+      "url": "https://appzpos.com/cloud-pos-point-of-sales-system",
+      "status": 200,
+      "unchanged": true
+    },
+    {
+      "url": "https://www.appzpos.com/",
+      "status": 200,
+      "unchanged": true
+    },
+    {
+      "url": "https://www.appzpos.com/point-of-sales-demo-quotation",
+      "status": 200,
+      "unchanged": true
+    },
+    {
+      "url": "https://www.appzpos.com/cloud-pos-point-of-sales-system",
+      "status": 200,
+      "unchanged": true
+    }
+  ]
+}
