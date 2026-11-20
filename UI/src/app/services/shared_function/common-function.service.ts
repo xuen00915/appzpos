@@ -62,7 +62,7 @@ export class CommonFunctionService {
       return strPath;
     }
     else {
-      var strServerDomain = this.GetEnvironmentValues("serverDomain");
+      var strServerDomain = this.GetEnvironmentValues("apiserverDomain");
       return strServerDomain + strPath;
     }
   }
@@ -129,6 +129,9 @@ export class CommonFunctionService {
   GetEnvironmentValues(key: string): any {
     if (key == "serverDomain") {
       return environment.serverDomain;
+    }
+    else if (key == "apiserverDomain") {
+      return environment.apiserverDomain;
     }
     else if (key == "version") {
       return environment.version;
