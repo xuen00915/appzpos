@@ -95,7 +95,7 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
     const comparison = root.querySelector('.lp-comparison')!;
     expect(comparison.querySelectorAll('.lp-compare').length).toBe(4);
     expect(comparison.textContent).toContain('Source: IMDA’s SMEs Go Digital platform.');
-    expect(comparison.textContent).toContain('different package inclusions and terms');
+    expect(comparison.textContent).toContain('Package inclusions and terms vary.');
     expect(comparison.querySelector('a')?.textContent).toContain('View more on IMDA');
     expect(comparison.querySelector<HTMLAnchorElement>('a')?.href).toBe('https://smesgodigital.gov.sg/web/solution/20240028/appzpos-f-b-point-of-sales');
   });
