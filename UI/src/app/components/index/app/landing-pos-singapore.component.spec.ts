@@ -128,6 +128,7 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
     const banner = hero.querySelector<HTMLImageElement>('img.lp-hero__edge');
     expect(banner?.getAttribute('src')).toContain('smes-go-digital-lockup-horizontal-rgb.jpg');
     expect(banner?.alt).toContain('up to 50% business grant support');
+    expect(hero.querySelector('.lp-lead')?.nextElementSibling).toBe(banner?.parentElement);
     const rating = hero.querySelector('.lp-rating');
     expect(rating?.getAttribute('aria-label')).toBe('Rated 4.8 out of 5 on Google');
     expect(rating?.querySelectorAll('.lp-rating__stars svg').length).toBe(5);
@@ -136,9 +137,8 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
   });
 
   it('makes business types and their workflows visible in the hero with the grant qualifier', () => {
-    expect(root.querySelectorAll('.lp-hero .lp-stats--copy .lp-stat').length).toBe(3);
-    expect(root.querySelectorAll('.lp-hero .lp-stats--below .lp-stat').length).toBe(3);
-    const cards = Array.from(root.querySelectorAll<HTMLElement>('.lp-hero .lp-stats--copy .lp-stat'));
+    expect(root.querySelectorAll('.lp-hero .lp-stats .lp-stat').length).toBe(3);
+    const cards = Array.from(root.querySelectorAll<HTMLElement>('.lp-hero .lp-stats .lp-stat'));
     expect(cards.map(c => c.querySelector('strong')?.textContent)).toEqual(['Restaurants', 'Cafés', 'Quick service']);
     expect(cards[0].textContent).toContain('Table orders & split bills');
     expect(cards[1].textContent).toContain('Fast checkout & daily sales');
