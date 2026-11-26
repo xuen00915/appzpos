@@ -85,7 +85,8 @@ app-lp-icon { display: inline-flex; width: 1em; height: 1em; line-height: 0; }
 .lp-hero__form .alert { border-radius: $lp-radius !important; }
 
 /* Floating contact controls and back-to-top follow the same rectangle while the landing page is shown. */
-body.appz-landing :is(.appz-site-floating-contacts a, #gotoTop, .appzpos-bottom-demo, .appzpos-bottom-demo a) { border-radius: $lp-radius !important; }
+body.appz-landing :is(.appz-site-floating-contacts a, #gotoTop) { border-radius: $lp-radius !important; }
+body.appz-landing #webview.appzpos-bottom-demo { display: none !important; }
 
 /* The three floating controls (WhatsApp, Messenger, back to top) share one size while the landing page is shown. */
 body.appz-landing { --lp-bubble: 52px; }
@@ -284,8 +285,7 @@ app-landing-pos-singapore {
   --lp-hairline: #dce7f3;
 }
 .lp-bar {
-  position: relative;
-  z-index: 3;
+  position: static;
   border-bottom: 1px solid var(--lp-hairline);
   background: var(--lp-paper);
 }
