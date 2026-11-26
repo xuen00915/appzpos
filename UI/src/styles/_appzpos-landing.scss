@@ -99,6 +99,7 @@ body.appz-landing #gotoTop { right: var(--lp-bubble-edge) !important; bottom: va
 /* Messenger bubble becomes a phone-call bubble on this page (swapped in by the component). */
 body.appz-landing .appz-site-floating-contacts .btn-fb.lp-call { border-color: var(--appz-blue) !important; background: var(--appz-blue) !important; }
 body.appz-landing .appz-site-floating-contacts .btn-fb.lp-call img { display: none !important; }
+body.appz-landing .appz-site-floating-contacts .btn-fb.lp-call::before { content: none; }
 body.appz-landing .appz-site-floating-contacts .btn-fb.lp-call .lp-call__icon { display: flex; align-items: center; justify-content: center; color: #fff; font-size: 22px; line-height: 1; }
 
 /* Three data cards: under the hero copy on desktop, under the EDGE banner on smaller screens */
