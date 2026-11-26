@@ -154,7 +154,7 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
     const items = Array.from(root.querySelectorAll<HTMLDetailsElement>('.lp-faq details.lp-faq__item'));
     expect(items.length).toBe(10);
     items.forEach(item => {
-      expect(item.querySelector('summary .lp-faq__arrow svg')).not.toBeNull();
+      expect(item.querySelector('summary .lp-faq__indicator[aria-hidden="true"]')).not.toBeNull();
       expect(item.querySelector('p')?.textContent?.trim().length).toBeGreaterThan(20);
     });
     root.querySelectorAll<HTMLElement>('svg').forEach(svg => expect(svg.getAttribute('aria-hidden')).toBe('true'));

@@ -105,8 +105,7 @@
         <h2 id="lp-comparison-title" class="lp-title">Similar solutions</h2>
         <p class="lp-sub">Compare selected Integrated F&amp;B Operations solutions listed on IMDA’s SMEs Go Digital platform.</p>
       </header>
-      <p class="lp-comparison__count">4 selected solutions from IMDA</p>
-      <p class="lp-comparison__swipe" id="lp-comparison-swipe">Swipe left or right to compare <span aria-hidden="true">↔</span></p>
+      <p class="lp-comparison__swipe" id="lp-comparison-swipe">Swipe to compare all four solutions</p>
       <div class="lp-comparison__scroll" tabindex="0" role="region" aria-label="IMDA solution comparison" aria-describedby="lp-comparison-swipe">
       <ol class="lp-comparison__grid" aria-label="Four selected solutions from IMDA’s SMEs Go Digital platform">
         <li class="lp-compare" [class.lp-compare--featured]="item.featured" *ngFor="let item of priceComparison">
@@ -133,8 +132,8 @@
       </ol>
       </div>
       <div class="lp-comparison__source">
-        <p><strong>Source: IMDA’s SMEs Go Digital platform.</strong> Recreated from the comparison screenshot dated 18 November 2026. These four selected listings have different package inclusions and terms. Prices, ratings and grant eligibility may change.</p>
-        <a class="lp-comparison__link" [href]="imdaUrl" target="_blank" rel="noopener noreferrer">View more on IMDA <span aria-hidden="true">↗</span></a>
+        <p><strong>Source: IMDA’s SMEs Go Digital platform.</strong> Listings as of 18 November 2026. Package inclusions and terms vary. Prices, ratings and grant eligibility may change.</p>
+        <a class="lp-btn lp-comparison__link" [href]="imdaUrl" target="_blank" rel="noopener noreferrer">View more on IMDA</a>
       </div>
     </div>
   </section>
@@ -198,7 +197,7 @@
           <details class="lp-faq__item" *ngFor="let faq of column">
             <summary>
               <span class="lp-faq__q">{{ faq.question }}</span>
-              <span class="lp-faq__arrow"><app-lp-icon name="chevron"></app-lp-icon></span>
+              <span class="lp-faq__indicator" aria-hidden="true"></span>
             </summary>
             <p>{{ faq.answer }}</p>
           </details>
