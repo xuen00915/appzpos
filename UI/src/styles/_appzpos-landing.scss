@@ -40,7 +40,7 @@ app-lp-icon { display: inline-flex; width: 1em; height: 1em; line-height: 0; }
 /* Buttons */
 .lp-btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; box-sizing: border-box; min-height: 44px; padding: 0 22px; border: 0; border-radius: $lp-radius; font: inherit; font-size: .94rem; font-weight: 700; line-height: 1; text-decoration: none; cursor: pointer; transition: background-color .18s ease, box-shadow .18s ease; }
 .lp-btn--primary { background: var(--appz-blue); color: #fff; }
-.lp-btn--primary:hover, .lp-btn--primary:focus-visible { background: #0877cc; color: #fff; }
+.lp-btn--primary:hover, .lp-btn--primary:focus-visible { background: var(--appz-blue-deep); color: #fff; }
 /* WhatsApp actions carry their own brand-green style so the page looks the same on any site build. */
 .lp-btn--whatsapp, .lp-bar__whatsapp { background: #438b55; color: #fff; border-radius: $lp-radius; }
 .lp-btn--whatsapp:hover, .lp-btn--whatsapp:focus-visible, .lp-bar__whatsapp:hover, .lp-bar__whatsapp:focus-visible { background: #357144; color: #fff; }
@@ -279,11 +279,9 @@ body.appz-landing .appz-site-floating-contacts .btn-fb.lp-call .lp-call__icon { 
 
 /* Restaurant landing page palette and hero composition. */
 app-landing-pos-singapore {
-  --lp-spice: #a6431d;
-  --lp-spice-deep: #823215;
-  --lp-paper: #fcfaf7;
+  --lp-paper: #f5f9ff;
   --lp-cream: #fff2e4;
-  --lp-hairline: #e5d9cd;
+  --lp-hairline: #dce7f3;
 }
 .lp-bar {
   position: relative;
@@ -293,8 +291,6 @@ app-landing-pos-singapore {
 }
 .lp-bar__inner { min-height: 72px; }
 .lp-bar__logo img { width: 135px; height: auto; }
-.lp-btn--primary { background: var(--lp-spice); }
-.lp-btn--primary:is(:hover, :focus-visible) { background: var(--lp-spice-deep); }
 .lp-bar__whatsapp { background: transparent; color: #276039; }
 .lp-bar__whatsapp:is(:hover, :focus-visible) { background: #edf5ee; color: #215331; }
 
@@ -311,7 +307,7 @@ app-landing-pos-singapore {
   filter: blur(2px);
 }
 .lp-hero::before {
-  background: linear-gradient(90deg, var(--lp-paper) 36%, rgb(252 250 247 / .92) 48%, rgb(252 250 247 / .35) 73%);
+  background: linear-gradient(90deg, var(--lp-paper) 36%, rgb(245 249 255 / .92) 48%, rgb(245 249 255 / .35) 73%);
 }
 .lp-hero__grid {
   grid-template-columns: minmax(0, 1.14fr) minmax(0, .86fr);
@@ -324,7 +320,7 @@ app-landing-pos-singapore {
   letter-spacing: -.055em;
   text-wrap: initial;
 }
-.lp-hero h1 .lp-hero__accent { color: var(--lp-spice) !important; font-size: inherit !important; }
+.lp-hero h1 .lp-hero__accent { color: var(--appz-blue) !important; font-size: inherit !important; }
 .lp-hero__eyebrow {
   margin: 0 0 16px;
   color: var(--appz-ink-soft);
@@ -351,7 +347,7 @@ app-landing-pos-singapore {
   border: 0;
   background: transparent;
 }
-.lp-stat__icon { width: 22px; height: 24px; background: none; color: var(--lp-spice); font-size: 21px; }
+.lp-stat__icon { width: 22px; height: 24px; background: none; color: var(--appz-blue); font-size: 21px; }
 .lp-stat strong { min-height: 0; font-size: .92rem; }
 .lp-stat__label { font-size: .8rem; text-wrap: pretty; }
 .lp-hero .lp-rating {
@@ -380,7 +376,7 @@ app-landing-pos-singapore {
   line-height: 1.16 !important;
   letter-spacing: -.035em;
 }
-.lp-hero__form #appz-demo-title .appz-demo__free { color: var(--lp-spice) !important; }
+.lp-hero__form #appz-demo-title .appz-demo__free { color: var(--appz-blue) !important; }
 .lp-hero .appz-demo__intro {
   display: block;
   color: var(--appz-ink-soft) !important;
@@ -400,16 +396,16 @@ app-landing-pos-singapore {
   width: 100%;
   min-height: 50px;
   margin-top: 18px;
-  background: var(--lp-spice) !important;
+  background: var(--appz-blue) !important;
   font-size: 1rem;
   font-weight: 700;
 }
-.lp-hero__form .appz-demo__submit:hover { background: var(--lp-spice-deep) !important; }
-.lp-hero__form .appz-demo__submit:focus-visible { outline: 3px solid var(--lp-spice); outline-offset: 3px; }
+.lp-hero__form .appz-demo__submit:hover { background: var(--appz-blue-deep) !important; }
+.lp-hero__form .appz-demo__submit:focus-visible { outline: 3px solid var(--appz-blue); outline-offset: 3px; }
 
 .lp-section { padding-block: clamp(42px, 6vw, 84px); }
 .lp-section--tint { background: var(--lp-paper); }
-.lp-pkgs__overview, .lp-incl { background: #faf6f0; }
+.lp-pkgs__overview, .lp-incl { background: var(--lp-paper); }
 .lp-grant { grid-template-columns: minmax(0, 1fr) minmax(0, 1.18fr); }
 .lp-final { padding-block: clamp(40px, 6vw, 78px); }
 @media (min-width: 1025px) {
@@ -426,7 +422,7 @@ app-landing-pos-singapore {
     max-width: 650px;
   }
   .lp-hero__background { width: 100%; }
-  .lp-hero::before { background: rgb(252 250 247 / .9); }
+  .lp-hero::before { background: rgb(245 249 255 / .9); }
   .lp-hero h1 { font-size: clamp(38px, 7vw, 58px); }
   .lp-hero .lp-hero__form.appz-conversion-panel { max-width: none !important; margin: 0 !important; }
 }
