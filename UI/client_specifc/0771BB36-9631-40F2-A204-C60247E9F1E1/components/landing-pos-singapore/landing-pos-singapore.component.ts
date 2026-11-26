@@ -78,9 +78,9 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
   ];
 
   readonly steps: readonly LandingStep[] = [
-    { title: 'Tell us about your outlet', text: 'Share your name, email and mobile number. It takes under a minute.' },
-    { title: 'See APPZPOS in a free demo', text: 'We get in touch to walk you through the modules that suit your F&B business.' },
-    { title: 'Set up with local support', text: 'Choose your modules and hardware, and check your EDGE Grant eligibility with our team.' }
+    { title: 'Request a free demo', text: 'Share your name, email and mobile number so our Singapore team can contact you.' },
+    { title: 'Walk through a restaurant order', text: 'See how staff take orders, send tickets to the kitchen and settle bills in APPZPOS.' },
+    { title: 'Choose a setup for your outlet', text: 'Discuss the hardware and modules you need, request a quote and check what EDGE Grant support may apply.' }
   ];
 
   /** Same five EDGE Grant packages as the /psg-pos-system-grant-singapore page. */
@@ -93,16 +93,16 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
   ];
 
   readonly faqs: readonly LandingFaq[] = [
-    { question: 'Which businesses is APPZPOS built for?', answer: 'APPZPOS is an all-in-one POS for F&B businesses such as restaurants, cafés and quick-service outlets, with versions for retail stores and beauty salons as well.' },
+    { question: 'Does APPZPOS work for cafés and quick-service outlets?', answer: 'Yes. Restaurants can manage tables and split bills. Cafés and quick-service outlets can take counter orders and track daily sales.' },
     { question: 'Does it work with GrabFood, Foodpanda and Deliveroo?', answer: 'Yes. Order Hub brings these platforms into one centralised system, with real-time order status sent directly to your POS and kitchen display.' },
     { question: 'Can I check my sales when I am not in the shop?', answer: 'Yes. APPZPOS is cloud-based, so you can access your data, menus and real-time reports from anywhere.' },
-    { question: 'Is the EDGE Grant available to me?', answer: 'Eligible Singapore companies can receive EDGE Grant support for qualifying APPZPOS digitalisation projects, up to 50%. Support levels vary by activity, so we will confirm eligibility with you.' },
+    { question: 'Is the EDGE Grant available to me?', answer: 'Eligible Singapore companies can receive EDGE Grant support for qualifying APPZPOS digitalisation projects, up to 50%. Support levels vary by activity. Ask our team which options may apply to your outlet.' },
     { question: 'What hardware do I need?', answer: 'APPZPOS combines software with POS terminals, receipt printers and cash drawers. Self-ordering kiosks come in 15.6", 21", 24" and 32" sizes. We will recommend a set-up that fits your outlet.' },
     { question: 'What is included in the EDGE Grant packages?', answer: 'Every package includes 1 Digital Ordering System (POS) and 1 QR Ordering system. Packages then add an Order Hub and/or 1 or 2 self-ordering kiosks, and all five include a 1-year subscription and the Central Admin Portal with unlimited users.' },
     { question: 'Can customers order from their own phones?', answer: 'Yes. With Table QR Ordering, customers scan a QR code, view the menu and order from their phones, which reduces printed menus and reliance on manpower.' },
     { question: 'Can I take online orders for pickup or delivery?', answer: 'Yes. Website Ordering lets customers order online for pickup or delivery, schedule ahead and pay securely.' },
     { question: 'How does the kitchen see new orders?', answer: 'The Kitchen Display System shows new orders, changes and cancellations in real time, with colour-coded status for your kitchen.' },
-    { question: 'How do I get started?', answer: 'Book a free demo with your name, email and mobile number. We will get in touch to walk you through the modules, help you choose modules and hardware, and check your EDGE Grant eligibility.' }
+    { question: 'How do I get started?', answer: 'Book a free demo with your name, email and mobile number. Our Singapore team will contact you to arrange the demo and discuss the modules and hardware that suit your outlet.' }
   ];
 
   /**
@@ -120,7 +120,7 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
     this.title.setTitle('Restaurant POS System Singapore | Cloud F&B POS | APPZPOS');
     this.meta.updateTag({
       name: 'description',
-      content: 'Restaurant POS system in Singapore: cloud POS for F&B with kitchen display, delivery integration and reports. Up to 50% EDGE Grant support for eligible companies. Book a free demo.'
+      content: 'Cloud POS for Singapore restaurants, cafés and quick-service outlets. Manage orders, kitchen tickets, payments and sales. Book a free APPZPOS demo.'
     });
     // Paid-traffic page: keep it out of organic results so it does not compete with the main site.
     this.meta.updateTag({ name: 'robots', content: 'noindex, nofollow' });
