@@ -277,7 +277,7 @@ body.appz-landing .appz-site-floating-contacts .btn-fb.lp-call .lp-call__icon { 
 }
 @media (prefers-reduced-motion: reduce) { .lp-btn, .lp-faq__item, .lp-faq__arrow { transition: none; } }
 
-/* Reference-led Ads hero: open benefits, orange emphasis and a blue demo panel. */
+/* Reference-led Ads hero: open benefits, orange emphasis and a warm demo panel. */
 app-landing-pos-singapore { position: relative; }
 .lp-bar { position: absolute; inset: 0 0 auto; z-index: 3; background: transparent; border: 0; }
 .lp-bar__inner { min-height: 88px; }
@@ -305,8 +305,8 @@ app-landing-pos-singapore { position: relative; }
 .lp-hero .lp-rating__stars { font-size: 18px; }
 .lp-hero .lp-footnote { margin-top: 8px; font-size: 11px; }
 .lp-hero .lp-hero__form.appz-conversion-panel { max-width: none !important; padding: 24px 22px !important; background: #fff2e4 !important; border: 2px solid #fff; border-radius: 30px !important; box-shadow: 0 14px 30px rgba(87, 53, 30, .18); }
-.lp-hero__form #appz-demo-title { color: var(--appz-ink); font-size: clamp(26px, 2.15vw, 38px); line-height: 1.13; letter-spacing: -.035em; margin-bottom: 12px; }
-.lp-hero .appz-demo__intro { display: block; font-size: clamp(14px, 1.15vw, 20px); line-height: 1.5; margin: 0; color: #fff; }
+.lp-hero__form #appz-demo-title { color: var(--appz-ink) !important; font-size: clamp(26px, 2.15vw, 38px); line-height: 1.13; letter-spacing: -.035em; margin-bottom: 12px; }
+.lp-hero .appz-demo__intro { display: block; font-size: clamp(14px, 1.15vw, 20px); line-height: 1.5; margin: 0; color: var(--appz-ink-soft) !important; }
 .lp-hero__form #appz-demo-title .appz-demo__free { color: #a44317 !important; }
 .lp-hero__form .appz-demo__form { padding: 24px !important; border-radius: 20px !important; }
 .lp-hero__form .appz-demo__fields { gap: 20px !important; }
@@ -361,7 +361,7 @@ app-landing-pos-singapore { position: relative; }
   body.appz-landing { --lp-bubble: 44px; --lp-bubble-edge: 8px; }
 }
 /* Override shared theme emphasis and compact-form sizing inside this hero only. */
-.lp-hero h1 .lp-hero__accent,
+.lp-hero h1 .lp-hero__accent { color: #c75513 !important; font-size: inherit !important; }
 .lp-hero__form .appz-demo__field label { font-size: 18px !important; }
 .lp-hero__form .appz-demo__field input { height: 56px !important; font-size: 16px !important; }
 .lp-hero__form .appz-demo__submit { height: 64px !important; min-height: 64px !important; font-size: clamp(22px, 1.6vw, 28px) !important; font-weight: 700 !important; margin-top: 28px !important; }
