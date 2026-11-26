@@ -404,6 +404,7 @@ app-landing-pos-singapore {
 
 .lp-section { padding-block: clamp(42px, 6vw, 84px); }
 .lp-section--tint { background: var(--lp-paper); }
+#packages.lp-section { background: #f1f3f5; }
 .lp-pkgs__overview, .lp-incl { background: var(--lp-paper); }
 .lp-grant { grid-template-columns: minmax(0, 320px) minmax(0, 1fr); }
 .lp-final { padding-block: clamp(40px, 6vw, 78px); }
