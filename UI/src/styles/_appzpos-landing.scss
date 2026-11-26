@@ -289,9 +289,6 @@ app-landing-pos-singapore { position: relative; }
 .lp-hero__grid { grid-template-columns: minmax(0, 48%) minmax(0, 40%); justify-content: space-between; gap: 18px 0; align-items: center; }
 .lp-hero h1 { font-size: clamp(36px, 3.4vw, 48px); line-height: 1.1; letter-spacing: -.035em; margin-bottom: 26px; text-wrap: initial; }
 .lp-hero__eyebrow { margin: 0 0 12px; color: var(--appz-blue-deep); font-size: .8rem; font-weight: 700; letter-spacing: .05em; text-transform: uppercase; }
-.lp-hero__price { margin: 0 0 16px; color: var(--appz-ink); font-size: 1rem; }
-.lp-hero__price strong { font-size: 1.5rem; font-weight: 800; }
-.lp-hero__price span { display: block; margin-top: 4px; color: var(--appz-ink-soft); font-size: .76rem; line-height: 1.5; }
 .lp-hero__edge { max-width: 340px; }
 .lp-hero__accent { position: relative; display: inline-block; color: #ff7200; }
 .lp-hero__accent::after { content: ''; position: absolute; left: 4%; right: -3%; bottom: -14px; height: 13px; border-top: 4px solid #ff7200; border-radius: 50%; transform: rotate(-3deg); }
@@ -307,10 +304,10 @@ app-landing-pos-singapore { position: relative; }
 .lp-hero .lp-rating__score { font-size: 28px; }
 .lp-hero .lp-rating__stars { font-size: 18px; }
 .lp-hero .lp-footnote { margin-top: 8px; font-size: 11px; }
-.lp-hero .lp-hero__form.appz-conversion-panel { max-width: none !important; padding: 24px 22px !important; background: var(--appz-blue) !important; border: 2px solid #fff; border-radius: 30px !important; box-shadow: 0 14px 30px #08274b38; }
-.lp-hero__form #appz-demo-title { color: #fff; font-size: clamp(26px, 2.15vw, 38px); line-height: 1.13; letter-spacing: -.035em; margin-bottom: 12px; }
-.lp-hero__form .appz-demo__free { color: #ff7900; }
+.lp-hero .lp-hero__form.appz-conversion-panel { max-width: none !important; padding: 24px 22px !important; background: #fff2e4 !important; border: 2px solid #fff; border-radius: 30px !important; box-shadow: 0 14px 30px rgba(87, 53, 30, .18); }
+.lp-hero__form #appz-demo-title { color: var(--appz-ink); font-size: clamp(26px, 2.15vw, 38px); line-height: 1.13; letter-spacing: -.035em; margin-bottom: 12px; }
 .lp-hero .appz-demo__intro { display: block; font-size: clamp(14px, 1.15vw, 20px); line-height: 1.5; margin: 0; color: #fff; }
+.lp-hero__form #appz-demo-title .appz-demo__free { color: #a44317 !important; }
 .lp-hero__form .appz-demo__form { padding: 24px !important; border-radius: 20px !important; }
 .lp-hero__form .appz-demo__fields { gap: 20px !important; }
 .lp-hero__form .appz-demo__field label { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
@@ -365,7 +362,6 @@ app-landing-pos-singapore { position: relative; }
 }
 /* Override shared theme emphasis and compact-form sizing inside this hero only. */
 .lp-hero h1 .lp-hero__accent,
-.lp-hero__form #appz-demo-title .appz-demo__free { color: #ff7200 !important; }
 .lp-hero__form .appz-demo__field label { font-size: 18px !important; }
 .lp-hero__form .appz-demo__field input { height: 56px !important; font-size: 16px !important; }
 .lp-hero__form .appz-demo__submit { height: 64px !important; min-height: 64px !important; font-size: clamp(22px, 1.6vw, 28px) !important; font-weight: 700 !important; margin-top: 28px !important; }

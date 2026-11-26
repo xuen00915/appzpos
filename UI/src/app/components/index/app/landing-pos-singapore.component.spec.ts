@@ -29,10 +29,9 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
 
   it('has one h1 and exactly one conversion form, passed in compact mode', () => {
     expect(root.querySelectorAll('h1').length).toBe(1);
-    expect(root.querySelector('h1')?.textContent).toContain('less than S$2 a day.');
+    expect(root.querySelector('h1')?.textContent).toMatch(/Cloud POS for.*restaurants and cafés/);
     expect(root.querySelector('.lp-hero__eyebrow')?.textContent).toContain('Restaurant POS System in Singapore');
-    expect(root.querySelector('.lp-hero__price')?.textContent).toContain('S$660');
-    expect(root.querySelector('.lp-hero__price')?.textContent).toContain('over 365 days. Hardware quoted separately.');
+    expect(root.querySelector('.lp-hero')?.textContent).not.toContain('S$');
     expect(root.querySelectorAll('app-custom-request-demo').length).toBe(1);
     expect(root.querySelector('#requestdemo app-custom-request-demo')).not.toBeNull();
     const demo = fixture.debugElement.query(sel => sel.name === 'app-custom-request-demo');
@@ -127,7 +126,7 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
   it('shows the purple IMDA / EDGE Grant banner and the Google rating in the hero', () => {
     const hero = root.querySelector('.lp-hero') as HTMLElement;
     const banner = hero.querySelector<HTMLImageElement>('img.lp-hero__edge');
-    expect(banner?.getAttribute('src')).toContain('smes-go-digital-imda-banner-horizontal');
+    expect(banner?.getAttribute('src')).toContain('smes-go-digital-lockup-horizontal-rgb.jpg');
     expect(banner?.alt).toContain('up to 50% business grant support');
     const rating = hero.querySelector('.lp-rating');
     expect(rating?.getAttribute('aria-label')).toBe('Rated 4.8 out of 5 on Google');
