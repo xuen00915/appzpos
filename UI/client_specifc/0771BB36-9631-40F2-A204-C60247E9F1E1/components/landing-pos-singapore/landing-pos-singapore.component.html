@@ -21,7 +21,7 @@
 <header class="lp-bar">
   <div class="lp-shell lp-bar__inner">
     <a class="lp-bar__logo" href="/" aria-label="APPZPOS home">
-      <img [src]="BindURL_Image('APPZPOS-300X150px.png')" alt="APPZPOS" width="152" height="76">
+      <img src="assets/images/appzpos-landing-logo.png" alt="APPZPOS" width="300" height="150">
     </a>
     <div class="lp-bar__actions">
       <a class="lp-bar__whatsapp" [href]="whatsappUrl" target="_blank" rel="noopener noreferrer">WhatsApp Us</a>
@@ -42,14 +42,14 @@
         <ng-container *ngTemplateOutlet="statCards; context: { where: 'copy' }"></ng-container>
         <ng-container *ngTemplateOutlet="ratingBadge"></ng-container>
       </div>
+      <div class="lp-hero__form appz-conversion-panel" id="requestdemo">
+        <app-custom-request-demo [compact]="true"></app-custom-request-demo>
+      </div>
       <div class="lp-hero__edgebox">
         <img class="lp-hero__edge" src="assets/images/smes-go-digital-lockup-horizontal-rgb.jpg"
              alt="IMDA pre-approved solution, eligible for up to 50% business grant support, SMEs Go Digital" width="3558" height="1258">
         <p class="lp-footnote">Eligibility and support levels vary by activity.</p>
         <ng-container *ngTemplateOutlet="statCards; context: { where: 'below' }"></ng-container>
-      </div>
-      <div class="lp-hero__form appz-conversion-panel" id="requestdemo">
-        <app-custom-request-demo [compact]="true"></app-custom-request-demo>
       </div>
     </div>
   </section>

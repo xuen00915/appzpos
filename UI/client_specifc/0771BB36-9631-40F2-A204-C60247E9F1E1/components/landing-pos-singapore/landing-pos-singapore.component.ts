@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
-import { CommonFunctionService } from '../../../../src/app/services/shared_function/common-function.service';
 import { LpIconName } from '../lp-icon/lp-icon.component';
 
 interface LandingModule {
@@ -114,8 +113,7 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
 
   constructor(
     private readonly title: Title,
-    private readonly meta: Meta,
-    private readonly commonFunctionService: CommonFunctionService
+    private readonly meta: Meta
   ) {}
 
   ngOnInit(): void {
@@ -178,10 +176,6 @@ export class LandingPosSingaporeComponent implements OnInit, OnDestroy {
 
   packageQuote(id: number): string {
     return "https://wa.me/6583109631?text=I'm%20interested%20in%20APPZPOS%20EDGE%20Grant%20Package%20" + id;
-  }
-
-  BindURL_Image(fileName: string): string {
-    return this.commonFunctionService.BindURL_Image(fileName);
   }
 
   scrollToForm(): void {
