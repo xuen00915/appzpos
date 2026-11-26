@@ -39,7 +39,7 @@ if (!source.includes('data-github-pages-navigation')) {
 const landingRoutes = {
   'lp/restaurant-pos-system-singapore': {
     title: 'Restaurant POS System Singapore | Cloud F&amp;B POS | APPZPOS',
-    description: 'Cloud POS for Singapore restaurants, cafés and quick-service outlets. Manage orders, kitchen tickets, payments and sales. Book a free APPZPOS demo.'
+    description: 'Restaurant POS system in Singapore: cloud POS for F&amp;B with kitchen display, delivery integration and reports. Up to 50% EDGE Grant support for eligible companies. Book a free demo.'
   }
 };
 const siteHtml = await readFile(indexPath, 'utf8');

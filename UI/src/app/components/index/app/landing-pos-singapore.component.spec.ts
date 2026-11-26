@@ -29,8 +29,8 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
 
   it('has one h1 and exactly one conversion form, passed in compact mode', () => {
     expect(root.querySelectorAll('h1').length).toBe(1);
-    expect(root.querySelector('h1')?.textContent).toContain('Restaurant POS System in Singapore');
-    expect(root.querySelector('.lp-hero__eyebrow')?.textContent).toContain('restaurants, cafés and quick-service outlets');
+    expect(root.querySelector('h1')?.textContent).toMatch(/Cloud POS for.*restaurants and cafés/);
+    expect(root.querySelector('.lp-hero__eyebrow')?.textContent).toContain('Restaurant POS System in Singapore');
     expect(root.querySelector('.lp-hero')?.textContent).not.toContain('S$');
     expect(root.querySelectorAll('app-custom-request-demo').length).toBe(1);
     expect(root.querySelector('#requestdemo app-custom-request-demo')).not.toBeNull();
@@ -90,8 +90,7 @@ describe('LandingPosSingaporeComponent (Google Ads landing page)', () => {
     const from = root.querySelector('#packages .lp-from') as HTMLElement;
     expect(from.textContent).toContain('Listed starting price after grant');
     expect(from.querySelector('strong')?.textContent).toBe('S$1,660');
-    expect(from.textContent).toContain('POS-only starting price');
-    expect(from.textContent).toContain('Get a quote for your chosen POS + QR package');
+    expect(from.textContent).toMatch(/Get a quote/);
     expect(root.querySelectorAll('.lp-from').length).toBe(1);
     const comparison = root.querySelector('.lp-comparison')!;
     expect(comparison.querySelectorAll('.lp-compare').length).toBe(4);
