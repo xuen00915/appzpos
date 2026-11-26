@@ -253,11 +253,9 @@ body.appz-landing .appz-site-floating-contacts .btn-fb.lp-call .lp-call__icon { 
   body.appz-landing { --lp-bubble: 48px; }
   .lp-hero .lp-hero__form.appz-conversion-panel { padding: 20px 18px; max-width: none !important; }
   .lp-final .lp-rating { display: inline-flex; text-align: left; }
-  .lp-grant { grid-template-columns: minmax(0, 1fr); }
   .lp-pkg { flex-wrap: wrap; gap: 10px; padding: 16px 20px; }
   .lp-pkg__body { flex-basis: 100%; }
   .lp-pkg__quote { min-height: 44px; }
-  .lp-grant__badge { max-width: 288px; }
   .lp-faq__item p { padding-right: 8px; }
   .lp-footer { padding: 12px 0 76px; }
   .lp-footer__inner { justify-content: flex-start; text-align: left; }
@@ -420,7 +418,26 @@ app-landing-pos-singapore {
   .lp-card__art { height: clamp(92px, 26vw, 132px); margin-bottom: 10px; }
   .lp-card h3 { font-size: 1rem; }
   .lp-card p { font-size: .875rem; }
-  .lp-grant { grid-template-columns: minmax(0, 1fr); }
+  .lp-grant {
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+    gap: clamp(12px, 3vw, 24px);
+  }
+  .lp-grant .lp-title {
+    margin-bottom: 8px;
+    font-size: clamp(1.125rem, 3.9vw, 1.65rem);
+    line-height: 1.2;
+    text-wrap: wrap;
+  }
+  .lp-grant .lp-sub {
+    margin-bottom: 14px;
+    font-size: clamp(.8125rem, 2.7vw, 1rem);
+    line-height: 1.5;
+  }
+  .lp-grant .lp-btn {
+    max-width: 100%;
+    padding-inline: 10px;
+    font-size: .875rem;
+  }
 }
 @media (max-width: 480px) {
   .lp-hero h1 { font-size: clamp(33px, 9vw, 42px); }
