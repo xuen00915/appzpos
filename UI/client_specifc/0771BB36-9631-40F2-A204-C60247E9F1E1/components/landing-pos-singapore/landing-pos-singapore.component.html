@@ -7,17 +7,6 @@
   </div>
 </ng-template>
 
-<!-- Business types and practical workflows, shown in the responsive hero. -->
-<ng-template #statCards let-where="where">
-  <ul class="lp-stats" [ngClass]="'lp-stats--' + where" aria-label="Built for your kind of business">
-    <li class="lp-stat" *ngFor="let stat of stats">
-      <span class="lp-stat__icon"><app-lp-icon [name]="stat.icon"></app-lp-icon></span>
-      <strong>{{ stat.value }}</strong>
-      <span class="lp-stat__label">{{ stat.label }}</span>
-    </li>
-  </ul>
-</ng-template>
-
 <header class="lp-bar">
   <div class="lp-shell lp-bar__inner">
     <a class="lp-bar__logo" href="/" aria-label="APPZPOS home">
@@ -39,17 +28,22 @@
         <p class="lp-hero__eyebrow">Restaurant POS System in Singapore</p>
         <h1 id="lp-hero-title">Cloud POS for<br><span class="lp-hero__accent">restaurants and cafés.</span></h1>
         <p class="lp-lead">From table service to takeaway, keep orders, payments and sales moving—with local support when you need it.</p>
-        <ng-container *ngTemplateOutlet="statCards; context: { where: 'copy' }"></ng-container>
+        <div class="lp-hero__edgebox">
+          <img class="lp-hero__edge" src="assets/images/smes-go-digital-lockup-horizontal-rgb.jpg"
+               alt="IMDA pre-approved solution, eligible for up to 50% business grant support, SMEs Go Digital" width="3558" height="1258">
+          <p class="lp-footnote">Eligibility and support levels vary by activity.</p>
+        </div>
+        <ul class="lp-stats" aria-label="Built for your kind of business">
+          <li class="lp-stat" *ngFor="let stat of stats">
+            <span class="lp-stat__icon"><app-lp-icon [name]="stat.icon"></app-lp-icon></span>
+            <strong>{{ stat.value }}</strong>
+            <span class="lp-stat__label">{{ stat.label }}</span>
+          </li>
+        </ul>
         <ng-container *ngTemplateOutlet="ratingBadge"></ng-container>
       </div>
       <div class="lp-hero__form appz-conversion-panel" id="requestdemo">
         <app-custom-request-demo [compact]="true"></app-custom-request-demo>
-      </div>
-      <div class="lp-hero__edgebox">
-        <img class="lp-hero__edge" src="assets/images/smes-go-digital-lockup-horizontal-rgb.jpg"
-             alt="IMDA pre-approved solution, eligible for up to 50% business grant support, SMEs Go Digital" width="3558" height="1258">
-        <p class="lp-footnote">Eligibility and support levels vary by activity.</p>
-        <ng-container *ngTemplateOutlet="statCards; context: { where: 'below' }"></ng-container>
       </div>
     </div>
   </section>
@@ -160,7 +154,7 @@
   <section class="lp-section lp-section--tint" aria-labelledby="lp-grant-title">
     <div class="lp-shell lp-grant">
       <picture class="lp-grant__badge">
-        <source media="(max-width: 767px)" srcset="assets/images/smes-go-digital-lockup-horizontal-rgb.jpg" width="3558" height="1258">
+        <source media="(max-width: 1199px)" srcset="assets/images/smes-go-digital-lockup-horizontal-rgb.jpg" width="3558" height="1258">
         <img src="assets/images/smes-go-digital-lockup-vertical.png"
              alt="IMDA pre-approved solution eligible for up to 50% business grant support under SMEs Go Digital" width="1273" height="1251" loading="lazy">
       </picture>
